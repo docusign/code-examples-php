@@ -1,0 +1,37 @@
+# CMake
+cmake-build-*/
+
+# IntelliJ
+out/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# ignore IDE/hidden/OS cache files
+.*
+*~
+nbproject
+nb-configuration.xml
+Session.vim
+*.tmproj
+*.tmproject
+tmtags
+Thumbs.db
+Desktop.ini
+
+# ignore Composer downloads
+/vendor/*
+
+# keep some hiddens
+!.htaccess
+!/.gitignore
+!/.travis.yml
+
+# ignore twig cache
+/templates/twig_cache/*
