@@ -43,6 +43,8 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      */
     protected $account_info = false;
 
+    public $target_account_id = false;
+
     /**
      * Creates new resource owner.
      *
@@ -52,15 +54,32 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
     public function __construct(array $response = array())
     {
         $this->response = $response;
-        // Find the default account info
-        foreach ($response['accounts'] as $account_info)
-        {
-            if ($account_info['is_default'])
+
+        // Find the selected or default account
+        if ($this->target_account_id) {
+            foreach ($response['accounts'] as $account_info)
             {
-                $this->account_info = $account_info;
-                break;
+                if ($account_info['account_id'] == $this->target_account_id)
+                {
+                    $this->account_info = $account_info;
+                    break;
+                }
+            }
+            if (! $this->account_info) {
+                throw new \Exception("Targeted Account Id not found.");
+            }
+        } else {
+            // Find the default account info
+            foreach ($response['accounts'] as $account_info)
+            {
+                if ($account_info['is_default'])
+                {
+                    $this->account_info = $account_info;
+                    break;
+                }
             }
         }
+
     }
     /**
      * Returns the identifier of the authorized resource owner.

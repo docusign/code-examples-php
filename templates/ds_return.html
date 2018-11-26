@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+{% extends "base.html" %}  {% block content %}
 
 <h2>Returned data from DocuSign!</h2>
 <p>Data:</p>
@@ -20,6 +20,6 @@
      It is usually better to store state in your web framework's session.</p>
 {% endif %}
 
-<p><a href="/">Continue</a></p>
+<p><a href="{{ app_url }}">Continue</a></p>
   
 {% endblock %}

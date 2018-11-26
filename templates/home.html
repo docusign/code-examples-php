@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% if (not('ds_user_name' in session)) or (not session.ds_user_name) %}
+    {% if not session['ds_user_name'] %}
     <!-- IF not signed in -->
     <div class="jumbotron">
         <h1 class="display-4">Welcome!</h1>
-        <p class="Xlead">Welcome to the DocuSign Python code examples with
+        <p class="Xlead">Welcome to the DocuSign PHP code examples with
         OAuth Authorization Code Grant.</p>
     </div>
     {% endif %}

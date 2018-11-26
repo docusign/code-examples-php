@@ -7,6 +7,7 @@
  */
 
 require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/docusign/esign-client/autoload.php';
 require_once __DIR__ . '/../ds_config.php';
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -57,10 +58,13 @@ function router() {
         $controller = 'Example\Home';
     } elseif ($_GET['page'] == 'ds_login') {
         ds_login(); // See below in oauth section
+        exit();
     } elseif ($_GET['page'] == 'ds_callback') {
         ds_callback(); // See below in oauth section
+        exit();
     } elseif ($_GET['page'] == 'ds_logout') {
         ds_logout(); // See below in oauth section
+        exit();
     } else {
         $page = $_GET['page'];
         $controller = 'Example\\' . $routes[$page];
@@ -76,6 +80,18 @@ function router() {
 // Using the https://github.com/thephpleague/oauth2-client with a locally
 // stored DocuSign provider
 //
+
+/**
+ * @param int $buffer_min buffer time needed in minutes
+ * @return boolean $ok true iff the user has an access token that will be good for another buffer min
+ */
+function ds_token_ok($buffer_min=60)
+{
+    $ok = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
+    $ok = $ok && ($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time();
+    return $ok;
+}
+
 
 function get_oauth_provider()
 {
@@ -116,7 +132,6 @@ function ds_callback()
     $provider = get_oauth_provider();
     // Check given state against previously stored one to mitigate CSRF attack
     if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
-
         if (isset($_SESSION['oauth2state'])) {
             unset($_SESSION['oauth2state']);
         }
@@ -190,8 +205,3 @@ function ds_logout_internal()
 
 
 router();
-
-
-// $_SESSION['ds_account_name'] = "Worldwide";
-// $_SESSION['ds_user_name'] = "Larry Kluger";
-

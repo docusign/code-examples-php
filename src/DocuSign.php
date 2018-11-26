@@ -131,6 +131,8 @@ class DocuSign extends AbstractProvider
      */
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new DocuSignResourceOwner($response);
+        $r = new DocuSignResourceOwner($response);
+        $r->target_account_id = $this->targetAccountId;
+        return $r;
     }
 }

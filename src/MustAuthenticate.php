@@ -8,8 +8,7 @@
 
 namespace Example;
 
-
-class Home
+class MustAuthenticate
 {
 
     public function controller()
@@ -20,8 +19,8 @@ class Home
 
     private function getController()
     {
-        $GLOBALS['twig']->display('home.html', [
-            'title' => 'Home--PHP Code Examples',
+        $GLOBALS['twig']->display('must_authenticate.html', [
+            'title' => 'Please authenticate with DocuSign',
             'show_doc' => false
         ]);
     }

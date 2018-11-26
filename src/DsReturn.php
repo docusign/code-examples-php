@@ -9,7 +9,7 @@
 namespace Example;
 
 
-class Home
+class DsReturn
 {
 
     public function controller()
@@ -20,10 +20,11 @@ class Home
 
     private function getController()
     {
-        $GLOBALS['twig']->display('home.html', [
-            'title' => 'Home--PHP Code Examples',
-            'show_doc' => false
+        $GLOBALS['twig']->display('ds_return.html', [
+                  'title' => 'Returned data',
+                  'event' => isset($_GET['event'      ]) ? $_GET['event'      ] : false,
+            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
+                  'state' => isset($_GET['state'      ]) ? $_GET['state'      ] : false
         ]);
     }
-
 }
