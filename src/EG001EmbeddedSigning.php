@@ -18,6 +18,7 @@ class EG001EmbeddedSigning
             $this->getController();
         };
         if ($method == 'POST') {
+            check_csrf();
             $this->createController();
         };
     }
@@ -96,6 +97,7 @@ class EG001EmbeddedSigning
      * 4. Obtain the recipient_view_url for the signing ceremony
      * @param $args
      * @return array ['redirect_url']
+     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
     private function worker($args)
     {

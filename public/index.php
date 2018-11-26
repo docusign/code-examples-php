@@ -26,6 +26,14 @@ $twig_function = new Twig_Function('get_flash', function () {
     return $msgs;
 });
 $twig->addFunction($twig_function);
+# Add csrf_token func. See https://stackoverflow.com/a/31683058/64904
+$twig_function = new Twig_Function('csrf_token', function($lock_to = null) {
+    if (empty($_SESSION['csrf_token'])) {$_SESSION['csrf_token'] = bin2hex(random_bytes(32));}
+    if (empty($_SESSION['csrf_token2'])) {$_SESSION['csrf_token2'] = random_bytes(32);}
+    if (empty($lock_to)) {return $_SESSION['csrf_token'];}
+    return hash_hmac('sha256', $lock_to, $_SESSION['csrf_token2']);
+});
+$twig->addFunction($twig_function);
 $GLOBALS['twig'] = $twig;
 
 function flash($msg) {
@@ -71,6 +79,21 @@ function router() {
     }
     $c = new $controller();
     $c->controller();
+}
+
+/**
+ * Check that the csrf token is present and correct.
+ * If not, return to home page.
+ * See https://stackoverflow.com/a/31683058/64904
+ */
+function check_csrf(){
+    if ( ! (isset($_POST['csrf_token']) &&
+            hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))) {
+        # trouble!
+        flash('CSRF token problem!');
+        header('Location: ' . $GLOBALS['app_url']);
+        exit;
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
