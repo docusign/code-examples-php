@@ -53,16 +53,18 @@ class EG001EmbeddedSigning
             try {
                 $results = $this->worker($args);
             } catch (\Exception $e) {
-
                 $error_code = 'Exception!';
                 $error_message = $e->getMessage();
                 if ($e instanceof \DocuSign\eSign\ApiException) {
-                    $error_message = "API error " . $e->getResponseObject();
+                    $body_json = json_decode($e->getResponseObject(), true);
+                    $error_code = $body_json['errorCode'];
+                    $error_message = $body_json['message'];
                 }
                 $GLOBALS['twig']->display('error.html', [
                         'error_code' => $error_code,
                         'error_message' => $error_message]
                 );
+                exit();
             }
             if ($results) {
                 # Redirect the user to the Signing Ceremony
