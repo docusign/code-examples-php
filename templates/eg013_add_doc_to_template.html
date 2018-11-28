@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>13. Embedded Signing Ceremony from a template with an added document</h4>
 
@@ -17,7 +17,7 @@
 {% endif %}
 
 {% if show_doc %}
-  <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>API methods used: 
@@ -25,7 +25,7 @@
    <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient">EnvelopeViews::createRecipient</a>.
 </p>
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 {% if template_ok %}

@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>4. Get an envelope's basic information and status</h4>
 <p>List the basic information about an envelope, including its overall status.
@@ -12,7 +12,7 @@
 </p>
 
 {% if show_doc %}
-  <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>API method used: 
@@ -20,7 +20,7 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 {% if envelope_ok %}

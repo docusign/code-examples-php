@@ -111,7 +111,7 @@ function check_csrf(){
 function ds_token_ok($buffer_min=60)
 {
     $ok = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
-    $ok = $ok && ($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time();
+    $ok = $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
     return $ok;
 }
 
@@ -171,7 +171,7 @@ function ds_callback()
             // requests against the service provider's API.
             $_SESSION['ds_access_token'] = $accessToken->getToken();
             $_SESSION['ds_refresh_token'] = $accessToken->getRefreshToken();
-            $_SESSION['ds_expiration'] = time () + $accessToken->getExpires();
+            $_SESSION['ds_expiration'] = $accessToken->getExpires(); # expiration time.
 
             // Using the access token, we may look up details about the
             // resource owner.

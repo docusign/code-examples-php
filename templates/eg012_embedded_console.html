@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>12. Embedded DocuSign web tool</h4>
 <p>Redirect the user to the DocuSign web tool.</p>
@@ -11,7 +11,7 @@
 </p>
 
 {% if show_doc %}
-    <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+    <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
   
 <p>API method used: 
@@ -19,7 +19,7 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 {% if not envelope_ok %}

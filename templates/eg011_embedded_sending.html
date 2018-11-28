@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>11. Embedded Sending</h4>
 <p>An envelope will be created in draft mode. Your browser will then be redirected to 
@@ -15,7 +15,7 @@
 </p>
 
 {% if show_doc %}
-  <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>API methods used:
@@ -24,7 +24,7 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">

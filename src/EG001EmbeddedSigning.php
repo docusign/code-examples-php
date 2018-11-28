@@ -57,9 +57,13 @@ class EG001EmbeddedSigning
                 $error_code = 'Exception!';
                 $error_message = $e->getMessage();
                 if ($e instanceof \DocuSign\eSign\ApiException) {
-                    $body_json = json_decode($e->getResponseObject(), true);
-                    $error_code = $body_json['errorCode'];
-                    $error_message = $body_json['message'];
+                    if ($body_json) {
+                        $error_code = $body_json['errorCode'];
+                        $error_message = $body_json['message'];
+                    } else {
+                        $error_code = $e->getResponseBody()->errorCode;
+                        $error_message = $e->getResponseBody()->message;
+                    }
                 }
                 $GLOBALS['twig']->display('error.html', [
                         'error_code' => $error_code,

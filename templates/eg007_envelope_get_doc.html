@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>7. Download a document from an envelope</h4>
 <p>An envelope's documents can be downloaded one by one or as a complete set.</p>
@@ -13,7 +13,7 @@
 </ul>
 
 {% if show_doc %}
-  <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>API method used: 
@@ -21,7 +21,7 @@
 </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 {% if not envelope_ok %}
@@ -50,7 +50,7 @@
         <select class="custom-select" id="document_id"
           name="document_id" aria-describedby="emailHelp">
         {% for opt in document_options %}
-          <option value="{{ opt.document_id | safe }}">{{ opt.text }}</option>
+          <option value="{{ opt.document_id | raw }}">{{ opt.text }}</option>
         {% endfor %}
         </select>
     </div>  

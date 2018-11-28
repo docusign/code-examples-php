@@ -1,4 +1,4 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>10. Send an envelope using binary document transfer</h4>
 <p>The envelope includes a pdf, Word, and HTML document.</p>
@@ -10,7 +10,7 @@
 demonstrates how to do so.</p>
 
 {% if show_doc %}
-  <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>API method used: 
@@ -18,7 +18,7 @@ demonstrates how to do so.</p>
 </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">

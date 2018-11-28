@@ -1,17 +1,17 @@
-<!-- extend base layout --> {% extends "base.html" %}  {% block content %}
+ {% extends "base.html" %}  {% block content %}
 
 <h4>5. List an envelope's recipients and their status</h4>
 <p>List the envelope's recipients, including their current status.</p>
 
 {% if show_doc %}
-    <p><a target='_blank' href='{{ documentation | safe }}'>Documentation</a> about this example.</p>
+    <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
   
   <p>API method used: 
    <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipients/list">EnvelopeRecipients::list</a>.
 </p>
 <p>
-    View source file <a target="_blank" href="{{ source_url | safe }}">{{ source_file }}</a> on GitHub.
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 {% if envelope_ok %}
