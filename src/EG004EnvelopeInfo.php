@@ -1,13 +1,13 @@
 <?php
 /**
- * Example 003: List envelopes in the user's account
+ * Example 004: Get an envelope's basic information and status
  */
 
 namespace Example;
-class EG003ListEnvelopes
+class EG004EnvelopeInfo
 {
 
-    private $eg = "eg003";  # reference (and url) for this example
+    private $eg = "eg004";  # reference (and url) for this example
 
     public function controller()
     {
@@ -22,13 +22,15 @@ class EG003ListEnvelopes
     }
 
     /**
-     * 1. Check the token
+     * 1. Check the token and check we have an envelope_id
      * 2. Call the worker method
      */
     private function createController()
     {
         $minimum_buffer_min = 3;
-        if (ds_token_ok($minimum_buffer_min)) {
+        $envelope_id = isset($_SESSION['envelope_id']) && $_SESSION['envelope_id'];
+        $token_ok = ds_token_ok($minimum_buffer_min);
+        if ($token_ok && $envelope_id) {
             # 2. Call the worker method
             $args = [
                 'account_id' => $_SESSION['ds_account_id'],
@@ -58,7 +60,7 @@ class EG003ListEnvelopes
                 ]);
                 exit;
             }
-        } else {
+        } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
             # We could store the parameters of the requested operation
             # so it could be restarted automatically.
@@ -68,6 +70,15 @@ class EG003ListEnvelopes
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
+        } elseif (! $envelope_id) {
+            $GLOBALS['twig']->display('eg004_envelope_info.html', [
+                'title' => "Envelope information",
+                'envelope_ok' => false,
+                'source_file' => $basename,
+                'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
+                'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $this->eg,
+                'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
+            ]);
         }
     }
 

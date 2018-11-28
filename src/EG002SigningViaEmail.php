@@ -52,18 +52,10 @@ class EG002SigningViaEmail
 
             try {
                 $results = $this->worker($args);
-            } catch (\Exception $e) {
-                $error_code = 'Exception!';
-                $error_message = $e->getMessage();
-                if ($e instanceof \DocuSign\eSign\ApiException) {
-                    if ($body_json) {
-                        $error_code = $body_json['errorCode'];
-                        $error_message = $body_json['message'];
-                    } else {
-                        $error_code = $e->getResponseBody()->errorCode;
-                        $error_message = $e->getResponseBody()->message;
-                    }
-                }
+
+            } catch (\DocuSign\eSign\ApiException $e) {
+                $error_code = $e->getResponseBody()->errorCode;
+                $error_message = $e->getResponseBody()->message;
                 $GLOBALS['twig']->display('error.html', [
                         'error_code' => $error_code,
                         'error_message' => $error_message]
