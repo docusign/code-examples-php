@@ -84,12 +84,12 @@
   </form>
   
 {% else %}
-  <p>Problem: please first create the template using <a href="eg008">example 8.</a> <br/>
-      Thank you.</p>
-      
-  <form class="eg" action="eg008" method="get">
-      <button type="submit" class="btn btn-primary">Continue</button>
-  </form>
+ <p>Problem: please first create the template using <a href="{{ app_url ~ 'index.php?page=' }}eg008">example 8.</a> <br/>
+   Thank you.</p>
+ <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+   <input type="hidden" name="page" value="eg008"/>
+   <button type="submit" class="btn btn-primary">Continue</button>
+ </form>
 {% endif %}
     
 {% endblock %}

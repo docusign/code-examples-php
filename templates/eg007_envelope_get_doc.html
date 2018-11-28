@@ -25,19 +25,21 @@
 </p>
 
 {% if not envelope_ok %}
-  <p>Problem: please first create an envelope using <a href="eg002">example 2.</a> <br/>
+  <p>Problem: please first create an envelope using <a href="{{ app_url ~ 'index.php?page=' }}eg002">example 2.</a> <br/>
     You will then need to use example 6 to create the list of documents.<br/>
     Thank you.</p>
     
- <form class="eg" action="eg002" method="get">
+ <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+     <input type="hidden" name="page" value="eg002"/>
      <button type="submit" class="btn btn-primary">Continue</button>
  </form>
 {%  elif not documents_ok %}
   <p>Problem: please first create a list of the envelope's documents using 
-    <a href="eg006">example 6.</a> <br/>
+    <a href="{{ app_url ~ 'index.php?page=' }}eg006">example 6.</a> <br/>
     Thank you.</p>
     
- <form class="eg" action="eg006" method="get">
+ <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+     <input type="hidden" name="page" value="eg006"/>
      <button type="submit" class="btn btn-primary">Continue</button>
  </form>
 {% else %}
