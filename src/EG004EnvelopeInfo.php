@@ -28,7 +28,7 @@ class EG004EnvelopeInfo
     private function createController()
     {
         $minimum_buffer_min = 3;
-        $envelope_id = isset($_SESSION['envelope_id']) && $_SESSION['envelope_id'];
+        $envelope_id = isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
         $token_ok = ds_token_ok($minimum_buffer_min);
         if ($token_ok && $envelope_id) {
             # 2. Call the worker method
@@ -36,6 +36,7 @@ class EG004EnvelopeInfo
                 'account_id' => $_SESSION['ds_account_id'],
                 'base_path' => $_SESSION['ds_base_path'],
                 'ds_access_token' => $_SESSION['ds_access_token'],
+                'envelope_id' => $envelope_id
             ];
 
             try {
@@ -53,9 +54,9 @@ class EG004EnvelopeInfo
                 # results is an object that implements ArrayAccess. Convert to a regular array:
                 $results = json_decode((string)$results, true);
                 $GLOBALS['twig']->display('example_done.html', [
-                    'title' => "Envelope list",
-                    'h1' => "List envelopes results",
-                    'message' => "Results from the Envelopes::listStatusChanges method:",
+                    'title' => "Envelope status results",
+                    'h1' => "Envelope status results",
+                    'message' => "Results from the Envelopes::get method:",
                     'json' => json_encode(json_encode($results))
                 ]);
                 exit;
@@ -71,6 +72,7 @@ class EG004EnvelopeInfo
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
         } elseif (! $envelope_id) {
+            $basename = basename(__FILE__);
             $GLOBALS['twig']->display('eg004_envelope_info.html', [
                 'title' => "Envelope information",
                 'envelope_ok' => false,
@@ -85,10 +87,9 @@ class EG004EnvelopeInfo
 
     /**
      * Do the work of the example
-     * 1. List the envelopes that have changed in the last 10 days
-     * 2. Send the envelope
+     * 1. Get the envelope's data
      * @param $args
-     * @return \DocuSign\eSign\Model\EnvelopesInformation
+     * @return \DocuSign\eSign\Model\Envelope
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
     private function worker($args)
@@ -101,17 +102,7 @@ class EG004EnvelopeInfo
         $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
 
-        # The Envelopes::listStatusChanges method has many options
-        # See https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/listStatusChanges
-
-        # The list status changes call requires at least a from_date OR
-        # a set of envelopeIds. Here we filter using a from_date.
-        # Here we set the from_date to filter envelopes for the last 10 days
-        # Use ISO 8601 date format
-        $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
-        $options = new \DocuSign\eSign\Api\EnvelopesApi\ListStatusChangesOptions();
-        $options->setFromDate($from_date);
-        $results = $envelope_api->listStatusChanges($args['account_id'], $options);
+        $results = $envelope_api->getEnvelope($args['account_id'], $args['envelope_id']);
         return $results;
     }
 
@@ -122,8 +113,10 @@ class EG004EnvelopeInfo
     {
         if (ds_token_ok()) {
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg003_list_envelopes.html', [
-                'title' => "List changed envelopes",
+            $envelope_id = isset($_SESSION['envelope_id']) && $_SESSION['envelope_id'];
+            $GLOBALS['twig']->display('eg004_envelope_info.html', [
+                'title' => "Envelope information",
+                'envelope_ok' => $envelope_id,
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
                 'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $this->eg,

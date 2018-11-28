@@ -75,7 +75,6 @@ class EG003ListEnvelopes
     /**
      * Do the work of the example
      * 1. List the envelopes that have changed in the last 10 days
-     * 2. Send the envelope
      * @param $args
      * @return \DocuSign\eSign\Model\EnvelopesInformation
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
