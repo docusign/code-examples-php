@@ -1,13 +1,13 @@
 <?php
 /**
- * Example 006: List an envelope's documents
+ * Example 007: Get an envelope's document
  */
 
 namespace Example;
-class EG006EnvelopeDocs
+class EG007EnvelopeGetDoc
 {
 
-    private $eg = "eg006";  # reference (and url) for this example
+    private $eg = "eg007";  # reference (and url) for this example
 
     public function controller()
     {
@@ -29,14 +29,20 @@ class EG006EnvelopeDocs
     {
         $minimum_buffer_min = 3;
         $envelope_id = isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
+        $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;
         $token_ok = ds_token_ok($minimum_buffer_min);
-        if ($token_ok && $envelope_id) {
+        if ($token_ok && $envelope_id && $envelope_documents) {
             # 2. Call the worker method
+            # More data validation would be a good idea here
+            # Strip anything other than characters listed
+            $document_id  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['document_id' ]);
             $args = [
                 'account_id' => $_SESSION['ds_account_id'],
                 'base_path' => $_SESSION['ds_base_path'],
                 'ds_access_token' => $_SESSION['ds_access_token'],
-                'envelope_id' => $envelope_id
+                'envelope_id' => $envelope_id,
+                'document_id' => $document_id,
+                'envelope_documents' => $envelope_documents
             ];
 
             try {
@@ -51,37 +57,14 @@ class EG006EnvelopeDocs
                 exit();
             }
             if ($results) {
-                # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
-
-                # Save the envelopeId and its list of documents in the session so
-                # they can be used in example 7 (download a document)
-                $standard_doc_items = [
-                    ['name' => 'Combined'   , 'type' => 'content', 'document_id' => 'combined'],
-                    ['name' => 'Zip archive', 'type' => 'zip'    , 'document_id' => 'archive']];
-                # The certificate of completion is named "summary".
-                # We give it a better name below.
-                $map_documents = function ($doc) {
-                    if ($doc['documentId'] == "certificate") {
-                        $new = ['document_id' => $doc['documentId'], 'name' => "Certificate of completion",
-                                'type' => $doc['type']];
-                    } else {
-                        $new = ['document_id' => $doc['documentId'], 'name' => $doc['name'], 'type' => $doc['type']];
-                    }
-                    return $new;
-                };
-                $envelope_doc_items = array_map($map_documents, $results['envelopeDocuments']);
-                $documents = array_merge($standard_doc_items, $envelope_doc_items);
-                $envelope_documents = ['envelope_id' => $envelope_id, 'documents' => $documents];
-                $_SESSION['envelope_documents'] = $envelope_documents; # Save
-
-                $GLOBALS['twig']->display('example_done.html', [
-                    'title' => "Envelope documents list",
-                    'h1' => "List the envelope's documents",
-                    'message' => "Results from the EnvelopeDocuments::list method:",
-                    'json' => json_encode(json_encode($results))
-                ]);
-                exit;
+                # See https://stackoverflow.com/a/27805443/64904
+                header("Content-Type: {$results['mimetype']}");
+                header("Content-Disposition: attachment; filename=\"{$results['doc_name']}\"");
+                ob_clean();
+                flush();
+                $file_path = $results['data']->getPathname();
+                readfile($file_path);
+                exit();
             }
         } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
@@ -93,11 +76,12 @@ class EG006EnvelopeDocs
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
-        } elseif (! $envelope_id) {
+        } elseif (! $envelope_id || !$envelope_documents) {
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg006_envelope_docs.html', [
-                'title' => "Envelope documents",
+            $GLOBALS['twig']->display('eg007_envelope_get_doc.html', [
+                'title' => "Download an envelope's document",
                 'envelope_ok' => false,
+                'documents_ok' => false,
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
                 'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $this->eg,
@@ -111,7 +95,7 @@ class EG006EnvelopeDocs
      * Do the work of the example
      * 1. Call the envelope documents list method
      * @param $args
-     * @return \DocuSign\eSign\Model\EnvelopeDocumentsResult
+     * @return array
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
     private function worker($args)
@@ -123,9 +107,40 @@ class EG006EnvelopeDocs
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
+        $document_id = $args['document_id'];
 
-        $results = $envelope_api->listDocuments($args['account_id'], $args['envelope_id']);
-        return $results;
+        # An SplFileObject is returned. See http://php.net/manual/en/class.splfileobject.php
+        $temp_file = $envelope_api->getDocument($args['account_id'], $document_id, $args['envelope_id']);
+        # find the matching document information item
+        $doc_item = false;
+        foreach ($args['envelope_documents']['documents'] as $item) {
+            if ($item['document_id'] == $document_id) {
+                $doc_item = $item;
+                break;
+            }
+        }
+        $doc_name = $doc_item['name'];
+        $has_pdf_suffix = strtoupper(substr($doc_name, -4)) == '.PDF';
+        $pdf_file = $has_pdf_suffix;
+        # Add ".pdf" if it's a content or summary doc and doesn't already end in .pdf
+        if ($doc_item["type"] == "content" || ($doc_item["type"] == "summary" && ! $has_pdf_suffix)) {
+            $doc_name .= ".pdf";
+            $pdf_file = true;
+        }
+        # Add .zip as appropriate
+        if ($doc_item["type"] == "zip") {
+            $doc_name .= ".zip";
+        }
+        # Return the file information
+        if ($pdf_file) {
+            $mimetype = 'application/pdf';
+        } elseif ($doc_item["type"] == 'zip') {
+            $mimetype = 'application/zip';
+        } else {
+            $mimetype = 'application/octet-stream';
+        }
+
+    return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
     }
 
     /**
@@ -135,10 +150,23 @@ class EG006EnvelopeDocs
     {
         if (ds_token_ok()) {
             $basename = basename(__FILE__);
-            $envelope_id = isset($_SESSION['envelope_id']) && $_SESSION['envelope_id'];
-            $GLOBALS['twig']->display('eg006_envelope_docs.html', [
+            $envelope_id = isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
+            $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;
+
+            $document_options = [];
+            if ($envelope_documents) {
+                # Prepare the select items
+                $cb = function ($item) {
+                    return ['text' => $item['name'], 'document_id' => $item['document_id']];
+                };
+                $document_options = array_map($cb, $envelope_documents['documents']);
+            }
+
+            $GLOBALS['twig']->display('eg007_envelope_get_doc.html', [
                 'title' => "Envelope documents",
                 'envelope_ok' => $envelope_id,
+                'documents_ok' => $envelope_documents,
+                'document_options' => $document_options,
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
                 'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $this->eg,

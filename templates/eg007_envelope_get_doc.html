@@ -33,7 +33,7 @@
      <input type="hidden" name="page" value="eg002"/>
      <button type="submit" class="btn btn-primary">Continue</button>
  </form>
-{%  elif not documents_ok %}
+{%  elseif not documents_ok %}
   <p>Problem: please first create a list of the envelope's documents using 
     <a href="{{ app_url ~ 'index.php?page=' }}eg006">example 6.</a> <br/>
     Thank you.</p>

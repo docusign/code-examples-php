@@ -31,7 +31,6 @@ class EG002SigningViaEmail
             # 2. Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
-
             $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
             $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
             $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_name'     ]);
