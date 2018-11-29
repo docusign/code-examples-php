@@ -212,18 +212,18 @@ function ds_logout()
  */
 function ds_logout_internal()
 {
-    if (isset($_SESSION['ds_access_token'])) {unset($_SESSION['ds_access_token']);}
-    if (isset($_SESSION['ds_refresh_token'])) {unset($_SESSION['ds_refresh_token']);}
-    if (isset($_SESSION['ds_user_email'])) {unset($_SESSION['ds_user_email']);}
-    if (isset($_SESSION['ds_user_name'])) {unset($_SESSION['ds_user_name']);}
-    if (isset($_SESSION['ds_expiration'])) {unset($_SESSION['ds_expiration']);}
-    if (isset($_SESSION['ds_account_id'])) {unset($_SESSION['ds_account_id']);}
-    if (isset($_SESSION['ds_account_name'])) {unset($_SESSION['ds_account_name']);}
-    if (isset($_SESSION['ds_base_path'])) {unset($_SESSION['ds_base_path']);}
-    if (isset($_SESSION['envelope_id'])) {unset($_SESSION['envelope_id']);}
-    if (isset($_SESSION['eg'])) {unset($_SESSION['eg']);}
+    if (isset($_SESSION['ds_access_token'   ])) {unset($_SESSION['ds_access_token'   ]);}
+    if (isset($_SESSION['ds_refresh_token'  ])) {unset($_SESSION['ds_refresh_token'  ]);}
+    if (isset($_SESSION['ds_user_email'     ])) {unset($_SESSION['ds_user_email'     ]);}
+    if (isset($_SESSION['ds_user_name'      ])) {unset($_SESSION['ds_user_name'      ]);}
+    if (isset($_SESSION['ds_expiration'     ])) {unset($_SESSION['ds_expiration'     ]);}
+    if (isset($_SESSION['ds_account_id'     ])) {unset($_SESSION['ds_account_id'     ]);}
+    if (isset($_SESSION['ds_account_name'   ])) {unset($_SESSION['ds_account_name'   ]);}
+    if (isset($_SESSION['ds_base_path'      ])) {unset($_SESSION['ds_base_path'      ]);}
+    if (isset($_SESSION['envelope_id'       ])) {unset($_SESSION['envelope_id'       ]);}
+    if (isset($_SESSION['eg'                ])) {unset($_SESSION['eg'                ]);}
     if (isset($_SESSION['envelope_documents'])) {unset($_SESSION['envelope_documents']);}
-    if (isset($_SESSION['template_id'])) {unset($_SESSION['template_id']);}
+    if (isset($_SESSION['template_id'       ])) {unset($_SESSION['template_id'       ]);}
 }
 
 
