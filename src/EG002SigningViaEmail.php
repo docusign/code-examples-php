@@ -94,7 +94,7 @@ class EG002SigningViaEmail
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
-    private function worker($args)
+    public function worker($args)
     {
         $envelope_args = $args["envelope_args"];
         # 1. Create the envelope request object

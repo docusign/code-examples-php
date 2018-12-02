@@ -22,9 +22,9 @@ class DsReturn
     {
         $GLOBALS['twig']->display('ds_return.html', [
                   'title' => 'Returned data',
-                  'event' => isset($_GET['event'      ]) ? $_GET['event'      ] : false,
-            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
-                  'state' => isset($_GET['state'      ]) ? $_GET['state'      ] : false
+                  'event' => isset($_GET['event'     ]) ? $_GET['event'     ] : false,
+            'envelope_id' => isset($_GET['envelopeId']) ? $_GET['envelopeId'] : false,
+                  'state' => isset($_GET['state'     ]) ? $_GET['state'     ] : false
         ]);
     }
 }
