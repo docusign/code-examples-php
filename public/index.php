@@ -62,6 +62,7 @@ function router() {
         'eg015' => 'EG015EnvelopeFieldData',
         'eg016' => 'EG016SetFieldValues',
         'eg017' => 'EG017SetTemplateFieldValues',
+        'eg018' => 'EG018EnvelopeCustomFieldData',
     ];
 
 
