@@ -132,8 +132,11 @@
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient">EnvelopeViews::createRecipient</a>.
         </p>
 
-        <h2>Payments Example</h2>
-        <h4 id="example014">14. <a href="{{ app_url ~ 'index.php?page=eg014'}}">Send an envelope with an order form and payment field</a></h4>
+        <!--
+        The payments example is not yet available in PHP due to an SDK bug that prevents List tabs from being created.
+        See the EG014CollectPayment.php file for more information.
+
+        <h4 id="example014">14. <a href="{{ app_url ~ 'index.php?page=eg014'}}">Payments Example: Send an envelope with an order form and payment field</a></h4>
         <p>Anchor text 
             (<a target ='_blank' href="https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience">AutoPlace</a>)
             is used to position the fields in the documents.
@@ -141,6 +144,28 @@
         <p>API method used: 
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
         </p>
+        -->
+        <p>Example 14 is not yet available for PHP. See the source file EG014CollectPayment.php for more information.</p>
+
+
+        <h4 id="example015">15. <a href="{{ app_url ~ 'index.php?page=eg015'}}">Get the field data from an envelope</a></h4>
+        <p>This example retrieves the field (tab) values from an envelope.</p>
+        <p>API method used:
+            <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeFormData/get">EnvelopeFormData::get</a>.
+        </p>
+
+        <h4 id="example016">16. <a href="{{ app_url ~ 'index.php?page=eg016'}}">Set field values for a envelope</a></h4>
+        <p>This example sets the field (tab) values for an envelope including fields that can and cannot be changed by the signer.</p>
+        <p>API method used:
+            <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+
+        <h4 id="example017">17. <a href="{{ app_url ~ 'index.php?page=eg017'}}">Set template field values</a></h4>
+        <p>This example sets the field (tab) values for a template being used by an envelope. The composite templates feature is used.</p>
+        <p>API method used:
+            <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+
     </div>
 
     <!-- anchor-js is only for the index page -->
