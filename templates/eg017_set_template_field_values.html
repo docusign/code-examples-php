@@ -1,7 +1,8 @@
 {% extends "base.html" %}  {% block content %}
 
 <h4>17. Set template field values</h4>
-<p>This example sets the value of a template's fields by using the composite templates feature.</p>
+<p>This example sets the value of a template's fields.</p>
+<p>The example also sets custom meta data in the envelope via the envelope custom fields feature.</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
@@ -27,6 +28,17 @@
           <label for="signer_name">Signer Name</label>
           <input type="text" class="form-control" id="signer_name" placeholder="Pat Johnson" name="signer_name"
                  value="{{ signer_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="cc_email">CC Email</label>
+            <input type="email" class="form-control" id="cc_email" name="cc_email"
+                   aria-describedby="emailHelp" placeholder="pat@example.com" required
+            <small id="emailHelp" class="form-text text-muted">The email for the cc recipient must be different from the signer's email.</small>
+        </div>
+        <div class="form-group">
+            <label for="cc_name">CC Name</label>
+            <input type="text" class="form-control" id="cc_name" placeholder="Pat Johnson" name="cc_name"
+                   required>
         </div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <button type="submit" class="btn btn-primary">Submit</button>
