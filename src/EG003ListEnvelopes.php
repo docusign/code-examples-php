@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 003: List envelopes in the user's account
+ * Example 003: List envelopes whose status has changed in the last 10 days
  */
 
 namespace Example;
