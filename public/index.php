@@ -59,9 +59,9 @@ function router() {
         'eg012' => 'EG012EmbeddedConsole',
         'eg013' => 'EG013AddDocToTemplate',
         'eg014' => 'EG014CollectPayment',
-        'eg015' => 'EG015EnvelopeFieldData',
-        'eg016' => 'EG016SetFieldValues',
-        'eg017' => 'EG017SetTemplateFieldValues',
+        'eg015' => 'EG015EnvelopeTabData',
+        'eg016' => 'EG016SetTabValues',
+        'eg017' => 'EG017SetTemplateTabValues',
         'eg018' => 'EG018EnvelopeCustomFieldData',
     ];
 

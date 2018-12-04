@@ -4,7 +4,7 @@
  */
 
 namespace Example;
-class EG016SetFieldValues
+class EG016SetTabValues
 {
 
     private $eg = "eg016";  # reference (and url) for this example
@@ -250,7 +250,7 @@ class EG016SetFieldValues
     {
         if (ds_token_ok()) {
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg016_set_field_values.html', [
+            $GLOBALS['twig']->display('eg016_set_tab_values.html', [
                 'title' => "Set field values",
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,

@@ -4,7 +4,7 @@
  */
 
 namespace Example;
-class EG015EnvelopeFieldData
+class EG015EnvelopeTabData
 {
 
     private $eg = "eg015";  # reference (and url) for this example
@@ -54,8 +54,8 @@ class EG015EnvelopeFieldData
                 # results is an object that implements ArrayAccess. Convert to a regular array:
                 $results = json_decode((string)$results, true);
                 $GLOBALS['twig']->display('example_done.html', [
-                    'title' => "Envelope field data results",
-                    'h1' => "Envelope field data results",
+                    'title' => "Envelope tab data results",
+                    'h1' => "Envelope tab data results",
                     'message' => "Results from the EnvelopeFormData::get API method:",
                     'json' => json_encode(json_encode($results))
                 ]);
@@ -73,7 +73,7 @@ class EG015EnvelopeFieldData
             exit;
         } elseif (! $envelope_id) {
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg015_envelope_field_data.html', [
+            $GLOBALS['twig']->display('eg015_envelope_tab_data.html', [
                 'title' => "Envelope field data",
                 'envelope_ok' => false,
                 'source_file' => $basename,
@@ -114,7 +114,7 @@ class EG015EnvelopeFieldData
         if (ds_token_ok()) {
             $basename = basename(__FILE__);
             $envelope_id = isset($_SESSION['envelope_id']) && $_SESSION['envelope_id'];
-            $GLOBALS['twig']->display('eg015_envelope_field_data.html', [
+            $GLOBALS['twig']->display('eg015_envelope_tab_data.html', [
                 'title' => "Envelope field data",
                 'envelope_ok' => $envelope_id,
                 'source_file' => $basename,

@@ -4,7 +4,7 @@
  */
 
 namespace Example;
-class EG017SetTemplateFieldValues
+class EG017SetTemplateTabValues
 {
 
     private $eg = "eg017";  # reference (and url) for this example
@@ -92,7 +92,7 @@ class EG017SetTemplateFieldValues
             exit;
         } elseif (! $template_id) {
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg017_set_template_field_values.html', [
+            $GLOBALS['twig']->display('eg017_set_template_tab_values.html', [
                 'title' => "Set template field values",
                 'template_ok' => false,
                 'source_file' => $basename,
@@ -233,7 +233,7 @@ class EG017SetTemplateFieldValues
         if (ds_token_ok()) {
             $template_id = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
             $basename = basename(__FILE__);
-            $GLOBALS['twig']->display('eg017_set_template_field_values.html', [
+            $GLOBALS['twig']->display('eg017_set_template_tab_values.html', [
                 'title' => "Set template field values",
                 'template_ok' => $template_id,
                 'source_file' => $basename,
