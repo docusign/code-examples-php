@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 015: Get an envelope's field data
+ * Example 015: Get an envelope's tab (field) data
  */
 
 namespace Example;
@@ -130,4 +130,3 @@ class EG015EnvelopeTabData
         }
     }
 }
-
