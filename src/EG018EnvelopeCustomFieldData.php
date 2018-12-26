@@ -92,6 +92,7 @@ class EG018EnvelopeCustomFieldData
      * @return \DocuSign\eSign\Model\CustomFieldsEnvelope
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call API method
@@ -105,6 +106,7 @@ class EG018EnvelopeCustomFieldData
         $results = $envelope_api->listCustomFields($args['account_id'], $args['envelope_id']);
         return $results;
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

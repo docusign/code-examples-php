@@ -83,6 +83,7 @@ class EG008CreateTemplate
      * @return array
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call Templates::list API method
@@ -219,6 +220,7 @@ class EG008CreateTemplate
 
         return $template_request;
     }
+    # ***DS.snippet.0.end
 
 
     /**

@@ -107,6 +107,7 @@ class EG009UseTemplate
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         $envelope_args = $args["envelope_args"];
@@ -153,6 +154,7 @@ class EG009UseTemplate
         $envelope_definition->setTemplateRoles([$signer, $cc]);
         return $envelope_definition;
     }
+    # ***DS.snippet.0.end
 
 
     /**

@@ -97,6 +97,7 @@ class EG016SetTabValues
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         $envelope_args = $args["envelope_args"];
@@ -242,6 +243,7 @@ class EG016SetTabValues
 
         return $envelope_definition;
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

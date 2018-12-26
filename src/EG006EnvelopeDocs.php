@@ -114,6 +114,7 @@ class EG006EnvelopeDocs
      * @return \DocuSign\eSign\Model\EnvelopeDocumentsResult
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call API method
@@ -127,6 +128,7 @@ class EG006EnvelopeDocs
         $results = $envelope_api->listDocuments($args['account_id'], $args['envelope_id']);
         return $results;
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

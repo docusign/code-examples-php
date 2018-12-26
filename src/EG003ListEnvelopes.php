@@ -79,6 +79,7 @@ class EG003ListEnvelopes
      * @return \DocuSign\eSign\Model\EnvelopesInformation
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call API method
@@ -102,6 +103,7 @@ class EG003ListEnvelopes
         $results = $envelope_api->listStatusChanges($args['account_id'], $options);
         return $results;
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

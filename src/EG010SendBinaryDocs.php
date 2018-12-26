@@ -103,6 +103,7 @@ class EG010SendBinaryDocs
      * @throws \GuzzleHttp\Exception\TransferException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         $envelope_args = $args["envelope_args"];
@@ -277,6 +278,7 @@ color: darkblue;">Order Processing Division</h2>
     </html>
 heredoc;
     }
+    # ***DS.snippet.0.end
 
 
     /**

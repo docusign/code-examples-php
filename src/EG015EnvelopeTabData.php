@@ -92,6 +92,7 @@ class EG015EnvelopeTabData
      * @return \DocuSign\eSign\Model\EnvelopeFormData
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call API method
@@ -105,6 +106,7 @@ class EG015EnvelopeTabData
         $results = $envelope_api->getFormData($args['account_id'], $args['envelope_id']);
         return $results;
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

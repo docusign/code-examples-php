@@ -105,6 +105,7 @@ class EG011EmbeddedSending
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. Create the envelope as a draft using eg002's worker
@@ -131,6 +132,7 @@ class EG011EmbeddedSending
 
         return ['envelope_id' => $envelope_id, 'redirect_url' =>  $url];
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

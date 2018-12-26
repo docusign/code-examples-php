@@ -98,6 +98,7 @@ class EG007EnvelopeGetDoc
      * @return array
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # 1. call API method
@@ -142,6 +143,7 @@ class EG007EnvelopeGetDoc
 
     return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

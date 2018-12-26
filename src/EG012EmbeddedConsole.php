@@ -87,6 +87,7 @@ class EG012EmbeddedConsole
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     private function worker($args)
     {
         # Step 1. Create the NDSE view request object
@@ -106,6 +107,7 @@ class EG012EmbeddedConsole
         $url = $results['url'];
         return ['redirect_url' =>  $url];
     }
+    # ***DS.snippet.0.end
 
     /**
      * Show the example's form page

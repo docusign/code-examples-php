@@ -94,6 +94,7 @@ class EG002SigningViaEmail
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
+    # ***DS.snippet.0.start
     public function worker($args)
     {
         $envelope_args = $args["envelope_args"];
@@ -246,6 +247,7 @@ color: darkblue;">Order Processing Division</h2>
     </html>
 heredoc;
     }
+    # ***DS.snippet.0.end
 
 
     /**
