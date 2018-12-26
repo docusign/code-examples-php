@@ -234,7 +234,7 @@ class EG017SetTemplateTabValues
             $template_id = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
             $basename = basename(__FILE__);
             $GLOBALS['twig']->display('eg017_set_template_tab_values.html', [
-                'title' => "Set template field values",
+                'title' => "Set template tab values",
                 'template_ok' => $template_id,
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
