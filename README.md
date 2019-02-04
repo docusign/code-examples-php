@@ -92,9 +92,9 @@ This repo is a PHP 7.2 application that demonstrates:
 
    The Integration key must include a **Redirect URI** of
 
-   `{base_url}/index.php?page=ds_callback`
+   `{app_url}/index.php?page=ds_callback`
 
-   Where `{base_url}` is the url you have associated with the `/public` directory of the example.
+   Where `{app_url}` is the url you have associated with the `/public` directory of the example.
 
    For example, if you have created a web server that enables url
 
