@@ -112,7 +112,9 @@ This repo is a PHP 7.2 application that demonstrates:
 1. **cd eg-03-php-auth-code-grant**
 1. Install the dependencies listed in the composer.json file:
 
-   Run **composer install**  (or php composer.phar install)
+   Run **composer install**  
+   
+   If you don't already have Composer installed: [installation instructions](https://getcomposer.org/doc/00-intro.md)
 1. Update the file **ds_config.php** (root level directory of the example)
      with the Integration Key and other settings.
 
