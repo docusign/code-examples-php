@@ -13,7 +13,7 @@ $DS_CONFIG = [
     // Eg http://localhost/eg-03-php-auth-code-grant/public if the app is installed in a
     // development directory that is accessible via web server.
     // NOTE => You must add a Redirect URI of app_url/index.php?page=ds_callback to your Integration Key.
-    'authorization_server' => 'https =>//account-d.docusign.com',
+    'authorization_server' => 'https://account-d.docusign.com',
     'session_secret' => '{SESSION_SECRET}', // Secret for encrypting session cookie content
     'allow_silent_authentication' => true, // a user can be silently authenticated if they have an
     // active login session on another tab of the same browser
@@ -25,7 +25,7 @@ $DS_CONFIG = [
     'gateway_account_id' => '{DS_PAYMENT_GATEWAY_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
-    'github_example_url' => 'https =>//github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/',
+    'github_example_url' => 'https://github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/',
     'documentation' => false
 ];
 
