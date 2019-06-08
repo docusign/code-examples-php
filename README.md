@@ -79,17 +79,17 @@ This repo is a PHP 7.2 application that demonstrates:
 1. **Get the envelope custom field data (metadata).**
    The example retrieves the custom metadata (custom data fields) stored with the envelope.
    [Source.](./src/EG018EnvelopeCustomFieldData.php)
-   1. **Requiring an Access Code for a Recipient**
+1. **Requiring an Access Code for a Recipient**
    [Source.](./src/EG019AccessCodeAuthentication.php)
    This example sends and envelope that requires an access-code for the purpose of multi-factor authentication.   
 1. **Requiring SMS authentication for a recipient**
    [Source.](./src/EG020SmsAuthentication.php)
    This example sends and envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
 1. **Requiring Phone authentication for a recipient**
-   [Source.](./EG021PhoneAuthentication.php)
+   [Source.](.src/EG021PhoneAuthentication.php)
    This example sends and envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
-   [Source.](./EG021PhoneAuthentication.php)
+   [Source.](.src/EG021PhoneAuthentication.php)
    This example sends and envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
 
 ## Installation
