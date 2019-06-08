@@ -86,10 +86,10 @@ This repo is a PHP 7.2 application that demonstrates:
    [Source.](./src/EG020SmsAuthentication.php)
    This example sends and envelope that requires entering in a six digit code from an text message for the purpose of multi-factor authentication.   
 1. **Requiring Phone authentication for a recipient**
-   [Source.](.src/EG021PhoneAuthentication.php)
+   [Source.](./src/EG021PhoneAuthentication.php)
    This example sends and envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.  
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
-   [Source.](.src/EG021PhoneAuthentication.php)
+   [Source.](./src/EG021PhoneAuthentication.php)
    This example sends and envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.    
 
 ## Installation
