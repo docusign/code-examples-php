@@ -21,7 +21,7 @@ class EG015EnvelopeTabData
     }
 
     /**
-     * 1. Check the token and check we have an envelope ID
+     * 1. Check the token and check we have an envelope_id
      * 2. Call the worker method
      */
     private function createController()
@@ -50,7 +50,7 @@ class EG015EnvelopeTabData
                 exit();
             }
             if ($results) {
-                # results is an object that implements ArrayAccess. Convert to a regular array:
+                # results is an object that implements ArrayAccess. Convert to a regular array
                 $results = json_decode((string)$results, true);
                 $GLOBALS['twig']->display('example_done.html', [
                     'title' => "Envelope tab data results",
@@ -64,7 +64,7 @@ class EG015EnvelopeTabData
             flash('Sorry, you need to re-authenticate.');
             # We could store the parameters of the requested operation so it could be restarted
             # automatically. But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after authentication.
+            # we'll make the user re-enter the form data after authentication
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
@@ -86,12 +86,12 @@ class EG015EnvelopeTabData
      * 1. Get the envelope's data
      * @param $args
      * @return \DocuSign\eSign\Model\EnvelopeFormData
-     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
+     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too
      */
     # ***DS.snippet.0.start
     private function worker($args)
     {
-        # 1. Call API method
+        # 1. Call the API method
         # Exceptions will be caught by the calling function
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);

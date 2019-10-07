@@ -122,7 +122,7 @@ class EG016SetTabValues
             'return_url' => $envelope_args['ds_return_url'],
             'user_name' => $envelope_args['signer_name'], 'email' => $envelope_args['signer_email']
         ]);
-        # 4. Obtain the recipient_view_url for the signing ceremony
+        # 4. Obtain the recipient view URL for the signing ceremony
         # Exceptions will be caught by the calling function
         $results = $envelope_api->createRecipientView($args['account_id'], $envelope_id,
             $recipient_view_request);
@@ -182,7 +182,7 @@ class EG016SetTabValues
             'anchor_y_offset' => '10', 'anchor_x_offset' => '20'
         ]);
 
-        # Create the legal and familiar text fields
+        # Create the legal and familiar text fields.
         # Recipients can update these values if they wish
         $text_legal = new \DocuSign\eSign\Model\Text([
             'anchor_string' => '/legal/', 'anchor_units' => 'pixels',
@@ -211,7 +211,7 @@ class EG016SetTabValues
             'tab_id' => 'salary', 'tab_label' => 'Salary'
         ]);
 
-        # Add the tabs model (including the sign_here tab) to the signer
+        # Add the tabs model (including the sign_here tab) to the signer.
         # The Tabs object wants arrays of the different field/tab types
         $signer->settabs(new \DocuSign\eSign\Model\Tabs(
             ['sign_here_tabs' => [$sign_here],
@@ -227,13 +227,13 @@ class EG016SetTabValues
         $custom_fields = new \DocuSign\eSign\Model\CustomFields([
             'text_custom_fields' => [$salary_custom_field]]);
 
-        # Next, create the top level envelope definition and populate it.
+        # Create the top level envelope definition and populate it
         $envelope_definition = new \DocuSign\eSign\Model\EnvelopeDefinition([
             'email_subject' => "Please sign this document sent from the PHP SDK",
             'documents' => [$document],
             # The Recipients object wants arrays for each recipient type
             'recipients' => new \DocuSign\eSign\Model\Recipients(['signers' => [$signer]]),
-            'status' => "sent", # requests that the envelope be created and sent.
+            'status' => "sent", # Requests that the envelope be created and sent
             'custom_fields' => $custom_fields
         ]);
 
