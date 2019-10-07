@@ -6,8 +6,7 @@
 namespace Example;
 class EG015EnvelopeTabData
 {
-
-    private $eg = "eg015";  # reference (and url) for this example
+    private $eg = "eg015";  # Reference (and URL) for this example
 
     public function controller()
     {
@@ -22,7 +21,7 @@ class EG015EnvelopeTabData
     }
 
     /**
-     * 1. Check the token and check we have an envelope_id
+     * 1. Check the token and check we have an envelope ID
      * 2. Call the worker method
      */
     private function createController()
@@ -63,11 +62,9 @@ class EG015EnvelopeTabData
             }
         } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation
-            # so it could be restarted automatically.
-            # But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after
-            # authentication.
+            # We could store the parameters of the requested operation so it could be restarted
+            # automatically. But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after authentication.
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
@@ -84,7 +81,6 @@ class EG015EnvelopeTabData
         }
     }
 
-
     /**
      * Do the work of the example
      * 1. Get the envelope's data
@@ -95,7 +91,7 @@ class EG015EnvelopeTabData
     # ***DS.snippet.0.start
     private function worker($args)
     {
-        # 1. call API method
+        # 1. Call API method
         # Exceptions will be caught by the calling function
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
