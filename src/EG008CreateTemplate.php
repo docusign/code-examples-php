@@ -91,7 +91,7 @@ class EG008CreateTemplate
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\ApiClient($config);
+        $api_client = new \DocuSign\eSign\client\ApiClient($config);
         $templates_api = new \DocuSign\eSign\Api\TemplatesApi($api_client);
         $options = new \DocuSign\eSign\Api\TemplatesApi\ListTemplatesOptions();
         $options->setSearchText($this->template_name);
