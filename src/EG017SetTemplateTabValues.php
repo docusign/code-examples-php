@@ -9,7 +9,7 @@ class EG017SetTemplateTabValues
 
     private $eg = "eg017";  # Reference (and URL) for this example
     private $signer_client_id = 1000; # Used to indicate that the signer will use an embedded
-                # signing ceremony. Represents the signer's user I within your application
+                # signing ceremony. Represents the signer's user ID within your application
 
     public function controller()
     {
