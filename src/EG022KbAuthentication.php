@@ -36,7 +36,7 @@ class EG022SigningViaEmail
 		$config = new \DocuSign\eSign\Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
-        $apiClient = new \DocuSign\eSign\ApiClient($config);
+        $apiClient = new \DocuSign\eSign\client\ApiClient($config);
         $envelopesApi = new \DocuSign\eSign\Api\EnvelopesApi($apiClient);
         
         #Step 3: Construct your envelope JSON body
