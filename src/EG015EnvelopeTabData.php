@@ -6,7 +6,8 @@
 namespace Example;
 class EG015EnvelopeTabData
 {
-    private $eg = "eg015";  # Reference (and URL) for this example
+
+    private $eg = "eg015";  # reference (and url) for this example
 
     public function controller()
     {
@@ -50,7 +51,7 @@ class EG015EnvelopeTabData
                 exit();
             }
             if ($results) {
-                # results is an object that implements ArrayAccess. Convert to a regular array
+                # results is an object that implements ArrayAccess. Convert to a regular array:
                 $results = json_decode((string)$results, true);
                 $GLOBALS['twig']->display('example_done.html', [
                     'title' => "Envelope tab data results",
@@ -62,9 +63,11 @@ class EG015EnvelopeTabData
             }
         } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation so it could be restarted
-            # automatically. But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after authentication
+            # We could store the parameters of the requested operation
+            # so it could be restarted automatically.
+            # But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after
+            # authentication.
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
@@ -81,22 +84,23 @@ class EG015EnvelopeTabData
         }
     }
 
+
     /**
      * Do the work of the example
      * 1. Get the envelope's data
      * @param $args
      * @return \DocuSign\eSign\Model\EnvelopeFormData
-     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too
+     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
     # ***DS.snippet.0.start
     private function worker($args)
     {
-        # 1. Call the API method
+        # 1. call API method
         # Exceptions will be caught by the calling function
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
 
         $results = $envelope_api->getFormData($args['account_id'], $args['envelope_id']);

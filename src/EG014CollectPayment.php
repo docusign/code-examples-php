@@ -108,7 +108,7 @@ class EG014CollectPayment
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
         $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $results->getEnvelopeId();
@@ -220,7 +220,7 @@ class EG014CollectPayment
         $list_item9  = new \DocuSign\eSign\Model\ListItem(['text' => "9"   , 'value' => "9" ]);
         $list_item10 = new \DocuSign\eSign\Model\ListItem(['text' => "10"  , 'value' => "10"]);
 
-        $listl1q = new \DocuSign\eSign\Model\ModelList([
+        $listl1q = new \DocuSign\eSign\Model\ListModel([
             'font' => "helvetica",
             'font_size' => "size11",
             'anchor_string' => '/l1q/',
@@ -232,7 +232,7 @@ class EG014CollectPayment
             'required' => "true",
             'tab_label' => "l1q"
             ]);
-        $listl2q = new \DocuSign\eSign\Model\ModelList([
+        $listl2q = new \DocuSign\eSign\Model\ListModel([
             'font' => "helvetica",
             'font_size' => "size11",
             'anchor_string' => '/l2q/',

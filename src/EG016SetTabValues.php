@@ -6,9 +6,10 @@
 namespace Example;
 class EG016SetTabValues
 {
-    private $eg = "eg016";  # Reference (and URL) for this example
+
+    private $eg = "eg016";  # reference (and url) for this example
     private $signer_client_id = 1000; # Used to indicate that the signer will use an embedded
-                # signing ceremony. Represents the signer's user ID within your application.
+                # Signing Ceremony. Represents the signer's userId within your application.
 
     public function controller()
     {
@@ -63,10 +64,10 @@ class EG016SetTabValues
             }
             if ($results) {
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
-                                                                    # that need an envelope ID
+                                                                    # which need an envelopeId
 
-                # Redirect the user to the signing ceremony
-                # Don't use an iframe!
+                # Redirect the user to the Signing Ceremony
+                # Don't use an iFrame!
                 # State can be stored/recovered using the framework's session or a
                 # query parameter on the returnUrl (see the makeRecipientViewRequest method)
                 header('Location: ' . $results["redirect_url"]);
@@ -74,21 +75,24 @@ class EG016SetTabValues
             }
         } else {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation so it could be restarted
-            # automatically. But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after authentication.
+            # We could store the parameters of the requested operation
+            # so it could be restarted automatically.
+            # But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after
+            # authentication.
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
         }
     }
 
+
     /**
      * Do the work of the example
      * 1. Create the envelope request object
      * 2. Send the envelope
      * 3. Create the Recipient View request object
-     * 4. Obtain the recipient view URL for the signing ceremony
+     * 4. Obtain the recipient_view_url for the signing ceremony
      * @param $args
      * @return array ['redirect_url']
      * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
@@ -105,7 +109,7 @@ class EG016SetTabValues
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
         $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $results->getEnvelopeId();
@@ -122,7 +126,7 @@ class EG016SetTabValues
             'return_url' => $envelope_args['ds_return_url'],
             'user_name' => $envelope_args['signer_name'], 'email' => $envelope_args['signer_email']
         ]);
-        # 4. Obtain the recipient view URL for the signing ceremony
+        # 4. Obtain the recipient_view_url for the signing ceremony
         # Exceptions will be caught by the calling function
         $results = $envelope_api->createRecipientView($args['account_id'], $envelope_id,
             $recipient_view_request);
@@ -138,20 +142,20 @@ class EG016SetTabValues
      */
     private function make_envelope($args)
     {
-        # document 1 (PDF) has tags:
+        # document 1 (pdf) has tags
         # /sn1/ - signature field
         # /salary/ - yearly salary
         # /legal/ - legal name
         # /familiar/ - person's familiar name
         #
-        # The envelope has one recipient:
+        # The envelope has one recipient.
         # recipient 1 - signer
         #
         # The salary is set both as a readable number in the
         # /salary/ text field, and as a pure number in a
         # custom field ('salary') in the envelope.
 
-        # Salary that will be used:
+        # Salary that will be used.
         $salary = 123000;
 
         # Read the file
@@ -161,11 +165,11 @@ class EG016SetTabValues
         $base64_file_content = base64_encode($content_bytes);
 
         # Create the document model
-        $document = new \DocuSign\eSign\Model\Document([ # Create the DocuSign document object
+        $document = new \DocuSign\eSign\Model\Document([ # create the DocuSign document object
             'document_base64' => $base64_file_content,
-            'name' => 'Salary action', # Can be different from the actual file name
-            'file_extension' => 'docx', # Many different document types are accepted
-            'document_id' => 1 # A label used to reference the doc
+            'name' => 'Salary action', # can be different from actual file name
+            'file_extension' => 'docx', # many different document types are accepted
+            'document_id' => 1 # a label used to reference the doc
         ]);
 
         # Create the signer recipient model
@@ -183,7 +187,7 @@ class EG016SetTabValues
         ]);
 
         # Create the legal and familiar text fields.
-        # Recipients can update these values if they wish
+        # Recipients can update these values if they wish to.
         $text_legal = new \DocuSign\eSign\Model\Text([
             'anchor_string' => '/legal/', 'anchor_units' => 'pixels',
             'anchor_y_offset' => '-9', 'anchor_x_offset' => '5',
@@ -211,7 +215,7 @@ class EG016SetTabValues
             'tab_id' => 'salary', 'tab_label' => 'Salary'
         ]);
 
-        # Add the tabs model (including the sign_here tab) to the signer.
+        # Add the tabs model (including the sign_here tab) to the signer
         # The Tabs object wants arrays of the different field/tab types
         $signer->settabs(new \DocuSign\eSign\Model\Tabs(
             ['sign_here_tabs' => [$sign_here],
@@ -227,13 +231,13 @@ class EG016SetTabValues
         $custom_fields = new \DocuSign\eSign\Model\CustomFields([
             'text_custom_fields' => [$salary_custom_field]]);
 
-        # Create the top level envelope definition and populate it
+        # Next, create the top level envelope definition and populate it.
         $envelope_definition = new \DocuSign\eSign\Model\EnvelopeDefinition([
             'email_subject' => "Please sign this document sent from the PHP SDK",
             'documents' => [$document],
             # The Recipients object wants arrays for each recipient type
             'recipients' => new \DocuSign\eSign\Model\Recipients(['signers' => [$signer]]),
-            'status' => "sent", # Requests that the envelope be created and sent
+            'status' => "sent", # requests that the envelope be created and sent.
             'custom_fields' => $custom_fields
         ]);
 

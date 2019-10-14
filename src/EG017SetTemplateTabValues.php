@@ -7,9 +7,9 @@ namespace Example;
 class EG017SetTemplateTabValues
 {
 
-    private $eg = "eg017";  # Reference (and URL) for this example
+    private $eg = "eg017";  # reference (and url) for this example
     private $signer_client_id = 1000; # Used to indicate that the signer will use an embedded
-                # signing ceremony. Represents the signer's user ID within your application
+                # Signing Ceremony. Represents the signer's userId within your application.
 
     public function controller()
     {
@@ -71,20 +71,22 @@ class EG017SetTemplateTabValues
             }
             if ($results) {
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
-                                                                    # that need an envelope ID
+                                                                    # which need an envelopeId
 
-                # Redirect the user to the signing ceremony
-                # Don't use an iframe!
+                # Redirect the user to the Signing Ceremony
+                # Don't use an iFrame!
                 # State can be stored/recovered using the framework's session or a
-                # query parameter on the return URL (see the makeRecipientViewRequest method)
+                # query parameter on the returnUrl (see the makeRecipientViewRequest method)
                 header('Location: ' . $results["redirect_url"]);
                 exit;
             }
         } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation so it could be restarted
-            # automatically. But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after authentication.
+            # We could store the parameters of the requested operation
+            # so it could be restarted automatically.
+            # But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after
+            # authentication.
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
@@ -102,6 +104,7 @@ class EG017SetTemplateTabValues
         }
     }
 
+
     /**
      * Do the work of the example
      * 1. Create the envelope request object
@@ -110,7 +113,7 @@ class EG017SetTemplateTabValues
      * 4. Obtain the recipient_view_url for the signing ceremony
      * @param $args
      * @return array ['redirect_url']
-     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too
+     * @throws \DocuSign\eSign\ApiException for API problems and perhaps file access \Exception too.
      */
     # ***DS.snippet.0.start
     private function worker($args)
@@ -124,14 +127,14 @@ class EG017SetTemplateTabValues
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
         $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $results->getEnvelopeId();
 
         # 3. Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating
-        # the signer? See the 'authenticationMethod' definition
+        # the signer? See the `authenticationMethod' definition
         # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
 
         $recipient_view_request = new \DocuSign\eSign\Model\RecipientViewRequest([
@@ -141,7 +144,7 @@ class EG017SetTemplateTabValues
             'return_url' => $envelope_args['ds_return_url'],
             'user_name' => $envelope_args['signer_name'], 'email' => $envelope_args['signer_email']
         ]);
-        # 4. Obtain the recipient view URL for the signing ceremony
+        # 4. Obtain the recipient_view_url for the signing ceremony
         # Exceptions will be caught by the calling function
         $results = $envelope_api->createRecipientView($args['account_id'], $envelope_id,
             $recipient_view_request);
@@ -150,7 +153,7 @@ class EG017SetTemplateTabValues
     }
 
     /**
-     * Creates envelope definition using a template
+     * Creates envelope definition using a template.
      * The signer role will include values for the fields
      * @param $args parameters for the envelope:
      *              signer_email, signer_name, signer_client_id
@@ -158,7 +161,7 @@ class EG017SetTemplateTabValues
      */
     private function make_envelope($args)
     {
-        # Create the envelope definition with the template_id
+        # create the envelope definition with the template_id
         $envelope_definition = new \DocuSign\eSign\Model\EnvelopeDefinition([
             'status' => 'sent', 'template_id' => $args['template_id']
         ]);
@@ -178,7 +181,7 @@ class EG017SetTemplateTabValues
         $text = new \DocuSign\eSign\Model\Text([
             'tab_label' => "text", 'value' => "Jabberwocky!"]);
 
-        # We can also add a new field to the ones already in the template
+        # We can also add a new field to the ones already in the template:
         $text_extra = new \DocuSign\eSign\Model\Text([
             'document_id' => "1", 'page_number' => "1",
             'x_position' => "280", 'y_position' => "172",
@@ -187,7 +190,7 @@ class EG017SetTemplateTabValues
             'bold' => 'true', 'value' => $args['signer_name'],
             'locked' => 'false', 'tab_id' => 'name']);
 
-        # Pull together the existing and new tabs in a Tabs object
+        # Pull together the existing and new tabs in a Tabs object:
         $tabs = new \DocuSign\eSign\Model\Tabs([
             'checkbox_tabs' => [$check1, $check3], 'number_tabs' => [$number1],
             'radio_group_tabs' => [$radio_group], 'text_tabs' => [$text, $text_extra]]);
@@ -200,7 +203,7 @@ class EG017SetTemplateTabValues
             'client_user_id' => $args['signer_client_id'], # change the signer to be embedded
             'tabs' => $tabs # Set tab values
         ]);
-        # Create a cc template role
+        # Create a cc template role.
         $cc = new \DocuSign\eSign\Model\TemplateRole([
             'email' => $args['cc_email'], 'name' => $args['cc_name'],
             'role_name' => 'cc'
@@ -209,7 +212,7 @@ class EG017SetTemplateTabValues
         # Add the TemplateRole objects to the envelope object
         $envelope_definition->setTemplateRoles([$signer, $cc]);
 
-        # Create an envelope custom field to save the application's
+        # Create an envelope custom field to save the our application's
         # data about the envelope
         $custom_field = new \DocuSign\eSign\Model\TextCustomField([
             'name' => 'app metadata item',

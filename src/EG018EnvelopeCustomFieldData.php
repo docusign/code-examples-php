@@ -7,7 +7,7 @@ namespace Example;
 class EG018EnvelopeCustomFieldData
 {
 
-    private $eg = "eg018";  # Reference (and URL) for this example
+    private $eg = "eg018";  # reference (and url) for this example
 
     public function controller()
     {
@@ -51,7 +51,7 @@ class EG018EnvelopeCustomFieldData
                 exit();
             }
             if ($results) {
-                # results is an object that implements ArrayAccess. Convert to a regular array
+                # results is an object that implements ArrayAccess. Convert to a regular array:
                 $results = json_decode((string)$results, true);
                 $GLOBALS['twig']->display('example_done.html', [
                     'title' => "Envelope custom field data results",
@@ -63,9 +63,11 @@ class EG018EnvelopeCustomFieldData
             }
         } elseif (! $token_ok) {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation so it could be restarted
-            # automatically. But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after authentication.
+            # We could store the parameters of the requested operation
+            # so it could be restarted automatically.
+            # But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after
+            # authentication.
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
@@ -82,6 +84,7 @@ class EG018EnvelopeCustomFieldData
         }
     }
 
+
     /**
      * Do the work of the example
      * 1. Get the envelope's data
@@ -97,7 +100,7 @@ class EG018EnvelopeCustomFieldData
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\client\ApiClient($config);
+        $api_client = new \DocuSign\eSign\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
 
         $results = $envelope_api->listCustomFields($args['account_id'], $args['envelope_id']);
@@ -129,3 +132,4 @@ class EG018EnvelopeCustomFieldData
         }
     }
 }
+
