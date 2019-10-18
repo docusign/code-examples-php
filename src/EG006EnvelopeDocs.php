@@ -122,7 +122,7 @@ class EG006EnvelopeDocs
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        $api_client = new \DocuSign\eSign\ApiClient($config);
+        $api_client = new \DocuSign\eSign\client\ApiClient($config);
         $envelope_api = new \DocuSign\eSign\Api\EnvelopesApi($api_client);
 
         $results = $envelope_api->listDocuments($args['account_id'], $args['envelope_id']);

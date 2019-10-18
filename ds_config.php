@@ -2,7 +2,6 @@
 // ds_config.py
 // 
 // DocuSign configuration settings
-
 $DS_CONFIG = [
     'ds_client_id' => '{CLIENT_ID}', # The app's DocuSign integration key
     'ds_client_secret' => '{CLIENT_SECRET}', # The app's DocuSign integration key's secret
@@ -28,5 +27,4 @@ $DS_CONFIG = [
     'github_example_url' => 'https://github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/',
     'documentation' => false
 ];
-
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
