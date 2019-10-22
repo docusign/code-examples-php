@@ -63,6 +63,7 @@ function router() {
         'eg016' => 'EG016SetTabValues',
         'eg017' => 'EG017SetTemplateTabValues',
         'eg018' => 'EG018EnvelopeCustomFieldData',
+        'eg023' => 'EG023IDVAuthentication'
     ];
 
 

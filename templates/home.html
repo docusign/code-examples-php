@@ -21,7 +21,7 @@
 
         {% if show_doc %}
             <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> on using OAuth Authorization Code Grant from a
-                Python Flask application.</p>
+                PHP application.</p>
         {% endif %}
 
         <h2>Basic Examples</h2>
@@ -166,6 +166,13 @@
         <p>This example lists the envelope's custom metadata field values.</p>
         <p>API method used:
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeCustomFields/list">EnvelopeCustomFields::list</a>.
+        </p>
+
+        <h4 id="example023">23. <a href="{{ app_url ~ 'index.php?page=eg023'}}">IDV Authentication</a></h4>
+        <p>Submit an envelope that requires verification of a government issued identity.
+        <p>API method used:
+            <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list">IdentityVerifications::list</a>.
+            <a target= '_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
         </p>
 
 
