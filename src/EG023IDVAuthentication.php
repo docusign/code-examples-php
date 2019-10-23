@@ -21,6 +21,7 @@ class EG023IDVAuthentication
     }
 
 
+    # ***DS.snippet.0.start
     private function createController()
     {
 	# Step 1: Obtain your OAuth Token
@@ -103,7 +104,7 @@ class EG023IDVAuthentication
 		
 		try{
 
-		# Step 4: Call the eSignature REST API
+		# Step 5: Call the eSignature REST API
         $results = $envelopesApi->createEnvelope($accountId, $env);
         $envelope_id = $results->getEnvelopeId();
 		
