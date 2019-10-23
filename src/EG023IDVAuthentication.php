@@ -23,7 +23,7 @@ class EG023IDVAuthentication
 
     private function createController()
     {
-		# Step 1: Obtain your OAuth Token
+	# Step 1: Obtain your OAuth Token
         $minimum_buffer_min = 3;
         if (ds_token_ok($minimum_buffer_min)) {
         
