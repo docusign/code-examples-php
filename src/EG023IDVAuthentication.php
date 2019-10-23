@@ -27,13 +27,13 @@ class EG023IDVAuthentication
         $minimum_buffer_min = 3;
         if (ds_token_ok($minimum_buffer_min)) {
         
-		$accountId = $_SESSION['ds_account_id']; #represents your {ACCOUNT_ID}
-		$basePath = $_SESSION['ds_base_path'];
-		$accessToken = $_SESSION['ds_access_token']; #represents your {ACCESS_TOKEN}
+	$accountId = $_SESSION['ds_account_id']; #represents your {ACCOUNT_ID}
+	$basePath = $_SESSION['ds_base_path'];
+	$accessToken = $_SESSION['ds_access_token']; #represents your {ACCESS_TOKEN}
 
 
-		# Step 2: Construct your API Headers
-		$config = new \DocuSign\eSign\Configuration();
+	# Step 2: Construct your API Headers
+	$config = new \DocuSign\eSign\Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
         $apiClient = new \DocuSign\eSign\client\ApiClient($config);
@@ -49,7 +49,7 @@ class EG023IDVAuthentication
 
 
         # Step 4: Construct your envelope JSON body
-		$env = new \DocuSign\eSign\Model\EnvelopeDefinition([
+	$env = new \DocuSign\eSign\Model\EnvelopeDefinition([
            'email_subject' => 'Please Sign',
 		   'envelope_id_stamping' => 'true',
 		   'email_blurb' => 'Sample text for email body',
