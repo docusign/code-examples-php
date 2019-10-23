@@ -102,7 +102,7 @@ class EG023IDVAuthentication
 		
 		try{
 
-		# Step 5: Call the eSignature REST API
+	# Step 5: Call the eSignature REST API
         $results = $envelopesApi->createEnvelope($accountId, $env);
         $envelope_id = $results->getEnvelopeId(); 
         $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
