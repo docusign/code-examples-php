@@ -6,7 +6,7 @@
 namespace Example;
 class EG023IDVAuthentication
 {
-    private $eg = "eg023";  # reference (and url) for this example
+    private $eg = "eg023";  # Reference (and URL) for this example
 
     public function controller()
     {
@@ -20,20 +20,19 @@ class EG023IDVAuthentication
         };
     }
 
-
     # ***DS.snippet.0.start
     private function createController()
     {
-	# Step 1: Obtain your OAuth Token
+	# Step 1: Obtain your OAuth token
         $minimum_buffer_min = 3;
         if (ds_token_ok($minimum_buffer_min)) {
         
-	$accountId = $_SESSION['ds_account_id']; #represents your {ACCOUNT_ID}
+	$accountId = $_SESSION['ds_account_id']; # Represents your {ACCOUNT_ID}
 	$basePath = $_SESSION['ds_base_path'];
-	$accessToken = $_SESSION['ds_access_token']; #represents your {ACCESS_TOKEN}
+	$accessToken = $_SESSION['ds_access_token']; # Represents your {ACCESS_TOKEN}
 
 
-	# Step 2: Construct your API Headers
+	# Step 2: Construct your API headers
 	$config = new \DocuSign\eSign\Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
@@ -41,8 +40,7 @@ class EG023IDVAuthentication
         $envelopesApi = new \DocuSign\eSign\Api\EnvelopesApi($apiClient);
         
     
-        # Step 3: Retreive the workflow ID
-
+        # Step 3: Retrieve the workflow ID
         $workflowRead =  new \DocuSign\eSign\Api\AccountsApi($apiClient);
         $workflowResponse = $workflowRead->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $wFData = $workflowResponse->getIdentityVerification();
@@ -88,7 +86,7 @@ class EG023IDVAuthentication
 			'routing_order' => '1',
 			'status' => 'created',
 			'delivery_method' => 'Email',
-			'recipient_id' => '1', #represents your {RECIPIENT_ID}
+			'recipient_id' => '1', # Represents your {RECIPIENT_ID}
 			'tabs' => $signer1Tabs,
  
         ]);
@@ -106,11 +104,7 @@ class EG023IDVAuthentication
 
 		# Step 5: Call the eSignature REST API
         $results = $envelopesApi->createEnvelope($accountId, $env);
-        $envelope_id = $results->getEnvelopeId();
-		
-
-
- 
+        $envelope_id = $results->getEnvelopeId(); 
         $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
         $GLOBALS['twig']->display('example_done.html', [
 			'title' => "Envelope sent",
@@ -130,20 +124,16 @@ class EG023IDVAuthentication
         }
         } else {
             flash('Sorry, you need to re-authenticate.');
-            # We could store the parameters of the requested operation
-            # so it could be restarted automatically.
-            # But since it should be rare to have a token issue here,
-            # we'll make the user re-enter the form data after
-            # authentication.
+            # We could store the parameters of the requested operation so it could be restarted
+            # automatically. But since it should be rare to have a token issue here,
+            # we'll make the user re-enter the form data after authentication
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $this->eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
         }
     }
 
-
     # ***DS.snippet.0.end
-
 
     /**
      * Show the example's form page
@@ -169,5 +159,3 @@ class EG023IDVAuthentication
         }
     }
 }
-
-
