@@ -63,6 +63,10 @@ function router() {
         'eg016' => 'EG016SetTabValues',
         'eg017' => 'EG017SetTemplateTabValues',
         'eg018' => 'EG018EnvelopeCustomFieldData',
+        'eg019' => 'EG019AccessCodeAuthentication',
+        'eg020' => 'EG020SmsAuthentication',
+        'eg021' => 'EG021PhoneAuthentication',
+        'eg022' => 'EG022KbAuthentication',
         'eg023' => 'EG023IDVAuthentication'
     ];
 
