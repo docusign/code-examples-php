@@ -21,7 +21,7 @@
 
         {% if show_doc %}
             <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> on using OAuth Authorization Code Grant from a
-                Python Flask application.</p>
+                PHP application.</p>
         {% endif %}
 
         <h2>Basic Examples</h2>
@@ -132,7 +132,6 @@
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient">EnvelopeViews::createRecipient</a>.
         </p>
 
-        <!--
         The payments example is not yet available in PHP due to an SDK bug that prevents List tabs from being created.
         See the EG014CollectPayment.php file for more information.
 
@@ -144,9 +143,6 @@
         <p>API method used: 
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
         </p>
-        -->
-        <p>Example 14 is not yet available for PHP. See the source file EG014CollectPayment.php for more information.</p>
-
 
         <h4 id="example015">15. <a href="{{ app_url ~ 'index.php?page=eg015'}}">Get the tab data from an envelope</a></h4>
         <p>This example retrieves the tab (field) values from an envelope.</p>
@@ -154,7 +150,7 @@
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeFormData/get">EnvelopeFormData::get</a>.
         </p>
 
-        <h4 id="example016">16. <a href="{{ app_url ~ 'index.php?page=eg016'}}">Set tab values for a envelope</a></h4>
+        <h4 id="example016">16. <a href="{{ app_url ~ 'index.php?page=eg016'}}">Set tab values for an envelope</a></h4>
         <p>This example sets the tab (field) values for an envelope including tabs that can and cannot be changed by the signer.</p>
         <p>API method used:
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
@@ -172,6 +168,36 @@
             <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeCustomFields/list">EnvelopeCustomFields::list</a>.
         </p>
 
+        <h4 id="example019">19. <a href="{{ app_url ~ 'index.php?page=eg019'}}">Access Code Authentication</a></h4>
+        <p>This is an example of an envelope utilizing Access Code authentication for multi-factor verification of a recipient.</p>
+        <p>API method used:
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+        
+        <h4 id="example020">20. <a href="{{ app_url ~ 'index.php?page=eg020'}}">SMS Authentication</a></h4>
+        <p>This is an example of an envelope utilizing SMS authentication for multi-factor verification of a recipient.</p>
+        <p>API method used:
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+        
+        <h4 id="example021">21. <a href="{{ app_url ~ 'index.php?page=eg021'}}">Phone Authentication</a></h4>
+        <p>This is an example of an envelope utilizing phone authentication for multi-factor verification of a recipient.</p>
+        <p>API method used:
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+        
+        <h4 id="example022">22. <a href="{{ app_url ~ 'index.php?page=eg022'}}">KBA Authentication</a></h4>
+        <p>This is an example of an envelope utilizing Knowledge based authentication for multi-factor verification of a recipient.</p>
+        <p>API method used:
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
+        </p>
+        
+        <h4 id="example023">23. <a href="{{ app_url ~ 'index.php?page=eg023'}}">IDV Authentication</a></h4>
+        <p>This is an example of an envelope utilizing Id verification authentication for a recipient.</p>
+        <p>API methods used:
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Accounts/IdentityVerifications/list">Accounts::getAccountIdentityVerificationsList</a>.
+         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.   
+        </p>
 
     </div>
 
