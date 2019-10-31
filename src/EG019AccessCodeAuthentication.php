@@ -6,7 +6,7 @@
 namespace Example;
 class EG019AccessCodeAuthentication
 {
-    private $eg = "eg019";  # reference (and url) for this example
+    private $eg = "eg019";  # Reference (and URL) for this example
 
     public function controller()
     {
@@ -26,11 +26,11 @@ class EG019AccessCodeAuthentication
         $minimum_buffer_min = 3;
         if (ds_token_ok($minimum_buffer_min)) {
         
-		$accountId = $_SESSION['ds_account_id']; #represents your {ACCOUNT_ID}
+		$accountId = $_SESSION['ds_account_id']; # Represents your {ACCOUNT_ID}
 		$basePath = $_SESSION['ds_base_path'];
-		$accessToken = $_SESSION['ds_access_token']; #represents your {ACCESS_TOKEN}
+		$accessToken = $_SESSION['ds_access_token']; # Represents your {ACCESS_TOKEN}
 
-        # Step 2: Construct your API Headers
+        # Step 2: Construct your API headers
         $config = new \DocuSign\eSign\Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
@@ -55,7 +55,7 @@ class EG019AccessCodeAuthentication
 
         $env->setDocuments(array($document1));
 
-        #Create your signature tab
+        # Create your signature tab
         $signHere1 = new \DocuSign\eSign\Model\SignHere([
             'name' => 'SignHereTab',
             'x_position' => '75',

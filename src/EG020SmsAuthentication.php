@@ -6,7 +6,7 @@
 namespace Example;
 class EG020SigningViaEmail
 {
-    private $eg = "eg020";  # reference (and url) for this example
+    private $eg = "eg020";  # Reference (and URL) for this example
 
     public function controller()
     {
@@ -26,11 +26,11 @@ class EG020SigningViaEmail
         $minimum_buffer_min = 3;
         if (ds_token_ok($minimum_buffer_min)) {
         
-		$accountId = $_SESSION['ds_account_id']; # represents your {ACCOUNT_ID}
+		$accountId = $_SESSION['ds_account_id']; # Represents your {ACCOUNT_ID}
 		$basePath = $_SESSION['ds_base_path'];
-		$accessToken = $_SESSION['ds_access_token']; # represents your {ACCESS_TOKEN}
+		$accessToken = $_SESSION['ds_access_token']; # Represents your {ACCESS_TOKEN}
 
-		# Step 2: Construct your API Headers
+		# Step 2: Construct your API headers
 		$config = new \DocuSign\eSign\Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
@@ -73,7 +73,7 @@ class EG020SigningViaEmail
 		$signer1Tabs->setSignHereTabs(array($signHere1));
 		
 		$smsAuthentication = new \DocuSign\eSign\Model\RecipientSMSAuthentication;
-		$providedPhoneNumber='415-555-1212'; # represents your {PHONE_NUMBER}
+		$providedPhoneNumber='415-555-1212'; # Represents your {PHONE_NUMBER}
 		$smsAuthentication->setSenderProvidedNumbers(array($providedPhoneNumber));
 		
 		$signer1 = new \DocuSign\eSign\Model\Signer([
