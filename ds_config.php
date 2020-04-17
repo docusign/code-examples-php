@@ -24,7 +24,7 @@ $DS_CONFIG = [
     'gateway_account_id' => '{DS_PAYMENT_GATEWAY_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
-    'github_example_url' => 'https://github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/',
+    'github_example_url' => 'https://github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/Example/Controllers/Templates',
     'documentation' => false
 ];
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
