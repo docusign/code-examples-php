@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -25,8 +26,13 @@ class DsReturn extends BaseController
      */
     public function __construct()
     {
-        $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService);
+
+        $GLOBALS['twig']->display('ds_return.html', [
+            'title' => 'Returned data',
+            'event' => isset($_GET['event']) ? $_GET['event'] : false,
+            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
+            'state' => isset($_GET['state']) ? $_GET['state'] : false
+        ]);
     }
 
     /**
@@ -36,11 +42,10 @@ class DsReturn extends BaseController
      */
     public function getController()
     {
-        $GLOBALS['twig']->display('ds_return.html', [
-            'title' => 'Returned data',
-            'event' => isset($_GET['event']) ? $_GET['event'] : false,
-            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
-            'state' => isset($_GET['state']) ? $_GET['state'] : false
-        ]);
+        $this->routerService = new RouterService();
+        parent::controller($this->eg, $this->routerService);
+    }
+    public function createController()
+    {
     }
 }
