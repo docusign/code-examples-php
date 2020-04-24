@@ -156,6 +156,8 @@ class RouterService
             $this->ds_logout(); // See below in oauth section
             exit();
         } else {
+            // To ignore the Notice instead of Isset on missing POST vars
+            error_reporting(E_ALL & ~E_NOTICE);
             $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
             new $controller($page);
         }
