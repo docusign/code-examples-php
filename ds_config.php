@@ -1,5 +1,5 @@
 <?php
-// ds_config.py
+// ds_config.php
 // 
 // DocuSign configuration settings
 $DS_CONFIG = [
