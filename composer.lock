@@ -805,7 +805,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "docusign/esign-client": 5
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
