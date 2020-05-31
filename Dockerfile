@@ -59,4 +59,4 @@ RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
 
-COPY ./public/assets
+COPY ./public/assets /var/www/html

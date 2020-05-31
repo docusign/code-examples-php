@@ -35,3 +35,6 @@ Desktop.ini
 
 # ignore twig cache
 /templates/twig_cache/*
+
+# do not check in secrets
+ds_config.php

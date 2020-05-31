@@ -1,6 +1,6 @@
 # PHP: Authorization Code Grant Examples
 
-### Github repo: eg-03-php-auth-code-grant
+### Github repo: code-examples-php
 ## Introduction
 This repo is a PHP 7.2 application that demonstrates:
 
@@ -136,10 +136,10 @@ This repo is a PHP 7.2 application that demonstrates:
 ### Prerequisites
 1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net).
    Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
-1. A DocuSign Integration Key (a client ID) that is configured to use the
-   OAuth Authorization Code flow.
+1. A DocuSign Integration Key (a client ID) that is configured to use the either the
+   OAuth Authorization Code flow or the JWT Auth Flow.
+#### Authorization Code Grant specifics:
    You will need the **Integration Key** itself, and its **secret**.
-
    The Integration key must include a **Redirect URI** of
 
    `{app_url}/index.php?page=ds_callback`
@@ -154,21 +154,26 @@ This repo is a PHP 7.2 application that demonstrates:
 
    `http://localhost:8080/example-public/index.php?page=ds_callback`
 
+#### JWT (JSON Web Token) specifics:
+   You will need the **Integration Key** itself, an RSA Private Key and the userID (GUID) of the impersonated user.
+
+   The private part of the RSA key must be copied over and stored in a private.key file in the top of your repo clone. 
+
 1. PHP version 7.2 or later.
 1. A name and email for a signer, and a name and email for a cc recipient.
 
 ### Installation steps
-1. Download or clone this repository to your workstation to directory **eg-03-php-auth-code-grant**
-1. **cd eg-03-php-auth-code-grant**
+1. Download or clone this repository to your workstation to directory **code-examples-php**
+1. **cd code-examples-php**
 1. Install the dependencies listed in the composer.json file:
 
    Run **composer install**  
    
    If you don't already have Composer installed: [installation instructions](https://getcomposer.org/doc/00-intro.md)
-1. Update the file **ds_config.php** (root level directory of the example)
-     with the Integration Key and other settings.
+1. Create new file **ds_config.php** (root level directory of the example) by using ds_config_example.php as your template.
+     Update the  the Integration Key and other settings in the configuation file.
 
-   **Note:** Protect your Integration Key and secret--you
+   **Note:** Protect your Integration Key and secret and/or RSA private key--you
    should ensure that ds_config.php file will not be stored in your source code
    repository.
 
@@ -188,7 +193,7 @@ To use the payments example, create a
 test payments gateway for your developer sandbox account.
 
 See the
-[PAYMENTS_INSTALLATION.md](https://github.com/docusign/eg-03-python-auth-code-grant/blob/master/PAYMENTS_INSTALLATION.md)
+[PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md)
 file for instructions.
 
 Then add the payment gateway account id to the **app/ds_config.php** file.

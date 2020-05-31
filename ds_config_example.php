@@ -9,7 +9,7 @@ $DS_CONFIG = [
     'signer_name' => '{USER_FULLNAME}',
     'app_url' => '{APP_URL}', // The url of the application.
     // Ie, the user enters  app_url in their browser to bring up the app's home page
-    // Eg http://localhost/eg-03-php-auth-code-grant/public if the app is installed in a
+    // Eg http://localhost/code-examples-php/public if the app is installed in a
     // development directory that is accessible via web server.
     // NOTE => You must add a Redirect URI of app_url/index.php?page=ds_callback to your Integration Key.
     'authorization_server' => 'https://account-d.docusign.com',
@@ -24,7 +24,20 @@ $DS_CONFIG = [
     'gateway_account_id' => '{DS_PAYMENT_GATEWAY_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
-    'github_example_url' => 'https://github.com/docusign/eg-03-php-auth-code-grant/tree/master/src/Example/Controllers/Templates',
-    'documentation' => false
+    'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Example/Controllers/Templates',
+    'documentation' => false,
 ];
+
+$JWT_CONFIG = [
+    'ds_client_id' => '{CLIENT_ID}', # The app's DocuSign integration key
+    'authorization_server' => 'account-d.docusign.com',
+    "ds_impersonated_user_id" => '{USER_ID}',  # the id of the user
+    "jwt_scope" => "signature impersonation",
+    "private_key_file" => "../private.key", #path to file which hold private key or private key itself
+    "private_key" => "-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----"
+];
+
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
+$GLOBALS['JWT_CONFIG'] = $JWT_CONFIG;

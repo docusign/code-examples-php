@@ -66,7 +66,7 @@ class EG026PermissionChangeSingleSetting extends BaseController
                     "Changing setting in a permission profile",
                     "Changing setting in a permission profile",
                     "Setting of permission profile has been changed!<br/> 
-Permission profile ID: {$results["permissionProfileId"]}.<br> Changed settings: ",
+Permission profile ID: {$results["permissionProfileId"]}.<br> Changed settings:.",
                     json_encode(json_encode($results))
                 );
             }

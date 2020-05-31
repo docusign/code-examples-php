@@ -9,6 +9,8 @@
         "twig/twig": "^2.0",
         "league/oauth2-client": "^2.4",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.5"
+        "guzzlehttp/guzzle": "^6.5",
+        "firebase/php-jwt": "^5.0",
+        "mashape/unirest-php": "^3.0"
     }
 }

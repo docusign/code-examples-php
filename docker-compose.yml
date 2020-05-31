@@ -2,12 +2,12 @@ version: '3'
 services:
   php-fpm:
     build: .
-    container_name: php-fpm
+    container_name: docusign-php-fpm
     volumes:
       - ./:/var/www/html
   nginx:
     image: nginx:alpine
-    container_name: nginx
+    container_name: docusign-nginx
     volumes:
       - ./vhost.conf:/etc/nginx/conf.d/default.conf
       - ./:/var/www/html

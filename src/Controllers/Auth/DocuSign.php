@@ -16,7 +16,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class DocuSign extends AbstractProvider
 {
-
     /**
      * We use additional options that must be supplied when constructing
      * the object:
@@ -31,6 +30,7 @@ class DocuSign extends AbstractProvider
     public $targetAccountId = false;
 
     use BearerAuthorizationTrait;
+
     /**
      * Get authorization url to begin OAuth flow
      *
@@ -58,7 +58,6 @@ class DocuSign extends AbstractProvider
         $url = $this->authorizationServer;
         if ($url == null) {
             throw new \Exception('authorizationServer not set.');
-
         }
         return $url;
     }
@@ -76,6 +75,7 @@ class DocuSign extends AbstractProvider
         $url .= '/oauth/token';
         return $url;
     }
+
     /**
      * Get provider url to fetch user details
      *
@@ -90,6 +90,7 @@ class DocuSign extends AbstractProvider
         $url .= '/oauth/userinfo';
         return $url;
     }
+
     /**
      * Get the default scopes used by this provider.
      *
@@ -102,6 +103,7 @@ class DocuSign extends AbstractProvider
     {
         return ['signature'];
     }
+
     /**
      * Check a provider response for errors.
      *
