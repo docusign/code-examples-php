@@ -89,10 +89,10 @@ This repo is a PHP 7.2 application that demonstrates:
    [Source.](./src/Controllers/Templates/EG021PhoneAuthentication.php)
    This example sends an envelope that requires entering in a voice-based response code for the purpose of multi-factor authentication.
 1. **Requiring Knowledge-Based Authentication (KBA) for a Recipient**
-   [Source.](./src/Controllers/Templates/EG022KbaAuthentication.php)
+   [Source.](./src/Controllers/Templates/EG022KbAuthentication.php)
    This example sends an envelope that requires passing a Public records check to validate identity for the purpose of multi-factor authentication.
 1. **Requiring ID Verification (IDV) for a recipient**
-   [Source.](./src/Controllers/Templates/EG023IdvAuthentication.php)
+   [Source.](./src/Controllers/Templates/EG023IDVAuthentication.php)
    This example sends an envelope that requires the recipient to upload a government issued id.    
 1. **Creating a permission profile**
    [Source.](./src/Controllers/Templates/EG024PermissionCreate.php)
