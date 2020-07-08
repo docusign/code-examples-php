@@ -1,4 +1,4 @@
-# PHP: Authorization Code Grant Examples
+# PHP Launcher Code Examples
 
 ### Github repo: code-examples-php
 ## Introduction
