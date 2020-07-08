@@ -17,11 +17,11 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 $GLOBALS['app_url'] = $GLOBALS['DS_CONFIG']['app_url'] . '/';
-$loader = new Twig_Loader_Filesystem(__DIR__ . '/../templates');
-$twig = new Twig_Environment($loader);
+$loader = new Twig\Loader\FilesystemLoader(__DIR__ . '/../templates');
+$twig = new Twig\Environment($loader);
 $twig->addGlobal('app_url', $GLOBALS['app_url']);
 $twig->addGlobal('session', $_SESSION);
-$twig_function = new Twig_Function('get_flash', function () {
+$twig_function = new Twig\TwigFunction('get_flash', function () {
     if (! isset($_SESSION['flash'])) {$_SESSION['flash'] = [];}
     $msgs = $_SESSION['flash'];
     $_SESSION['flash'] = [];
@@ -29,7 +29,7 @@ $twig_function = new Twig_Function('get_flash', function () {
 });
 $twig->addFunction($twig_function);
 # Add csrf_token func. See https://stackoverflow.com/a/31683058/64904
-$twig_function = new Twig_Function('csrf_token', function($lock_to = null) {
+$twig_function = new Twig\TwigFunction('csrf_token', function($lock_to = null) {
     if (empty($_SESSION['csrf_token'])) {$_SESSION['csrf_token'] = bin2hex(random_bytes(32));}
     if (empty($_SESSION['csrf_token2'])) {$_SESSION['csrf_token2'] = random_bytes(32);}
     if (empty($lock_to)) {return $_SESSION['csrf_token'];}

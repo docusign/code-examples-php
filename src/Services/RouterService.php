@@ -169,9 +169,19 @@ class RouterService
             $this->ds_logout(); // See below in oauth section
             exit();
         
+        } elseif ($page == 'ds_return'){
+            
+            $GLOBALS['twig']->display('ds_return.html', [
+            'title' => 'Returned data',
+            'event' => isset($_GET['event']) ? $_GET['event'] : false,
+            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
+            'state' => isset($_GET['state']) ? $_GET['state'] : false
+        ]);
+
+
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
-            error_reporting(E_ALL & ~E_NOTICE);
+            // error_reporting(E_ALL & ~E_NOTICE);
             $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
             new $controller($page);
         }
