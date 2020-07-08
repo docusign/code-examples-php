@@ -154,11 +154,11 @@ class RouterService
     public function router(): void
     {
         $page = $_GET['page'] ?? 'home';
-
         if ($page == 'must_authenticate') {
             $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
             $c = new $controller();
             $c->controller();
+            exit();
         } elseif ($page == 'ds_login') {
             $this->ds_login(); // See below in oauth section
             exit();
@@ -168,6 +168,7 @@ class RouterService
         } elseif ($page == 'ds_logout') {
             $this->ds_logout(); // See below in oauth section
             exit();
+        
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE);

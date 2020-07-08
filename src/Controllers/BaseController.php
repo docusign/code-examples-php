@@ -3,7 +3,6 @@
 namespace Example\Controllers;
 
 use Example\Services\RouterService;
-
 abstract class BaseController
 {
     /**
@@ -130,7 +129,13 @@ abstract class BaseController
                 'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
                 'signer_email' => $GLOBALS['DS_CONFIG']['signer_email']
             ]);
-        } else {
+        } elseif ($eg == "home"){ 
+            
+            $GLOBALS['twig']->display($eg . '.html', [
+                'title' => 'Home--PHP Code Examples',
+                'show_doc' => false
+            ]);
+         } else {
             # Save the current operation so it will be resumed after authentication
             $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');

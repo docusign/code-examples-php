@@ -31,7 +31,7 @@
 
 <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
     <input type="hidden" name="page" value="eg002"/>
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-docu">Continue</button>
 </form>
 {%  elseif not documents_ok %}
 <p>Problem: please first create a list of the envelope's documents using
@@ -40,7 +40,7 @@
 
 <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
     <input type="hidden" name="page" value="eg006"/>
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-docu">Continue</button>
 </form>
 {% else %}
 <p>Please choose a document.<br/>
@@ -57,7 +57,7 @@
         </select>
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-primary">Continue</button>
+    <button type="submit" class="btn btn-docu">Continue</button>
 </form>
 {% endif %}
 

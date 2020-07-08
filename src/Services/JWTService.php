@@ -6,6 +6,7 @@ namespace Example\Services;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
 
+
 class JWTService
 {
     const TOKEN_REPLACEMENT_IN_SECONDS = 600; # 10 minutes
@@ -54,11 +55,7 @@ class JWTService
      */
     private function configureJwtAuthorizationFlowByKey() {
         self::$apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
-
-        if (!$privateKey = @file_get_contents($GLOBALS['JWT_CONFIG']['private_key_file'], true)) {
-            $privateKey = $GLOBALS['JWT_CONFIG']['private_key'];
-        }
-
+        $privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] .'/'. $GLOBALS['JWT_CONFIG']['private_key_file'], true);
         $response = self::$apiClient->requestJWTUserToken(
             $aud = $GLOBALS['JWT_CONFIG']['ds_client_id'],
             $aud = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
