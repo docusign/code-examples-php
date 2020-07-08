@@ -181,7 +181,7 @@ class RouterService
 
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
-            // error_reporting(E_ALL & ~E_NOTICE);
+            error_reporting(E_ALL & ~E_NOTICE);
             $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
             new $controller($page);
         }
