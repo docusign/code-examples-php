@@ -3,8 +3,8 @@
 // 
 // DocuSign configuration settings
 $DS_CONFIG = [
-    'ds_client_id' => '{CLIENT_ID}', # The app's DocuSign integration key
-    'ds_client_secret' => '{CLIENT_SECRET}', # The app's DocuSign integration key's secret
+    'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}', # The app's DocuSign integration key
+    'ds_client_secret' => '{SECRET_KEY}', # The app's DocuSign integration key's secret
     'signer_email' => '{USER_EMAIL}',
     'signer_name' => '{USER_FULLNAME}',
     'app_url' => '{APP_URL}', // The url of the application.
@@ -21,7 +21,7 @@ $DS_CONFIG = [
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
     // Payment gateway information is optional
-    'gateway_account_id' => '{DS_PAYMENT_GATEWAY_ID}',
+    'gateway_account_id' => '{GATEWAY_ACCOUNT_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
     'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Example/Controllers/Templates',
@@ -29,9 +29,9 @@ $DS_CONFIG = [
 ];
 
 $JWT_CONFIG = [
-    'ds_client_id' => '{CLIENT_ID}', # The app's DocuSign integration key
+    'ds_client_id' => '{INTEGRATION_KEY_JWT}', # The app's DocuSign integration key
     'authorization_server' => 'account-d.docusign.com',
-    "ds_impersonated_user_id" => '{USER_ID}',  # the id of the user
+    "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  # the id of the user
     "jwt_scope" => "signature impersonation",
     "private_key_file" => "../private.key", #path to file which hold private key or private key itself
     "private_key" => "-----BEGIN RSA PRIVATE KEY-----
