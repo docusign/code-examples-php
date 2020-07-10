@@ -48,10 +48,10 @@
   </div>
 </nav>
 
-<div class="container">
+<!-- 
   {% if session['ds_account_name'] %}
   <p>DocuSign Account: {{ session['ds_account_name'] }}.</p>
-  {% endif %}
+  {% endif %} -->
 
   <div class="col-md-12 feedback" id="feedback">
     <h3>Working...&nbsp;&nbsp;&nbsp;<span></span></h3>
@@ -68,7 +68,18 @@
 
   <p id="download-continue" class="feedback"><a href="{{ app_url }}">Continue</a></p>
 
-  <section id="content">
+
+  {% if session['ds_user_name'] %}
+  <div class="container">
+    <section id="content" style="padding-top:30px;">
+  {% endif %}
+
+  {% if not session['ds_user_name'] %}
+
+  <div class="container-full-bg">
+    <section id="content" style="margin-top:-60px!important; padding-top:30px!important;">
+      {% endif %}
+      
     {% block content %}{% endblock %}
   </section>
 </div>

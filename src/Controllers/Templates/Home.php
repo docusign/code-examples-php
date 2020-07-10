@@ -29,13 +29,6 @@ class Home extends BaseController
         parent::controller($this->eg, $this->routerService);
     }
 
-    public function getController($eg)
-    {
-        $GLOBALS['twig']->display($eg . '.html', [
-            'title' => 'Home--PHP Code Examples',
-            'show_doc' => false
-        ]);
-    }
-
+    public function getController(){}
     public function createController() {}
 }

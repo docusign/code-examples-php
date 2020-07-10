@@ -154,11 +154,11 @@ class RouterService
     public function router(): void
     {
         $page = $_GET['page'] ?? 'home';
-
         if ($page == 'must_authenticate') {
             $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
             $c = new $controller();
             $c->controller();
+            exit();
         } elseif ($page == 'ds_login') {
             $this->ds_login(); // See below in oauth section
             exit();
@@ -168,6 +168,17 @@ class RouterService
         } elseif ($page == 'ds_logout') {
             $this->ds_logout(); // See below in oauth section
             exit();
+        
+        } elseif ($page == 'ds_return'){
+            
+            $GLOBALS['twig']->display('ds_return.html', [
+            'title' => 'Returned data',
+            'event' => isset($_GET['event']) ? $_GET['event'] : false,
+            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
+            'state' => isset($_GET['state']) ? $_GET['state'] : false
+        ]);
+
+
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE);
