@@ -24,7 +24,7 @@ $DS_CONFIG = [
     'gateway_account_id' => '{GATEWAY_ACCOUNT_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
-    'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Example/Controllers/Templates',
+    'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/Templates',
     'documentation' => false,
 ];
 
