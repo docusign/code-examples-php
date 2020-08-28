@@ -167,6 +167,7 @@ class RouterService
                 error_reporting(E_ALL & ~E_NOTICE);
                 $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
                 new $controller($page);
+                exit();
             }
         }
 
@@ -205,6 +206,7 @@ class RouterService
             error_reporting(E_ALL & ~E_NOTICE);
             $controller = '\Example\\' .$this->getController($page);
             new $controller($page);
+            exit();
 
 
         } else {
@@ -212,6 +214,7 @@ class RouterService
             error_reporting(E_ALL & ~E_NOTICE);
             $controller = '\Example\Controllers\Examples\eSignature\\' . $this->getController($page);
             new $controller($page);
+            exit();
         }
     }
 
