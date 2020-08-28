@@ -113,7 +113,7 @@ class RouterService
     /**
      * The list of titles for each example
      */
-    private const TITLES = [        
+    private const TITLES = [
         "home" => "Home--PHP Code Examples",
         "eg001" => "Embedded Signing Ceremony",
         "eg002" => "Signing via email",
@@ -153,9 +153,31 @@ class RouterService
      */
     public function router(): void
     {
+
+
         $page = $_GET['page'] ?? 'home';
+
+
+        if ($page == 'home') {
+
+            // We're not logged in and Quickstart is true:  Route to the 1st example.
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
+                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
+            } else {
+                error_reporting(E_ALL & ~E_NOTICE);
+                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+                new $controller($page);
+            }
+        }
+
         if ($page == 'must_authenticate') {
-            $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
+            //is it quickstart have they signed in already? 
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true') {
+                //Let's just shortcut to login immediately
+                $this->ds_login();
+                exit();
+            }
+            $controller = 'Example\Controllers\Examples\\' . $this->getController($page);
             $c = new $controller();
             $c->controller();
             exit();
@@ -166,23 +188,29 @@ class RouterService
             $this->ds_callback(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_logout') {
+            $_SESSION['beenHere'] = true;
             $this->ds_logout(); // See below in oauth section
             exit();
-        
-        } elseif ($page == 'ds_return'){
-            
+        } elseif ($page == 'ds_return') {
             $GLOBALS['twig']->display('ds_return.html', [
-            'title' => 'Returned data',
-            'event' => isset($_GET['event']) ? $_GET['event'] : false,
-            'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
-            'state' => isset($_GET['state']) ? $_GET['state'] : false
-        ]);
+                'title' => 'Returned data',
+                'event' => isset($_GET['event']) ? $_GET['event'] : false,
+                'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
+                'state' => isset($_GET['state']) ? $_GET['state'] : false
+            ]);
+
+            // handle eg001 being listed in project root
+        } elseif ($page == 'eg001') {
+            // To ignore the Notice instead of Isset on missing POST vars
+            error_reporting(E_ALL & ~E_NOTICE);
+            $controller = '\Example\\' .$this->getController($page);
+            new $controller($page);
 
 
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE);
-            $controller = 'Example\Controllers\Templates\\' . $this->getController($page);
+            $controller = '\Example\Controllers\Examples\eSignature\\' . $this->getController($page);
             new $controller($page);
         }
     }
@@ -191,7 +219,7 @@ class RouterService
      * @param int $buffer_min buffer time needed in minutes
      * @return boolean $ok true iff the user has an access token that will be good for another buffer min
      */
-    function ds_token_ok($buffer_min = 60): bool
+    function ds_token_ok($buffer_min = 10): bool
     {
         $ok = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
         $ok = $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
@@ -254,18 +282,42 @@ class RouterService
      */
     function ds_logout_internal(): void
     {
-        if (isset($_SESSION['ds_access_token'   ])) {unset($_SESSION['ds_access_token'   ]);}
-        if (isset($_SESSION['ds_refresh_token'  ])) {unset($_SESSION['ds_refresh_token'  ]);}
-        if (isset($_SESSION['ds_user_email'     ])) {unset($_SESSION['ds_user_email'     ]);}
-        if (isset($_SESSION['ds_user_name'      ])) {unset($_SESSION['ds_user_name'      ]);}
-        if (isset($_SESSION['ds_expiration'     ])) {unset($_SESSION['ds_expiration'     ]);}
-        if (isset($_SESSION['ds_account_id'     ])) {unset($_SESSION['ds_account_id'     ]);}
-        if (isset($_SESSION['ds_account_name'   ])) {unset($_SESSION['ds_account_name'   ]);}
-        if (isset($_SESSION['ds_base_path'      ])) {unset($_SESSION['ds_base_path'      ]);}
-        if (isset($_SESSION['envelope_id'       ])) {unset($_SESSION['envelope_id'       ]);}
-        if (isset($_SESSION['eg'                ])) {unset($_SESSION['eg'                ]);}
-        if (isset($_SESSION['envelope_documents'])) {unset($_SESSION['envelope_documents']);}
-        if (isset($_SESSION['template_id'       ])) {unset($_SESSION['template_id'       ]);}
+        if (isset($_SESSION['ds_access_token'])) {
+            unset($_SESSION['ds_access_token']);
+        }
+        if (isset($_SESSION['ds_refresh_token'])) {
+            unset($_SESSION['ds_refresh_token']);
+        }
+        if (isset($_SESSION['ds_user_email'])) {
+            unset($_SESSION['ds_user_email']);
+        }
+        if (isset($_SESSION['ds_user_name'])) {
+            unset($_SESSION['ds_user_name']);
+        }
+        if (isset($_SESSION['ds_expiration'])) {
+            unset($_SESSION['ds_expiration']);
+        }
+        if (isset($_SESSION['ds_account_id'])) {
+            unset($_SESSION['ds_account_id']);
+        }
+        if (isset($_SESSION['ds_account_name'])) {
+            unset($_SESSION['ds_account_name']);
+        }
+        if (isset($_SESSION['ds_base_path'])) {
+            unset($_SESSION['ds_base_path']);
+        }
+        if (isset($_SESSION['envelope_id'])) {
+            unset($_SESSION['envelope_id']);
+        }
+        if (isset($_SESSION['eg'])) {
+            unset($_SESSION['eg']);
+        }
+        if (isset($_SESSION['envelope_documents'])) {
+            unset($_SESSION['envelope_documents']);
+        }
+        if (isset($_SESSION['template_id'])) {
+            unset($_SESSION['template_id']);
+        }
     }
 
     /**
