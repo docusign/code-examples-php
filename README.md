@@ -1,6 +1,6 @@
 # PHP Launcher Code Examples
 
-### Github repo: [code-examples-php](./)
+### Github repo: code-examples-php
 ## Introduction
 This repo is a PHP 7.2 application that demonstrates:
 
