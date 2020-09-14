@@ -2,7 +2,6 @@
 /**
  * Example 002: Remote signer, cc, envelope has three documents
  */
-
 namespace Example;
 class EG002SigningViaEmail
 {
