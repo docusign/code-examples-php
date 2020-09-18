@@ -134,6 +134,7 @@ This repo is a PHP 7.2 application that demonstrates:
 ## Installation
 
 ### Prerequisites
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically performed for you.**
 1. A DocuSign Developer Sandbox account (email and password) on [demo.docusign.net](https://demo.docusign.net).
    Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
 1. A DocuSign Integration Key (a client ID) that is configured to use the either the
@@ -163,6 +164,8 @@ This repo is a PHP 7.2 application that demonstrates:
 1. A name and email for a signer, and a name and email for a cc recipient.
 
 ### Installation steps
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 4 and 6 below as they're automatically performed for you.**  
+
 1. Download or clone this repository to your workstation to directory **code-examples-php**
 1. **cd code-examples-php**
 1. Install the dependencies listed in the composer.json file:
