@@ -139,6 +139,9 @@ This repo is a PHP 7.2 application that demonstrates:
    Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
 1. A DocuSign Integration Key (a client ID) that is configured to use the either the
    OAuth Authorization Code flow or the JWT Auth Flow.
+1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
+1. [Composer](https://getcomposer.org/doc/00-intro.md)
+1. A name and email for a signer, and a name and email for a cc recipient.   
 #### Authorization Code Grant specifics:
    You will need the **Integration Key** itself, and its **secret**.
    The Integration key must include a **Redirect URI** of
@@ -160,19 +163,14 @@ This repo is a PHP 7.2 application that demonstrates:
 
    The private part of the RSA key must be copied over and stored in a private.key file in the top of your repo clone. 
 
-1. PHP version 7.2 or later.
-1. A name and email for a signer, and a name and email for a cc recipient.
-
 ### Installation steps
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 4 and 6 below as they're automatically performed for you.**  
 
 1. Download or clone this repository to your workstation to directory **code-examples-php**
 1. **cd code-examples-php**
 1. Install the dependencies listed in the composer.json file:
-
    Run **composer install**  
-   
-   If you don't already have Composer installed: [installation instructions](https://getcomposer.org/doc/00-intro.md)
+
 1. Create new file **ds_config.php** (root level directory of the example) by using ds_config_example.php as your template.
      Update the  the Integration Key and other settings in the configuation file.
 
