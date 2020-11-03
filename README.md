@@ -190,7 +190,7 @@ This repo is a PHP 7.2 application that demonstrates:
 
 #### Payments code example
 To use the payments example, create a
-test payments gateway for your developer sandbox account.
+test payments gateway for your DocuSign developer account.
 
 See the
 [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md)
