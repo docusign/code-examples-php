@@ -28,12 +28,12 @@ The red "X" should become a green checkmark.
 
 ![httpd_localhost](localhost_8080_box.jpg)
 
-**Step 4.** In httpd.conf, change the default\ 
-DocumentRoot "C:/xampp/htdocs"\
-<Directory "C:/xampp/htdocs">\
-to\ 
-DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"\
-<Directory "C:/xampp/htdocs/<Quickstart_folder_name>">\
+**Step 4.** In httpd.conf, change the default<br />
+DocumentRoot "C:/xampp/htdocs"<br />
+<Directory "C:/xampp/htdocs"><br />
+to<br />
+DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"<br />
+<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"><br />
 
 In httpd.conf, use Ctrl-S to save your changes.
 
