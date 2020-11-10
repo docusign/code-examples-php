@@ -41,7 +41,7 @@ In httpd.conf, use Ctrl-S to save your changes.
 
 **Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Start button. 
 
-![Apache_start](apache_installed_start_box)
+![Apache_start](apache_installed_start_box.jpg)
 
 Apache should run.
 
