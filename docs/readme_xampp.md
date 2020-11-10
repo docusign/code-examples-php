@@ -39,7 +39,11 @@ In httpd.conf, use Ctrl-S to save your changes.
 
 ![httpd_DocumentRoot](Document_Root_box.jpg)
 
-**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Start button. Apache should run.
+**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Start button. 
+
+![Apache_start](apache_installed_start_box)
+
+Apache should run.
 
 ![Apache_run](start_box.jpg)
 
