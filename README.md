@@ -183,7 +183,9 @@ This repo is a PHP 7.2 application that demonstrates:
    file in the directory if a file is not explicitly named in the URL.
    Automatically opening `index.html` files is often a default. You may need to update
    your web server's settings to also use `index.php` automatically. Or you can
-   specify the file name manually in the url.
+   specify the file name manually in the url.<br />
+   <br />
+   For a simple web server set up, see [XAMPP/Apache web server instructions](https://github.com/docusign/code-examples-php/blob/master/docs/readme_xampp.md). 
 1. Update your Integration Key's settings to include a **Redirect URI** for
    your installation of the example. See Prerequisites item #2, above for more information.
 1. Open a browser to the example's base url to view the index page.
