@@ -175,11 +175,11 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 [XAMPP/Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
-**Step 1.** Download and unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
+**Step 1.** **Download and unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file** or **download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository** into your `C:/xampp/htdocs` folder.
 
-**Step 2.** **cd C:xampp/htdocs/<Quickstart_folder_name>** or **cd C:xampp/htdocs/code-examples-php**
+**Step 2.** **cd `C:xampp/htdocs/<Quickstart_folder_name>`** or **cd `C:xampp/htdocs/code-examples-php`**
 
-**Step 3.** Run **composer install** to install the dependencies listed in the composer.json file.
+**Step 3.** Run **composer install** to install the dependencies listed in the `composer.json` file.
 
 **Step 4.** On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
@@ -189,26 +189,26 @@ The red "X" should become a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
 
-**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
+**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The `httpd.conf` file should open.
 
 ![Apache_config](./docs/config_file.jpg)
 
-**Step 6.** In httpd.conf, change the default "Listen 80" to "Listen 8080".
+**Step 6.** In the `httpd.conf` file, change the default `Listen 80` to `Listen 8080`.
 
 ![httpd_listen](./docs/listen_8080_box.jpg)
 
-**Step 7.** In httpd.conf, change the default "ServerName localhost:80" to "ServerName localhost:8080".
+**Step 7.** In the `httpd.conf` file, change the default `ServerName localhost:80` to `ServerName localhost:8080`.
 
 ![httpd_localhost](./docs/localhost_8080_box.jpg)
 
-**Step 8.** In httpd.conf, change the default<br />
-DocumentRoot "C:/xampp/htdocs"<br />
-<Directory "C:/xampp/htdocs"><br />
+**Step 8.** In the `httpd.conf` file, change the default<br />
+`DocumentRoot "C:/xampp/htdocs"`<br />
+`<Directory "C:/xampp/htdocs">`<br />
 to<br />
-DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"<br />
-<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"><br />
+`DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"`<br />
+`<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"`><br />
 
-In httpd.conf, use Ctrl-S to save your changes.
+In the `httpd.conf` file, use Ctrl-S to save your changes.
 
 ![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
 
