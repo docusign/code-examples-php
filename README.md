@@ -1,6 +1,6 @@
 # PHP Launcher Code Examples
 
-### Github repo: code-examples-php
+### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
 
 ## Introduction
 This repo is a PHP 7.2 application that demonstrates how to:
@@ -224,7 +224,7 @@ Apache should run.
 
 
 
-#### Payments code example
+## Payments code example
 To use the payments example, create a 
 test payments gateway for your DocuSign developer account.
 
@@ -233,6 +233,7 @@ See the
 file for instructions.
 
 Then add the payment gateway account ID to the **app/ds_config.php** file.
+
 
 
 ## License and additional information
