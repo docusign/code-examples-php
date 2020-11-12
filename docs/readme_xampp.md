@@ -47,11 +47,7 @@ Apache should run.
 
 ![Apache_run](start_box.jpg)
 
-**Step 6.** Open [http://localhost:8080](http://localhost:8080).
-
-**Step 7.** In the browser window, select the "public" folder. 
-
-![Public folder](public_box.jpg)
+**Step 6.** Open [http://localhost:8080/public](http://localhost:8080/public).
 
 If this is your first time opening the PHP Quickstart launcher, you should see the DocuSign OAuth consent window. Select the Accept button and continue to the embedded signing code example.
 
