@@ -180,8 +180,8 @@ This repo is a PHP 7.2 application that demonstrates:
    repository.
 
 1. **Configure your web server.** Configure your web server to serve the files in the `/public`
-   directory of the example.<br />
-   <br />
+   directory.<br />
+   
    For a simple web server set up, see [XAMPP/Apache web server instructions](https://github.com/docusign/code-examples-php/blob/master/docs/readme_xampp.md). 
 1. Update your Integration Key's settings to include a **Redirect URI** for
    your installation of the example. See Prerequisites item #2, above for more information.
