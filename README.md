@@ -172,7 +172,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 
 
-## XAMPP/Apache web server installation
+## XAMPP/Apache web server installation and configuration
 
 [XAMPP/Apache](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
@@ -183,8 +183,6 @@ This repo is a PHP 7.2 application that demonstrates how to:
 The red "X" should become a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
-
-### Apache web server configuration
 
 **Step 2.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
 
