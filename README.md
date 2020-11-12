@@ -140,7 +140,7 @@ This repo is a PHP 7.2 application that demonstrates:
 1. A DocuSign Integration Key (a client ID) that is configured to use the either the
    OAuth Authorization Code flow or the JWT Auth Flow.
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
-1. [Composer](https://getcomposer.org/doc/00-intro.md)
+1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call "composer" from any directory.
 1. A name and email for a signer, and a name and email for a cc recipient.   
 #### Authorization Code Grant specifics:
    You will need the **Integration Key** itself, and its **secret**.
@@ -164,7 +164,7 @@ This repo is a PHP 7.2 application that demonstrates:
    The private part of the RSA key must be copied over and stored in a private.key file in the top of your repo clone. 
 
 ### Installation steps
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 4 and 6 below as they're automatically performed for you.**  
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, perform only steps 3, 5, and 7 below as the other steps are automatically performed for you.**  
 
 1. Download or clone this repository to your workstation to directory **code-examples-php**
 1. **cd code-examples-php**
@@ -179,16 +179,11 @@ This repo is a PHP 7.2 application that demonstrates:
    repository.
 
 1. **Configure your web server.** Configure your web server to serve the files in the `/public`
-   directory of the example. Configure the web server to automatically open the `index.php`
-   file in the directory if a file is not explicitly named in the URL.
-   Automatically opening `index.html` files is often a default. You may need to update
-   your web server's settings to also use `index.php` automatically. Or you can
-   specify the file name manually in the url.<br />
-   <br />
+   directory of the example.<br />
    For a simple web server set up, see [XAMPP/Apache web server instructions](https://github.com/docusign/code-examples-php/blob/master/docs/readme_xampp.md). 
 1. Update your Integration Key's settings to include a **Redirect URI** for
    your installation of the example. See Prerequisites item #2, above for more information.
-1. Open a browser to the example's base url to view the index page.
+1. Open a browser to http://localhost:8080/public.
 
 
 #### Payments code example
