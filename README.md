@@ -121,7 +121,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 1. A DocuSign integration key (client ID) that is configured for authentication to use the either the
    [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode) flow or the [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt) flow.
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
-1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call **composer** from any folder.
+1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call `composer` from any folder.
 1. A name and email for a signer, and a name and email for a cc recipient.   
 
 
@@ -151,10 +151,10 @@ This repo is a PHP 7.2 application that demonstrates how to:
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
 
 1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
-1. **cd code-examples-php** or `cd <Quickstart_folder_name>`
-1. Run **composer install** to install the dependencies listed in the composer.json file.
+1. **`cd code-examples-php`** or **`cd <Quickstart_folder_name>`**
+1. Run **`composer install`** to install the dependencies listed in the composer.json file.
 
-1. Create a new file, **ds_config.php,** (in the root folderof the example) by using ds_config_example.php as your template.
+1. Create a new file, `ds_config.php`, (in the root folderof the example) by using `ds_config_example.php` as your template.
      Update the integration key and other settings in the configuration file.
 
    **Note:** Protect your integration key and secret and/or RSA private key pair. You
@@ -177,9 +177,9 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 **Step 1.** **Download and unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file** or **download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository** into your `C:/xampp/htdocs` folder.
 
-**Step 2.** **cd `C:xampp/htdocs/<Quickstart_folder_name>`** or **cd `C:xampp/htdocs/code-examples-php`**
+**Step 2.** **`cd C:xampp/htdocs/<Quickstart_folder_name>`** or **`cd C:xampp/htdocs/code-examples-php`**
 
-**Step 3.** Run **composer install** to install the dependencies listed in the `composer.json` file.
+**Step 3.** Run **`composer install`** to install the dependencies listed in the `composer.json` file.
 
 **Step 4.** On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
