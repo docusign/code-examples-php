@@ -175,7 +175,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 [XAMPP/Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
-**Step 1.** Download the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
+**Step 1.** Download and unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
 
 **Step 2.** **cd C:xampp/htdocs/<Quickstart_folder_name>** or **cd C:xampp/htdocs/code-examples-php**
 
