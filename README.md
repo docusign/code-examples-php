@@ -130,7 +130,6 @@ This repo is a PHP 7.2 application that demonstrates:
 
 
 
-
 ## Installation
 
 ### Prerequisites
@@ -142,6 +141,8 @@ This repo is a PHP 7.2 application that demonstrates:
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
 1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call `composer` from any directory.
 1. A name and email for a signer, and a name and email for a cc recipient.   
+
+
 #### Authorization Code Grant specifics:
    You will need the **Integration Key** itself, and its **secret**.
    The Integration key must include a **Redirect URI** of
@@ -167,7 +168,7 @@ This repo is a PHP 7.2 application that demonstrates:
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, perform only steps 2, 3, 5, and 7 below as the other steps are automatically performed for you.**  
 
 1. Download or clone this repository to your workstation to directory **code-examples-php**
-1. **cd code-examples-php** or your `<Quickstart_folder_name>`
+1. **cd code-examples-php** or `cd <Quickstart_folder_name>`
 1. Install the dependencies listed in the composer.json file:
    Run **composer install**  
 
@@ -180,6 +181,7 @@ This repo is a PHP 7.2 application that demonstrates:
 
 1. **Configure your web server.** Configure your web server to serve the files in the `/public`
    directory of the example.<br />
+   <br />
    For a simple web server set up, see [XAMPP/Apache web server instructions](https://github.com/docusign/code-examples-php/blob/master/docs/readme_xampp.md). 
 1. Update your Integration Key's settings to include a **Redirect URI** for
    your installation of the example. See Prerequisites item #2, above for more information.
@@ -196,12 +198,6 @@ file for instructions.
 
 Then add the payment gateway account id to the **app/ds_config.php** file.
 
-## Using the examples with other authentication flows
-
-The examples in this repository can also be used with either the
-Implicit Grant or JWT OAuth flows.
-See the [Authentication guide](https://developers.docusign.com/esign-rest-api/guides/authentication)
-for information on choosing the right authentication flow for your application.
 
 ## License and additional information
 
