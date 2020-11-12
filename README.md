@@ -140,7 +140,7 @@ This repo is a PHP 7.2 application that demonstrates:
 1. A DocuSign Integration Key (a client ID) that is configured to use the either the
    OAuth Authorization Code flow or the JWT Auth Flow.
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
-1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call "composer" from any directory.
+1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call `composer` from any directory.
 1. A name and email for a signer, and a name and email for a cc recipient.   
 #### Authorization Code Grant specifics:
    You will need the **Integration Key** itself, and its **secret**.
@@ -164,10 +164,10 @@ This repo is a PHP 7.2 application that demonstrates:
    The private part of the RSA key must be copied over and stored in a private.key file in the top of your repo clone. 
 
 ### Installation steps
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, perform only steps 3, 5, and 7 below as the other steps are automatically performed for you.**  
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, perform only steps 2, 3, 5, and 7 below as the other steps are automatically performed for you.**  
 
 1. Download or clone this repository to your workstation to directory **code-examples-php**
-1. **cd code-examples-php**
+1. **cd code-examples-php** or your `<Quickstart_folder_name>`
 1. Install the dependencies listed in the composer.json file:
    Run **composer install**  
 
