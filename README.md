@@ -148,7 +148,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
    The private part of the RSA key pair must be copied over and stored in a private.key file in the top of your repo clone. 
 
 ### Installation steps
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 4 and 6 below as they're automatically performed for you.**  
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
 
 1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
 1. **cd code-examples-php** or `cd <Quickstart_folder_name>`
@@ -171,9 +171,9 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 
 
-## XAMPP/Apache instructions
+## XAMPP/Apache web server instructions
 
-[XAMPP/Apache](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
+[XAMPP/Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
 **Step 1.** Download the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
 
