@@ -154,7 +154,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 1. **`cd code-examples-php`** or **`cd <Quickstart_folder_name>`**
 1. Run **`composer install`** to install the dependencies listed in the composer.json file.
 
-1. Create a new file, `ds_config.php`, (in the root folderof the example) by using `ds_config_example.php` as your template.
+1. Create a new file `ds_config.php` (in the root folder) by using `ds_config_example.php` as your template.
      Update the integration key and other settings in the configuration file.
 
    **Note:** Protect your integration key and secret and/or RSA private key pair. You
