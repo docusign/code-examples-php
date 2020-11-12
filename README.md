@@ -17,10 +17,10 @@ This repo is a PHP 7.2 application that demonstrates:
   The OAuth library is used by the example in file
   [index.php](./public/index.php).
 
-1. **Embedded Signing Ceremony.**
+1. **Embedded signing.**
    [Source.](./src/EG001EmbeddedSigning.php)
-   This example sends an envelope, and then uses an embedded signing ceremony for the first signer.
-   With embedded signing, the DocuSign signing ceremony is initiated from your website.
+   This example sends an envelope, and then uses embedded signing for the first signer.
+   With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source.](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)
    The envelope includes a pdf, Word, and HTML document.
@@ -38,8 +38,7 @@ This repo is a PHP 7.2 application that demonstrates:
    [Source.](./src/Controllers/Examples/eSignature/EG006EnvelopeDocs.php)
 1. **Download an envelope's documents.**
    [Source.](./src/Controllers/Examples/eSignature/EG007EnvelopeGetDoc.php)
-   The example can download individual
-   documents, the documents concatenated together, or a zip file of the documents.
+   The example can download individual documents, the documents concatenated together, or a zip file of the documents.
 1. **Programmatically create a template.**
    [Source.](./src/Controllers/Examples/eSignature/EG008CreateTemplate.php)
 1. **Send an envelope using a template.**
@@ -49,20 +48,15 @@ This repo is a PHP 7.2 application that demonstrates:
    Binary transfer is 33% more efficient than using Base64 encoding.
 1. **Embedded sending.**
    [Source.](./src/Controllers/Examples/eSignature/EG011EmbeddedSending.php)
-   Embeds the DocuSign web tool (NDSE) in your web app to finalize or update
-   the envelope and documents before they are sent.
+   Embeds the DocuSign web tool (NDSE) in your web app to finalize or update the envelope and documents before they are sent.
 1. **Embedded DocuSign web tool (NDSE).**
    [Source.](./src/Controllers/Examples/eSignature/EG012EmbeddedConsole.php)
-1. **Embedded Signing Ceremony from a template with an added document.**
+1. **Embedded signing from a template with an added document.**
    [Source.](./src/Controllers/Examples/eSignature/EG013AddDocToTemplate.php)
-   This example sends an envelope based on a template.
-   In addition to the template's document(s), the example adds an
-   additional document to the envelope by using the
-   [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates)
+   This example sends an envelope based on a template. In addition to the template's document(s), the example adds an
+   additional document to the envelope by using the [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates)
    feature.
-1. Future: Payments example: an order form, with online payment by credit card.
-
-   Note: for PHP, this example is still in production.
+1. **Payments example: an order form with online payment by credit card.**
    [Source.](./src/Controllers/Examples/eSignature/EG014CollectPayment.php)
 1. **Get the envelope tab data.**
    Retrieve the tab (field) values for all of the envelope's recipients.
@@ -126,7 +120,7 @@ This repo is a PHP 7.2 application that demonstrates:
    [Create Bulk Send List](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendList), 
    [Create Bulk Send Request](https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendRequest).
    First, the code creates a bulk send recipients list, and then creates an envelope.
-   After that, initiates bulk envelope sending.
+   After that, it initiates bulk envelope sending.
 
 
 
@@ -144,12 +138,12 @@ This repo is a PHP 7.2 application that demonstrates:
 
 
 #### Authorization Code Grant specifics:
-   You will need the **Integration Key** itself, and its **secret**.
+   You will need the **Integration Key** itself and its **secret**.
    The Integration key must include a **Redirect URI** of
 
    `{app_url}/index.php?page=ds_callback`
 
-   Where `{app_url}` is the url you have associated with the `/public` directory of the example.
+   Where `{app_url}` is the url you have associated with the `/public` directory.
 
    For example, if you have created a web server that enables url
 
@@ -173,7 +167,7 @@ This repo is a PHP 7.2 application that demonstrates:
    Run **composer install**  
 
 1. Create new file **ds_config.php** (root level directory of the example) by using ds_config_example.php as your template.
-     Update the  the Integration Key and other settings in the configuation file.
+     Update the Integration Key and other settings in the configuation file.
 
    **Note:** Protect your Integration Key and secret and/or RSA private key--you
    should ensure that ds_config.php file will not be stored in your source code
