@@ -184,7 +184,7 @@ The red "X" should become a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
 
-## Apache web server configuration
+### Apache web server configuration
 
 **Step 2.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
 
@@ -237,6 +237,6 @@ Then add the payment gateway account ID to the **app/ds_config.php** file.
 ### License
 This repository uses the MIT License. See the LICENSE file for more information.
 
-### Pull pequests
+### Pull requests
 Pull requests are welcomed. Pull requests will only be considered if their content
 uses the MIT License.
