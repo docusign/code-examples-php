@@ -232,7 +232,7 @@ See the
 [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md)
 file for instructions.
 
-Then add the payment gateway account ID to the **app/ds_config.php** file.
+Then add the payment gateway account ID to the `ds_config.php` file.
 
 
 
