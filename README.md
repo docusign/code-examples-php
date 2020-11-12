@@ -117,7 +117,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically created for you.**
 
 1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net).
-   **Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532)**
+   **Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532)**.
 1. A DocuSign integration key (client ID) that is configured for authentication to use the either the
    [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode) flow or the [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt) flow.
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
@@ -148,22 +148,21 @@ This repo is a PHP 7.2 application that demonstrates how to:
    The private part of the RSA key pair must be copied over and stored in a private.key file in the top of your repo clone. 
 
 ### Installation steps
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, perform only steps 2, 3, 5, and 7 below, as the other steps are automatically performed for you.**  
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 4 and 6 below as they're automatically performed for you.**  
 
-1. Download or clone this repository to your workstation to this folder: **code-examples-php**
+1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
 1. **cd code-examples-php** or `cd <Quickstart_folder_name>`
-1. Install the dependencies listed in the composer.json file:
-   Run **composer install**  
+1. Run **composer install** to install the dependencies listed in the composer.json file.
 
 1. Create a new file, **ds_config.php,** (in the root folderof the example) by using ds_config_example.php as your template.
      Update the integration key and other settings in the configuration file.
 
-   **Note:** Protect your integration key and secret and/or RSA private key. You
+   **Note:** Protect your integration key and secret and/or RSA private key pair. You
    should ensure that the file ds_config.php will not be stored in your source code
    repository.
 
 1. **Configure your web server** to serve the files in the `/public`
-  folder. For a simple web server setup, see [XAMPP/Apache web server instructions](https://github.com/docusign/code-examples-php/blob/master/docs/readme_xampp.md). 
+  folder. For a simple web server setup, see the XAMPP/Apache web server instructions below. 
 
 1. Update your integration key's settings to include a redirect URI for
    your installation of the example. See Prerequisites item 2 above for more information.
@@ -172,11 +171,17 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 
 
-## XAMPP/Apache web server installation and configuration
+## XAMPP/Apache instructions
 
 [XAMPP/Apache](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
-**Step 1.** On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache. 
+**Step 1.** Download the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
+
+**Step 2.** **cd C:xampp/htdocs/<Quickstart_folder_name>** or **cd C:xampp/htdocs/code-examples-php**
+
+**Step 3.** Run **composer install** to install the dependencies listed in the composer.json file.
+
+**Step 4.** On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
 ![Install Apache](./docs/apache_x_box.jpg)
 
@@ -184,19 +189,19 @@ The red "X" should become a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
 
-**Step 2.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
+**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
 
 ![Apache_config](./docs/config_file.jpg)
 
-**Step 3.** In httpd.conf, change the default "Listen 80" to "Listen 8080".
+**Step 6.** In httpd.conf, change the default "Listen 80" to "Listen 8080".
 
 ![httpd_listen](./docs/listen_8080_box.jpg)
 
-**Step 4.** In httpd.conf, change the default "ServerName localhost:80" to "ServerName localhost:8080".
+**Step 7.** In httpd.conf, change the default "ServerName localhost:80" to "ServerName localhost:8080".
 
 ![httpd_localhost](./docs/localhost_8080_box.jpg)
 
-**Step 5.** In httpd.conf, change the default<br />
+**Step 8.** In httpd.conf, change the default<br />
 DocumentRoot "C:/xampp/htdocs"<br />
 <Directory "C:/xampp/htdocs"><br />
 to<br />
@@ -207,7 +212,7 @@ In httpd.conf, use Ctrl-S to save your changes.
 
 ![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
 
-**Step 5.** On the XAMPP Control Panel, to the right of Apache, select the Start button. 
+**Step 9.** On the XAMPP Control Panel, to the right of Apache, select the Start button. 
 
 ![Apache_start](./docs/apache_start_box.jpg)
 
@@ -215,7 +220,7 @@ Apache should run.
 
 ![Apache_run](./docs/start_box.jpg)
 
-**Step 6.** Open [http://localhost:8080/public](http://localhost:8080/public).
+**Step 10.** Open a browser to http://localhost:8080/public.
 
 
 
