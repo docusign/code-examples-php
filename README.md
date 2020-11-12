@@ -20,12 +20,10 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 1. **Use embedded signing.**
    [Source.](./src/EG001EmbeddedSigning.php)
-   This example sends an envelope, and then uses embedded signing for the first signer.
-   With embedded signing, DocuSign signing is initiated from your website.
+   This example sends an envelope, and then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source.](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)
-   The envelope includes a PDF, Word, and HTML document.
-   Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+   The envelope includes a PDF, Word, and HTML document. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **List envelopes in the user's account.**
    [Source.](./src/Controllers/Examples/eSignature/EG003ListEnvelopes.php)
    The envelopes' current status is included.
@@ -53,44 +51,44 @@ This repo is a PHP 7.2 application that demonstrates how to:
 1. **Embed the DocuSign UI in your app.**
    [Source.](./src/Controllers/Examples/eSignature/EG012EmbeddedConsole.php)
 1. **Use embedded signing from a template with an added document.**
-   [Source.](./src/Controllers/Examples/eSignature/EG013AddDocToTemplate.php)
+   [Source.](./src/Controllers/Examples/eSignature/EG013AddDocToTemplate.php) 
    This example sends an envelope based on a template. In addition to the template's document(s), the example adds an  additional document to the envelope by using the [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates)feature.
-1. **Accept payments.** [Source.](./src/Controllers/Examples/eSignature/EG014CollectPayment.php) Send an order form with online payment by credit card.
-  
-1. **Get envelope tab data.** [Source.](./src/Controllers/Examples/eSignature/EG015EnvelopeTabData.php)
+1. **Accept payments.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG014CollectPayment.php) 
+   Send an order form with online payment by credit card.
+1. **Get envelope tab data.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG015EnvelopeTabData.php) 
    This example retrieves the tab (field) values for all of the envelope's recipients.
-   
-1. **Set envelope tab values.** [Source.](./src/Controllers/Examples/eSignature/EG016SetTabValues.php)
+1. **Set envelope tab values.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG016SetTabValues.php) 
    This example creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. The example also stores metadata with the envelope.
-   
-1. **Set template tab values.** [Source.](./src/Controllers/Examples/eSignature/EG017SetTemplateTabValues.php)
+1. **Set template tab values.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG017SetTemplateTabValues.php) 
    The example creates an envelope using a template and sets the initial values for its tabs (fields). The example also stores metadata with the envelope.
- 
-1. **Get envelope custom field data (metadata).** [Source.](./src/Controllers/Examples/eSignature/EG018EnvelopeCustomFieldData.php)
-   This example retrieves the custom metadata (custom data fields) stored with the envelope.
-   
+1. **Get envelope custom field data (metadata).**
+   [Source.](./src/Controllers/Examples/eSignature/EG018EnvelopeCustomFieldData.php) 
+   This example retrieves the custom metadata (custom data fields) stored with the envelope.   
 1. **Require an access code for a recipient.**
    [Source.](./src/Controllers/Examples/eSignature/EG019AccessCodeAuthentication.php)
    This example sends an envelope that requires an access code for the purpose of multifactor authentication.
-1. **Require SMS authentication for a recipient.** [Source.](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php)
-  
+1. **Require SMS authentication for a recipient.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php) 
    This example sends an envelope that requires entering in a six-digit code from a text message for the purpose of multifactor authentication.
-1. **Require phone authentication for a recipient.** [Source.](./src/Controllers/Examples/eSignature/EG021PhoneAuthentication.php)
-   
+1. **Require phone authentication for a recipient.** 
+   [Source.](./src/Controllers/Examples/eSignature/EG021PhoneAuthentication.php) 
    This example sends an envelope that requires entering in a voice-based response code for the purpose of multifactor authentication.
 1. **Require knowledge-based authentication (KBA) for a recipient.**
-   [Source.](./src/Controllers/Examples/eSignature/EG022KbAuthentication.php)
+   [Source.](./src/Controllers/Examples/eSignature/EG022KbAuthentication.php) 
    This example sends an envelope that requires passing a public records check to validate identity for the purpose of multifactor authentication.
 1. **Require ID Verification (IDV) for a recipient.**
-   [Source.](./src/Controllers/Examples/eSignature/EG023IDVAuthentication.php)
+   [Source.](./src/Controllers/Examples/eSignature/EG023IDVAuthentication.php) 
    This example sends an envelope that requires the recipient to upload a government-issued ID.    
 1. **Create a permission profile.**
-   [Source.](./src/Controllers/Examples/eSignature/EG024PermissionCreate.php)
+   [Source.](./src/Controllers/Examples/eSignature/EG024PermissionCreate.php) 
    This code example demonstrates how to create a permission profile.
 1. **Set a permission profile.**
    [Source.](./src/Controllers/Examples/eSignature/EG025PermissionSetUserGroup.php)
-   This code example demonstrates how to set a user group's permission profile. 
-   You must have already a created permission profile and a group of users.
+   This code example demonstrates how to set a user group's permission profile. You must have already a created permission profile and a group of users.
 1. **Update individual permission settings.**
    [Source.](./src/Controllers/Examples/eSignature/EG026PermissionChangeSingleSetting.php)
    This code example demonstrates how to edit individual permission settings on a permission profile.
@@ -102,25 +100,21 @@ This repo is a PHP 7.2 application that demonstrates how to:
    This example creates a brand profile for an account.
 1. **Apply a brand to an envelope.**
    [Source](./src/Controllers/Examples/eSignature/EG029ApplyBrandToEnvelope.php)
-   This code example demonstrates how to apply a brand you've created to an envelope. 
-   First, the code creates the envelope and then applies the brand to it.
-   Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
-1. **Apply a brand to a template.**[Source.](./src/Controllers/Examples/eSignature/EG030ApplyBrandToTemplate.php)
-   This code example demonstrates how to apply a brand you've created to a template. 
-   You must have at least one created template and brand.
-   Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+   This code example demonstrates how to apply a brand you've created to an envelope. First, the code creates the envelope and then applies the brand to it. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+1. **Apply a brand to a template.**
+   [Source.](./src/Controllers/Examples/eSignature/EG030ApplyBrandToTemplate.php)
+   This code example demonstrates how to apply a brand you've created to a template. You must have at least one created template and brand. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **Bulk-send envelopes to multiple recipients.**
    [Source.](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)
-   This code example demonstrates how to send envelopes in bulk to multiple recipients.
-   First, the code creates a bulk-send recipients list, and then creates an envelope.
-   After that, it initiates bulk envelope sending.
-
+   This code example demonstrates how to send envelopes in bulk to multiple recipients. First, the code creates a bulk-send recipients list, and then creates an envelope. After that, it initiates bulk envelope sending.
 
 
 ## Installation
 
 ### Prerequisites
+
 **Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically created for you.**
+
 1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net).
    **Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532)**
 1. A DocuSign integration key (client ID) that is configured for authentication to use the either the
@@ -136,7 +130,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
    `{app_url}/index.php?page=ds_callback`
 
-where `{app_url}` is the URL you have associated with the `/public` folder.
+   where `{app_url}` is the URL you have associated with the `/public` folder.
 
    For example, if you have created a web server that enables the URL
 
