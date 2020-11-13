@@ -114,7 +114,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ### Prerequisites
 
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically created for you.**
+**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically created for you.**
 
 1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net).
    **Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532)**.
