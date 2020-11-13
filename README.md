@@ -181,7 +181,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 **Step 3.** Run **`composer install`** to install the dependencies listed in the `composer.json` file.
 
-**Step 4.** On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
+**Step 4.** Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
 ![Install Apache](./docs/apache_x_box.jpg)
 
