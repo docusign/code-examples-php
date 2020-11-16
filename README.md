@@ -52,7 +52,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
    [Source](./src/Controllers/Examples/eSignature/EG012EmbeddedConsole.php)<br />
 1. **Use embedded signing from a template with an added document.**
    [Source](./src/Controllers/Examples/eSignature/EG013AddDocToTemplate.php)<br />
-   This example sends an envelope based on a template. In addition to the template's document(s), the example adds an  additional document to the envelope by using the [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates)feature.
+   This example sends an envelope based on a template. In addition to the template's document(s), the example adds an  additional document to the envelope by using the [Composite Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates) feature.
 1. **Accept payments.** 
    [Source](./src/Controllers/Examples/eSignature/EG014CollectPayment.php)<br />
    Send an order form with online payment by credit card.
@@ -114,14 +114,13 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ### Prerequisites
 
-**Note: If you downloaded this code using Quickstart from the DocuSign Developer Center, skip steps 1 and 2 below as they're automatically created for you.**
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically created for you.
 
-1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net).
-   **Create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532)**.
-1. A DocuSign integration key (client ID) that is configured for authentication to use the either the
+1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net). If you don't already have one, create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
+1. A DocuSign integration key (client ID) that is configured for authentication to use either the
    [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode) flow or the [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt) flow.
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
-1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can call `composer` from any folder.
+1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
 1. A name and email for a signer, and a name and email for a cc recipient.   
 
 
@@ -129,18 +128,18 @@ This repo is a PHP 7.2 application that demonstrates how to:
    You will need the **integration key** itself and its **secret.**
    The integration key must include a **redirect URI** of
 
-   `{app_url}/index.php?page=ds_callback`
+   {app_url}/index.php?page=ds_callback
 
-   where `{app_url}` is the URL you have associated with the `/public` folder.
+   where {app_url} is the URL you have associated with the /public folder.
 
    For example, if you have created a web server that enables the URL
 
-   `http://localhost:8080/example-public`
+   http://localhost:8080/example-public
 
-   to execute files on the `/public` folder of this example, then you must add a **Redirect URI** to
-   your integration ley with the value
+   to execute files on the /public folder of this example, then you must add a **Redirect URI** to
+   your integration key with the value
 
-   `http://localhost:8080/example-public/index.php?page=ds_callback`
+   http://localhost:8080/example-public/index.php?page=ds_callback
 
 #### JWT (JSON Web Token) specifics:
    You will need the **integration key** itself, an RSA private key, and the user ID (GUID) of the impersonated user.
