@@ -19,7 +19,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
   [index.php](./public/index.php).
 
 1. **Use embedded signing.**
-   [Source](./src/EG001EmbeddedSigning.php)
+   [Source](./src/EG001EmbeddedSigning.php)<br />
    This example sends an envelope, and then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source.](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)
