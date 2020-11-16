@@ -136,7 +136,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
    http://localhost:8080/example-public
 
-   to execute files on the /public folder of this example, then you must add a **Redirect URI** to
+   to execute files on the /public folder of this example, then you must add a **redirect URI** to
    your integration key with the value
 
    http://localhost:8080/example-public/index.php?page=ds_callback
