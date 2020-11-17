@@ -177,23 +177,23 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ![Install Apache](./docs/apache_x_box.jpg)
 
-The red "X" should become a green checkmark.
+The red "X" becomes a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
+5. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file opens.
 
 ![Apache_config](./docs/config_file.jpg)
 
-1. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`.
+6. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`.
 
 ![httpd_listen](./docs/listen_8080_box.jpg)
 
-1. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`.
+7. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`.
 
 ![httpd_localhost](./docs/localhost_8080_box.jpg)
 
-1. In the httpd.conf file, change the default<br />
+8. In the httpd.conf file, change the default<br />
 `DocumentRoot "C:/xampp/htdocs"`<br />
 `<Directory "C:/xampp/htdocs">`<br />
 to<br />
@@ -204,15 +204,15 @@ In the httpd.conf file, use Ctrl-S to save your changes.
 
 ![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Start button. 
+9. On the XAMPP Control Panel, to the right of Apache, select the Start button. 
 
 ![Apache_start](./docs/apache_start_box.jpg)
 
-Apache will run.
+Apache runs.
 
 ![Apache_run](./docs/start_box.jpg)
 
-1. Open a browser to http://localhost:8080/public.
+10. Open a browser to http://localhost:8080/public.
 
 
 
