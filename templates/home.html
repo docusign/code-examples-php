@@ -116,10 +116,8 @@
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>.
     </p>
 
-    <h4 id="example011">11. <a href="{{ app_url ~ 'index.php?page=eg011'}}">Embedded sending</a></h4>
-    <p>An envelope will be created in draft mode. The DocuSign
-        web tool (NDSE) will then be shown, enabling further updates
-        to the envelope before it is sent.
+    <h4 id="example011">11. <a href="{{ app_url ~ 'index.php?page=eg011'}}">Use embedded sending</a></h4>
+    <p>An envelope will be created in draft mode. The DocuSign UI will then be shown, enabling further updates to the envelope before it is sent.
     </p>
     <p>API methods used:
         <a target='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a>,
@@ -131,19 +129,14 @@
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createConsole">EnvelopeViews::createConsole</a>.
     </p>
 
-    <h4 id="example013">13. <a href="{{ app_url ~ 'index.php?page=eg013'}}">Embedded Signing Ceremony from a template with an added document</a></h4>
-    <p>This example sends an envelope based on a template.</p>
-    <p>In addition to the template's document(s), the example adds an
+    <h4 id="example013">13. <a href="{{ app_url ~ 'index.php?page=eg013'}}">Use embedded signing from a template with an added document</a></h4>
+    <p>This example sends an envelope based on a template. In addition to the template's document(s), the example adds an
         additional document to the envelope by using the
-        <a target='_blank' href='https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates'>Composite Templates</a>
-        feature.</p>
+        <a target='_blank' href='https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates'>Composite Templates</a> feature.</p>
     <p>API methods used:
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create">Envelopes::create</a> and
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient">EnvelopeViews::createRecipient</a>.
     </p>
-
-    The payments example is not yet available in PHP due to an SDK bug that prevents List tabs from being created.
-    See the EG014CollectPayment.php file for more information.
 
     <h4 id="example014">14. <a href="{{ app_url ~ 'index.php?page=eg014'}}">Payments Example: Send an envelope with an order form and payment field</a></h4>
     <p>Anchor text
@@ -260,6 +253,7 @@
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/BulkEnvelopes/BulkSend/createBulkSendList">BulkSend::createBulkSendListe</a>.
         <a target ='_blank' href="https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeRecipients/create">EnvelopeRecipients::create</a>.
     </p>
+
 </div>
 
 <!-- anchor-js is only for the index page -->

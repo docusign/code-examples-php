@@ -6,12 +6,12 @@ use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Group;
 use DocuSign\eSign\Model\GroupInformation;
 use Example\Controllers\BaseController;
-use Example\Services\ClientService;
+use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
 class EG025PermissionSetUserGroup extends BaseController
 {
-    /** ClientService */
+    /** signatureClientService */
     private $clientService;
 
     /** RouterService */
@@ -30,7 +30,7 @@ class EG025PermissionSetUserGroup extends BaseController
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
-        $this->clientService = new ClientService($this->args);
+        $this->clientService = new SignatureClientService($this->args);
         $this->routerService = new RouterService();
         $permission_profiles = $this->clientService->getPermissionsProfiles($this->args);
         $groups = $this->clientService->getGroups($this->args);

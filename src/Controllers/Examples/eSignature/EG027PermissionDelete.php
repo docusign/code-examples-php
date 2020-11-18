@@ -4,12 +4,12 @@ namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use Example\Controllers\BaseController;
-use Example\Services\ClientService;
+use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
 class EG027PermissionDelete extends BaseController
 {
-    /** ClientService */
+    /** signatureClientService */
     private $clientService;
 
     /** RouterService */
@@ -28,7 +28,7 @@ class EG027PermissionDelete extends BaseController
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
-        $this->clientService = new ClientService($this->args);
+        $this->clientService = new SignatureClientService($this->args);
         $this->routerService = new RouterService();
         $permission_profiles = $this->clientService->getPermissionsProfiles($this->args);
         parent::controller(

@@ -16,7 +16,7 @@ class Home extends BaseController
     /** RouterService */
     private $routerService;
 
-    private $eg = "home";  # Reference (and URL) for this example
+    private $eg;  # Reference (and URL) for this example
 
     /**
      * Create a new controller instance.
@@ -25,6 +25,11 @@ class Home extends BaseController
      */
     public function __construct()
     {
+        if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
+            $this->eg = 'home_rooms';
+        } else {
+            $this->eg = 'home';
+        }
         $this->routerService = new RouterService();
         parent::controller($this->eg, $this->routerService);
     }

@@ -13,7 +13,7 @@ use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 
-class ClientService
+class SignatureClientService
 {
     /**
      * DocuSign API Client

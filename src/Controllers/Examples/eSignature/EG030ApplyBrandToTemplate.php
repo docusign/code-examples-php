@@ -10,12 +10,12 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use Example\Controllers\BaseController;
-use Example\Services\ClientService;
+use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
 class EG030ApplyBrandToTemplate extends BaseController
 {
-    /** ClientService */
+    /** signatureClientService */
     private $clientService;
 
     /** RouterService */
@@ -34,7 +34,7 @@ class EG030ApplyBrandToTemplate extends BaseController
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
-        $this->clientService = new ClientService($this->args);
+        $this->clientService = new SignatureClientService($this->args);
         $this->routerService = new RouterService();
         $brands = $this->clientService->getBrands($this->args);
         parent::controller($this->eg, $this->routerService, basename(__FILE__), null, $brands);

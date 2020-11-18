@@ -129,10 +129,14 @@ abstract class BaseController
                 'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
                 'signer_email' => $GLOBALS['DS_CONFIG']['signer_email']
             ]);
-        } elseif ($eg == "home"){ 
-            
+        } elseif ($eg == "home"){
             $GLOBALS['twig']->display($eg . '.html', [
                 'title' => 'Home--PHP Code Examples',
+                'show_doc' => false
+            ]);
+         } elseif ($eg == "home_rooms"){
+            $GLOBALS['twig']->display($eg . '.html', [
+                'title' => 'Home--PHP Rooms Code Examples',
                 'show_doc' => false
             ]);
          } else {

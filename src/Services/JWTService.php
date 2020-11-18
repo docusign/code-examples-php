@@ -75,7 +75,7 @@ class JWTService
             return $response[0];    //code...
         } catch (\Throwable $th) {
 
-            // we found consent_required in the response body meaning 1st time consent is needed
+            // we found consent_required in the response body meaning first time consent is needed
             if (strpos($th->getMessage(), "consent_required") !== false) {
 
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query([

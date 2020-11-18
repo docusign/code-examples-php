@@ -35,8 +35,13 @@ $JWT_CONFIG = [
     "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  // the id of the user
     "jwt_scope" => "signature impersonation",
     "private_key_file" => "../private.key", // path to private key file
+];
 
+$EXAMPLES_API_TYPE = [
+    'Rooms' => false,
+    'ESignature' => true,
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
 $GLOBALS['JWT_CONFIG'] = $JWT_CONFIG;
+$GLOBALS['EXAMPLES_API_TYPE'] = $EXAMPLES_API_TYPE;

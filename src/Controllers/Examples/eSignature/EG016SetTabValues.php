@@ -16,12 +16,12 @@ use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\Text;
 use DocuSign\eSign\Model\TextCustomField;
 use Example\Controllers\BaseController;
-use Example\Services\ClientService;
+use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
 class EG016SetTabValues extends BaseController
 {
-    /** ClientService */
+    /** signatureClientService */
     private $clientService;
 
     /** RouterService */
@@ -42,7 +42,7 @@ class EG016SetTabValues extends BaseController
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
-        $this->clientService = new ClientService($this->args);
+        $this->clientService = new SignatureClientService($this->args);
         $this->routerService = new RouterService();
         parent::controller($this->eg, $this->routerService, basename(__FILE__));
     }
