@@ -101,7 +101,18 @@ class DocuSign extends AbstractProvider
      */
     protected function getDefaultScopes()
     {
-        return ['signature'];
+        if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
+            return [
+                "signature click.manage organization_read room_forms group_read permission_read " 
+                . "user_read user_write account_read domain_read identity_provider_read dtr.rooms.read " 
+                . "dtr.rooms.write dtr.documents.read dtr.documents.write dtr.profile.read " 
+                . "dtr.profile.write dtr.company.read dtr.company.write"
+            ];
+        } else {
+            return [
+                "signature"
+            ];
+        }
     }
 
     /**

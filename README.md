@@ -2,6 +2,10 @@
 
 ### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
 
+This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the EXAMPLES_API_TYPE setting at the end of the ds_config.php file. Set 'Rooms' to True and 'ESignature' to False.
+
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
+
 ## Introduction
 This repo is a PHP 7.2 application that demonstrates how to:
 
@@ -17,6 +21,8 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
   The OAuth library is used in the file
   [index.php](./public/index.php).
+
+## eSignature API
 
 1. **Use embedded signing.**
    [Source](./src/EG001EmbeddedSigning.php)<br />
@@ -108,7 +114,28 @@ This repo is a PHP 7.2 application that demonstrates how to:
    [Source](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)<br />
    This code example demonstrates how to send envelopes in bulk to multiple recipients. First, the code creates a bulk-send recipients list, and then creates an envelope. After that, it initiates bulk envelope sending.
 
+## Rooms API
 
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
+
+1. **Create room with Data.**
+   [Source.](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)
+   This example creates a new room in your DocuSign Rooms account to be used for a transaction.
+1. **Create a room from a template.**
+   [Source.](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)
+   This example creates a new room using a template.
+1. **Create room with Data.**
+   [Source.](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)
+   This example exports all the available data from a specific room in your DocuSign Rooms account.
+1. **Add forms to a room.**
+   [Source.](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)
+   This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
+1. **How to search for rooms with filters.**
+   [Source.](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)
+   This example searches for rooms in your DocuSign Rooms account using a specific filter.
+1. **Create an external form fillable session.**
+   [Source.](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)
+   This example creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
 ## Installation
 

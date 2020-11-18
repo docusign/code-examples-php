@@ -3,11 +3,12 @@
 // 
 // DocuSign configuration settings
 $DS_CONFIG = [
-    'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}', # The app's DocuSign integration key
-    'ds_client_secret' => '{SECRET_KEY}', # The app's DocuSign integration key's secret
+    'quickstart' => '{QUICKSTART_VALUE}',
+    'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}',  // The app's DocuSign integration key
+    'ds_client_secret' => '{SECRET_KEY}', // The app's DocuSign integration key's secret
     'signer_email' => '{SIGNER_EMAIL}',
     'signer_name' => '{SIGNER_NAME}',
-    'app_url' => '{APP_URL}', // The url of the application.
+    'app_url' => 'http://localhost:8080/public', // The url of the application.
     // Ie, the user enters  app_url in their browser to bring up the app's home page
     // Eg http://localhost/code-examples-php/public if the app is installed in a
     // development directory that is accessible via web server.
@@ -29,15 +30,19 @@ $DS_CONFIG = [
 ];
 
 $JWT_CONFIG = [
-    'ds_client_id' => '{INTEGRATION_KEY_JWT}', # The app's DocuSign integration key
+    'ds_client_id' => '{INTEGRATION_KEY_JWT}', // The app's DocuSign integration key
     'authorization_server' => 'account-d.docusign.com',
-    "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  # the id of the user
+    "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  // the id of the user
     "jwt_scope" => "signature impersonation",
-    "private_key_file" => "../private.key", #path to file which hold private key or private key itself
-    "private_key" => "-----BEGIN RSA PRIVATE KEY-----
-...
------END RSA PRIVATE KEY-----"
+    "private_key_file" => "../private.key", // path to private key file
+
+];
+
+$EXAMPLES_API_TYPE = [
+    'Rooms' => false,
+    'ESignature' => true,
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
 $GLOBALS['JWT_CONFIG'] = $JWT_CONFIG;
+$GLOBALS['EXAMPLES_API_TYPE'] = $EXAMPLES_API_TYPE;
