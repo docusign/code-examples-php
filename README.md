@@ -204,7 +204,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ![Install Apache](./docs/apache_x_box.jpg)
 
-The red "X" should become a green checkmark.
+The red "X" becomes a green checkmark.
 
 ![Install Apache](./docs/apache_installed_box.jpg)
 
