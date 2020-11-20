@@ -124,7 +124,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 1. **Create a room from a template.**
    [Source.](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)
    This example creates a new room using a template.
-1. **Create room with Data.**
+1. **Export data from a room.**
    [Source.](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)
    This example exports all the available data from a specific room in your DocuSign Rooms account.
 1. **Add forms to a room.**
