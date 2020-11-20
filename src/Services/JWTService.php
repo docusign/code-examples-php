@@ -102,11 +102,10 @@ class JWTService
             exit('Invalid JWT state');
         } else {
             try {
-                // Try to get an access token using the authorization code grant.
-
-                $this->flash('You have authenticated with DocuSign.');
                 // We have an access token, which we may use in authenticated
                 // requests against the service provider's API.
+                
+                $this->flash('You have authenticated with DocuSign.');
                 $_SESSION['ds_access_token'] = self::$access_token->getAccessToken();
                 $_SESSION['ds_refresh_token'] = self::$access_token->getRefreshToken();
                 $_SESSION['ds_expiration'] = time() + (self::$access_token->getExpiresIn() * 1000); # expiration time.
