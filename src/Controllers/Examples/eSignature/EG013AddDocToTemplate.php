@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 013: Embedded Signing Ceremony from template with added document
+ * Example 013: Use embedded signing from template with added document
  */
 
 namespace Example\Controllers\Examples\eSignature;
@@ -67,7 +67,7 @@ class EG013AddDocToTemplate extends BaseController
             if ($results) {
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
                                                                     # which need an envelope_id
-                # Redirect the user to the signing ceremony
+                # Redirect the user to the signing
                 # Don't use an iFrame!
                 # State can be stored/recovered using the framework's session or a
                 # query parameter on the returnUrl
@@ -90,12 +90,12 @@ class EG013AddDocToTemplate extends BaseController
 
     /**
      * Do the work of the example
-     * Create the envelope and the embedded Signing Ceremony
+     * Create the envelope and the embedded signing
      * 1. Create the envelope request object using composite template to
      *    add the new document
      * 2. Send the envelope
      * 3. Make the recipient view request object
-     * 4. Get the recipient view (Signing Ceremony) url
+     * 4. Get the recipient view (embedded signing) url
      *
      * @param  $args array
      * @return array ['redirect_url']
@@ -123,7 +123,7 @@ class EG013AddDocToTemplate extends BaseController
             $args["envelope_args"]
         );
 
-        # 4. Obtain the recipient_view_url for the signing ceremony
+        # 4. Obtain the recipient_view_url for the signing
         # Exceptions will be caught by the calling function
         $results = $this->clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 

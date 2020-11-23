@@ -46,7 +46,6 @@ class EG020SmsAuthentication extends BaseController
     /**
      * 1. Check the token
      * 2. Call the worker method
-     * 3. Redirect the user to the signing ceremony
      *
      * @return void
      * @throws ApiException for API problems and perhaps file access \Exception too.

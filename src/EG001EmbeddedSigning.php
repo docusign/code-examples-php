@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 001: Embedded Signing Ceremony
+ * Example 001: Use Embedded Signing
  */
 
 namespace Example;
@@ -28,8 +28,8 @@ class EG001EmbeddedSigning extends BaseController
     private $args;
 
     private $eg = "eg001";            # reference (and url) for this example
-    private $signer_client_id = 1000; # Used to indicate that the signer will use an embedded
-                                      # Signing Ceremony. Represents the signer's userId within your application.
+    private $signer_client_id = 1000; # Used to indicate that the signer will use embedded
+                                      # Signing. Represents the signer's userId within your application.
 
     /**
      * Create a new controller instance.
@@ -47,7 +47,7 @@ class EG001EmbeddedSigning extends BaseController
     /**
      * 1. Check the token
      * 2. Call the worker method
-     * 3. Redirect the user to the signing ceremony
+     * 3. Redirect the user to the signing
      *
      * @return void
      * @throws ApiException for API problems and perhaps file access \Exception too.
@@ -62,7 +62,7 @@ class EG001EmbeddedSigning extends BaseController
             $results = $this->worker($this->args);
 
             if ($results) {
-                # Redirect the user to the Signing Ceremony
+                # Redirect the user to the embedded signing
                 # Don't use an iFrame!
                 # State can be stored/recovered using the framework's session or a
                 # query parameter on the returnUrl (see the make recipient_view_request method)
@@ -80,7 +80,7 @@ class EG001EmbeddedSigning extends BaseController
      * 1. Create the envelope request object
      * 2. Send the envelope
      * 3. Create the Recipient View request object
-     * 4. Obtain the recipient_view_url for the signing ceremony
+     * 4. Obtain the recipient_view_url for the embedded signing
      *
      * @param  $args array
      * @return array ['redirect_url']
@@ -112,7 +112,7 @@ class EG001EmbeddedSigning extends BaseController
             $args["envelope_args"]
         );
 
-        # 4. Obtain the recipient_view_url for the signing ceremony
+        # 4. Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
         $results = $this->clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 

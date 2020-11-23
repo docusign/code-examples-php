@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 011: Embedded sending: Remote signer, cc; envelope has three documents
+ * Example 011: Use embedded sending: Remote signer, cc; envelope has three documents
  */
 
 namespace Example\Controllers\Examples\eSignature;

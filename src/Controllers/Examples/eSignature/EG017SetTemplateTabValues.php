@@ -32,8 +32,8 @@ class EG017SetTemplateTabValues extends BaseController
     private $args;
 
     private $eg = "eg017";  # reference (and url) for this example
-    private $signer_client_id = 1000; # Used to indicate that the signer will use an embedded
-                                      # Signing Ceremony. Represents the signer's userId within your application.
+    private $signer_client_id = 1000; # Used to indicate that the signer will use embedded
+                                      # signing. Represents the signer's userId within your application.
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,6 @@ class EG017SetTemplateTabValues extends BaseController
     /**
      * 1. Check the token
      * 2. Call the worker method
-     * 3. Redirect the user to the signing ceremony
      *
      * @return void
      * @throws ApiException for API problems and perhaps file access \Exception too.
@@ -71,7 +70,7 @@ class EG017SetTemplateTabValues extends BaseController
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
                                                                     # which need an envelope_id
 
-                # Redirect the user to the Signing Ceremony
+                # Redirect the user to the embedded signing
                 # Don't use an iFrame!
                 # State can be stored/recovered using the framework's session or a
                 # query parameter on the returnUrl (see the makerecipient_view_request method)
@@ -97,7 +96,7 @@ class EG017SetTemplateTabValues extends BaseController
      * 1. Create the envelope request object
      * 2. Send the envelope
      * 3. Create the Recipient View request object
-     * 4. Obtain the recipient_view_url for the signing ceremony
+     * 4. Obtain the recipient_view_url for the embedded signing
      *
      * @param  $args array
      * @return array ['redirect_url']
@@ -124,7 +123,7 @@ class EG017SetTemplateTabValues extends BaseController
             $args["envelope_args"]
         );
 
-        # 4. Obtain the recipient_view_url for the signing ceremony
+        # 4. Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
         $results = $this->clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 
