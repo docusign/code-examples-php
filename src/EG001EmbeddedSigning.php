@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 001: Use Embedded Signing
+ * Example 001: Use embedded signing
  */
 
 namespace Example;
