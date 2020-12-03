@@ -2,7 +2,9 @@
 
 ### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
 
-This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the EXAMPLES_API_TYPE setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
+This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. 
+
+To use the Rooms API code example, modify the <code>EXAMPLES_API_TYPE</code> setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
 
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
@@ -141,7 +143,7 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ### Prerequisites
 
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically created for you.
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.
 
 1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net). If you don't already have one, create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
 1. A DocuSign integration key (client ID) that is configured for authentication to use either the
