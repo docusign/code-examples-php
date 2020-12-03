@@ -2,7 +2,7 @@
 
 ### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
 
-This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the EXAMPLES_API_TYPE setting at the end of the ds_config.php file. Set 'Rooms' to True and 'ESignature' to False.
+This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the EXAMPLES_API_TYPE setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
 
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
