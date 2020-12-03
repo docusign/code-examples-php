@@ -85,28 +85,28 @@ The OAuth library is used in the file [index.php](./public/index.php).
    This example sends an envelope that requires the recipient to upload a government-issued ID.    
 1. **Create a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG024PermissionCreate.php)<br />
-   This code example demonstrates how to create a permission profile.
+   This example demonstrates how to create a permission profile.
 1. **Set a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG025PermissionSetUserGroup.php)<br />
-   This code example demonstrates how to set a user group's permission profile. You must have already a created permission profile and a group of users.
+   This example demonstrates how to set a user group's permission profile. You must have already a created permission profile and a group of users.
 1. **Update individual permission settings.**
    [Source](./src/Controllers/Examples/eSignature/EG026PermissionChangeSingleSetting.php)<br />
-   This code example demonstrates how to edit individual permission settings on a permission profile.
+   This example demonstrates how to edit individual permission settings on a permission profile.
 1. **Delete a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG027PermissionDelete.php)<br />
-   This code example demonstrates how to delete a permission profile.
+   This example demonstrates how to delete a permission profile.
 1. **Create a brand.**
    [Source](./src/Controllers/Examples/eSignature/EG028CreateBrand.php)<br />
    This example creates a brand profile for an account.
 1. **Apply a brand to an envelope.**
    [Source](./src/Controllers/Examples/eSignature/EG029ApplyBrandToEnvelope.php)<br />
-   This code example demonstrates how to apply a brand you've created to an envelope. First, the code creates the envelope and then applies the brand to it. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+   This example demonstrates how to apply a brand you've created to an envelope. First, the code creates the envelope and then applies the brand to it. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **Apply a brand to a template.**
    [Source](./src/Controllers/Examples/eSignature/EG030ApplyBrandToTemplate.php)<br />
-   This code example demonstrates how to apply a brand you've created to a template. You must have at least one created template and brand. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+   This example demonstrates how to apply a brand you've created to a template. You must have at least one created template and brand. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
 1. **Bulk-send envelopes to multiple recipients.**
    [Source](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)<br />
-   This code example demonstrates how to send envelopes in bulk to multiple recipients. First, the code creates a bulk-send recipients list, and then creates an envelope. After that, it initiates bulk envelope sending.
+   This example demonstrates how to send envelopes in bulk to multiple recipients. First, the code creates a bulk-send recipients list, and then creates an envelope. After that, it initiates bulk envelope sending.
 
 ## Rooms API
 
