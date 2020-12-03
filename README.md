@@ -200,30 +200,46 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 1. Run `composer install` to install the dependencies listed in the composer.json file.
 
-1. Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. ![Install Apache](./docs/apache_x_box.jpg)
+1. Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
-The red "X" becomes a green checkmark. ![Install Apache](./docs/apache_installed_box.jpg)
+![Install Apache](./docs/apache_x_box.jpg)
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open. ![Apache_config](./docs/config_file.jpg)
+The red "X" becomes a green checkmark. 
 
-1. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`. ![httpd_listen](./docs/listen_8080_box.jpg)
+![Install Apache](./docs/apache_installed_box.jpg)
 
-1. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`. ![httpd_localhost](./docs/localhost_8080_box.jpg)
+5. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open. 
 
-1. In the httpd.conf file, change the default<br />
+![Apache_config](./docs/config_file.jpg)
+
+6. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`. 
+
+![httpd_listen](./docs/listen_8080_box.jpg)
+
+7. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`. 
+
+![httpd_localhost](./docs/localhost_8080_box.jpg)
+
+8. In the httpd.conf file, change the default<br />
 `DocumentRoot "C:/xampp/htdocs"`<br />
 `<Directory "C:/xampp/htdocs">`<br />
 to<br />
 `DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"`<br />
 `<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"`><br />
 
-In the httpd.conf file, use Ctrl-S to save your changes. ![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
+In the httpd.conf file, use Ctrl-S to save your changes. 
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Start button. ![Apache_start](./docs/apache_start_box.jpg)
+![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
 
-Apache will run. ![Apache_run](./docs/start_box.jpg)
+9. On the XAMPP Control Panel, to the right of Apache, select the Start button. 
 
-1. Open a browser to http://localhost:8080/public.
+![Apache_start](./docs/apache_start_box.jpg)
+
+Apache will run. 
+
+![Apache_run](./docs/start_box.jpg)
+
+10. Open a browser to http://localhost:8080/public.
 
 
 
