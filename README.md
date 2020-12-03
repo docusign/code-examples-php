@@ -4,7 +4,7 @@
 
 This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. To use the Rooms API code example, modify the EXAMPLES_API_TYPE setting at the end of the ds_config.php file. Set 'Rooms' to True and 'ESignature' to False.
 
-**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
+**Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
 ## Introduction
 This repo is a PHP 7.2 application that demonstrates how to:
@@ -116,25 +116,25 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 ## Rooms API
 
-**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
+**Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
 
 1. **Create room with Data.**
-   [Source.](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)<br />
    This example creates a new room in your DocuSign Rooms account to be used for a transaction.
 1. **Create a room from a template.**
-   [Source.](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)<br />
    This example creates a new room using a template.
 1. **Export data from a room.**
-   [Source.](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)<br />
    This example exports all the available data from a specific room in your DocuSign Rooms account.
 1. **Add forms to a room.**
-   [Source.](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)<br />
    This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
 1. **How to search for rooms with filters.**
-   [Source.](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)<br />
    This example searches for rooms in your DocuSign Rooms account using a specific filter.
 1. **Create an external form fillable session.**
-   [Source.](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)
+   [Source.](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
    This example creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
 ## Installation
@@ -200,25 +200,15 @@ This repo is a PHP 7.2 application that demonstrates how to:
 
 1. Run `composer install` to install the dependencies listed in the composer.json file.
 
-1. Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server.
+1. Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. ![Install Apache](./docs/apache_x_box.jpg)
 
-![Install Apache](./docs/apache_x_box.jpg)
+The red "X" becomes a green checkmark. ![Install Apache](./docs/apache_installed_box.jpg)
 
-The red "X" becomes a green checkmark.
+1. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open. ![Apache_config](./docs/config_file.jpg)
 
-![Install Apache](./docs/apache_installed_box.jpg)
+1. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`. ![httpd_listen](./docs/listen_8080_box.jpg)
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Config button > Apache (httpd.conf). The httpd.conf file should open.
-
-![Apache_config](./docs/config_file.jpg)
-
-1. In the httpd.conf file, change the default `Listen 80` to `Listen 8080`.
-
-![httpd_listen](./docs/listen_8080_box.jpg)
-
-1. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`.
-
-![httpd_localhost](./docs/localhost_8080_box.jpg)
+1. In the httpd.conf file, change the default `ServerName localhost:80` to `ServerName localhost:8080`. ![httpd_localhost](./docs/localhost_8080_box.jpg)
 
 1. In the httpd.conf file, change the default<br />
 `DocumentRoot "C:/xampp/htdocs"`<br />
@@ -227,17 +217,11 @@ to<br />
 `DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"`<br />
 `<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"`><br />
 
-In the httpd.conf file, use Ctrl-S to save your changes.
+In the httpd.conf file, use Ctrl-S to save your changes. ![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
 
-![httpd_DocumentRoot](./docs/Document_Root_box.jpg)
+1. On the XAMPP Control Panel, to the right of Apache, select the Start button. ![Apache_start](./docs/apache_start_box.jpg)
 
-1. On the XAMPP Control Panel, to the right of Apache, select the Start button. 
-
-![Apache_start](./docs/apache_start_box.jpg)
-
-Apache will run.
-
-![Apache_run](./docs/start_box.jpg)
+Apache will run. ![Apache_run](./docs/start_box.jpg)
 
 1. Open a browser to http://localhost:8080/public.
 
