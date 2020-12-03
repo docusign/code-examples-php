@@ -4,11 +4,9 @@ DocuSign offers built-in connections to multiple payment gateways. The payments 
 
 ## Creating the payments gateway account
 
-1. Open the **Settings** page.
-1. Under **Integrations**, select [**Payments**](https://admindemo.docusign.com/authenticate?goTo=payments), then select the Stripe button.
-1. For development, you can skip the Stripe account application by using the **Skip this account form** link ![Skipping the Stripe account form](docs/stripe_skip_account_form_link.png)
-1. Next, the Admin Tool will show that an enabled Stripe payment gateway account has been associated with your DocuSign Developer account.
-1. Configure the example launcher with the gateway account id.
+1. Select the Stripe button on the [**Payments**](https://admindemo.docusign.com/authenticate?goTo=payments) page.
+1. For development, you can skip the Stripe account application by using the **Skip this account form** link at the top of the page ![Skipping the Stripe account form](docs/stripe_skip_account_form_link.png). An enabled Stripe payment gateway account is now associated with your DocuSign developer account and displays under  **Payment Gateway**.
+1. Configure the code example launcher configuration file with the **Gateway Account ID**.
 
 
 ## Additional documentation
