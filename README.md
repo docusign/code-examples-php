@@ -2,9 +2,9 @@
 
 ### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
 
-This GitHub repo includes code examples for both the DocuSign eSignature REST API as well as the DocuSign Rooms API. 
+This GitHub repo includes code examples for both the DocuSign eSignature REST API and the DocuSign Rooms API. 
 
-To use the Rooms API code example, modify the <code>EXAMPLES_API_TYPE</code> setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
+To use the Rooms API code examples, modify the <code>EXAMPLES_API_TYPE</code> setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
 
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
@@ -23,7 +23,7 @@ The OAuth library is used in the file [index.php](./public/index.php).
    This example sends an envelope, and then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
 1. **Send an envelope with a remote (email) signer and cc recipient.**
    [Source](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)<br />
-   The envelope includes a PDF, Word, and HTML document. Anchor text ([AutoPlace](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience)) is used to position the signing fields in the documents.
+   The envelope includes a PDF, Word, and HTML document. [Anchor text](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience) is used to position the signing fields in the documents.
 1. **List envelopes in the user's account.**
    [Source](./src/Controllers/Examples/eSignature/EG003ListEnvelopes.php)<br />
    The envelopes' current status is included.
@@ -146,8 +146,7 @@ The OAuth library is used in the file [index.php](./public/index.php).
 
 
 #### Authorization Code Grant specifics:
-   You will need the integration key and its secret.
-   The integration key must include a redirect URI of
+   You will need the integration key and its secret. The integration key must include a redirect URI of
 
    {app_url}/index.php?page=ds_callback
 
@@ -238,12 +237,8 @@ Apache will run.
 
 
 ## Payments code example
-To use the payments example, create a 
-test payments gateway for your DocuSign developer account.
-
-See the
-[PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md)
-file for instructions.
+To use the payments example, create a test payments gateway for your DocuSign developer account. See the
+[PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) file for instructions.
 
 Then add the payment gateway account ID to the ds_config.php file.
 
