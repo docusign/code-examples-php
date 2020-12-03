@@ -1,6 +1,6 @@
 # PHP Launcher Code Examples
 
-### Github repo: [code-examples-php](https://github.com/docusign/code-examples-php)
+### Github repo: https://github.com/docusign/code-examples-php
 
 This GitHub repo includes code examples for both the DocuSign eSignature REST API and the DocuSign Rooms API. 
 
@@ -237,10 +237,9 @@ Apache will run.
 
 
 ## Payments code example
-To use the payments example, create a test payments gateway for your DocuSign developer account. See the
-[PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) file for instructions.
+To use the payments example, create a test payments gateway for your DocuSign developer account. See [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) for instructions.
 
-Then add the payment gateway account ID to the ds_config.php file.
+Then add the **Gateway Account ID** to the ds_config.php file.
 
 
 
