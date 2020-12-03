@@ -113,22 +113,22 @@ The OAuth library is used in the file [index.php](./public/index.php).
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
 
 1. **Create room with Data.**
-   [Source.](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)<br />
    This example creates a new room in your DocuSign Rooms account to be used for a transaction.
 1. **Create a room from a template.**
-   [Source.](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)<br />
    This example creates a new room using a template.
 1. **Export data from a room.**
-   [Source.](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)<br />
    This example exports all the available data from a specific room in your DocuSign Rooms account.
 1. **Add forms to a room.**
-   [Source.](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)<br />
    This example adds a standard real estate related form to a specific room in your DocuSign Rooms account.
 1. **How to search for rooms with filters.**
-   [Source.](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)<br />
    This example searches for rooms in your DocuSign Rooms account using a specific filter.
 1. **Create an external form fillable session.**
-   [Source.](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
+   [Source](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
    This example creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
 
 ## Installation
