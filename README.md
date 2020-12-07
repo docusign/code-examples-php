@@ -18,6 +18,8 @@ The OAuth library is used in the file [index.php](./public/index.php).
 
 ## eSignature API
 
+For more information about the scopes used for obtaining authorization to use the eSignature API, see the [Required Scopes section](https://developers.docusign.com/docs/esign-rest-api/esign101/auth)
+
 1. **Use embedded signing.**
    [Source](./src/EG001EmbeddedSigning.php)<br />
    This example sends an envelope, and then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
@@ -110,7 +112,9 @@ The OAuth library is used in the file [index.php](./public/index.php).
 
 ## Rooms API
 
-**Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
+For more information about the scopes used for obtaining authorization to use the Rooms API, see the [Required Scopes section](https://developers.docusign.com/docs/rooms-api/rooms101/auth/)
+
+**Note:** to use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
 
 1. **Create room with Data.**
    [Source](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)<br />
@@ -163,7 +167,9 @@ The OAuth library is used in the file [index.php](./public/index.php).
 #### JWT (JSON Web Token) specifics:
    You will need the integration key, an RSA private key, and the user ID (GUID) of the impersonated user.
 
-   The private part of the RSA key pair must be copied over and stored in a private.key file in the top of your repo clone. 
+   The private part of the RSA key pair must be copied over and stored in a private.key file in the top of your repo clone.
+
+   **Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.
 
 ### Installation steps
 **Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1, 4, and 6 below as they're automatically performed for you.  

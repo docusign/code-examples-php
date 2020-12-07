@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Example\Controllers\Examples\RoomsApi;
+namespace Example\Controllers\Examples\Rooms;
 
 
 use DocuSign\Rooms\Client\ApiException;
