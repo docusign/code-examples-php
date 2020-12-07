@@ -5,6 +5,7 @@ namespace Example\Services;
 
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
+use Example\Controllers\Auth\DocuSign;
 
 
 class JWTService
@@ -63,13 +64,16 @@ class JWTService
         self::$apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
         $privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $GLOBALS['JWT_CONFIG']['private_key_file'], true);
 
+        $scope = DocuSign::getDefaultScopes()[0];
+        //Make sure to add the "impersonation" scope when using JWT authorization
+        $jwt_scope = $scope . " impersonation";
 
         try {
             $response = self::$apiClient->requestJWTUserToken(
                 $aud = $GLOBALS['JWT_CONFIG']['ds_client_id'],
                 $aud = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
                 $aud = $privateKey,
-                $aud = $GLOBALS['JWT_CONFIG']['jwt_scope']
+                $aud = $jwt_scope
             );
 
             return $response[0];    //code...
@@ -79,7 +83,7 @@ class JWTService
             if (strpos($th->getMessage(), "consent_required") !== false) {
 
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query([
-                    'scope'         => 'signature impersonation',
+                    'scope'         => $jwt_scope,
                     'redirect_uri'  => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
                     'client_id'     => $GLOBALS['JWT_CONFIG']['ds_client_id'],
                     'state'         => $_SESSION['oauth2state'],
