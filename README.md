@@ -74,7 +74,7 @@ For more information about the scopes used for obtaining authorization to use th
    [Source](./src/Controllers/Examples/eSignature/EG019AccessCodeAuthentication.php)<br />
    This example sends an envelope that requires an access code for the purpose of multifactor authentication.
 1. **Require SMS authentication for a recipient.** 
-   [Source.](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php)<br /> 
+   [Source](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php)<br /> 
    This example sends an envelope that requires entering in a six-digit code from a text message for the purpose of multifactor authentication.
 1. **Require phone authentication for a recipient.** 
    [Source](./src/Controllers/Examples/eSignature/EG021PhoneAuthentication.php)<br />
