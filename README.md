@@ -12,7 +12,7 @@ To use the Rooms API code examples, modify the <code>EXAMPLES_API_TYPE</code> se
 This repo is a PHP 7.2 application that demonstrates how to authenticate with DocuSign via the
 [Authorization Code Grant flow](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
 
-The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This example includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) used to process the results of the call to OAuth::getUser.
+The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) to process the results of the call to OAuth::getUser.
 
 The OAuth library is used in the file [index.php](./public/index.php).
 
