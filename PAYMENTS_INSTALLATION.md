@@ -17,5 +17,5 @@ DocuSign offers built-in connections to multiple payment gateways. The payments 
 
 
 ## Additional documentation
-* [Managing Payment Gateways](https://support.docusign.com/en/guides/managing-payment-gateways). 
+* [Managing Payment Gateways](https://support.docusign.com/en/guides/managing-payment-gateways)
 * [How to send a request for payment](https://developers.docusign.com/docs/esign-rest-api/how-to/request-a-payment)  
