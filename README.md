@@ -96,7 +96,6 @@ For more information about the scopes used for obtaining authorization to use th
    Demonstrates how to edit individual permission settings on a permission profile.
 1. **Delete a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG027PermissionDelete.php)<br />
-   Demonstrates how to delete a permission profile.
 1. **Create a brand.**
    [Source](./src/Controllers/Examples/eSignature/EG028CreateBrand.php)<br />
    Creates a brand profile for an account.
