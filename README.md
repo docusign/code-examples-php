@@ -138,37 +138,34 @@ For more information about the scopes used for obtaining authorization to use th
 
 ### Prerequisites
 
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.
+**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.**
 
-1. A DocuSign Developer account (email and password) on [demo.docusign.net](https://demo.docusign.net). If you don't already have one, create a [free account](https://go.docusign.com/sandbox/productshot/?elqCampaignId=16532).
-1. A DocuSign integration key (client ID) that is configured for authentication to use either the
-   [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode) flow or the [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt) flow.
+1. [Create a DocuSign developer account](https://go.docusign.com/o/sandbox/) if you don't already have one.
+1. A DocuSign integration key (client ID) that is configured for authentication to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/).
+
+   To use [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/), you will need an integration key and its secret key. 
+
+   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** (GUID) of the impersonated user. The private part of the RSA key pair must be pasted and saved in a private.key file in the top level folder.
+
+   **Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.   
+
+   For both authentication flows:
+   
+   The integration key must include a redirect URI of   
+   http://{app_url}/index.php?page=ds_callback
+
+   where {app_url} is the URL you have associated with the /public folder.
+   
+   For example, if you created a web server that enables the URL
+   http://localhost:8080/example-public
+
+   to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value
+   http://localhost:8080/example-public/index.php?page=ds_callback
+
 1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
 1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
 1. A name and email for a signer, and a name and email for a cc recipient.   
 
-
-#### Authorization Code Grant specifics:
-   You will need the integration key and its secret. The integration key must include a redirect URI of
-
-   {app_url}/index.php?page=ds_callback
-
-   where {app_url} is the URL you have associated with the /public folder.
-
-   For example, if you have created a web server that enables the URL
-
-   http://localhost:8080/example-public
-
-   to execute files on the /public folder of this example, then you must add a redirect URI to your integration key with the value
-
-   http://localhost:8080/example-public/index.php?page=ds_callback
-
-#### JWT (JSON Web Token) specifics:
-   You will need the integration key, an RSA private key, and the user ID (GUID) of the impersonated user.
-
-   The private part of the RSA key pair must be copied over and stored in a private.key file in the top of your repo clone.
-
-   **Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.
 
 ### Installation steps
 **Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1, 4, and 6 below as they're automatically performed for you.  
