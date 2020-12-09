@@ -88,7 +88,6 @@ For more information about the scopes used for obtaining authorization to use th
    Sends an envelope that requires the recipient to upload a government-issued ID for the purpose of multifactor authentication.   
 1. **Create a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG024PermissionCreate.php)<br />
-   Demonstrates how to create a permission profile.
 1. **Set a permission profile.**
    [Source](./src/Controllers/Examples/eSignature/EG025PermissionSetUserGroup.php)<br />
    Demonstrates how to set a user group's permission profile. You must have already a created permission profile and a group of users.
