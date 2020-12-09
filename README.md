@@ -73,7 +73,7 @@ For more information about the scopes used for obtaining authorization to use th
    Retrieves the custom metadata (custom data fields) stored with the envelope. 
 1. **Require an access code for a recipient.**
    [Source](./src/Controllers/Examples/eSignature/EG019AccessCodeAuthentication.php)<br />
-   Sends an envelope that requires an access code for the purpose of multifactor authentication.
+   Sends an envelope that requires entering an access code for the purpose of multifactor authentication.
 1. **Require SMS authentication for a recipient.** 
    [Source](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php)<br /> 
    Sends an envelope that requires entering a six-digit code from a text message for the purpose of multifactor authentication.
