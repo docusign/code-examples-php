@@ -126,10 +126,10 @@ For more information about the scopes used for obtaining authorization to use th
    Exports all the available data from a specific room in your DocuSign Rooms account.
 1. **Add a form to a room.**
    [Source](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)<br />
-   Adds a standard real estate related form to a specific room in your DocuSign Rooms account.
+   Adds a standard real estate-related form to a specific room in your DocuSign Rooms account.
 1. **Search for a room with a filter.**
    [Source](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)<br />
-   Searches for rooms in your DocuSign Rooms account using a specific filter.
+   Searches for a room in your DocuSign Rooms account using a specific filter.
 1. **Create an external form fillable session.**
    [Source](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
    Creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
