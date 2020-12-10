@@ -167,16 +167,13 @@ For more information about the scopes used for obtaining authorization to use th
 1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
 1. Update your integration key's settings to include a redirect URI.
 
-   The integration key must include a redirect URI of   
-   http://{app_url}/index.php?page=ds_callback
+   The integration key must include a redirect URI of http://{app_url}/index.php?page=ds_callback
 
    where {app_url} is the URL you have associated with the /public folder.
    
-   For example, if you created a web server that enables the URL
-   http://localhost:8080/example-public
+   For example, if you created a web server that enables the URL http://localhost:8080/example-public
 
-   to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value<br />
-   http://localhost:8080/example-public/index.php?page=ds_callback
+   to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value http://localhost:8080/example-public/index.php?page=ds_callback
 
 1. Open a browser to http://localhost:8080/public.
 
