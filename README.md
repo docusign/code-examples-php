@@ -190,7 +190,7 @@ For more information about the scopes used for obtaining authorization to use th
 
 1. Unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
 
-1. Switch to your Quickstart folder: `cd C:xampp/htdocs/<Quickstart_folder_name>` or `cd C:xampp/htdocs/code-examples-php`
+1. Switch to the folder: `cd C:xampp/htdocs/<Quickstart_folder_name>` or `cd C:xampp/htdocs/code-examples-php`
 
 1. Run `composer install` to install the dependencies listed in the composer.json file.
 
