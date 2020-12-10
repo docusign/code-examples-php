@@ -145,9 +145,7 @@ For more information about the scopes used for obtaining authorization to use th
 
    To use [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/), you will need an integration key and its secret key. 
 
-   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** (GUID) of the impersonated user. The private part of the RSA key pair must be pasted and saved in a private.key file in the top level folder.
-
-   **Note:** Before you can make any API calls using JWT Grant, you must get your user’s consent for your app to impersonate them. To do this, the `impersonation` scope is added when requesting a JSON Web Token.   
+   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** (GUID) of the impersonated user. Also, the private key of the RSA key pair must be saved in a new file private.key in the root folder.
 
    For both authentication flows:
    
@@ -168,21 +166,18 @@ For more information about the scopes used for obtaining authorization to use th
 
 
 ### Installation steps
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1, 4, and 6 below as they're automatically performed for you.  
+**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
 
 1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
-1. Switch to the folder: `cd code-examples-php` or `cd <Quickstart_folder_name>`
+1. Switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
 1. Run `composer install` to install the dependencies listed in the composer.json file.
-1. Create a new file ds_config.php (in the root folder) by using ds_config_example.php as your template. Update the integration key and other settings in the configuration file.
+1. Create a new file ds_config.php in the root folder by using ds_config_example.php as your template. Update the integration key and other settings in the configuration file.
 
-   **Note:** Protect your integration key and secret and/or RSA private key pair. You
-   should ensure that the file ds_config.php will not be stored in your source code
-   repository.
+   **Note:** Protect your integration key and secret and/or RSA private key pair; ensure that ds_config.php will not be stored in your source code repository.
 
-1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the XAMPP/Apache web server instructions below. 
+1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP/Apache web server instructions](#xampp/apache-web-server-instructions) below. 
 1. Update your integration key's settings to include a redirect URI for your installation of the example. See Prerequisites item 2 above for more information.
 1. Open a browser to http://localhost:8080/public.
-
 
 
 ## XAMPP/Apache web server instructions
