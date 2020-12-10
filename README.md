@@ -175,14 +175,14 @@ For more information about the scopes used for obtaining authorization to use th
 
    **Note:** Protect your integration key and secret and/or RSA private key pair; ensure that ds_config.php will not be stored in your source code repository.
 
-1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP/Apache web server instructions](#xampp/apache-web-server-instructions) below. 
+1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
 1. Update your integration key's settings to include a redirect URI for your installation of the example. See Prerequisites item 2 above for more information.
 1. Open a browser to http://localhost:8080/public.
 
 
-## XAMPP/Apache web server instructions
+## XAMPP Apache web server instructions
 
-[XAMPP/Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
+[XAMPP Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
 1. Unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
 
