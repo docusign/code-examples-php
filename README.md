@@ -175,7 +175,7 @@ For more information about the scopes used for obtaining authorization to use th
    For example, if you created a web server that enables the URL
    http://localhost:8080/example-public
 
-   to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value
+   to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value<br />
    http://localhost:8080/example-public/index.php?page=ds_callback
 
 1. Open a browser to http://localhost:8080/public.
