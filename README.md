@@ -9,8 +9,7 @@ To use the Rooms API code examples, modify the <code>EXAMPLES_API_TYPE</code> se
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
 ## Introduction
-This repo is a PHP 7.2 application that demonstrates how to authenticate with DocuSign via the
-[Authorization Code Grant flow](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
+This repo is a PHP 7.2 application that demonstrates how to authenticate with DocuSign via [Authorization Code Grant](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
 
 The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) to process the results of the call to OAuth::getUser.
 
@@ -141,14 +140,33 @@ For more information about the scopes used for obtaining authorization to use th
 **Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.**
 
 1. [Create a DocuSign developer account](https://go.docusign.com/o/sandbox/) if you don't already have one.
+
 1. A DocuSign integration key (client ID) that is configured for authentication to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/).
 
    To use [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/), you will need an integration key and its secret key. 
 
-   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** (GUID) of the impersonated user. Also, the private key of the RSA key pair must be saved in a new file private.key in the root folder.
+   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** GUID of the impersonated user. Also, the private key of the RSA key pair must be saved in a new file private.key in the root folder.
 
-   For both authentication flows:
-   
+1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
+
+1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
+
+1. A name and email for a signer, and a name and email for a cc recipient.   
+
+
+### Installation steps
+**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
+
+1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
+1. Switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
+1. Run `composer install` to install the dependencies listed in the composer.json file.
+1. Create a new file ds_config.php in the root folder by using ds_config_example.php as your template. Update the integration key and other settings in ds_config.php.
+
+   **Note:** Protect your integration key and secret and/or RSA private key pair; ensure that ds_config.php will not be stored in your source code repository.
+
+1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
+1. Update your integration key's settings to include a redirect URI.
+
    The integration key must include a redirect URI of   
    http://{app_url}/index.php?page=ds_callback
 
@@ -160,23 +178,6 @@ For more information about the scopes used for obtaining authorization to use th
    to execute files on the /public folder of this launcher, then you must add a redirect URI to your integration key with the value
    http://localhost:8080/example-public/index.php?page=ds_callback
 
-1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
-1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
-1. A name and email for a signer, and a name and email for a cc recipient.   
-
-
-### Installation steps
-**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
-
-1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
-1. Switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
-1. Run `composer install` to install the dependencies listed in the composer.json file.
-1. Create a new file ds_config.php in the root folder by using ds_config_example.php as your template. Update the integration key and other settings in the configuration file.
-
-   **Note:** Protect your integration key and secret and/or RSA private key pair; ensure that ds_config.php will not be stored in your source code repository.
-
-1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
-1. Update your integration key's settings to include a redirect URI for your installation of the example. See Prerequisites item 2 above for more information.
 1. Open a browser to http://localhost:8080/public.
 
 
