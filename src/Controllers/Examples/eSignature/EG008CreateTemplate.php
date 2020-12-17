@@ -11,7 +11,6 @@ use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeTemplate;
-use DocuSign\eSign\Model\EnvelopeTemplateDefinition;
 use DocuSign\eSign\Model\ModelList;
 use DocuSign\eSign\Model\Number;
 use DocuSign\eSign\Model\Radio;
@@ -207,16 +206,13 @@ class EG008CreateTemplate extends BaseController
             'checkbox_tabs' => [$check1, $check2, $check3, $check4], 'list_tabs' => [$list1],
             'number_tabs' => [$number1], 'radio_group_tabs' => [$radio_group], 'text_tabs' => [$text]
         ]));
-        # Create top two objects
-        $envelope_template_definition = new EnvelopeTemplateDefinition([
+
+        # Template object:
+        $template_request = new EnvelopeTemplate([
             'description' => "Example template created via the API",
             'name' => $this->template_name,
-            'shared' => "false"
-        ]);
-        # Top object:
-        $template_request = new EnvelopeTemplate([
+            'shared' => "false",
             'documents' => [$document], 'email_subject' => "Please sign this document",
-            'envelope_template_definition' => $envelope_template_definition,
             'recipients' => new Recipients([
             'signers' => [$signer], 'carbon_copies' => [$cc]]),
             'status' => "created"
