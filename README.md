@@ -22,7 +22,7 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Use embedded signing.**
    [Source](./src/EG001EmbeddedSigning.php)<br />
    Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
-1. **Send an envelope with a remote (email) signer and cc recipient.**
+1. **Request a signature by email (Remote Signing).**
    [Source](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)<br />
    The envelope includes a PDF, Word, and HTML document. [Anchor text](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience) is used to position the signing fields in the documents.
 1. **List envelopes in the user's account.**
@@ -42,7 +42,7 @@ For more information about the scopes used for obtaining authorization to use th
    Downloads individual documents, the documents concatenated together, or a ZIP file of the documents.
 1. **Programmatically create a template.**
    [Source](./src/Controllers/Examples/eSignature/EG008CreateTemplate.php)<br />
-1. **Send an envelope using a template.**
+1. **Request a signature by email using a template.**
    [Source](./src/Controllers/Examples/eSignature/EG009UseTemplate.php)<br />
 1. **Send an envelope and upload its documents with multipart binary transfer.**
    [Source](./src/Controllers/Examples/eSignature/EG010SendBinaryDocs.php)<br />
@@ -190,7 +190,7 @@ For more information about the scopes used for obtaining authorization to use th
 
 1. Unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
 
-1. Switch to your Quickstart folder: `cd C:xampp/htdocs/<Quickstart_folder_name>` or `cd C:xampp/htdocs/code-examples-php`
+1. Switch to the folder: `cd C:xampp/htdocs/<Quickstart_folder_name>` or `cd C:xampp/htdocs/code-examples-php`
 
 1. Run `composer install` to install the dependencies listed in the composer.json file.
 
