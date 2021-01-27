@@ -53,10 +53,9 @@ ENV COMPOSER_HOME /composer
 ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
-    && composer global require "hirak/prestissimo:^0.3" \
     && composer global require "squizlabs/php_codesniffer=*"
 
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
 
-COPY ./public/assets /var/www/html
+COPY . /var/www/html

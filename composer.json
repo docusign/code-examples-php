@@ -5,7 +5,7 @@
                  }
     },
     "require": {
-        "docusign/esign-client": "^5.1.0",
+        "docusign/esign-client": "^5.7.0",
         "docusign/rooms-client": "^1.0.0",
         "twig/twig": "^2.0",
         "league/oauth2-client": "^2.4",

@@ -14,4 +14,4 @@ services:
     links:
       - php-fpm
     ports:
-      - "8082:80"
+      - "8080:80"

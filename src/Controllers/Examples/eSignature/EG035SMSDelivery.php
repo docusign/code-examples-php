@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 002: Remote signer, cc, envelope has three documents
+ * Example 035: SMS Delivery with remote signer and carbon copy.
  */
 
 namespace Example\Controllers\Examples\eSignature;
@@ -13,11 +13,13 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
+use DocuSign\eSign\Model\RecipientPhoneNumber;
+use DocuSign\eSign\Model\RecipientAdditionalNotification;
 use Example\Controllers\BaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG002SigningViaEmail extends BaseController
+class EG035SMSDelivery extends BaseController
 {
     /** signatureClientService */
     private $clientService;
@@ -28,7 +30,7 @@ class EG002SigningViaEmail extends BaseController
     /** Specific template arguments */
     private $args;
 
-    private $eg = "eg002";  # reference (and URL) for this example
+    private $eg = "eg035";  # reference (and URL) for this example
 
     /**
      * Create a new controller instance.
@@ -161,19 +163,41 @@ class EG002SigningViaEmail extends BaseController
         # The order in the docs array determines the order in the envelope
         $envelope_definition->setDocuments([$document1, $document2, $document3]);
 
+        $SMSDelivery = new RecipientAdditionalNotification;
+        $SMSDelivery->setSecondaryDeliveryMethod("SMS");
+    
+        $signerPhone = new RecipientPhoneNumber([
+            'country_code' => $args['signer_country_code'],
+            'number' => $args['signer_phone_number']
+        ]);
+        $SMSDelivery->setPhoneNumber($signerPhone);
 
         # Create the signer recipient model
         $signer1 = new Signer([
             'email' => $args['signer_email'], 'name' => $args['signer_name'],
-            'recipient_id' => "1", 'routing_order' => "1"]);
+            'recipient_id' => "1", 'routing_order' => "1", "additional_notifications" => array($SMSDelivery) 
+            ]);
         # routingOrder (lower means earlier) determines the order of deliveries
         # to the recipients. Parallel routing order is supported by using the
         # same integer as the order for two or more recipients.
 
-        # create a cc recipient to receive a copy of the documents
-        $cc1 = new CarbonCopy([
+
+        $CCSMSDelivery = new RecipientAdditionalNotification;
+        $CCSMSDelivery->setSecondaryDeliveryMethod("SMS");
+
+        $CCsignerPhone = new RecipientPhoneNumber([
+            'country_code' => $args['cc_country_code'],
+            'number' => $args['cc_phone_number']
+        ]);
+        $CCSMSDelivery->setPhoneNumber($CCsignerPhone);
+
+
+
+        # Create a CC recipient to receive a copy of the documents
+        $CC = new CarbonCopy([
             'email' => $args['cc_email'], 'name' => $args['cc_name'],
-            'recipient_id' => "2", 'routing_order' => "2"]);
+            'recipient_id' => "2", 'routing_order' => "2", "additional_notifications" =>array($CCSMSDelivery) 
+            ]);
 
         # Create signHere fields (also known as tabs) on the documents,
         # We're using anchor (autoPlace) positioning
@@ -196,7 +220,7 @@ class EG002SigningViaEmail extends BaseController
 
         # Add the recipients to the envelope object
         $recipients = new Recipients([
-            'signers' => [$signer1], 'carbon_copies' => [$cc1]]);
+            'signers' => [$signer1], 'carbon_copies' => [$CC]]);
         $envelope_definition->setRecipients($recipients);
 
         # Request that the envelope be sent by setting |status| to "sent".
@@ -214,15 +238,24 @@ class EG002SigningViaEmail extends BaseController
      */
     private function getTemplateArgs(): array
     {
-        $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
-        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
-        $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_name'     ]);
-        $cc_email     = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_email'    ]);
+        $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerName' ]);
+        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerEmail']);
+        $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccName'     ]);
+        $cc_email     = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccEmail'    ]);
+        $cc_country_code = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccCountryCode']);
+        $cc_phone_number = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccPhoneNumber']);
+        $signer_country_code = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['countryCode']);
+        $signer_phone_number = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['phoneNumber']);
+
         $envelope_args = [
             'signer_email' => $signer_email,
             'signer_name' => $signer_name,
+            'signer_country_code' => $signer_country_code,
+            'signer_phone_number' => $signer_phone_number,
             'cc_email' => $cc_email,
             'cc_name' => $cc_name,
+            'cc_country_code' => $cc_country_code,
+            'cc_phone_number' => $cc_phone_number,
             'status' => 'sent'
         ];
         $args = [

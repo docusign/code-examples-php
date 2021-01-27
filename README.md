@@ -107,6 +107,9 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Bulk-send envelopes to multiple recipients.**
    [Source](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)<br />
    Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After that, it initiates bulk envelope sending.
+1. **Request a signature by SMS**
+   [Source.](./src/Controllers/Examples/eSignature/EG035SMSDelivery.php)<br />
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message.
 
 ## Rooms API
 
