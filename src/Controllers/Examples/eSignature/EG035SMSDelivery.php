@@ -88,11 +88,12 @@ class EG035SMSDelivery extends BaseController
     # ***DS.snippet.0.start
     public function worker($args): array
     {
-        # 1. Create the envelope request object
+        # Step 2. Create the envelope definition        
         $envelope_definition = $this->make_envelope($args["envelope_args"]);
         $envelope_api = $this->clientService->getEnvelopeApi();
-
-        # 2. call Envelopes::create API method
+        
+        # Step 3. Create and send the envelope
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
             $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
@@ -103,6 +104,7 @@ class EG035SMSDelivery extends BaseController
 
         return ['envelope_id' => $results->getEnvelopeId()];
     }
+
 
     /**
      * Creates envelope definition
