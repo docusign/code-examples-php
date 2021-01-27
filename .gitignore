@@ -39,3 +39,4 @@ Desktop.ini
 # do not check in secrets
 ds_config.php
 private.key
+debug.log

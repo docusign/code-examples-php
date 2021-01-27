@@ -107,6 +107,19 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Bulk-send envelopes to multiple recipients.**
    [Source](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)<br />
    Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After that, it initiates bulk envelope sending.
+1. **Pausing a signature workflow** (Coming soon) <br />
+   
+   This code example demonstrates how to create an envelope where the workflow is paused before the envelope is sent to a second recipient using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Unpausing a signature workflow**  (Coming soon) <br />
+   
+   This code example demonstrates how to update an envelope to resume the workflow that has been paused using the [Update Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/update) method.
+   You must have created at least one envelope with a paused signature workflow to run this example.
+1. **Using conditional recipients**  (Coming soon) <br />
+   
+   This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
+1. **Request a signature by SMS**
+   [Source](./src/Controllers/Examples/eSignature/EG035SMSDelivery.php)<br />
+   This code example demonstrates how to send a signature request for a signer to read and sign via an SMS message.
 
 ## Rooms API
 
