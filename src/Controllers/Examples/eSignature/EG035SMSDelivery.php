@@ -92,10 +92,11 @@ class EG035SMSDelivery extends BaseController
         $envelope_definition = $this->make_envelope($args["envelope_args"]);
         $envelope_api = $this->clientService->getEnvelopeApi();
         
-        # Step 3. Create and send the envelope
+        
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
+            # Step 3. Create and send the envelope
             $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
