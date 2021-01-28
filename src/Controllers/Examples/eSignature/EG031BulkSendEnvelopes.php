@@ -155,7 +155,7 @@ class EG031BulkSendEnvelopes extends BaseController
         # Step 8. Confirm successful batch send
         # Exceptions will be caught by the calling function
         try {
-            $results = $bulk_envelopes_api->get(
+            $results = $bulk_envelopes_api->getBulkSendBatchStatus(
                 $args['account_id'],
                 $batch['batch_id']
             );
