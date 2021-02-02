@@ -4,13 +4,6 @@
                   "DocuSign\\OAuth2\\Client\\Provider\\": "src/"
                  }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "C:\\Users\\robert.knight\\src\\DPE\\robert-knight\\docusign-php-client",
-            "canonical": false
-        }
-    ],    
     "require": {
         "docusign/esign-client": "^5.7.0",
         "docusign/rooms-client": "^1.0.0",
