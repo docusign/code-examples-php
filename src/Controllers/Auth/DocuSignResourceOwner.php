@@ -54,6 +54,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
     public function __construct(array $response = array())
     {
         $this->response = $response;
+        $this->target_account_id = $GLOBALS['DS_CONFIG']['target_account_id'];
 
         // Find the selected or default account
         if ($this->target_account_id) {

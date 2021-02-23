@@ -3,8 +3,6 @@
 
 namespace Example\Services;
 
-use Example\Services\CodeGrantService;
-
 class RouterService
 {
     /**
@@ -76,6 +74,9 @@ class RouterService
         'reg004' => 'Rooms\EG004AddFormsToRoom',
         'reg005' => 'Rooms\EG005GetRoomsWithFilters',
         'reg006' => 'Rooms\EG006CreateExternalFormFillSession',
+        'reg007' => 'Rooms\EG007CreateFormGroup',
+        'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
+        'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
     ];
 
     /**
@@ -124,6 +125,9 @@ class RouterService
         "reg004" => "rooms/eg004_add_forms_to_room.html",
         "reg005" => "rooms/eg005_get_rooms_with_filters.html",
         "reg006" => "rooms/eg006_create_external_form_fill_session.html",
+        "reg007" => "rooms/eg007_create_form_group.html",
+        "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
+        "reg009" => "rooms/eg009_assign_form_to_form_group.html",
     ];
 
     /**
@@ -170,6 +174,9 @@ class RouterService
         "reg004" => "Add forms to room",
         "reg005" => "Get rooms with filters",
         "reg006" => "Create external form fill session",
+        "reg007" => "Create form group",
+        "reg008" => "Grant office access to a form group",
+        "reg009" => "Assign a form to a form group",
     ];
 
     /**

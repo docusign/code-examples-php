@@ -4,20 +4,23 @@
 {% if not session['ds_user_name'] %}
 <!-- IF not signed in -->
 <div>
-    <div class="jumbotron jumbotron-fluid"> <table>
-      <tbody>
-      <tr>
-      <td>
-        <h1 class="display-4">PHP Launcher</h1>
-      <p class="Xlead">Welcome to the DocuSign PHP examples using multiple OAuth flows (JWT and Authorization Code Grant).</p>
-      </td>
-      <td>
-          <img src="{{ app_url ~ 'assets/banner-code.png' }}" />
-      </td>
-    </tr>
-    </tbody>
-    </table>
-  </div>
+    <div class="jumbotron jumbotron-fluid">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <h1 class="display-4">PHP Launcher</h1>
+                    <p class="Xlead">Welcome to the DocuSign PHP examples using multiple OAuth flows (JWT and
+                        Authorization Code Grant).</p>
+                </td>
+                <td>
+                    <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endif %}
 
 <!--  Future: add a table of contents or navigation pane
@@ -38,44 +41,97 @@
     <h4 id="example-r001">1. <a href="{{ app_url ~ 'index.php?page=reg001'}}">Creating a room with data</a></h4>
     <p>This example demonstrates creating a DocuSign Room.</p>
     <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a> and
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a>
     </p>
-    <h4 id="example-r002">2. <a href="{{ app_url ~ 'index.php?page=reg002'}}">Creating a room with a template</a></h4>
+    <!-------------------------------------------------------------------------------------------->
+    <h4 id="example-r002">2. <a href="{{ app_url ~ 'index.php?page=reg002'}}">Creating a room with a template</a>
+    </h4>
     <p>This example demonstrates creating a DocuSign Room using a predefined template.</p>
     <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a>,
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/RoomTemplates/RoomTemplates/GetRoomTemplates">RoomTemplates::GetRoomTemplates</a> and
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a>,
+        <a target='_blank'
+           href="https://developers.docusign.com/rooms-api/reference/RoomTemplates/RoomTemplates/GetRoomTemplates">RoomTemplates::GetRoomTemplates</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a>
     </p>
+    <!-------------------------------------------------------------------------------------------->
     <h4 id="example-r003">3. <a href="{{ app_url ~ 'index.php?page=reg003'}}">Exporting data from a room</a></h4>
     <p>This example demonstrates how to export rooms data from a DocuSign Room.</p>
     <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a> and
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRoomFieldData">Rooms::GetRoomFieldData</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRoomFieldData">Rooms::GetRoomFieldData</a>
     </p>
+    <!-------------------------------------------------------------------------------------------->
     <h4 id="example-r004">4. <a href="{{ app_url ~ 'index.php?page=reg004'}}">Adding forms to a room</a></h4>
     <p>This example demonstrates how to attach forms to a Docusign Room.</p>
     <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>,
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraries">Forms::GetFormLibraries</a>,
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraryForms">Forms::GetFormLibraryForms</a> and
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/AddFormToRoom">Rooms::AddFormToRoom</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>,
+        <a target='_blank'
+           href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraries">Forms::GetFormLibraries</a>,
+        <a target='_blank'
+           href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraryForms">Forms::GetFormLibraryForms</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/AddFormToRoom">Rooms::AddFormToRoom</a>
     </p>
+    <!-------------------------------------------------------------------------------------------->
     <h4 id="example-r005">5. <a href="{{ app_url ~ 'index.php?page=reg005'}}">Getting rooms with filters</a></h4>
     <p>This example demonstrates how to return rooms that have had their field data,<br/>
         updated within the certain time period.</p>
     <p>API method used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>
     </p>
-    <h4 id="example-r006">6. <a href="{{ app_url ~ 'index.php?page=reg006'}}">Creating an external form fill session</a></h4>
+    <!-------------------------------------------------------------------------------------------->
+    <h4 id="example-r006">6. <a href="{{ app_url ~ 'index.php?page=reg006'}}">Creating an external form fill
+        session</a></h4>
     <p>This example demonstrates how to create an external form fill session.</p>
     <p>API methods used:
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>,
-        <a target ='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/Rooms/Rooms/GetDocuments/">Rooms::GetDocuments</a> and
-        <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/ExternalFormFillSessions/CreateExternalFormFillSession">Forms::CreateExternalFormFillSession</a>
+        <a target='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>,
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/rooms-api/reference/Rooms/Rooms/GetDocuments/">Rooms::GetDocuments</a>
+        and
+        <a target='_blank'
+           href="https://developers.docusign.com/rooms-api/reference/Forms/ExternalFormFillSessions/CreateExternalFormFillSession">Forms::CreateExternalFormFillSession</a>
     </p>
-
+    <!-------------------------------------------------------------------------------------------->
+    <h4 id="example-r007">7. <a href="{{ app_url ~ 'index.php?page=reg007'}}">Creating a form group</a></h4>
+    <p>This example demonstrates how to create a new form group with the name given in the name property of the
+        request body.</p>
+    <p>API methods used:
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/createformgroup/">FormGroups::CreateFormGroup</a>.
+    </p>
+    <!-------------------------------------------------------------------------------------------->
+    <h4 id="example-r008">8. <a href="{{ app_url ~ 'index.php?page=reg008'}}">Grant office access to a form group</a></h4>
+    <p>
+        This example demonstrates how to assign an office to a form group for your DocuSign Rooms for Real Estate
+        account. Granting office access to a form group will enable you to filter which form groups are available based
+        on that office.
+    </p>
+    <p>
+        API methods used:
+        <a href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups"
+           target="_blank">FormGroups:GetFormGroups</a>
+        and
+        <a href="https://developers.docusign.com/docs/rooms-api/reference/offices/offices/getoffices"
+           target="_blank">Offices:GetOffices</a>
+    </p>
+    <!-------------------------------------------------------------------------------------------->
+    <h4 id="example-r009">9. <a href="{{ app_url ~ 'index.php?page=reg009'}}">Assign a form to a form group</a></h4>
+    <p>
+        This example demonstrates how to assign a form to a form group. As a prerequisite, ensure that you have
+        <a href="{{ app_url ~ 'index.php?page=reg007'}}" target="_blank">created a form group</a>
+        and <a href="{{ app_url ~ 'index.php?page=reg008'}}" target="_blank">set the office ID on this form group</a>
+        before proceeding.
+    </p>
+    <p>
+        API methods used:
+        <a href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups" target="_blank">FormGroups:GetFormGroups</a>
+        and
+        <a target ='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formlibraries/getformlibraries">FormLibraries::GetFormLibraryForms</a>.
+    </p>
 </div>
 
 <!-- anchor-js is only for the index page -->
