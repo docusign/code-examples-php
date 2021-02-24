@@ -67,16 +67,16 @@
         },
         {
             "name": "docusign/rooms-client",
-            "version": "v1.0.0",
+            "version": "v1.1.0-rc",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-rooms-php-client.git",
-                "reference": "4c4223b9b5f322efea2eceb22f0bfca4d62aca8b"
+                "reference": "bc31132560707c226db5a7e2b158393e2b900888"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/4c4223b9b5f322efea2eceb22f0bfca4d62aca8b",
-                "reference": "4c4223b9b5f322efea2eceb22f0bfca4d62aca8b",
+                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/bc31132560707c226db5a7e2b158393e2b900888",
+                "reference": "bc31132560707c226db5a7e2b158393e2b900888",
                 "shasum": ""
             },
             "require": {
@@ -119,9 +119,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-rooms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v1.0.0"
+                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v1.1.0-rc"
             },
-            "time": "2020-11-01T21:21:32+00:00"
+            "time": "2020-12-11T21:00:45+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -1135,7 +1135,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "docusign/rooms-client": 5
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

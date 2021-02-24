@@ -3,6 +3,8 @@
 
 namespace Example\Services;
 use DocuSign\Rooms\Api\ExternalFormFillSessionsApi;
+use DocuSign\Rooms\Api\FormGroupsApi;
+use DocuSign\Rooms\Api\OfficesApi;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Api\RolesApi;
 use DocuSign\Rooms\Api\RoomsApi;
@@ -10,6 +12,8 @@ use DocuSign\Rooms\Client\ApiClient;
 use DocuSign\Rooms\Api\RoomTemplatesApi;
 use DocuSign\Rooms\Api\FormLibrariesApi;
 use DocuSign\Rooms\Configuration;
+use DocuSign\Rooms\Model\FormGroup;
+use DocuSign\Rooms\Model\FormGroupForCreate;
 use \DocuSign\Rooms\Model\Room;
 
 class RoomsApiClientService
@@ -46,6 +50,22 @@ class RoomsApiClientService
     public function getRolesApi(): RolesApi
     {
         return new RolesApi($this->apiClient);
+    }
+
+    /**
+     * Getter for the FormGroupsApi
+     */
+    public function getFromGroupsApi(): FormGroupsApi
+    {
+        return new FormGroupsApi($this->apiClient);
+    }
+
+    /**
+     * Getter for the OfficesApi
+     */
+    public function getOfficesApi(): OfficesApi
+    {
+        return new OfficesApi($this->apiClient);
     }
 
     /**
@@ -246,5 +266,58 @@ class RoomsApiClientService
             exit;
         }
         return $documents['documents'];
+    }
+
+    /**
+     * Create from groups for specific account
+     *
+     * @param $account_id
+     * @param FormGroupForCreate $formGroup
+     * @return FormGroup
+     */
+    public function createFormGroup(string $account_id, FormGroupForCreate $formGroup): FormGroup
+    {
+        $form_groups_api = $this->getFromGroupsApi();
+        try {
+            $response = $form_groups_api->createFormGroup($account_id, $formGroup);
+        } catch (ApiException $e) {
+            $this->showErrorTemplate($e);
+            exit;
+        }
+        return $response;
+    }
+
+    /**
+     * Get from groups for specific account
+     *
+     * @param $account_id
+     * @return array $form_groups
+     */
+    public function getFormGroups($account_id): array {
+        $form_groups_api = $this->getFromGroupsApi();
+        try {
+            $form_groups = $form_groups_api->getFormGroups($account_id);
+        } catch (ApiException $e) {
+            $this->showErrorTemplate($e);
+            exit;
+        }
+        return $form_groups['form_groups'];
+    }
+
+    /**
+     * Get offices for specific account
+     *
+     * @param $account_id
+     * @return array $offices
+     */
+    public function getOffices($account_id): array {
+        $offices_api = $this->getOfficesApi();
+        try {
+            $offices = $offices_api->getOffices($account_id);
+        } catch (ApiException $e) {
+            $this->showErrorTemplate($e);
+            exit;
+        }
+        return $offices['office_summaries'];
     }
 }

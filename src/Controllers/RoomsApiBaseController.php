@@ -14,22 +14,24 @@ abstract class RoomsApiBaseController
      * @param $templates array|null
      * @param $rooms array|null
      * @param $forms array|null
+     * @param null $offices
+     * @param null $formGroups
      * @return void
      */
     public function controller(
         string $eg,
-        $routerService,
+        RouterService $routerService,
         $basename = null,
         $templates = null,
         $rooms = null,
         $forms = null,
-        $room_id = null,
-        $room_name = null
+        $offices = null,
+        $formGroups = null
     ): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
-            $this->getController($eg, $routerService, $basename, $templates, $rooms, $forms, $room_id, $room_name);
+            $this->getController($eg, $routerService, $basename, $templates, $rooms, $forms, $offices, $formGroups);
         };
         if ($method == 'POST') {
             $routerService->check_csrf();
@@ -44,20 +46,21 @@ abstract class RoomsApiBaseController
      * @param $routerService RouterService
      * @param $basename string|null
      * @param $templates array|null
-     * @param $groups array|null
      * @param $rooms array|null
      * @param $forms array|null
+     * @param null $offices
+     * @param null $formGroups
      * @return void
      */
     private function getController(
         string $eg,
-        $routerService,
-        $basename,
-        $templates,
+        RouterService $routerService,
+        ?string $basename,
+        ?array $templates,
         $rooms = null,
         $forms = null,
-        $room_id = null,
-        $room_name = null
+        $offices = null,
+        $formGroups = null
     ): void
     {
         if ($routerService->ds_token_ok()) {
@@ -66,8 +69,8 @@ abstract class RoomsApiBaseController
                 'templates' => $templates,
                 'rooms' => $rooms,
                 'forms' => $forms,
-                'room_id' => $room_id,
-                'room_name' => $room_name,
+                'offices' => $offices,
+                'form_groups' => $formGroups,
                 'source_file' => $basename,
                 'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
                 'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,

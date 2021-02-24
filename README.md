@@ -145,6 +145,17 @@ For more information about the scopes used for obtaining authorization to use th
 1. **Create an external form fillable session.**
    [Source](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
    Creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
+1. **Creating a form group.**
+   [Source](./src/Controllers/Examples/Rooms/EG007CreateFormGroup.php)<br />
+   Demonstrates how to create a new form group with the name given in the name property of the request body.
+1. **Grant office access to a form group.**
+   [Source](./src/Controllers/Examples/Rooms/EG008GrantOfficeAccessToFormGroup.php)<br />
+   How to assign an office to a form group for your DocuSign Rooms.
+1. **Assign a form to a form group.**
+   [Source](./src/Controllers/Examples/Rooms/Eg009AssignFormToFormGroup.php)<br />
+   This example demonstrates how to assign a form to a form group for your DocuSign Rooms.
+
+
 
 ## Installation
 
