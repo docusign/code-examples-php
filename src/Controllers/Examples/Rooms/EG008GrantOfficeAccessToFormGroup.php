@@ -27,12 +27,14 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
         $this->clientService = new RoomsApiClientService($this->args);
         $this->routerService = new RouterService();
 
-        # Step 1. Get available offices
+        # Step 3 Start
         $offices = $this->getOffices();
+        # Step 3 End
 
-        # Step 2. Get available form groups
+        # Step 4 Start
         $formGroups = $this->getFormGroups();
         parent::controller($this->eg, $this->routerService, basename(__FILE__), null, null, null, $offices, $formGroups);
+        # Step 4 End
     }
 
     /**
@@ -67,16 +69,18 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
      */
     public function worker(array $args): void
     {
+
+        # Step 5 Start
         $form_api = $this->clientService->getFromGroupsApi();
 
         try {
-            # Step 3. Grant office access to a form group using SDK.
             $form_api->grantOfficeAccessToFormGroup($args['form_group_id'], $args['office_id'], $args["account_id"]);
         } catch (ApiException $e) {
             error_log($e);
             $this->clientService->showErrorTemplate($e);
             exit;
         }
+        # Step 5 End
     }
 
     /**

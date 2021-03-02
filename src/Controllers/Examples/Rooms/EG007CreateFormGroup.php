@@ -64,10 +64,13 @@ class EG007CreateFormGroup extends RoomsApiBaseController
      */
     public function worker(array $args): FormGroup
     {
-        # Step 1. Create form group with specified name
-        $form_group = new FormGroupForCreate(['name' => $args['form_group_name']]);
-        # Step 2. Submit form group using SDK
+        # Step 3 Start
+        $form_group = new FormGroupForCreate(['name' => $args['form_group_name']]);  
+        # Step 3 End
+
+        # Step 4 Start
         return $this->clientService->createFormGroup($args["account_id"], $form_group);
+        # Step 4 End
     }
 
     /**

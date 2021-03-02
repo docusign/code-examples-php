@@ -28,11 +28,14 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
         $this->clientService = new RoomsApiClientService($this->args);
         $this->routerService = new RouterService();
 
-        # Step 1. Get available forms
+        # Step 3 Start
         $forms = $this->getForms();
-        # Step 2. Get available form groups
+        # Step 3 End
+
+        # Step 4 Start
         $formGroups = $this->getFormGroups();
         parent::controller($this->eg, $this->routerService, basename(__FILE__), null, null, $forms, null, $formGroups);
+        # Step 4 End
     }
 
     /**
@@ -68,18 +71,24 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
      */
     public function worker(array $args): FormGroupFormToAssign
     {
-        $form_api = $this->clientService->getFromGroupsApi();
-        # Step 3. Construct request body
+        # Step 5 Start
         $form_group_form_to_assign = new FormGroupFormToAssign(['form_id' => $args['form_id']]);
+        # Step 5 End
+
+        
         try {
-            # Step 4. Assign form to form group using SDK.
+            # Step 6 Start
+            $form_api = $this->clientService->getFromGroupsApi();
             $result = $form_api->assignFormGroupForm($args['form_group_id'], $args["account_id"], $form_group_form_to_assign);
+            # Step 6 End
         } catch (ApiException $e) {
             error_log($e);
             $this->clientService->showErrorTemplate($e);
             exit;
         }
-        return $result;
+
+        
+       return $result;
     }
 
     /**
