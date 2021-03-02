@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -34,11 +34,10 @@ RUN pecl install \
 RUN docker-php-ext-enable \
     imagick \
     xdebug
-RUN docker-php-ext-configure zip --with-libzip
+RUN docker-php-ext-configure zip 
 RUN docker-php-ext-install \
     curl \
     iconv \
-    mbstring \
     pdo \
     pdo_mysql \
     pcntl \
