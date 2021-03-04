@@ -70,17 +70,18 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
     public function worker(array $args): void
     {
 
-        # Step 5 Start
-        $form_api = $this->clientService->getFromGroupsApi();
-
         try {
+
+            # Step 5 Start
+            $form_api = $this->clientService->getFromGroupsApi();
             $form_api->grantOfficeAccessToFormGroup($args['form_group_id'], $args['office_id'], $args["account_id"]);
+            # Step 5 End
+        
         } catch (ApiException $e) {
             error_log($e);
             $this->clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 5 End
     }
 
     /**
