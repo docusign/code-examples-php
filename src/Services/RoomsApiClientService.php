@@ -36,12 +36,13 @@ class RoomsApiClientService
      */
     public function __construct($args)
     {
-        # 2. Construct your API headers
+        # Step 2 start
         # Exceptions will be caught by the calling function
         $config = new Configuration();
         $config->setHost('https://demo.rooms.docusign.com/restapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
+        # Step 2 end        
         $this->routerService = new RouterService();
     }
     /**
