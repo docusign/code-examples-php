@@ -112,7 +112,7 @@ class JWTService
                 $this->flash('You have authenticated with DocuSign.');
                 $_SESSION['ds_access_token'] = self::$access_token->getAccessToken();
                 $_SESSION['ds_refresh_token'] = self::$access_token->getRefreshToken();
-                $_SESSION['ds_expiration'] = time() + (self::$access_token->getExpiresIn() * 1000); # expiration time.
+                $_SESSION['ds_expiration'] = time() + (self::$access_token->getExpiresIn() * 60); # expiration time.
 
                 // Using the access token, we may look up details about the
                 // resource owner.
