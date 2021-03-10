@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if not session['ds_user_name'] %}
+
+<div class="jumbotron jumbotron-fluid">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <h1 class="display-4">PHP Launcher</h1>
+                <p class="Xlead">Welcome to the DocuSign PHP examples using multiple OAuth flows (JWT and
+                    Authorization Code Grant).</p>
+            </td>
+            <td>
+                <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="container" style="margin-top: 40px" id="index-page">
+    <h2>Welcome</h2>
+    <p>This launcher both demonstrates use of the OAuth Authorization Code Grant and JWT flows and includes multiple
+        usage examples for the DocuSign Click API.</p>
+
+    {% if show_doc %}
+    <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> on using OAuth Authorization Code Grant
+        from a
+        PHP application.</p>
+    {% endif %}
+
+    <h2>Basic Clickwrap API Examples</h2>
+
+    <h4 id="example-c001">
+        1. <a href="{{ app_url ~ 'index.php?page=ceg001'}}">Create a clickwrap</a>
+    </h4>
+    <p>
+        This example demonstrates how to create a clickwrap that you can embed in your website or app.
+    </p>
+    <p>API methods used:
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/">ClickWraps:createClickwrap</a>
+    </p>
+
+    <h4 id="example-c002">
+        2. <a href="{{ app_url ~ 'index.php?page=ceg002'}}">Activating a clickwrap</a>
+    </h4>
+    <p>
+        This example demonstrates how to use DocuSign Click to activate a new
+        clickwrap that you have already created.
+        <br/>
+        By default, new clickwraps are inactive. You must activate your clickwrap before
+        you can use it.
+    </p>
+    <p>API method used:
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion">ClickWraps:updateClickwrapVersion</a>
+        and
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps:getClickwraps</a>
+    </p>
+
+    <h4 id="example-c003">
+        3. <a href="{{ app_url ~ 'index.php?page=ceg003'}}">Create a new clickwrap version</a>
+    </h4>
+    <p>
+        This example demonstrates how to use the Click API to create a new version of a clickwrap.
+        You can specify whether you require users who have previously accepted the clickwrap to accept the new version
+        when they return to your website.
+    </p>
+
+    <p>API method used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion">ClickWraps:createClickwrapVersion</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrap/">ClickWraps:getClickwrap</a>
+    </p>
+
+    <h4 id="example-c004">4. <a href="{{ app_url ~ 'index.php?page=ceg004'}}">Get a list of clickwraps</a></h4>
+    <p>
+        This example demonstrates how to get a list of clickwraps associated with a specific DocuSign user.
+    </p>
+    <p>API methods used:
+        <a target='_blank'
+           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps:getClickwraps</a>
+    </p>
+
+    <h4 id="example-c005">
+        5. <a href="{{ app_url ~ 'index.php?page=ceg005'}}">Get clickwrap responses</a>
+    </h4>
+    <p>
+        This example demonstrates how to use the Click API to get user responses to your clickwrap agreements.
+    </p>
+
+    <p>API method used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion">ClickWraps:updateClickwrapVersion</a>
+        and
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrap/">ClickWraps:getClickwrap</a>
+    </p>
+</div>
+
+<!-- anchor-js is only for the index page -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+<script>
+    anchors.options.placement = 'left';
+    anchors.add('h4')
+</script>
+
+{% endblock %}

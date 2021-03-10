@@ -12,11 +12,11 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG022KbAuthentication extends BaseController
+class EG022KbAuthentication extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

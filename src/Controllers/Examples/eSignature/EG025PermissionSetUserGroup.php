@@ -5,11 +5,11 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Group;
 use DocuSign\eSign\Model\GroupInformation;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG025PermissionSetUserGroup extends BaseController
+class EG025PermissionSetUserGroup extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

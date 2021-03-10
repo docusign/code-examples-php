@@ -15,22 +15,22 @@ use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\RecipientPhoneNumber;
 use DocuSign\eSign\Model\RecipientAdditionalNotification;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG035SMSDelivery extends BaseController
+class EG035SMSDelivery extends eSignBaseController
 {
     /** signatureClientService */
-    private $clientService;
+    private SignatureClientService $clientService;
 
     /** RouterService */
-    private $routerService;
+    private RouterService $routerService;
 
     /** Specific template arguments */
-    private $args;
+    private array $args;
 
-    private $eg = "eg035";  # reference (and URL) for this example
+    private string $eg = "eg035";  # reference (and URL) for this example
 
     /**
      * Create a new controller instance.

@@ -15,11 +15,11 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\TextCustomField;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG031BulkSendEnvelopes extends BaseController
+class EG031BulkSendEnvelopes extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

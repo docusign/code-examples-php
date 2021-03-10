@@ -6,12 +6,12 @@
 namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 use GuzzleHttp\Exception\GuzzleException;
 
-class EG010SendBinaryDocs extends BaseController
+class EG010SendBinaryDocs extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

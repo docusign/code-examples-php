@@ -4,11 +4,11 @@ namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\PermissionProfile;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG024PermissionCreate extends BaseController
+class EG024PermissionCreate extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

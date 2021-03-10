@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>1. Creating a clickwrap</h4>
+<p>This example demonstrates how to create a clickwrap.</p>
+
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>API methods used:
+    <a target='_blank'
+       href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/">ClickWraps:createClickwrap</a>
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+      <label for="clickwrap_name">Name</label>
+      <input type="text" class="form-control" id="clickwrap_name" name="clickwrap_name" required>
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">Submit</button>
+  </form>
+  
+{% endblock %}

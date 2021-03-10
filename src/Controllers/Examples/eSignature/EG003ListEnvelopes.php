@@ -8,11 +8,11 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Api\EnvelopesApi\ListStatusChangesOptions;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopesInformation;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG003ListEnvelopes extends BaseController
+class EG003ListEnvelopes extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

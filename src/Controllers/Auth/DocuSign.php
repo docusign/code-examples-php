@@ -8,6 +8,7 @@
 
 namespace Example\Controllers\Auth;
 
+use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -35,9 +36,9 @@ class DocuSign extends AbstractProvider
      * Get authorization url to begin OAuth flow
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         $url = $this->getAuthServer();
         if ($this->allowSilentAuth) {
@@ -51,13 +52,13 @@ class DocuSign extends AbstractProvider
     /**
      * Returns the DocuSign authorization server url
      * @return string authorization server url
-     * @throws \Exception
+     * @throws Exception
      */
-    private function getAuthServer()
+    private function getAuthServer(): string
     {
         $url = $this->authorizationServer;
         if ($url == null) {
-            throw new \Exception('authorizationServer not set.');
+            throw new Exception('authorizationServer not set.');
         }
         return $url;
     }
@@ -67,9 +68,9 @@ class DocuSign extends AbstractProvider
      *
      * @param array $params
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         $url = $this->getAuthServer();
         $url .= '/oauth/token';
@@ -82,9 +83,9 @@ class DocuSign extends AbstractProvider
      * @param  AccessToken $token
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         $url = $this->getAuthServer();
         $url .= '/oauth/userinfo';
@@ -99,12 +100,16 @@ class DocuSign extends AbstractProvider
      *
      * @return array
      */
-    public function getDefaultScopes()
+    public function getDefaultScopes(): array
     {
         if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
             return [
                 "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
                 . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
+            ];
+        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true){
+            return [
+                "signature click.manage click.send"
             ];
         } else {
             return [
@@ -138,9 +143,9 @@ class DocuSign extends AbstractProvider
      * @param array $response
      * @param AccessToken $token
      * @return DocuSignResourceOwner
-     * @throws \Exception
+     * @throws Exception
      */
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): DocuSignResourceOwner
     {
         $r = new DocuSignResourceOwner($response);
         $r->target_account_id = $this->targetAccountId;
