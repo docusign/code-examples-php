@@ -34,6 +34,7 @@ class RouterService
     private const CONTROLLER = [
         'home' => 'Home',
         'home_rooms' => 'Home',
+        'home_click' => 'Home',
         'ds_return' => 'DsReturn',
         'must_authenticate' => 'MustAuthenticate',
         'eg001' => 'EG001EmbeddedSigning',
@@ -74,6 +75,11 @@ class RouterService
         'reg004' => 'Rooms\EG004AddFormsToRoom',
         'reg005' => 'Rooms\EG005GetRoomsWithFilters',
         'reg006' => 'Rooms\EG006CreateExternalFormFillSession',
+        'ceg001' => 'Click\EG001CreateClickwrap',
+        'ceg002' => 'Click\EG002ActivateClickwrap',
+        'ceg003' => 'Click\EG003CreateClickwrapVersion',
+        'ceg004' => 'Click\EG004GetClickwraps',
+        'ceg005' => 'Click\EG005GetClickwrapResponses',
         'reg007' => 'Rooms\EG007CreateFormGroup',
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
@@ -87,6 +93,7 @@ class RouterService
         "ds_return" => "ds_return.html",
         "home"  => "home.html",
         "home_rooms" => "home_rooms.html",
+        "home_click" => "home_click.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
         "eg002" => "esignature/eg002_signing_via_email.html",
         "eg003" => "esignature/eg003_list_envelopes.html",
@@ -125,6 +132,11 @@ class RouterService
         "reg004" => "rooms/eg004_add_forms_to_room.html",
         "reg005" => "rooms/eg005_get_rooms_with_filters.html",
         "reg006" => "rooms/eg006_create_external_form_fill_session.html",
+        'ceg001' => 'click/eg001_create_clickwrap.html',
+        'ceg002' => 'click/eg002_activate_clickwrap.html',
+        'ceg003' => 'click/eg003_create_clickwrap_version.html',
+        'ceg004' => 'click/eg004_get_clickwraps.html',
+        'ceg005' => 'click/eg005_get_clickwrap_responses.html',
         "reg007" => "rooms/eg007_create_form_group.html",
         "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
@@ -136,6 +148,7 @@ class RouterService
     private const TITLES = [
         "home" => "Home--PHP Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
+        "home_click" => "Home--PHP Click Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
         "eg003" => "List of changed envelopes",
@@ -174,6 +187,11 @@ class RouterService
         "reg004" => "Add forms to room",
         "reg005" => "Get rooms with filters",
         "reg006" => "Create external form fill session",
+        "ceg001" => "Create a clickwrap",
+        "ceg002" => "Activate a clickwrap",
+        "ceg003" => "Create a new clickwrap version",
+        "ceg004" => "Get a list of clickwraps",
+        "ceg005" => "Get clickwrap responses",
         "reg007" => "Create form group",
         "reg008" => "Grant office access to a form group",
         "reg009" => "Assign a form to a form group",
@@ -192,7 +210,7 @@ class RouterService
         if ($page == 'home') {
 
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
                 error_reporting(E_ALL & ~E_NOTICE);
@@ -220,6 +238,7 @@ class RouterService
             $this->ds_callback(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_logout') {
+            // this variable lets the program know we've already logged in via Quickstart the first time.
             $_SESSION['beenHere'] = true;
             $this->ds_logout(); // See below in oauth section
             exit();
@@ -352,6 +371,8 @@ class RouterService
         if (isset($_SESSION['template_id'])) {
             unset($_SESSION['template_id']);
         }
+
+        
     }
 
     /**

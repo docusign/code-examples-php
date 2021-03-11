@@ -16,11 +16,11 @@ use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\TemplateRole;
 use DocuSign\eSign\Model\Text;
 use DocuSign\eSign\Model\TextCustomField;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG017SetTemplateTabValues extends BaseController
+class EG017SetTemplateTabValues extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

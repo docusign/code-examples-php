@@ -4,11 +4,11 @@ namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Brand;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG028CreateBrand extends BaseController
+class EG028CreateBrand extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

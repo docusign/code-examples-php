@@ -39,6 +39,7 @@ $JWT_CONFIG = [
 $EXAMPLES_API_TYPE = [
     'Rooms' => false,
     'ESignature' => true,
+    'Click' => false,
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;

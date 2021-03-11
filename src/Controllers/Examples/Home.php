@@ -8,15 +8,15 @@
 
 namespace Example\Controllers\Examples;
 
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\RouterService;
 
-class Home extends BaseController
+class Home extends eSignBaseController
 {
     /** RouterService */
-    private $routerService;
+    private RouterService $routerService;
 
-    private $eg;  # Reference (and URL) for this example
+    private string $eg;  # Reference (and URL) for this example
 
     /**
      * Create a new controller instance.
@@ -27,6 +27,8 @@ class Home extends BaseController
     {
         if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
             $this->eg = 'home_rooms';
+        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true) {
+            $this->eg = 'home_click';
         } else {
             $this->eg = 'home';
         }
@@ -34,6 +36,5 @@ class Home extends BaseController
         parent::controller($this->eg, $this->routerService);
     }
 
-    public function getController(){}
     public function createController() {}
 }

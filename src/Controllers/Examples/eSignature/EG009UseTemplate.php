@@ -8,11 +8,11 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG009UseTemplate extends BaseController
+class EG009UseTemplate extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

@@ -20,11 +20,11 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\Text;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG008CreateTemplate extends BaseController
+class EG008CreateTemplate extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

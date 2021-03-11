@@ -13,11 +13,11 @@ use DocuSign\eSign\Model\RecipientSMSAuthentication;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG020SmsAuthentication extends BaseController
+class EG020SmsAuthentication extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

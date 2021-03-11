@@ -3,11 +3,11 @@
 namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG027PermissionDelete extends BaseController
+class EG027PermissionDelete extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;

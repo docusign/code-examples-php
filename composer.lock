@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "519c26fe99cdc7d57888f39a2ba9d7ba",
+    "content-hash": "6e8248a67039adcc006dc5f9e5445a55",
     "packages": [
+        {
+            "name": "docusign/click-client",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/docusign/docusign-click-php-client.git",
+                "reference": "b93ef4a99fd569778169574fef3a1a94859a9a95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/docusign/docusign-click-php-client/zipball/b93ef4a99fd569778169574fef3a1a94859a9a95",
+                "reference": "b93ef4a99fd569778169574fef3a1a94859a9a95",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "firebase/php-jwt": "^5.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DocuSign\\Click\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DocuSign",
+                    "homepage": "https://developers.docusign.com"
+                }
+            ],
+            "description": "The DocuSign PHP library makes integrating DocuSign into your websites a super fast and painless process. The library is open sourced on GitHub, look for the docusign-php-client repository. Join the eSign revolution!",
+            "homepage": "https://developers.docusign.com",
+            "keywords": [
+                "api",
+                "click",
+                "docusign",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/docusign/docusign-click-php-client/issues",
+                "source": "https://github.com/docusign/docusign-click-php-client/tree/v1.0.0"
+            },
+            "time": "2021-02-12T05:48:52+00:00"
+        },
         {
             "name": "docusign/esign-client",
             "version": "v6.0.0-rc",

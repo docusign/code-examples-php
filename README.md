@@ -157,6 +157,26 @@ For more information about the scopes used for obtaining authorization to use th
 
 
 
+## Click API
+
+For more information about the scopes used for obtaining authorization to use the Click API, see the [Required Scopes section](https://developers.docusign.com/docs/click-api/click101/auth).
+
+1. **Create a clickwrap.**
+   [Source.](./src/Controllers/Examples/Click/EG001CreateClickwrap.php)
+   This example demonstrates how to use DocuSign Click to create a clickwrap that you can embed in your website or app.
+1. **Activate a clickwrap.**
+   [Source.](./src/Controllers/Examples/Click/EG002ActivateClickwrap.php)
+   This example demonstrates how to use DocuSign Click to activate a new clickwrap that you have already created.
+1. **Create a new clickwrap version.**
+   [Source.](./src/Controllers/Examples/Click/EG003CreateClickwrapVersion.php)
+   This example demonstrates how to use DocuSign Click to create a new version of a clickwrap.
+1. **Get a list of clickwraps.**
+   [Source.](./src/Controllers/Examples/Click/EG004GetClickwraps.php)
+   This example demonstrates how to use DocuSign Click to get a list of clickwraps associated with a specific DocuSign user.
+1. **Get clickwrap responses.**
+   [Source.](./src/Controllers/Examples/Click/EG005GetClickwrapResponses.php)
+   This example demonstrates how to use DocuSign Click to get user responses to your clickwrap agreements.
+
 ## Installation
 
 ### Prerequisites

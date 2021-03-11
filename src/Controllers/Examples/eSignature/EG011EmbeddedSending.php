@@ -7,11 +7,11 @@ namespace Example\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\ReturnUrlRequest;
-use Example\Controllers\BaseController;
+use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG011EmbeddedSending extends BaseController
+class EG011EmbeddedSending extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;
