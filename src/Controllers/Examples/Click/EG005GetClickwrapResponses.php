@@ -72,8 +72,8 @@ class EG005GetClickwrapResponses extends ClickApiBaseController
     public function worker(array $args)
     {
         # Step 3 Start
-        $accounts_api = $this->clientService->accountsApi();
         try {
+            $accounts_api = $this->clientService->accountsApi();
             $response = $accounts_api->getClickwrap($args['account_id'], $args['clickwrap_id']);
         } catch (ApiException $e) {
             error_log($e);

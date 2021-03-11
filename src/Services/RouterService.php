@@ -148,6 +148,7 @@ class RouterService
     private const TITLES = [
         "home" => "Home--PHP Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
+        "home_click" => "Home--PHP Click Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
         "eg003" => "List of changed envelopes",
@@ -209,7 +210,7 @@ class RouterService
         if ($page == 'home') {
 
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
                 error_reporting(E_ALL & ~E_NOTICE);
@@ -237,6 +238,7 @@ class RouterService
             $this->ds_callback(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_logout') {
+            // this variable lets the program know we've already logged in via Quickstart the first time.
             $_SESSION['beenHere'] = true;
             $this->ds_logout(); // See below in oauth section
             exit();
@@ -369,6 +371,8 @@ class RouterService
         if (isset($_SESSION['template_id'])) {
             unset($_SESSION['template_id']);
         }
+
+        
     }
 
     /**

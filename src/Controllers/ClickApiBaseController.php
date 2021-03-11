@@ -47,25 +47,35 @@ abstract class ClickApiBaseController extends BaseController
         ?array $args
     ): void
     {
-        if ($routerService->ds_token_ok()) {
-            $GLOBALS['twig']->display($routerService->getTemplate($eg), [
-                'title' => $routerService->getTitle($eg),
-                'source_file' => $basename,
-                'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
-                'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
-                'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
-                'args' => $args,
-            ]);
-        } elseif ($this->isHomePage($eg)){
+        if ($this->isHomePage($eg)){
             $GLOBALS['twig']->display($eg . '.html', [
                 'title' => $this->homePageTitle($eg),
                 'show_doc' => false
             ]);
+
+
         } else {
-            # Save the current operation so it will be resumed after authentication
-            $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-            header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
-            exit;
+
+            if ($routerService->ds_token_ok()) {
+                $GLOBALS['twig']->display($routerService->getTemplate($eg), [
+                    'title' => $routerService->getTitle($eg),
+                    'source_file' => $basename,
+                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
+                    'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
+                    'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
+                    'args' => $args,
+                ]);
+            }
+            else {
+
+                # Save the current operation so it will be resumed after authentication
+                $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+                exit;
+
+            }
+
+        
         }
     }
 

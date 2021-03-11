@@ -29,7 +29,7 @@ class EG002ActivateClickwrap extends ClickApiBaseController
         $this->clientService = new ClickApiClientService($this->args);
         $this->routerService = new RouterService();
 
-        # Get available inactive clickwraps
+        # Step 1. Get available inactive clickwraps
         $inactiveClickwraps = $this->getInactiveClickwraps();
         parent::controller($this->eg, $this->routerService, basename(__FILE__), ['clickwraps' => $inactiveClickwraps]);
     }
@@ -72,17 +72,19 @@ class EG002ActivateClickwrap extends ClickApiBaseController
         $clickwrap_request = new ClickwrapRequest(['status' => 'active']);
         # Step 3 End
 
-        # Step 4 Start
+        
         try{
+            # Step 4 Start
             $accounts_api = $this->clientService->accountsApi();
             $response = $accounts_api -> updateClickwrapVersion(
                 $args['account_id'], $args['clickwrap_id'], '1', $clickwrap_request
             );
+            # Step 4 End
         }  catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 4 End
+        
 
         return $response;
     }

@@ -64,16 +64,17 @@ class EG004GetClickwraps extends ClickApiBaseController
      */
     public function worker(array $args): ClickwrapVersionsResponse
     {
-        # Step 3 Start
-        $accountsApi = $this->clientService->accountsApi();
-        $options = new GetClickwrapsOptions();
+        
         try {
+            # Step 3 Start
+            $accountsApi = $this->clientService->accountsApi();
+            $options = new GetClickwrapsOptions();
             $results = $accountsApi->getClickwraps($args['account_id'], $options);
+            # Step 3 End
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 3 End
         return $results;
     }
 

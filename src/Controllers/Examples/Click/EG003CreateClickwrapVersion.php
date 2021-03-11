@@ -114,14 +114,16 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
         );
         # Step 3 End
 
-        # Step 4 Start
+        
         try {
+            # Step 4 Start
             $response = $accountsApi->createClickwrapVersion($this->args['account_id'], $this->args['clickwrap_id'], $clickwrap);
+            # Step 4 End
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 4 End
+        
         return $response;
 
     }
