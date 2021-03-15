@@ -96,6 +96,7 @@ class EG007EnvelopeGetDoc extends eSignBaseController
 
         # An SplFileObject is returned. See http://php.net/manual/en/class.splfileobject.php
         $temp_file = $envelope_api->getDocument($args['account_id'],  $args['document_id'], $args['envelope_id']);
+        # Step 3 end        
         # find the matching document information item
         $doc_item = false;
         foreach ($args['envelope_documents']['documents'] as $item) {
@@ -126,7 +127,6 @@ class EG007EnvelopeGetDoc extends eSignBaseController
         }
 
         return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
-        # Step 3 end
     }
 
     /**
