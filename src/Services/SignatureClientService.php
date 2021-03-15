@@ -33,11 +33,13 @@ class SignatureClientService
      */
     public function __construct($args)
     {
-        # 2. Construct your API headers
+        # Construct your API headers
         # Exceptions will be caught by the calling function
+        # Step 2 start
         $config = new Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
+        # Step 2 end        
         $this->apiClient = new ApiClient($config);
         $this->routerService = new RouterService();
     }
