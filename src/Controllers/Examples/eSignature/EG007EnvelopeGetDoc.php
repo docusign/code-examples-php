@@ -37,8 +37,8 @@ class EG007EnvelopeGetDoc extends eSignBaseController
     }
 
     /**
-     * 1. Check the token and check we have an envelope_id
-     * 2. Call the worker method
+     * Check the token and check we have an envelope_id
+     * Call the worker method
      *
      * @return void
      * @throws ApiException for API problems and perhaps file access \Exception too.
@@ -50,7 +50,7 @@ class EG007EnvelopeGetDoc extends eSignBaseController
         $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;
         $token_ok = $this->routerService->ds_token_ok($minimum_buffer_min);
         if ($token_ok && $envelope_id&& $envelope_documents) {
-            # 2. Call the worker method
+            # Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
             $results = $this->worker($this->args);
@@ -81,17 +81,17 @@ class EG007EnvelopeGetDoc extends eSignBaseController
 
     /**
      * Do the work of the example
-     * 1. Call the envelope documents list method
+     * Call the envelope documents list method
      *
      * @param  $args array
      * @return array
      * @throws ApiException for API problems and perhaps file access \Exception too.
      */
-    # ***DS.snippet.0.start
     private function worker(array $args): array
     {
-        # 1. call API method
+        # Call API method
         # Exceptions will be caught by the calling function
+        # Step 3 start
         $envelope_api = $this->clientService->getEnvelopeApi();
 
         # An SplFileObject is returned. See http://php.net/manual/en/class.splfileobject.php
@@ -124,10 +124,10 @@ class EG007EnvelopeGetDoc extends eSignBaseController
         } else {
             $mimetype = 'application/octet-stream';
         }
+        # Step 3 end        
 
         return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
     }
-    # ***DS.snippet.0.end
 
     /**
      * Get specific template arguments
