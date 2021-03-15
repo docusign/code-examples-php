@@ -124,9 +124,9 @@ class EG007EnvelopeGetDoc extends eSignBaseController
         } else {
             $mimetype = 'application/octet-stream';
         }
-        # Step 3 end        
 
         return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
+        # Step 3 end
     }
 
     /**
