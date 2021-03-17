@@ -210,7 +210,7 @@ class RouterService
         if ($page == 'home') {
 
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
                 error_reporting(E_ALL & ~E_NOTICE);
@@ -239,7 +239,6 @@ class RouterService
             exit();
         } elseif ($page == 'ds_logout') {
             // this variable lets the program know we've already logged in via Quickstart the first time.
-            $_SESSION['beenHere'] = true;
             $this->ds_logout(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_return') {
@@ -249,7 +248,7 @@ class RouterService
                 'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
                 'state' => isset($_GET['state']) ? $_GET['state'] : false
             ]);
-
+            $_SESSION['beenHere'] = true;
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
@@ -372,7 +371,6 @@ class RouterService
             unset($_SESSION['template_id']);
         }
 
-        
     }
 
     /**
