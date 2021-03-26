@@ -26,12 +26,16 @@ class ClickApiClientService
      */
     public function __construct($args)
     {
-        # 2. Construct your API headers
+        # Construct your API headers
         # Exceptions will be caught by the calling function
+        
+        # Step 2 Start
         $config = new Configuration();
         $config->setHost('https://demo.docusign.net/clickapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
+        # Step 2 End
+        
         $this->routerService = new RouterService();
     }
 
