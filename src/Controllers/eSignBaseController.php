@@ -103,6 +103,7 @@ abstract class eSignBaseController extends BaseController
         } else {
 
             if ($routerService->ds_token_ok()) {
+                $pause_envelope_ok = isset($_SESSION["pause_envelope_id"]) ? $_SESSION["pause_envelope_id"] : false;
                 $envelope_id = isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
                 $template_id = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
                 $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;
@@ -134,7 +135,8 @@ abstract class eSignBaseController extends BaseController
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
-                    'signer_email' => $GLOBALS['DS_CONFIG']['signer_email']
+                    'signer_email' => $GLOBALS['DS_CONFIG']['signer_email'],
+                    'pause_envelope_ok' => $pause_envelope_ok
                 ];
     
                 $GLOBALS['twig']->display($routerService->getTemplate($eg), $displayOptions);

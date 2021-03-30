@@ -1,0 +1,37 @@
+{% extends "base.html" %}  {% block content %}
+
+<h4>33. {{ title }}</h4>
+
+<p>This example demonstrates how to resume an envelope workflow that has been
+    paused.
+</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>API method used:
+    <a target='_blank'
+       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/">Envelopes::update</a>.
+</p>
+
+<p>
+    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+</p>
+
+{% if pause_envelope_ok %}
+<p>The envelope you created in example 32 will be queried.</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">Continue</button>
+</form>
+{% else %}
+<p>Problem: please first create an envelope using <a href="{{ app_url ~ 'index.php?page=eg032'}}">example
+    32.</a> <br/>
+    Thank you.</p>
+
+<a href="{{ app_url ~ 'index.php?page=eg032'}}" class="btn btn-docu">Continue</a>
+{% endif %}
+
+{% endblock %}

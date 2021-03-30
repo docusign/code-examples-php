@@ -114,10 +114,18 @@ class SignatureClientService
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
-            $GLOBALS['twig']->display('error.html', [
-                    'error_code' => $error_code,
-                    'error_message' => $error_message]
-            );
+            if ($error_code == "WORKFLOW_UPDATE_RECIPIENTROUTING_NOT_ALLOWED") {
+                $GLOBALS['twig']->display('error_eg34.html', [
+                        'error_code' => $error_code,
+                        'error_message' => $error_message]
+                );
+            }
+            else {
+                $GLOBALS['twig']->display('error.html', [
+                        'error_code' => $error_code,
+                        'error_message' => $error_message]
+                );
+            }
             exit;
         }
 
