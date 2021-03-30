@@ -94,10 +94,15 @@ class EG034UseConditionalRecipients extends eSignBaseController
         $envelope_args = $args['envelope_args'];
         $envelope_api = $this->clientService->getEnvelopeApi();
 
-        # Create an envelope
+        # Step 3 Start
         $envelope_definition = $this->make_envelope($envelope_args);
+        # Step 3 End
+
+        # Step 4 Start
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
+        # Step 4 End
+        
         return  $envelope_id;
     }
 
