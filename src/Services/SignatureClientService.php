@@ -38,9 +38,9 @@ class SignatureClientService
         # Step 2 start
         $config = new Configuration();
         $config->setHost($args['base_path']);
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
-        # Step 2 end        
+        $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);    
         $this->apiClient = new ApiClient($config);
+        # Step 2 end    
         $this->routerService = new RouterService();
     }
 
