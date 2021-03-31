@@ -83,14 +83,13 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
      * @return string
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    # ***DS.snippet.0.start
     public function worker($args): string
     {
-        # Step 3 Start
+        # Step 3-1 Start
         $envelope_args = $args['envelope_args'];
         $envelope_api = $this->clientService->getEnvelopeApi();
         $envelope_definition = $this->make_envelope($envelope_args);
-        # Step 3 End
+        # Step 3-1 End
         
         # Step 4 Start
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
@@ -107,6 +106,7 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
      * @param  $envelope_args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    # Step 3-2 start
     private function make_envelope($envelope_args)
     {
         # The envelope has two recipients
@@ -209,7 +209,7 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
         return $envelope_definition;
     }
 
-    # ***DS.snippet.0.end
+    # Step 3-2 End
 
     /**
      * Get specific template arguments
