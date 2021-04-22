@@ -174,7 +174,7 @@ class EG013AddDocToTemplate extends eSignBaseController
             # Add the roles via an inlineTemplate
             'inline_templates' => [
                 new InlineTemplate([
-                    'sequence' => "1",
+                    'sequence' => "2",
                     'recipients' => $recipients_server_template])
             ]
         ]);
@@ -218,7 +218,7 @@ class EG013AddDocToTemplate extends eSignBaseController
             # Add the recipients via an inlineTemplate
             'inline_templates' => [
                 new InlineTemplate([
-                    'sequence' => "2", 'recipients' => $recipients_added_doc])
+                    'sequence' => "1", 'recipients' => $recipients_added_doc])
             ],
             'document' => $doc1]);
 
