@@ -9,7 +9,7 @@ To use the Rooms API code examples, modify the <code>EXAMPLES_API_TYPE</code> se
 **Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
 ## Introduction
-This repo is a PHP 7.2 application that demonstrates how to authenticate with DocuSign via [Authorization Code Grant](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
+This repo is a PHP application that demonstrates how to authenticate with DocuSign via [Authorization Code Grant](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
 
 The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) to process the results of the call to OAuth::getUser.
 
@@ -192,7 +192,7 @@ For more information about the scopes used for obtaining authorization to use th
 
    To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** GUID of the impersonated user. Also, the private key of the RSA key pair must be saved in a new file private.key in the root folder.
 
-1. [PHP](https://www.php.net/downloads.php) version 7.2 or later.
+1. [PHP](https://www.php.net/downloads.php) version 8.0.0 or later.
 
 1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
 
