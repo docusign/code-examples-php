@@ -2,7 +2,7 @@
 
 namespace Example\Controllers\Examples\eSignature;
 
-use DocuSign\eSign\ApiEnvelopesApi\UpdateOptions;
+use DocuSign\eSign\Api\EnvelopesApi\UpdateOptions;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Workflow;
@@ -76,7 +76,7 @@ class EG033UnpauseSignatureWorkflow extends eSignBaseController
      * @return string
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    # ***DS.snippet.0.start
+    
     public function worker($args): string
     {
         # Step 3 Start

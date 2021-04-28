@@ -111,7 +111,7 @@ For more information about the scopes used for obtaining authorization to use th
    [Source.](./src/Controllers/Examples/eSignature/EG032PauseSignatureWorkflow.php)<br />
    This code example demonstrates how to create an envelope where the workflow is paused before the envelope is sent to a second recipient using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
 1. **Resuming a signature workflow**
-   [Source.](#) Coming Soon <br />
+   [Source.](./src/Controllers/Examples/eSignature/EG033UnpauseSignatureWorkflow.php) <br />
    This code example demonstrates how to update an envelope to resume the workflow that has been paused using the [Update Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/update) method.
    You must have created at least one envelope with a paused signature workflow to run this example.
 1. **Using conditional recipients**
