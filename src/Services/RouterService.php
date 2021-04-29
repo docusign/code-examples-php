@@ -18,7 +18,7 @@ class RouterService
     public function __construct()
     {
         // To ignore the Notice instead of Isset on missing POST vars
-        error_reporting(E_ALL & ~E_NOTICE);
+        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
         $_SESSION['auth_service'] = $_POST['auth_type'];
 
         if ($_SESSION['auth_service'] == "jwt") {
@@ -222,7 +222,7 @@ class RouterService
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
-                error_reporting(E_ALL & ~E_NOTICE);
+                error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
                 $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
                 new $controller($page);
                 exit();
@@ -261,7 +261,7 @@ class RouterService
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
-            error_reporting(E_ALL & ~E_NOTICE);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
             $controller = '\Example\\' .$this->getController($page);
             new $controller($page);
             exit();
@@ -269,7 +269,7 @@ class RouterService
 
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
-            error_reporting(E_ALL & ~E_NOTICE);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
             $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
             new $controller($page);
             exit();
