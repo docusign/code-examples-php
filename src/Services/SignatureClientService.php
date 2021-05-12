@@ -148,7 +148,7 @@ class SignatureClientService
     }
 
     /**
-     * Redirect user to the error page
+     * Redirect user to the 'success' page
      *
      * @param $title string
      * @param $headline string

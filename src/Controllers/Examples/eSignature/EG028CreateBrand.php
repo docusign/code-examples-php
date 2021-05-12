@@ -97,15 +97,22 @@ class EG028CreateBrand extends eSignBaseController
             # Strip anything other than characters listed
             $results = $this->worker($this->args);
 
-            if ($results) {
-                # That need an envelope_id
+            if ($results["brand_id"] != null) {
+                # Success if there's an envelope Id and the brand name isn't a duplicate
                 $this->clientService->showDoneTemplate(
                     "New Brand sent",
                     "New Brand sent",
                     "The Brand has been created!<br/> Brand ID {$results["brand_id"]}."
                 );
             }
-        } else {
+            # If the brand name is null the brand name is a duplicate.
+            else {
+                $GLOBALS['twig']->display('error_eg028.html', [
+                    'title' => 'Duplicate Brand Name'
+                ]);
+            }
+        } 
+        else {
             $this->clientService->needToReAuth($this->eg);
         }
     }
@@ -133,8 +140,18 @@ class EG028CreateBrand extends eSignBaseController
             # Step 4 Call the eSignature REST API
             $results = $accounts_api->createBrand($args['account_id'], $brand);
         } catch (ApiException $e) {
-            $this->clientService->showErrorTemplate($e);
-            exit;
+            $error_code = $e->getResponseBody()->errorCode;
+            $error_message = $e->getResponseBody()->message;
+            if ($error_message == "Invalid brand name. Duplicate brand names are not allowed.") {
+                return ['brand_id' => null];
+            }
+            else {
+                $GLOBALS['twig']->display('error.html', [
+                        'error_code' => $error_code,
+                        'error_message' => $error_message]
+                );
+                exit;
+            }              
         }
 
         return ['brand_id' => $results->getBrands()[0]->getBrandId()];
