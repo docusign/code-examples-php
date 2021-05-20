@@ -53,7 +53,7 @@ class JWTService
             $redirectUrl = $_SESSION['eg'];
         }
 
-        self::authCallback($redirectUrl);
+        $this->authCallback($redirectUrl);
     }
 
     /**
@@ -64,7 +64,7 @@ class JWTService
         self::$apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
         $privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $GLOBALS['JWT_CONFIG']['private_key_file'], true);
 
-        $scope = DocuSign::getDefaultScopes()[0];
+        $scope = (new DocuSign())->getDefaultScopes()[0];
         //Make sure to add the "impersonation" scope when using JWT authorization
         $jwt_scope = $scope . " impersonation";
 

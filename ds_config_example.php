@@ -41,6 +41,7 @@ $EXAMPLES_API_TYPE = [
     'Rooms' => false,
     'ESignature' => true,
     'Click' => false,
+    'Monitor' => false
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;

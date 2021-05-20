@@ -35,6 +35,7 @@ class RouterService
         'home' => 'Home',
         'home_rooms' => 'Home',
         'home_click' => 'Home',
+        'home_monitor' => 'Home',
         'ds_return' => 'DsReturn',
         'must_authenticate' => 'MustAuthenticate',
         'eg001' => 'EG001EmbeddedSigning',
@@ -86,6 +87,7 @@ class RouterService
         'reg007' => 'Rooms\EG007CreateFormGroup',
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
+        'meg001' => 'Monitor\Eg001GetMonitoringData',
     ];
 
     /**
@@ -96,6 +98,7 @@ class RouterService
         "ds_return" => "ds_return.html",
         "home"  => "home.html",
         "home_rooms" => "home_rooms.html",
+        "home_monitor" => "home_monitor.html",
         "home_click" => "home_click.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
         "eg002" => "esignature/eg002_signing_via_email.html",
@@ -146,6 +149,7 @@ class RouterService
         "reg007" => "rooms/eg007_create_form_group.html",
         "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
+        "meg001" => "monitor/eg001_get_monitoring_data.html",
     ];
 
     /**
@@ -154,6 +158,7 @@ class RouterService
     private const TITLES = [
         "home" => "Home--PHP Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
+        "home_monitor" => "Home--PHP Monitor Code Examples",
         "home_click" => "Home--PHP Click Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
@@ -204,6 +209,7 @@ class RouterService
         "reg007" => "Create form group",
         "reg008" => "Grant office access to a form group",
         "reg009" => "Assign a form to a form group",
+        "meg001" => "Get monitoring data",
     ];
 
     /**
@@ -230,7 +236,13 @@ class RouterService
         }
 
         if ($page == 'must_authenticate') {
-            //is it quickstart have they signed in already? 
+            if ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == 'true') {
+                //Let's just shortcut to login immediately
+                $this->authService = new JWTService();
+                $this->ds_login();
+                exit();
+            } 
+            //is it quickstart have they signed in already?
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true') {
                 //Let's just shortcut to login immediately
                 $this->ds_login();
