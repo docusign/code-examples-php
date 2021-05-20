@@ -238,6 +238,7 @@ class RouterService
         if ($page == 'must_authenticate') {
             if ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == 'true') {
                 //Let's just shortcut to login immediately
+                $_SESSION['auth_service'] = "jwt";
                 $this->authService = new JWTService();
                 $this->ds_login();
                 exit();
