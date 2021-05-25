@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e8248a67039adcc006dc5f9e5445a55",
+    "content-hash": "e2a39a94bfd61829ed65f0e0b841f9b7",
     "packages": [
         {
             "name": "docusign/click-client",
@@ -66,16 +66,16 @@
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.0.0-rc",
+            "version": "v6.2.0-rc",
             "source": {
                 "type": "git",
-                "url": "https://github.com/docusign/docusign-php-client.git",
-                "reference": "82fddd73429e0b86ea82f503c7831d8541f049a5"
+                "url": "https://github.com/docusign/docusign-esign-php-client.git",
+                "reference": "79f8526cb56ca6c6c8195bdb38908dc938bb08d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-php-client/zipball/82fddd73429e0b86ea82f503c7831d8541f049a5",
-                "reference": "82fddd73429e0b86ea82f503c7831d8541f049a5",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/79f8526cb56ca6c6c8195bdb38908dc938bb08d7",
+                "reference": "79f8526cb56ca6c6c8195bdb38908dc938bb08d7",
                 "shasum": ""
             },
             "require": {
@@ -118,10 +118,10 @@
                 "sdk"
             ],
             "support": {
-                "issues": "https://github.com/docusign/docusign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-php-client/tree/v6.0.0-rc"
+                "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.2.0-rc"
             },
-            "time": "2021-01-26T23:00:11+00:00"
+            "time": "2021-05-21T19:45:19+00:00"
         },
         {
             "name": "docusign/rooms-client",
@@ -363,16 +363,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.7.0",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
+                "reference": "dc960a912984efb74d0a90222870c72c87f10c91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/dc960a912984efb74d0a90222870c72c87f10c91",
+                "reference": "dc960a912984efb74d0a90222870c72c87f10c91",
                 "shasum": ""
             },
             "require": {
@@ -432,9 +432,9 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.7.0"
+                "source": "https://github.com/guzzle/psr7/tree/1.8.2"
             },
-            "time": "2020-09-30T07:37:11+00:00"
+            "time": "2021-04-26T09:17:50+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -1112,16 +1112,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.14.3",
+            "version": "v2.14.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "8bc568d460d88b25c00c046256ec14a787ea60d9"
+                "reference": "27e5cf2b05e3744accf39d4c68a3235d9966d260"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8bc568d460d88b25c00c046256ec14a787ea60d9",
-                "reference": "8bc568d460d88b25c00c046256ec14a787ea60d9",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/27e5cf2b05e3744accf39d4c68a3235d9966d260",
+                "reference": "27e5cf2b05e3744accf39d4c68a3235d9966d260",
                 "shasum": ""
             },
             "require": {
@@ -1175,7 +1175,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v2.14.3"
+                "source": "https://github.com/twigphp/Twig/tree/v2.14.6"
             },
             "funding": [
                 {
@@ -1187,7 +1187,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-05T15:34:33+00:00"
+            "time": "2021-05-16T12:12:47+00:00"
         }
     ],
     "packages-dev": [],
