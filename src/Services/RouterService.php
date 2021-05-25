@@ -236,13 +236,13 @@ class RouterService
         }
 
         if ($page == 'must_authenticate') {
-            if ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == 'true') {
+            if ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
+                //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
-                $_SESSION['auth_service'] = "jwt";
                 $this->authService = new JWTService();
                 $this->ds_login();
                 exit();
-            } 
+            }
             //is it quickstart have they signed in already?
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true') {
                 //Let's just shortcut to login immediately
