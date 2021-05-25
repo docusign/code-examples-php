@@ -178,6 +178,14 @@ For more information about the scopes used for obtaining authorization to use th
    [Source.](./src/Controllers/Examples/Click/EG005GetClickwrapResponses.php)
    This example demonstrates how to use DocuSign Click to get user responses to your clickwrap agreements.
 
+## Monitor API
+**Note:** To use the Monitor API, you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).  
+For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/).
+
+1. **Get monitoring data.** [Source](./src/Controllers/Examples/Monitor/Eg001GetMonitoringData.php)   
+   Demonstrates how to get and display all of your organization’s monitoring data.
+
+
 ## Installation
 
 ### Prerequisites

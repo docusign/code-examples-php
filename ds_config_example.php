@@ -21,7 +21,7 @@ $DS_CONFIG = [
     'demo_doc_path' => 'demo_documents',
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
-    'doc_txt' =>  'Welcome.txt',
+    'doc_txt' =>  'Check_If_Approved.txt',
     // Payment gateway information is optional
     'gateway_account_id' => '{GATEWAY_ACCOUNT_ID}',
     'gateway_name' => "stripe",
@@ -41,6 +41,7 @@ $EXAMPLES_API_TYPE = [
     'Rooms' => false,
     'ESignature' => true,
     'Click' => false,
+    'Monitor' => false
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;

@@ -26,7 +26,7 @@ class DsReturn extends BaseController
     public function __construct()
     {
         $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService);
+        $this->getController($this->eg, $this->routerService);
     }
 
     /**

@@ -33,7 +33,7 @@ abstract class BaseController
 
     protected function isHomePage(string $eg): bool
     {
-        return in_array($eg, ["home", "home_rooms", "home_click"]);
+        return in_array($eg, ["home", "home_rooms", "home_click", "home_monitor"]);
     }
 
     protected function homePageTitle($eg=''): string
