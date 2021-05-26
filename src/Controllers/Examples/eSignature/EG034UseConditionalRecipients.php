@@ -130,7 +130,6 @@ class EG034UseConditionalRecipients extends eSignBaseController
         # Read the file
         $content_bytes = file_get_contents(self::DEMO_DOCS_PATH . $GLOBALS['DS_CONFIG']['doc_txt']);
         $base64_file_content = base64_encode($content_bytes);
-
         # Create the document model
         $document = new Document([ # Create the DocuSign document object
             'document_base64' => $base64_file_content,
@@ -244,6 +243,7 @@ class EG034UseConditionalRecipients extends eSignBaseController
             'tab_id' => "ApprovalTab",
             'operator' => "equals",
             'value' => "false",
+            'tab_type' => "checkbox",
             'tab_label' => "ApproveWhenChecked"
         ]);
 
@@ -253,6 +253,7 @@ class EG034UseConditionalRecipients extends eSignBaseController
             'tab_id' => "ApprovalTab",
             'operator' => "equals",
             'value' => "true",
+            'tab_type' => 'checkbox',
             'tab_label' => "ApproveWhenChecked"
         ]);
 
