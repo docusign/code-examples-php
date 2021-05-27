@@ -102,7 +102,8 @@ class Eg001GetMonitoringData extends MonitorBaseController
                 $options->setCursor($cursor);
                 $result = $datasetApi->getStream('monitor', '2.0', $options);
 
-                $endCursor = $result[end_cursor];
+                $key = "end_cursor";
+                $endCursor = $result->$key;
 
                 // If the endCursor from the response is the same as the one that you already have,
 		        // it means that you have reached the 

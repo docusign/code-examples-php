@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2a39a94bfd61829ed65f0e0b841f9b7",
+    "content-hash": "dfaf03f58deffd69415a84d3a8d55b57",
     "packages": [
         {
             "name": "docusign/click-client",
@@ -122,6 +122,64 @@
                 "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.2.0-rc"
             },
             "time": "2021-05-21T19:45:19+00:00"
+        },
+        {
+            "name": "docusign/monitor-client",
+            "version": "v1.0.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/docusign/docusign-monitor-php-client.git",
+                "reference": "4751599006f910646395d858aaf6be387af2c501"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/4751599006f910646395d858aaf6be387af2c501",
+                "reference": "4751599006f910646395d858aaf6be387af2c501",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "firebase/php-jwt": "^5.0",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DocuSign\\Monitor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DocuSign",
+                    "homepage": "https://developers.docusign.com"
+                }
+            ],
+            "description": "The DocuSign package makes integrating DocuSign into your apps and websites a super fast and painless process. The library is open sourced on GitHub, look for the docusign-monitor-php-client repository.",
+            "homepage": "https://developers.docusign.com",
+            "keywords": [
+                "api",
+                "docusign",
+                "monitor",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/docusign/docusign-monitor-php-client/issues",
+                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.0.0-beta"
+            },
+            "time": "2021-05-14T19:50:01+00:00"
         },
         {
             "name": "docusign/rooms-client",
@@ -1195,7 +1253,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "docusign/esign-client": 5,
-        "docusign/rooms-client": 5
+        "docusign/rooms-client": 5,
+        "docusign/monitor-client": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
