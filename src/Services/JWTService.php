@@ -65,15 +65,16 @@ class JWTService
         $privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $GLOBALS['JWT_CONFIG']['private_key_file'], true);
 
         $scope = (new DocuSign())->getDefaultScopes()[0];
+
         //Make sure to add the "impersonation" scope when using JWT authorization
         $jwt_scope = $scope . " impersonation";
 
         try {
             $response = self::$apiClient->requestJWTUserToken(
-                $aud = $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                $aud = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
-                $aud = $privateKey,
-                $aud = $jwt_scope
+               $GLOBALS['JWT_CONFIG']['ds_client_id'],
+               $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
+               $privateKey,
+               $jwt_scope,
             );
 
             return $response[0];    //code...

@@ -288,7 +288,18 @@ Apache will run.
 
 10. Open a browser to http://localhost:8080/public.
 
+## Docker instructions
 
+[Docker](https://www.docker.com/get-started) can be configured to run the PHP launcher.
+
+1. Start Docker as administrator. 
+1. Extract the [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) ZIP file or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repo.  
+1. In your console (use GitBash or PowerShell on Windows), switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
+1. To generate the container used by the launcher run:  `docker compose up -d`  
+1. To install dependencies, run: `docker exec -it --user www-data docusign-php-fpm composer install`
+1. Open a browser to http://localhost:8080/public
+
+**Note:** To kill all containers run: `docker rm -f $(docker ps -a -q)`
 
 ## Payments code example
 To use the payments example, create a test payments gateway for your DocuSign developer account. See [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) for instructions.

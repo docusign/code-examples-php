@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dfaf03f58deffd69415a84d3a8d55b57",
+    "content-hash": "61ceee9ed20e7db76f027678be6eb171",
     "packages": [
         {
             "name": "docusign/click-client",
