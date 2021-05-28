@@ -1,3 +1,11 @@
+FROM composer:2 as composer_stage
+
+RUN rm -rf /var/www && mkdir -p /var/www/html
+WORKDIR /var/www/html
+
+
+
+
 FROM php:7.4-fpm-alpine
 
 # Install dev dependencies
@@ -47,14 +55,14 @@ RUN docker-php-ext-install \
     zip \
     bcmath
 
-# Install composer
-ENV COMPOSER_HOME /composer
-ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
-ENV COMPOSER_ALLOW_SUPERUSER 1
-RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \
-    && composer global require "squizlabs/php_codesniffer=*"
+WORKDIR /var/www/html
+COPY src src/
+COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
+COPY composer.json /var/www/html/
+# This are production settings, I'm running with 'no-dev', adjust accordingly 
+# if you need it
+RUN composer install
 
-# Cleanup dev dependencies
-RUN apk del -f .build-deps
+CMD ["php-fpm"]
 
-COPY . /var/www/html
+EXPOSE 8080

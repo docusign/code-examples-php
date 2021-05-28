@@ -6,8 +6,9 @@
     },
     "require": {
         "docusign/click-client": "1.0.0",
-        "docusign/esign-client": "^6.1.0-rc",
+        "docusign/esign-client": "^6.2.0-rc",
         "docusign/rooms-client": "^1.1.0-rc",
+        "docusign/monitor-client": "1.0.0-beta",
         "twig/twig": "^2.0",
         "league/oauth2-client": "^2.4",
         "ext-json": "*",

@@ -1,8 +1,10 @@
 version: '3'
 services:
   php-fpm:
-    build: .
     container_name: docusign-php-fpm
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     volumes:
       - ./:/var/www/html
   nginx:

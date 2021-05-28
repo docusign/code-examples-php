@@ -137,7 +137,7 @@ class EG010SendBinaryDocs extends eSignBaseController
         # Step 2. call Envelopes::create API method
         # using Guzzle https://guzzle.readthedocs.io/en/latest/index.html
         $client = new \GuzzleHttp\Client();
-        $uri = "{$args['base_path']}/v2/accounts/{$args['account_id']}/envelopes";
+        $uri = "{$args['base_path']}/v2.1/accounts/{$args['account_id']}/envelopes";
         $results = $client->request('POST', $uri, [
             'headers' => [
                 'Authorization' => "bearer {$args['ds_access_token']}",
