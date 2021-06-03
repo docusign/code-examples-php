@@ -79,10 +79,10 @@ class JWTService
 
             return $response[0];    //code...
         } catch (\Throwable $th) {
-
+            
             // we found consent_required in the response body meaning first time consent is needed
             if (strpos($th->getMessage(), "consent_required") !== false) {
-
+                $_SESSION['consent_set'] = true;
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query([
                     'scope'         => $jwt_scope,
                     'redirect_uri'  => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',

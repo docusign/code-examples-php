@@ -310,6 +310,12 @@ class RouterService
         if (isset($_SESSION['eg'])) {
             $redirectUrl = $_SESSION['eg'];
         }
+        # JWT login shortcut since user consent was granted
+        if (isset($_SESSION['consent_set'])) {
+            unset($_SESSION['consent_set']);
+            $this->authService = new JWTService();
+            $this->ds_login();
+        }
         # reset the session
         $this->ds_logout_internal();
         $this->authService->authCallback($redirectUrl);
