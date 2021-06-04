@@ -91,6 +91,7 @@ class JWTService
                     'response_type' => 'code'
                 ]);
                 header('Location: ' . $authorizationURL);
+                exit();
             }
         }
     }
