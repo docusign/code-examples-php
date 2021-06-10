@@ -81,7 +81,7 @@ For a list of code examples that use the Monitor API, select the PHP tab under [
 
 ### Installation steps
 
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.  
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip step 4 below as it was automatically performed for you.  
 
 1. Extract the Quickstart ZIP file or download or clone the code-examples-python repository.
 1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
