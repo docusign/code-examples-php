@@ -1,15 +1,21 @@
 # PHP Launcher Code Examples
 
-### Github repo: https://github.com/docusign/code-examples-php
+### GitHub repo: [code-examples-php](./README.md)
 
-This GitHub repo includes code examples for both the DocuSign eSignature REST API and the DocuSign Rooms API. 
+This GitHub repo includes code examples for the DocuSign eSignature REST API, Rooms API, Click API, and Monitor API. To switch between API code examples, modify the `EXAMPLES_API_TYPE` setting in the ds_config.php file. Change the value of either `ESignature`, `Rooms`, `Click`, or `Monitor` to `true` to use the corresponding API. Set only one API type to `true` and set the remaining to `false`.
 
-To use the Rooms API code examples, modify the <code>EXAMPLES_API_TYPE</code> setting at the end of the ds_config.php file. Set <code>'Rooms'</code> to <code>true</code> and <code>'ESignature'</code> to <code>false</code>.
+If none of the API types are set to `true`, the DocuSign eSignature REST API code examples will be shown. If multiple API types are set to `true`, only the first will be shown.
 
-**Note:** To use the Rooms API you must also [create your DocuSign developer account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account).
 
 ## Introduction
-This repo is a PHP application that demonstrates how to authenticate with DocuSign via [Authorization Code Grant](https://developers.docusign.com/esign-rest-api/guides/authentication/oauth2-code-grant). When the token expires, the user is asked to reauthenticate. The refresh token is not used.
+This repo is a PHP application that supports the following authentication workflows: 
+
+* Authentication with DocuSign via [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode).
+When the token expires, the user is asked to re-authenticate. The refresh token is not used.
+
+* Authentication with DocuSign via [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt/).
+When the token expires, it updates automatically.
+
 
 The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) to process the results of the call to OAuth::getUser.
 
@@ -17,223 +23,76 @@ The OAuth library is used in the file [index.php](./public/index.php).
 
 ## eSignature API
 
-For more information about the scopes used for obtaining authorization to use the eSignature API, see the [Required Scopes section](https://developers.docusign.com/docs/esign-rest-api/esign101/auth).
+For more information about the scopes used for obtaining authorization to use the eSignature API, see [Required scopes](https://developers.docusign.com/docs/esign-rest-api/esign101/auth#required-scopes).
 
-1. **Use embedded signing.**
-   [Source](./src/EG001EmbeddedSigning.php)<br />
-   Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
-1. **Request a signature by email (Remote Signing).**
-   [Source](./src/Controllers/Examples/eSignature/EG002SigningViaEmail.php)<br />
-   The envelope includes a PDF, Word, and HTML document. [Anchor text](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience) is used to position the signing fields in the documents.
-1. **List envelopes in the user's account.**
-   [Source](./src/Controllers/Examples/eSignature/EG003ListEnvelopes.php)<br />
-   The envelopes' current status is included.
-1. **Get an envelope's basic information.**
-   [Source](./src/Controllers/Examples/eSignature/EG004EnvelopeInfo.php)<br />
-   Lists the basic information about an envelope, including its overall status.
-1. **List an envelope's recipients.**
-   [Source](./src/Controllers/Examples/eSignature/EG005EnvelopeRecipients.php)<br />
-   Includes current recipient status.
-1. **List an envelope's documents.**
-   [Source](./src/Controllers/Examples/eSignature/EG006EnvelopeDocs.php)<br />
-   Includes current recipient status.   
-1. **Download an envelope's documents.**
-   [Source](./src/Controllers/Examples/eSignature/EG007EnvelopeGetDoc.php)<br />
-   Downloads individual documents, the documents concatenated together, or a ZIP file of the documents.
-1. **Programmatically create a template.**
-   [Source](./src/Controllers/Examples/eSignature/EG008CreateTemplate.php)<br />
-1. **Request a signature by email using a template.**
-   [Source](./src/Controllers/Examples/eSignature/EG009UseTemplate.php)<br />
-1. **Send an envelope and upload its documents with multipart binary transfer.**
-   [Source](./src/Controllers/Examples/eSignature/EG010SendBinaryDocs.php)<br />
-   Binary transfer is 33% more efficient than using Base64 encoding.
-1. **Use embedded sending.**
-   [Source](./src/Controllers/Examples/eSignature/EG011EmbeddedSending.php)<br />
-   Embeds the DocuSign UI in your web app to finalize or update the envelope and documents before they are sent.
-1. **Embed the DocuSign UI in your app.**
-   [Source](./src/Controllers/Examples/eSignature/EG012EmbeddedConsole.php)<br />
-1. **Use embedded signing from a template with an added document.**
-   [Source](./src/Controllers/Examples/eSignature/EG013AddDocToTemplate.php)<br />
-   Sends an envelope based on a template. In addition to the template's document(s), this example adds an additional document to the envelope by using the [Templates](https://developers.docusign.com/esign-rest-api/guides/features/templates#composite-templates) feature.
-1. **Accept payments.** 
-   [Source](./src/Controllers/Examples/eSignature/EG014CollectPayment.php)<br />
-   Sends an order form with online payment by credit card.
-1. **Get envelope tab data.** 
-   [Source](./src/Controllers/Examples/eSignature/EG015EnvelopeTabData.php)<br />
-   Retrieves the tab (field) values for all of the envelope's recipients.
-1. **Set envelope tab values.** 
-   [Source](./src/Controllers/Examples/eSignature/EG016SetTabValues.php)<br />
-   Creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, others can be updated by the recipient. This example also stores metadata with the envelope.
-1. **Set template tab values.** 
-   [Source](./src/Controllers/Examples/eSignature/EG017SetTemplateTabValues.php)<br />
-   Creates an envelope using a template and sets the initial values for its tabs (fields). This example also stores metadata with the envelope.
-1. **Get envelope custom field data (metadata).**
-   [Source](./src/Controllers/Examples/eSignature/EG018EnvelopeCustomFieldData.php)<br />
-   Retrieves the custom metadata (custom data fields) stored with the envelope. 
-1. **Require an access code for a recipient.**
-   [Source](./src/Controllers/Examples/eSignature/EG019AccessCodeAuthentication.php)<br />
-   Sends an envelope that requires entering an access code for the purpose of multifactor authentication.
-1. **Require SMS authentication for a recipient.** 
-   [Source](./src/Controllers/Examples/eSignature/EG020SmsAuthentication.php)<br /> 
-   Sends an envelope that requires entering a six-digit code from a text message for the purpose of multifactor authentication.
-1. **Require phone authentication for a recipient.** 
-   [Source](./src/Controllers/Examples/eSignature/EG021PhoneAuthentication.php)<br />
-   Sends an envelope that requires entering a voice-based response code for the purpose of multifactor authentication.
-1. **Require knowledge-based authentication (KBA) for a recipient.**
-   [Source](./src/Controllers/Examples/eSignature/EG022KbAuthentication.php)<br />
-   Sends an envelope that requires passing a public records check to validate identity for the purpose of multifactor authentication.
-1. **Require ID Verification (IDV) for a recipient.**
-   [Source](./src/Controllers/Examples/eSignature/EG023IDVAuthentication.php)<br />
-   Sends an envelope that requires the recipient to upload a government-issued ID for the purpose of multifactor authentication.   
-1. **Create a permission profile.**
-   [Source](./src/Controllers/Examples/eSignature/EG024PermissionCreate.php)<br />
-1. **Set a permission profile.**
-   [Source](./src/Controllers/Examples/eSignature/EG025PermissionSetUserGroup.php)<br />
-   Demonstrates how to set a user group's permission profile. You must have already a created permission profile and a group of users.
-1. **Update individual permission settings.**
-   [Source](./src/Controllers/Examples/eSignature/EG026PermissionChangeSingleSetting.php)<br />
-   Demonstrates how to edit individual permission settings on a permission profile.
-1. **Delete a permission profile.**
-   [Source](./src/Controllers/Examples/eSignature/EG027PermissionDelete.php)<br />
-1. **Create a brand.**
-   [Source](./src/Controllers/Examples/eSignature/EG028CreateBrand.php)<br />
-   Creates a brand profile for an account.
-1. **Apply a brand to an envelope.**
-   [Source](./src/Controllers/Examples/eSignature/EG029ApplyBrandToEnvelope.php)<br />
-   Demonstrates how to apply a brand you've created to an envelope. First, this example creates the envelope, then applies the brand to it. [Anchor text](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience) is used to position the signing fields in the documents.
-1. **Apply a brand to a template.**
-   [Source](./src/Controllers/Examples/eSignature/EG030ApplyBrandToTemplate.php)<br />
-   Demonstrates how to apply a brand you've created to a template. You must have at least one created template and brand. [Anchor text](https://support.docusign.com/en/guides/AutoPlace-New-DocuSign-Experience) is used to position the signing fields in the documents.
-1. **Bulk-send envelopes to multiple recipients.**
-   [Source](./src/Controllers/Examples/eSignature/EG031BulkSendEnvelopes.php)<br />
-   Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk-send recipients list, then creates an envelope. After that, it initiates bulk envelope sending.
-1. **Pausing a signature workflow**
-   [Source.](./src/Controllers/Examples/eSignature/EG032PauseSignatureWorkflow.php)<br />
-   This code example demonstrates how to create an envelope where the workflow is paused before the envelope is sent to a second recipient using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
-1. **Resuming a signature workflow**
-   [Source.](./src/Controllers/Examples/eSignature/EG033UnpauseSignatureWorkflow.php) <br />
-   This code example demonstrates how to update an envelope to resume the workflow that has been paused using the [Update Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/update) method.
-   You must have created at least one envelope with a paused signature workflow to run this example.
-1. **Using conditional recipients**
-   [Source.](./src/Controllers/Examples/eSignature/EG034UseConditionalRecipients.php)<br />
-   This code example demonstrates how to create an envelope where the workflow is routed to different recipients based on the value of a transaction using the [Create Envelope](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
-1. **Request a signature by SMS delivery**
-   [Source](./src/Controllers/Examples/eSignature/EG035SMSDelivery.php)<br />
-   This code example demonstrates how to send a signature request via an SMS message using the [Envelopes: create](https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/create) method.
-
+For a list of code examples that use the eSignature API, select the PHP tab under [Examples and languages](https://developers.docusign.com/docs/esign-rest-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
 
 ## Rooms API
 
-For more information about the scopes used for obtaining authorization to use the Rooms API, see the [Required Scopes section](https://developers.docusign.com/docs/rooms-api/rooms101/auth/).
+**Note:** To use the Rooms API you must also [create your Rooms developer account](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.  
+For more information about the scopes used for obtaining authorization to use the Rooms API, see [Required scopes](https://developers.docusign.com/docs/rooms-api/rooms101/auth/). 
 
-**Note:** To use the Rooms API you must also [create your DocuSign Developer Account for Rooms](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.
-
-1. **Create a room with data.**
-   [Source](./src/Controllers/Examples/Rooms/EG001CreateRoomWithData.php)<br />
-   Creates a new room in your DocuSign Rooms account to be used for a transaction.
-1. **Create a room from a template.**
-   [Source](./src/Controllers/Examples/Rooms/EG002CreateRoomWithTemplate.php)<br />
-   Creates a new room using a template.
-1. **Export data from a room.**
-   [Source](./src/Controllers/Examples/Rooms/EG003ExportDataFromRoom.php)<br />
-   Exports all the available data from a specific room in your DocuSign Rooms account.
-1. **Add a form to a room.**
-   [Source](./src/Controllers/Examples/Rooms/EG004AddFormsToRoom.php)<br />
-   Adds a standard real estate-related form to a specific room in your DocuSign Rooms account.
-1. **Search for a room with a filter.**
-   [Source](./src/Controllers/Examples/Rooms/EG005GetRoomsWithFilters.php)<br />
-   Searches for a room in your DocuSign Rooms account using a specific filter.
-1. **Create an external form fillable session.**
-   [Source](./src/Controllers/Examples/Rooms/EG006CreateExternalFormFillSession.php)<br />
-   Creates an external form that can be filled using DocuSign for a specific room in your DocuSign Rooms account.
-1. **Creating a form group.**
-   [Source](./src/Controllers/Examples/Rooms/EG007CreateFormGroup.php)<br />
-   Demonstrates how to create a new form group with the name given in the name property of the request body.
-1. **Grant office access to a form group.**
-   [Source](./src/Controllers/Examples/Rooms/EG008GrantOfficeAccessToFormGroup.php)<br />
-   How to assign an office to a form group for your DocuSign Rooms.
-1. **Assign a form to a form group.**
-   [Source](./src/Controllers/Examples/Rooms/Eg009AssignFormToFormGroup.php)<br />
-   This example demonstrates how to assign a form to a form group for your DocuSign Rooms.
-
-
-
+For a list of code examples that use the Rooms API, select the PHP tab under [Examples and languages](https://developers.docusign.com/docs/rooms-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
+ 
 ## Click API
 
-For more information about the scopes used for obtaining authorization to use the Click API, see the [Required Scopes section](https://developers.docusign.com/docs/click-api/click101/auth).
+For more information about the scopes used for obtaining authorization to use the Click API, see [Required scopes](https://developers.docusign.com/docs/click-api/click101/auth/#required-scopes).
 
-1. **Create a clickwrap.**
-   [Source.](./src/Controllers/Examples/Click/EG001CreateClickwrap.php)
-   This example demonstrates how to use DocuSign Click to create a clickwrap that you can embed in your website or app.
-1. **Activate a clickwrap.**
-   [Source.](./src/Controllers/Examples/Click/EG002ActivateClickwrap.php)
-   This example demonstrates how to use DocuSign Click to activate a new clickwrap that you have already created.
-1. **Create a new clickwrap version.**
-   [Source.](./src/Controllers/Examples/Click/EG003CreateClickwrapVersion.php)
-   This example demonstrates how to use DocuSign Click to create a new version of a clickwrap.
-1. **Get a list of clickwraps.**
-   [Source.](./src/Controllers/Examples/Click/EG004GetClickwraps.php)
-   This example demonstrates how to use DocuSign Click to get a list of clickwraps associated with a specific DocuSign user.
-1. **Get clickwrap responses.**
-   [Source.](./src/Controllers/Examples/Click/EG005GetClickwrapResponses.php)
-   This example demonstrates how to use DocuSign Click to get user responses to your clickwrap agreements.
+For a list of code examples that use the Click API, select the PHP tab under [Examples and languages](https://developers.docusign.com/docs/click-api/how-to/code-launchers#examples-and-languages) on the DocuSign Developer Center.
 
 ## Monitor API
-**Note:** To use the Monitor API, you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).  
+**Note:** To use the Monitor API, you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).   
 For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/).
 
-1. **Get monitoring data.** [Source](./src/Controllers/Examples/Monitor/Eg001GetMonitoringData.php)   
-   Demonstrates how to get and display all of your organization’s monitoring data.
-
+For a list of code examples that use the Monitor API, select the PHP tab under [Examples and languages](https://developers.docusign.com/docs/monitor-api/how-to/code-launchers/#examples-and-languages) on the DocuSign Developer Center.
 
 ## Installation
 
 ### Prerequisites
 
-**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.**
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they're automatically performed for you.
 
-1. [Create a DocuSign developer account](https://go.docusign.com/o/sandbox/) if you don't already have one.
+1. A free [DocuSign developer account](https://go.docusign.com/o/sandbox/); create one if you don't already have one.
+1. A DocuSign app and integration key that is configured to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/) authentication.
 
-1. A DocuSign integration key (client ID) that is configured for authentication to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/).
+   This [video](https://www.youtube.com/watch?v=eiRI4fe5HgM) demonstrates how to obtain an integration key.  
+   
+   To use [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/), you will need an integration key and a secret key. See [Installation steps](#installation-steps) for details.  
 
-   To use [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/), you will need an integration key and its secret key. 
+   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the API Username GUID of the impersonated user. See [Installation steps for JWT Grant authentication](#installation-steps-for-jwt-grant-authentication) for details.  
 
-   To use [JWT Grant](https://developers.docusign.com/platform/auth/jwt/), you will need an integration key, an RSA key pair, and the **API Username** GUID of the impersonated user. Also, the private key of the RSA key pair must be saved in a new file private.key in the root folder.
+   For both authentication flows:  
+   
+   If you use this launcher on your own workstation, the integration key must include redirect a URI of http://localhost:8080/public/index.php?page=ds_callback
 
-1. [PHP](https://www.php.net/downloads.php) version 8.0.0 or later.
+   If you host this launcher on a remote web server, set your redirect URI as   
+   
+   {base_url}/index.php?page=ds_callback
+   
+   where {base_url} is the URL for the web app.
+
+
+1. [PHP](https://www.php.net/downloads.php) 8.0.0 or later.
 
 1. [Composer](https://getcomposer.org/download/) set up in your PATH environment variable so you can invoke it from any folder.
 
-1. A name and email for a signer, and a name and email for a cc recipient.   
+
 
 
 ### Installation steps
-**Note: If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.**  
 
-1. Download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.
-1. Switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
-1. Run `composer install` to install the dependencies listed in the composer.json file.
-1. Create a new file ds_config.php in the root folder by using ds_config_example.php as your template. Update the integration key and other settings in ds_config.php.
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip steps 1, 4, and 6 below as they're automatically performed for you.  
 
-   **Note:** Protect your integration key and secret and/or RSA private key pair; ensure that ds_config.php will not be stored in your source code repository.
-
+1. Extract the Quickstart ZIP file or download or clone the code-examples-python repository.
+1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
+1. To install dependencies, run: `composer install`
+1. To configure the launcher for [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) authentication, create a copy of the file ds_config_example.php and save the copy as ds_config.php.
+   1. Add your integration key. On the [Apps and Keys](https://admindemo.docusign.com/authenticate?goTo=apiIntegratorKey) page, under **Apps and Integration Keys**, choose the app to use, then select **Actions > Edit**. Under **General Info**, copy the **Integration Key** GUID and save it in ds_config.php as your `ds_client_id`.
+   1. Generate a secret key, if you don’t already have one. Under **Authentication**, select **+ ADD SECRET KEY**. Copy the secret key and save it in ds_config.php as your `ds_client_secret`.
+   1. Add the launcher’s redirect URI. Under **Additional settings**, select **+ ADD URI**, and set a redirect URI of http://localhost:8080/public/index.php?page=ds_callback. Select **SAVE**.   
+   1. Set a name and email address for the signer. In ds_config.php, save an email address as `signer_email` and a name as `signer_name`.  
+**Note:** Protect your personal information. Please make sure that ds_config.php will not be stored in your source code repository. 
 1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
-1. Update your integration key's settings to include a redirect URI.
-
-   The integration key must include a redirect URI of 
-   
-   http://{app_url}/index.php?page=ds_callback
-
-   where {app_url} is the URL you have associated with the /public folder.
-   
-   For example, if you created a web server that enables the URL 
-   
-   http://localhost:8080/example-public
-
-   to execute files on the /public folder of this launcher, then you must add a redirect URI of 
-   
-   http://localhost:8080/example-public/index.php?page=ds_callback
-
 1. Open a browser to http://localhost:8080/public.
 
 
@@ -241,11 +100,11 @@ For information about the scopes used for obtaining authorization to use the Mon
 
 [XAMPP Apache web server](https://www.apachefriends.org/download.html) can be configured to run the PHP launcher.
 
-1. Unzip the PHP [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository into your C:/xampp/htdocs folder.
+1. Extract the Quickstart ZIP file or download or clone the code-examples-php repository into your `C:/xampp/htdocs` folder.
 
-1. Switch to the folder: `cd C:xampp/htdocs/<Quickstart_folder_name>` or `cd C:xampp/htdocs/code-examples-php`
+1. In your command-line environment, switch to the folder: `cd C:xampp/htdocs/<Quickstart_folder>` or `cd C:xampp/htdocs/code-examples-php`
 
-1. Run `composer install` to install the dependencies listed in the composer.json file.
+1. To install dependencies, run: `composer install`
 
 1. Run XAMPP as administrator. On the XAMPP Control Panel, to the left of Apache, select the red "X" to install Apache web server. 
 
@@ -271,8 +130,8 @@ The red "X" becomes a green checkmark.
 `DocumentRoot "C:/xampp/htdocs"`<br />
 `<Directory "C:/xampp/htdocs">`<br />
 to<br />
-`DocumentRoot "C:/xampp/htdocs/<Quickstart_folder_name>"`<br />
-`<Directory "C:/xampp/htdocs/<Quickstart_folder_name>"`><br />
+`DocumentRoot "C:/xampp/htdocs/<Quickstart_folder>"`<br />
+`<Directory "C:/xampp/htdocs/<Quickstart_folder>"`><br />
 
 In the httpd.conf file, use Ctrl-S to save your changes. 
 
@@ -293,13 +152,13 @@ Apache will run.
 [Docker](https://www.docker.com/get-started) can be configured to run the PHP launcher.
 
 1. Start Docker as administrator. 
-1. Extract the [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) ZIP file or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repo.  
-1. In your console (use GitBash or PowerShell on Windows), switch to the folder: `cd <Quickstart_folder_name>` or `cd code-examples-php`
-1. To generate the container used by the launcher run:  `docker compose up -d`  
+1. Extract the [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) ZIP file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.  
+1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
+1. To generate the container used by the launcher, run:  `docker compose up -d`  
 1. To install dependencies, run: `docker exec -it --user www-data docusign-php-fpm composer install`
 1. Open a browser to http://localhost:8080/public
 
-**Note:** To kill all containers run: `docker rm -f $(docker ps -a -q)`
+**Note:** To kill all containers, run: `docker rm -f $(docker ps -a -q)`
 
 ## Payments code example
 To use the payments example, create a test payments gateway for your DocuSign developer account. See [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) for instructions.
@@ -308,11 +167,18 @@ Then add the **Gateway Account ID** to the ds_config.php file.
 
 
 
-## License and additional information
+## Payments code example  
 
-### License
-This repository uses the MIT License. See the LICENSE file for more information.
+To use the payments code example, create a test payment gateway on the [Payments](https://admindemo.docusign.com/authenticate?goTo=payments) page in your developer account. See [Configure a payment gateway](./PAYMENTS_INSTALLATION.md) for details.
 
-### Pull requests
+Once you've created a payment gateway, save the **Gateway Account ID** GUID to ds_config.php.
+
+
+## License and additional information  
+
+### License  
+This repository uses the MIT License. See [LICENSE](./LICENSE) for details.
+
+### Pull Requests
 Pull requests are welcomed. Pull requests will only be considered if their content
 uses the MIT License.
