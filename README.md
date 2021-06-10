@@ -83,7 +83,7 @@ For a list of code examples that use the Monitor API, select the PHP tab under [
 
 **Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip step 4 below as it was automatically performed for you.  
 
-1. Extract the Quickstart ZIP file or download or clone the code-examples-python repository.
+1. Extract the Quickstart ZIP file or download or clone the code-examples-php repository.
 1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
 1. To install dependencies, run: `composer install`
 1. To configure the launcher for [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) authentication, create a copy of the file ds_config_example.php and save the copy as ds_config.php.
