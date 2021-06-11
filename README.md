@@ -160,12 +160,6 @@ Apache will run.
 
 **Note:** To kill all containers, run: `docker rm -f $(docker ps -a -q)`
 
-## Payments code example
-To use the payments example, create a test payments gateway for your DocuSign developer account. See [PAYMENTS_INSTALLATION.md](https://github.com/docusign/code-examples-php/blob/master/PAYMENTS_INSTALLATION.md) for instructions.
-
-Then add the **Gateway Account ID** to the ds_config.php file.
-
-
 
 ## Payments code example  
 
