@@ -1,10 +1,10 @@
 <?php
 
 namespace Example\Services;
-use DocuSign\Admin\Client\ApiException;
-use DocuSign\Admin\Api\AccountsApi;
-use DocuSign\Admin\Client\ApiClient;
-use DocuSign\Admin\Configuration;
+use DocuSign\OrgAdmin\Client\ApiException;
+use DocuSign\OrgAdmin\Api\AccountsApi;
+use DocuSign\OrgAdmin\Client\ApiClient;
+use DocuSign\OrgAdmin\Configuration;
 
 class AdminApiClientService
 {
