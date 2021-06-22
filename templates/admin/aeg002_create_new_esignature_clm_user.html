@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h4>2. Create active user for CLM and eSignature</h4>
+<p>Demonstrates how to create an active user for CLM and eSignature.</p>
+
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    API methods used:
+    <a target ='_blank' href="https://developers.docusign.com/docs/rooms-api/how-to/assign-form-group/">Rooms::AssignFormGroup</a>,
+    <a target ='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups/">FormGroups::GetFormGroups</a> and
+    <a target ='_blank' href="https://developers.docusign.com/docs/rooms-api/reference/forms/formlibraries/getformlibraries/">FormLibraries:GetFormLibraries</a>
+</p>
+
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="userName">User Name</label>
+        <input type="text" class="form-control" id="userName" name="userName" required>
+    </div>
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" required>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="lastName" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email"
+            aria-describedby="emailHelp" required>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <!-- {% if args['clickwraps'] is empty %} -->
+    {% if (clmPermissionProfiles && clmPermissionProfiles.length > 0) { %}
+        <div class="form-group">
+            <label for="clmPermissionProfileId">CLM Permission Profile</label>
+            <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
+                {% clmPermissionProfiles.forEach( permissionProfile => { %}
+                    <option value="{%= permissionProfile.permission_profile_id %}"> {%= permissionProfile.permission_profile_name %} </option>
+                {% }) %}
+            </select>
+        </div>
+    {% else  %}
+        <p>Problem: please first create an clm permission profile.</a>
+            </br>Thank you.</p>
+    {% endif %}
+
+
+    {% if (esignPermissionProfiles && esignPermissionProfiles.length > 0) { %}
+        <div class="form-group">
+            <label for="esignPermissionProfileId">eSignature Permission Profile</label>
+            <select id="esignPermissionProfileId" name="esignPermissionProfileId" class="form-control">
+                {% esignPermissionProfiles.forEach( permissionProfile => { %}
+                    <option value="{%= permissionProfile.permission_profile_id%}"> {%= permissionProfile.permission_profile_name %} </option>
+                {% }) %}
+            </select>
+        </div>
+    {% else %}
+        <p>Problem: please first create an eSignature permission profile.</a>
+            </br>Thank you.</p>
+    {% endif %}
+
+    {% if (dsGroups && dsGroups.length > 0) { %}
+        <div class="form-group">
+            <label for="dsGroupId">DocuSign Admin Group</label>
+            <select id="dsGroupId" name="dsGroupId" class="form-control">
+                {% dsGroups.forEach( group => { %}
+                    <option value="{%= group.ds_group_id %}"> {%= group.group_name %} </option>
+                {% }) %}
+            </select>
+        </div>
+    {% } else { %}
+        <p>Problem: please first create a DocuSign Admin group.</a>
+            </br>Thank you.</p>
+    {% } %}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button type="submit" class="btn btn-docu">Submit</button>
+    <div class="form-group">
+        <label for="clmProductId"></label>
+        <input type="hidden" class="form-control" id="clmProductId" name="clmProductId" value="{{ clmProductId }}" >
+    </div>
+    <div class="form-group">
+        <label for="esignProductId"></label>
+        <input type="hidden" class="form-control" id="esignProductId" name="esignProductId" value="{{ esignProductId }}" >
+    </div>
+</form>
+
+{% endblock %}

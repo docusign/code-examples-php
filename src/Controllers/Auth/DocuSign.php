@@ -111,7 +111,13 @@ class DocuSign extends AbstractProvider
             return [
                 "signature click.manage click.send"
             ];
-        } else {
+        }
+        elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true){
+        return [
+            "signature organization_read group_read permission_read "
+            . "user_read user_write account_read domain_read identity_provider_read"
+        ];
+    } else {
             return [
                 "signature"
             ];
