@@ -5,7 +5,7 @@ namespace Example\Controllers\Examples\Admin;
 use DocuSign\OrgAdmin\Api\ProductPermissionProfilesApi;
 use DocuSign\OrgAdmin\Model\ProductPermissionProfileRequest;
 use DocuSign\OrgAdmin\Client\ApiException;
-use \DocuSign\OrgAdmin\Model\NewUserRequest;
+use DocuSign\OrgAdmin\Model\NewUserRequest;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\AdminApiClientService;
 use Example\Services\RouterService;
@@ -33,11 +33,52 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
      */
     public function __construct()
     {
+
         $this->organizationId = $GLOBALS['DS_CONFIG']['organization_id'];
         $this->args = $this->getTemplateArgs();
         $this->clientService = new AdminApiClientService($this->args);
         $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+
+        // Step 3 start
+        
+        $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
+
+        $ppReq = $this->clientService->permProfilesApi();
+        $ppRes = $ppReq->getProductPermissionProfiles($this->organizationId, $this->args);
+        $permissionProfiles = $ppRes["prouct_permission_profiles"];
+        foreach ($permissionProfiles as $item) {
+            if ($item['product_name'] ==  "CLM") {
+                $clmPermissionProfiles = $item;
+                $clmProductId = $item["product_id"];
+                
+            }
+            else {
+                $eSignPermissionProfiles = $item;
+                $eSignProductId = $item["product_id"];
+            }
+        }
+        // Step 3 end
+
+        // Step 4 start
+        $dsgReq = $this->clientService->adminGroupsApi();
+        $dsgRes = $dsgReq->getDSGroups($this->organizationId, $this->args);
+        $dsGroups = $dsgRes["ds_groups"];
+        // Step 4 end
+        
+
+        parent::controller(
+            $this->eg, 
+            $this->routerService, 
+            basename(__FILE__),
+            $clmPermissionProfiles,
+            $eSignPermissionProfiles,
+            $dsGroups,
+            $clmProductId,
+            $eSignProductId
+        );
+
+
+
     }
 
     /**
@@ -69,11 +110,14 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         else {
             $this->clientService->needToReAuth($this->eg);
         }
-    }
+    
 
 
 
-
+   
+  
+   }
+   
 
     /**
      * Do the work of the example
@@ -84,7 +128,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
      * @return array ['redirect_url']
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    # ***DS.snippet.0.start
+
     public function worker($args): array
     {
 
@@ -111,9 +155,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             'email' => $args["email"],
             'auto_activate_memberships' => true,
             'product_permission_profiles' => $profiles,
-            'ds_groups' =>
-                   [ 'ds_group_id' => $args["group_id"] 
-            ]
+            'ds_groups' => [ 'ds_group_id' => $args["group_id"] ]
         ]);
 
 

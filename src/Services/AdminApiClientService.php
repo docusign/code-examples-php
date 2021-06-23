@@ -1,8 +1,11 @@
 <?php
 
 namespace Example\Services;
+
 use DocuSign\OrgAdmin\Client\ApiException;
 use DocuSign\OrgAdmin\Api\AccountsApi;
+use DocuSign\OrgAdmin\Api\DSGroupsApi;
+use DocuSign\OrgAdmin\Api\ProductPermissionProfilesApi;
 use DocuSign\OrgAdmin\Client\ApiClient;
 use DocuSign\OrgAdmin\Api\UsersApi;
 use DocuSign\OrgAdmin\Configuration;
@@ -58,7 +61,28 @@ class AdminApiClientService
         return new UsersApi($this->apiClient);
     }
     
+    /**
+    * Get product permission profiles
+    * @param {object} args
+    */
 
+    public function permProfilesApi(): ProductPermissionProfilesApi
+    {
+        return new ProductPermissionProfilesApi($this->apiClient);
+        
+    }
+    
+    /**
+    * Get product Admin Groups
+    * @param {object} args
+    */
+
+    public function adminGroupsApi(): DSGroupsApi
+    {
+        return new DSGroupsApi($this->apiClient);
+        
+    }
+    
 
     /**
      * Redirect user to the auth page

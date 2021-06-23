@@ -38,12 +38,12 @@
     </div>
 
     <!-- {% if args['clickwraps'] is empty %} -->
-    {% if clmpermission_profiles and clmpermission_profiles.length > 0 %}
+    {% if clmPermissionProfiles and clmPermissionProfiles.length > 0 %}
         <div class="form-group">
             <label for="clmPermissionProfileId">CLM Permission Profile</label>
             <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
-                {% for profile in clmpermission_profiles %}
-                    <option value="{{ profile.clmpermission_profile_id }}"> {{ profile.clmpermission_profile_name }} </option>
+                {% for profile in clmPermissionProfiles %}
+                    <option value="{{ profile.permission_profile_id }}"> {{ profile.permission_profile_name }} </option>
                 {% endfor %}
             </select>
         </div>
@@ -53,12 +53,12 @@
     {% endif %}
 
 
-    {% if esignpermission_profiles and esignpermission_profiles.length > 0  %}
+    {% if eSignPermissionProfiles and eSignPermissionProfiles.length > 0  %}
         <div class="form-group">
             <label for="esignPermissionProfileId">eSignature Permission Profile</label>
             <select id="esignPermissionProfileId" name="esignPermissionProfileId" class="form-control">
-                {% for profile in esignpermission_profiles %}
-                    <option value="{{ profile.esignpermission_profile_id }}"> {{ profile.esignpermission_profile_name %} </option>
+                {% for profile in eSignPermissionProfiles %}
+                    <option value="{{ profile.permission_profile_id }}"> {{ profile.permission_profile_name %} </option>
                 {% endfor %}
             </select>
         </div>
@@ -88,7 +88,7 @@
     </div>
     <div class="form-group">
         <label for="esignProductId"></label>
-        <input type="hidden" class="form-control" id="esignProductId" name="esignProductId" value="{{ esignProductId }}" >
+        <input type="hidden" class="form-control" id="eSignProductId" name="eSignProductId" value="{{ eSignProductId }}" >
     </div>
 </form>
 
