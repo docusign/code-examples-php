@@ -89,8 +89,8 @@ class RouterService
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
         'meg001' => 'Monitor\Eg001GetMonitoringData',
-        "aeg002" => "admin\aeg002_create_new_esignature_clm_user.html",
-        "aeg005" => "admin\aeg005_audit_users.html"
+        "aeg002" => "Admin\AEG002CreateActiveCLMESignUser",
+        "aeg005" => "Admin\AEG005AuditUsers"
     ];
 
     /**
