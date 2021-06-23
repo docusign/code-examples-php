@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4>2. Create active user for CLM and eSignature</h4>
+<h4>2. {{ title }}</h4>
 <p>Demonstrates how to create an active user for CLM and eSignature.</p>
 
 
@@ -38,28 +38,28 @@
     </div>
 
     <!-- {% if args['clickwraps'] is empty %} -->
-    {% if (clmPermissionProfiles && clmPermissionProfiles.length > 0) { %}
+    {% if clmpermission_profiles and clmpermission_profiles.length > 0 %}
         <div class="form-group">
             <label for="clmPermissionProfileId">CLM Permission Profile</label>
             <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
-                {% clmPermissionProfiles.forEach( permissionProfile => { %}
-                    <option value="{%= permissionProfile.permission_profile_id %}"> {%= permissionProfile.permission_profile_name %} </option>
-                {% }) %}
+                {% for profile in clmpermission_profiles %}
+                    <option value="{{ profile.clmpermission_profile_id }}"> {{ profile.clmpermission_profile_name }} </option>
+                {% endfor %}
             </select>
         </div>
     {% else  %}
-        <p>Problem: please first create an clm permission profile.</a>
+        <p>Problem: please first create a clm permission profile.</a>
             </br>Thank you.</p>
     {% endif %}
 
 
-    {% if (esignPermissionProfiles && esignPermissionProfiles.length > 0) { %}
+    {% if esignpermission_profiles and esignpermission_profiles.length > 0  %}
         <div class="form-group">
             <label for="esignPermissionProfileId">eSignature Permission Profile</label>
             <select id="esignPermissionProfileId" name="esignPermissionProfileId" class="form-control">
-                {% esignPermissionProfiles.forEach( permissionProfile => { %}
-                    <option value="{%= permissionProfile.permission_profile_id%}"> {%= permissionProfile.permission_profile_name %} </option>
-                {% }) %}
+                {% for profile in esignpermission_profiles %}
+                    <option value="{{ profile.esignpermission_profile_id }}"> {{ profile.esignpermission_profile_name %} </option>
+                {% endfor %}
             </select>
         </div>
     {% else %}
@@ -67,19 +67,19 @@
             </br>Thank you.</p>
     {% endif %}
 
-    {% if (dsGroups && dsGroups.length > 0) { %}
+    {% if dsGroups and dsGroups.length > 0  %}
         <div class="form-group">
             <label for="dsGroupId">DocuSign Admin Group</label>
             <select id="dsGroupId" name="dsGroupId" class="form-control">
-                {% dsGroups.forEach( group => { %}
-                    <option value="{%= group.ds_group_id %}"> {%= group.group_name %} </option>
-                {% }) %}
+                {% for group in dsGroups %}
+                    <option value="{{ group.ds_group_id }}"> {{ group.group_name }} </option>
+                {% endfor %}
             </select>
         </div>
-    {% } else { %}
+    {%  else  %}
         <p>Problem: please first create a DocuSign Admin group.</a>
             </br>Thank you.</p>
-    {% } %}
+    {% endif %}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <button type="submit" class="btn btn-docu">Submit</button>
     <div class="form-group">

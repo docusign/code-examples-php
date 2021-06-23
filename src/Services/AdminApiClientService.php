@@ -4,6 +4,7 @@ namespace Example\Services;
 use DocuSign\OrgAdmin\Client\ApiException;
 use DocuSign\OrgAdmin\Api\AccountsApi;
 use DocuSign\OrgAdmin\Client\ApiClient;
+use DocuSign\OrgAdmin\Api\UsersApi;
 use DocuSign\OrgAdmin\Configuration;
 
 class AdminApiClientService
@@ -42,10 +43,22 @@ class AdminApiClientService
     /**
      * Getter for the AccountsApi
      */
-    public function accountsApi(): AccountsApi
+    public function getAccountsApi(): AccountsApi
     {
+
         return new AccountsApi($this->apiClient);
+        
     }
+
+    /**
+     * Getter for the UsersAPI
+     */
+    public function getUsersApi(): UsersApi
+    {
+        return new UsersApi($this->apiClient);
+    }
+    
+
 
     /**
      * Redirect user to the auth page
