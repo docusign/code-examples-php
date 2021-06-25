@@ -131,7 +131,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
      * 2. Send the envelope
      *
      * @param  $args array
-     * @return array ['redirect_url']
+     * @return Object AddUserResponse
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
 
@@ -181,7 +181,6 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             }              
         return  $results;
     }
-    # ***DS.snippet.0.end
 
     /**
      * Get specific template arguments
