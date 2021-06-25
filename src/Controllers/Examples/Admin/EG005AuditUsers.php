@@ -99,7 +99,6 @@ class EG005AuditUsers extends AdminApiBaseController
             $modifiedUsers = $admin_api->getUsers($args["organization_id"], $options);
 
             foreach ($modifiedUsers["users"] as $user) {
-
                 $profileOptions = New GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
                 $res = $admin_api->getUserProfiles($args["organization_id"], $profileOptions);
