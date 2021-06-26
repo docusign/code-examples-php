@@ -5,6 +5,7 @@ namespace Example\Controllers\Examples\Admin;
 use DocuSign\OrgAdmin\Api\UsersApi\GetUserProfilesOptions;
 use DocuSign\OrgAdmin\Api\UsersApi\GetUsersOptions;
 use DocuSign\OrgAdmin\Client\ApiException;
+use DocuSign\OrgAdmin\Model\UsersDrilldownResponse;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\AdminApiClientService;
 use Example\Services\RouterService;
@@ -55,8 +56,9 @@ class EG005AuditUsers extends AdminApiBaseController
             $results = $this->worker($this->args);
 
             if ($results) {
-
+                # results is an object that implements ArrayAccess. Convert to a regular array:
                 $results = json_decode((string)$results, true);
+                
                 $this->clientService->showDoneTemplate(
                     "Audit users",
                     "Audit users",
@@ -69,8 +71,6 @@ class EG005AuditUsers extends AdminApiBaseController
             $this->clientService->needToReAuth($this->eg);
         }
     }
-
-
     /**
      * Do the work of the example
      * 1. Create the envelope request object
@@ -80,10 +80,10 @@ class EG005AuditUsers extends AdminApiBaseController
      * @return array ['redirect_url']
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    public function worker($args): array
+    public function worker($args): UsersDrilldownResponse
     {
 
-        $results = [];
+        $results = new UsersDrilldownResponse();
 
         $admin_api = $this->clientService->getUsersApi();
         $options = New GetUsersOptions();
@@ -97,22 +97,26 @@ class EG005AuditUsers extends AdminApiBaseController
         try {
             # Step 3 start
             $modifiedUsers = $admin_api->getUsers($args["organization_id"], $options);
-
+            // var_dump($modifiedUsers["users"]);
+            // die();
             foreach ($modifiedUsers["users"] as $user) {
                 $profileOptions = New GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
+                // var_dump($user["email"]);
                 $res = $admin_api->getUserProfiles($args["organization_id"], $profileOptions);
-                array_push($results, $res);
+                $results->setUsers(
+                    $res->getUsers());
             }
             # Step 3 end
         } catch (Exception $e) {
-            var_dump($e);
             $GLOBALS['twig']->display('error.html', [
                     'error_code' => $e->getCode(),
                     'error_message' =>  $e->getMessage()]
             );
             exit;
-            }              
+            }
+            
+
         return  $results;
     }
   
