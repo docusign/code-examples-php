@@ -56,9 +56,6 @@ class EG005AuditUsers extends AdminApiBaseController
             $results = $this->worker($this->args);
 
             if ($results) {
-                # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
-                
                 $this->clientService->showDoneTemplate(
                     "Audit users",
                     "Audit users",
@@ -80,9 +77,9 @@ class EG005AuditUsers extends AdminApiBaseController
      * @return array ['redirect_url']
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    public function worker($args): UsersDrilldownResponse
+    public function worker($args): array 
     {
-
+        $resultsArr = [];
         $results = new UsersDrilldownResponse();
 
         $admin_api = $this->clientService->getUsersApi();
@@ -97,15 +94,18 @@ class EG005AuditUsers extends AdminApiBaseController
         try {
             # Step 3 start
             $modifiedUsers = $admin_api->getUsers($args["organization_id"], $options);
-            // var_dump($modifiedUsers["users"]);
-            // die();
             foreach ($modifiedUsers["users"] as $user) {
                 $profileOptions = New GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
                 // var_dump($user["email"]);
+                // var_dump($resultsArr);
+                // echo "<br/>";
+                // echo "<br/>";
+
                 $res = $admin_api->getUserProfiles($args["organization_id"], $profileOptions);
-                $results->setUsers(
-                    $res->getUsers());
+                $results->setUsers($res->getUsers());
+                $decoded = json_decode((string)$results, true);
+                array_push($resultsArr, $decoded["users"]);
             }
             # Step 3 end
         } catch (Exception $e) {
@@ -117,7 +117,7 @@ class EG005AuditUsers extends AdminApiBaseController
             }
             
 
-        return  $results;
+        return  $resultsArr;
     }
   
 
