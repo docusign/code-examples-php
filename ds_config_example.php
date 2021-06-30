@@ -28,6 +28,10 @@ $DS_CONFIG = [
     'gateway_display_name' => "Stripe",
     'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/examples/eSignature/',
     'documentation' => false,
+    'organization_id' => '{ORGANIZATION_ID}',
+    'account_id' => '{ACCOUNT_ID}',
+    'premissionProfile_id' => '{PREMISSION_PROFILE_ID}',
+    'premissionProfile_name' => '{PREMISSION_PROFILE_NAME}',
 ];
 
 $JWT_CONFIG = [
@@ -39,9 +43,10 @@ $JWT_CONFIG = [
 
 $EXAMPLES_API_TYPE = [
     'Rooms' => false,
-    'ESignature' => true,
+    'ESignature' => false,
     'Click' => false,
-    'Monitor' => false
+    'Monitor' => false,
+    'Admin' => true
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;

@@ -36,6 +36,7 @@ class RouterService
         'home_rooms' => 'Home',
         'home_click' => 'Home',
         'home_monitor' => 'Home',
+        'home_admin' => 'Home',
         'ds_return' => 'DsReturn',
         'must_authenticate' => 'MustAuthenticate',
         'eg001' => 'EG001EmbeddedSigning',
@@ -88,6 +89,11 @@ class RouterService
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
         'meg001' => 'Monitor\Eg001GetMonitoringData',
+        'aeg001' => 'Admin\Eg001CreateNewUser',
+        'aeg002' => 'Admin\Eg002BulkExportUserData',
+        'aeg003' => 'Admin\Ex003CheckRequestStatus',
+        'aeg004' => 'Admin\Ex004BulkImportUserData',
+        'aeg005' => 'Admin\Ex005CheckImportRequestStatus',
     ];
 
     /**
@@ -99,6 +105,7 @@ class RouterService
         "home"  => "home.html",
         "home_rooms" => "home_rooms.html",
         "home_monitor" => "home_monitor.html",
+        "home_admin" => "home_admin.html",
         "home_click" => "home_click.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
         "eg002" => "esignature/eg002_signing_via_email.html",
@@ -150,6 +157,11 @@ class RouterService
         "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
         "meg001" => "monitor/eg001_get_monitoring_data.html",
+        "aeg001" => "admin/eg001_create_active_user.html",
+        "aeg002" => "admin/eg002_bulk_export_user_data.html",
+        "aeg003" => "admin/eg003_check_request_status.html",
+        "aeg004" => "admin/eg004_bulk_import_user_data.html",
+        "aeg005" => "admin/eg005_check_import_request_status.html",
     ];
 
     /**
@@ -159,6 +171,7 @@ class RouterService
         "home" => "Home--PHP Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
         "home_monitor" => "Home--PHP Monitor Code Examples",
+        "home_admin" => "Home--PHP Admin Code Examples",
         "home_click" => "Home--PHP Click Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
@@ -210,6 +223,11 @@ class RouterService
         "reg008" => "Grant office access to a form group",
         "reg009" => "Assign a form to a form group",
         "meg001" => "Get monitoring data",
+        "aeg001" => "Create a new user with active status",
+        "aeg002" => "How to bulk-export user data",
+        "aeg003" => "Check request status",
+        "aeg004" => "How to bulk-import user data",
+        "aeg005" => "Check the request status",
     ];
 
     /**

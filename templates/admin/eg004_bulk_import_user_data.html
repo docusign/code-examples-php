@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>4. Download the exported user data</h4>
+<p>
+    How to bulk-import users and add user data from an example CSV (comma-separated value) file into a DocuSign Admin organization.
+</p>
+
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<form class="eg" action="" method="post">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+  
+{% endblock %}
