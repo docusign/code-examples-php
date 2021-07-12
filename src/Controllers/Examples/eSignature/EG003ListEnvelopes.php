@@ -82,7 +82,7 @@ class EG003ListEnvelopes extends eSignBaseController
         # 1. call API method
         # Exceptions will be caught by the calling function
         # The Envelopes::listStatusChanges method has many options
-        # See https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/listStatusChanges
+        # See https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/
         # The list status changes call requires at least a from_date OR
         # a set of envelope_ids. Here we filter using a from_date.
         # Here we set the from_date to filter envelopes for the last 10 days
