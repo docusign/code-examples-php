@@ -2,25 +2,20 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\OrgAdmin\Client\ApiException;
+use DocuSign\OrgAdmin\Model\NewUserResponse;
+use DocuSign\OrgAdmin\Model\PermissionProfileRequest;
 use Example\Controllers\AdminBaseController;
-use Example\Services\AdminApiClientService;
-use Example\Services\RouterService;
+
 use DocuSign\OrgAdmin\Api\UsersApi;
 use DocuSign\OrgAdmin\Model\NewUserRequestAccountProperties;
 use NewUserRequest as GlobalNewUserRequest;
 
 class Eg001CreateNewUser extends AdminBaseController
 {
-    /** Admin client service */
-    private $clientService;
+    const EG = 'aeg001'; # reference (and url) for this example
 
-    /** Router service */
-    private $routerService;
-
-    /** Specific template arguments */
-    private $args;
-
-    private $eg = "aeg001";  # reference (and url) for this example
+    const FILE = __FILE__;
 
     /**
      * Create a new controller instance.
@@ -28,10 +23,8 @@ class Eg001CreateNewUser extends AdminBaseController
      */
     public function __construct()
     {
-        $this->args = $this->getTemplateArgs();
-        $this->clientService = new AdminApiClientService($this->args);
-        $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        parent::__construct();
+        parent::controller();
     }
 
     /**
@@ -41,48 +34,43 @@ class Eg001CreateNewUser extends AdminBaseController
      */
     public function createController(): void
     {
-        $minimum_buffer_min = 3;
-        
-        if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
-            
-            $organizationId = $GLOBALS['DS_CONFIG']['organization_id'];
+        $this->checkDsToken();
 
-            // Call the worker method
-            $results = $this->addActiveUser($organizationId, $this->args["envelope_args"]);
+        // Call the worker method
+        $results = $this->addActiveUser($this->organizationId, $this->args["envelope_args"]);
 
-            if ($results) {
-                $this->clientService->showDoneTemplate(
-                    "Create a new user",
-                    "Admin API data response output:",
-                    "Results from Users:createUser:",
-                    json_encode(($results->__toString()))
-                );
-            }
-        } else {
-            $this->clientService->needToReAuth($this->eg);
+        if ($results) {
+            $this->clientService->showDoneTemplate(
+                "Create a new user",
+                "Admin API data response output:",
+                "Results from Users:createUser:",
+                json_encode(($results->__toString()))
+            );
         }
     }
 
     /**
      * Method to add a new user to your organization.
-     * @return \DocuSign\OrgAdmin\Model\NewUserResponse
-     * @throws ApiException for API problems.
+     * @param $organizationId
+     * @param $userData
+     * @return NewUserResponse
+     * @throws ApiException
      */
-    private function addActiveUser($organizationId, $userData): \DocuSign\OrgAdmin\Model\NewUserResponse
+    private function addActiveUser($organizationId, $userData): NewUserResponse
     {
         $apiClient = $this->clientService->getApiClient();
 
         $usersApi = new UsersApi($apiClient);
         $accountId = $GLOBALS['DS_CONFIG']['account_id'];
 
-        $premissionProfile = new \DocuSign\OrgAdmin\Model\PermissionProfileRequest([
+        $permissionProfile = new PermissionProfileRequest([
             'id' => $GLOBALS['DS_CONFIG']['premissionProfile_id'],
             'name' => $GLOBALS['DS_CONFIG']['premissionProfile_name']
         ]);
 
-        $nacountInfo = new NewUserRequestAccountProperties([
+        $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
-            'permission_profile' => $premissionProfile
+            'permission_profile' => $permissionProfile
         ]);
 
         $request = new GlobalNewUserRequest([
@@ -91,7 +79,7 @@ class Eg001CreateNewUser extends AdminBaseController
             'last_name' => $userData['LastName'],
             'email' => $userData['Email'],
             'default_account_id' => $accountId,
-            'accounts' => array($nacountInfo),
+            'accounts' => array($accountInfo),
             'auto_activate_memberships' => false
         ]);
 
@@ -102,25 +90,24 @@ class Eg001CreateNewUser extends AdminBaseController
      * Get specific template arguments
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-        $Name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['Name']);
-        $FirstName = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['FirstName']);
-        $LastName = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['LastName']);
-        $Email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['Email']);
         $envelope_args = [
-            'Name' => $Name,
-            'FirstName' => $FirstName,
-            'LastName' => $LastName,
-            'Email' => $Email
+            'Name' => $this->checkInputValues($_POST['Name']),
+            'FirstName' => $this->checkInputValues($_POST['FirstName']),
+            'LastName' => $this->checkInputValues($_POST['LastName']),
+            'Email' => $this->checkInputValues($_POST['Email'])
         ];
-        $args = [
+        return [
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],
             'envelope_args' => $envelope_args
         ];
+    }
 
-        return $args;
+    private function checkInputValues($value)
+    {
+        return preg_replace('/([^\w \-@.,])+/', '', $value);
     }
 }

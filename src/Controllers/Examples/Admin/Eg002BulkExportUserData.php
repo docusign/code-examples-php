@@ -1,25 +1,17 @@
 <?php
 
 namespace Example\Controllers\Examples\Admin;
+
 use DocuSign\OrgAdmin\Api\BulkExportsApi;
 use Example\Controllers\AdminBaseController;
-use Example\Services\AdminApiClientService;
-use Example\Services\RouterService;
 
 use function GuzzleHttp\json_decode;
 
 class Eg002BulkExportUserData extends AdminBaseController
 {
-    /** Admin client service */
-    private $clientService;
+    const EG = 'aeg002'; # reference (and url) for this example
 
-    /** Router service */
-    private $routerService;
-
-    /** Specific template arguments */
-    private $args;
-
-    private $eg = "aeg002";  # reference (and url) for this example
+    const FILE = __FILE__;
 
     /**
      * Create a new controller instance.
@@ -27,41 +19,34 @@ class Eg002BulkExportUserData extends AdminBaseController
      */
     public function __construct()
     {
-        $this->args = $this->getTemplateArgs();
-        $this->clientService = new AdminApiClientService($this->args);
-        $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        parent::__construct();
+        parent::controller();
     }
 
     /**
      * Check the access token and call the worker method
      * @return void
-     * @throws ApiException for API problems.
+     * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
     public function createController(): void
     {
-        $accessToken =  $_SESSION['ds_access_token'];
-        $minimum_buffer_min = 3;
+        $this->checkDsToken();
 
-        if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
-            $results = $this->getExportsData($this->organizationId, $accessToken);
+        $results = $this->getExportsData($this->organizationId);
 
-            if ($results) {
-                $this->clientService->showDoneTemplate(
-                    "Bulk export user data",
-                    "Admin API data response output:",
-                    "Results from UserExport:getUserListExports method:",
-                    json_encode(json_encode($results))
-                );
-            }
-        } else {
-            $this->clientService->needToReAuth($this->eg);
+        if ($results) {
+            $this->clientService->showDoneTemplate(
+                "Bulk export user data",
+                "Admin API data response output:",
+                "Results from UserExport:getUserListExports method:",
+                json_encode(json_encode($results))
+            );
         }
     }
 
     /**
      * Method to get user bulk-exports from your organization.
-     * @throws ApiException for API problems.
+     * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
     private function getExportsData($organizationId)
     {
@@ -81,14 +66,12 @@ class Eg002BulkExportUserData extends AdminBaseController
      * Get specific template arguments
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-        $args = [
+        return [
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],
         ];
-
-        return $args;
     }
 }
