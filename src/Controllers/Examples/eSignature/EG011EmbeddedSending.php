@@ -53,7 +53,6 @@ class EG011EmbeddedSending extends eSignBaseController
             # More data validation would be a good idea here
             # Strip anything other than characters listed
             $results = $this->worker($this->args);
-
             if ($results) {
                 # Redirect the user to the NDSE view
                 # Don't use an iFrame!
@@ -81,9 +80,15 @@ class EG011EmbeddedSending extends eSignBaseController
     # ***DS.snippet.0.start
     private function worker($args): array
     {
+
+
         # 1. Create the envelope as a draft using eg002's worker
         # Exceptions will be caught by the calling function
-        $args['envelope_args']['status'] = 'created';
+        # Set this createDraft session variable to true to override 
+        # The default behavior of eg002 so that eg011s controller continues to function
+        # This external session variable is reset on eg002 in setArguments 
+
+        $_SESSION["createDraft"] = true;
         $eg = new EG002SigningViaEmail();
         $results = $eg->worker($args);
         $envelope_id= $results['envelope_id'];
