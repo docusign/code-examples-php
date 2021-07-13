@@ -32,15 +32,22 @@ class EG002SigningViaEmail extends eSignBaseController
 
     /**
      * Create a new controller instance.
-     *
      * @return void
      */
+
     public function __construct()
     {
+
         $this->args = $this->getTemplateArgs();
         $this->clientService = new SignatureClientService($this->args);
         $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        if(!$_SESSION["createDraft"]){
+          parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        } else {
+
+            unset($_SESSION["createDraft"]);
+        }
+        
     }
 
     /**
@@ -214,6 +221,12 @@ class EG002SigningViaEmail extends eSignBaseController
      */
     private function getTemplateArgs(): array
     {
+
+        $status = "sent";
+        if($_SESSION["createDraft"]){
+            $status = "created";
+        }
+
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
         $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
         $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_name'     ]);
@@ -223,7 +236,7 @@ class EG002SigningViaEmail extends eSignBaseController
             'signer_name' => $signer_name,
             'cc_email' => $cc_email,
             'cc_name' => $cc_name,
-            'status' => 'sent'
+            'status' => $status
         ];
         $args = [
             'account_id' => $_SESSION['ds_account_id'],
