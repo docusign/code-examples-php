@@ -2,13 +2,13 @@
 
 namespace Example\Services;
 
-use DocuSign\OrgAdmin\Client\ApiException;
-use DocuSign\OrgAdmin\Api\AccountsApi;
-use DocuSign\OrgAdmin\Api\DSGroupsApi;
-use DocuSign\OrgAdmin\Api\ProductPermissionProfilesApi;
-use DocuSign\OrgAdmin\Client\ApiClient;
-use DocuSign\OrgAdmin\Api\UsersApi;
-use DocuSign\OrgAdmin\Configuration;
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Api\AccountsApi;
+use DocuSign\Admin\Api\DSGroupsApi;
+use DocuSign\Admin\Api\ProductPermissionProfilesApi;
+use DocuSign\Admin\Client\ApiClient;
+use DocuSign\Admin\Api\UsersApi;
+use DocuSign\Admin\Configuration;
 
 class AdminApiClientService
 {
