@@ -2,7 +2,7 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\OrgAdmin\Api\BulkExportsApi;
+use DocuSign\Admin\Api\BulkExportsApi;
 use Example\Controllers\AdminBaseController;
 
 use function GuzzleHttp\json_decode;

@@ -3,9 +3,11 @@
 
 namespace Example\Services;
 
-use DocuSign\OrgAdmin\Client\ApiClient;
-use DocuSign\OrgAdmin\Client\ApiException;
-use DocuSign\OrgAdmin\Configuration;
+use DocuSign\Admin\Api\ProductPermissionProfilesApi;
+use DocuSign\Admin\Client\ApiClient;
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Configuration;
+
 
 class AdminApiClientService
 {
@@ -21,6 +23,7 @@ class AdminApiClientService
 
     /**
      * Create a new controller instance.
+     *
      * @param $args
      * @return void
      */
@@ -49,6 +52,7 @@ class AdminApiClientService
 
     /**
      * Redirect user to the error page
+     *
      * @param  ApiException $e
      * @return void
      */
@@ -65,6 +69,7 @@ class AdminApiClientService
 
     /**
      * Redirect user to the error page
+     *
      * @param $title string
      * @param $headline string
      * @param $message string
@@ -83,7 +88,18 @@ class AdminApiClientService
     }
 
     /**
+     * Get product permission profiles
+     * @param {object} args
+     */
+
+    public function permProfilesApi(): ProductPermissionProfilesApi
+    {
+        return new ProductPermissionProfilesApi($this->apiClient);
+    }
+
+    /**
      * Redirect user to the auth page
+     *
      * @param $eg
      * @return void
      */

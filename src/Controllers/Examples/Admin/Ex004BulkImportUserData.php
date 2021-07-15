@@ -2,15 +2,19 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\OrgAdmin\Model\OrganizationImportResponse;
+use DocuSign\Admin\Model\OrganizationImportResponse;
 use Example\Controllers\AdminBaseController;
-use DocuSign\Monitor\Client\ApiException;
-use DocuSign\OrgAdmin\Client\ApiClient;
-use DocuSign\OrgAdmin\Configuration;
+use DocuSign\Admin\Client\ApiClient;
+use DocuSign\Admin\Configuration;
+use DocuSign\Admin\Api\BulkImportsApi;
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiClient.php";
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiException.php";
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Configuration.php";
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Api\BulkImportsApi.php";
 
 
 use InvalidArgumentException;
-use function GuzzleHttp\json_decode;
+use SplFileObject;
 
 class Ex004BulkImportUserData extends AdminBaseController
 {
@@ -54,6 +58,7 @@ class Ex004BulkImportUserData extends AdminBaseController
     /**
      * Method to prepare headers and create a bulk-import.
      * @throws ApiException for API problems.
+     * @throws \DocuSign\Admin\Client\ApiException
      */
     private function bulkImportUserData()
     {
@@ -62,13 +67,26 @@ class Ex004BulkImportUserData extends AdminBaseController
 
         $config->setAccessToken($accessToken);
         $config->setHost('https://api-d.docusign.net/management');
-        $config->addDefaultHeader("Content-Disposition", "attachment; filename=myfile.csv");
+        $config->addDefaultHeader("Content-Disposition", "attachment; filename=file.csv");
         $apiClient = new ApiClient($config);
 
-        $userData = "AccountID,UserName,UserEmail,PermissionSet\n" .
-            $GLOBALS['DS_CONFIG']['account_id'] . ",FirstLast1,exampleuser1@example.com,DS Viewer";
+        $list = array (
+            array('AccountID', 'UserName', 'UserEmail', 'PermissionSet'),
+            array($GLOBALS['DS_CONFIG']['account_id'], 'FirstLast1', 'exampleuser1@example.com', 'DS Viewer')
+        );
 
-        $result = $this->createBulkImport($this->organizationId, $userData, $apiClient);
+        $userData = new SplFileObject('file.csv', 'w');
+
+        foreach ($list as $fields) {
+            $userData->fputcsv($fields);
+        }
+        $userData->fflush();
+        /*$userData = "AccountID,UserName,UserEmail,PermissionSet\n" .
+            $GLOBALS['DS_CONFIG']['account_id'] . ",FirstLast1,exampleuser1@example.com,DS Viewer";*/
+
+        $bulkImport = new BulkImportsApi($apiClient);
+        $result = $bulkImport->createBulkImportAddUsersRequestWithHttpInfo($this->organizationId, $userData);
+        //$result = $this->createBulkImport($this->organizationId, $userData, $apiClient);
 
         $_SESSION['import_id'] = strval($result->getId());
 

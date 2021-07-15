@@ -2,11 +2,11 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\OrgAdmin\Api\BulkExportsApi;
-use Example\Controllers\AdminBaseController;
-use DocuSign\Monitor\Client\ApiException;
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiClient.php";
+include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Api\BulkExportsApi.php";
 
-use function GuzzleHttp\json_decode;
+use DocuSign\Admin\Api\BulkExportsApi;
+use Example\Controllers\AdminBaseController;
 
 class Ex003CheckRequestStatus extends AdminBaseController
 {

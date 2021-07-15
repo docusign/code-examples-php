@@ -26,7 +26,7 @@ abstract class AdminBaseController extends BaseController
      * Admin base controller
      * @return void
      */
-    public function controller(): void
+    public function controller($args = null): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         if (!$this->routerService) {
@@ -34,7 +34,7 @@ abstract class AdminBaseController extends BaseController
         }
 
         if ($method == 'GET') {
-            $this->getController();
+            $this->getController($args);
         }
 
         if ($method == 'POST') {
@@ -47,8 +47,7 @@ abstract class AdminBaseController extends BaseController
      * Show the example's form page
      * @return void
      */
-    private function getController(
-    ): void
+    private function getController(?array $args): void
     {
         if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(static::EG . '.html', [
@@ -63,7 +62,7 @@ abstract class AdminBaseController extends BaseController
                     'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . basename(static::FILE),
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
-                    'args' => $this->args,
+                    'args' => $args,
                     'export_id' => isset($_SESSION['export_id']),
                     'import_id' => isset($_SESSION['import_id'])
                 ]);
@@ -91,8 +90,5 @@ abstract class AdminBaseController extends BaseController
      */
     abstract function createController();
 
-    /**
-     * Declaration for the template arguments preparation. Each creator should be described in specific Controller
-     */
     abstract function getTemplateArgs(): array;
 }
