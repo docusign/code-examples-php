@@ -2,6 +2,7 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\Admin\Api\AccountsApi;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\NewUserResponse;
 use DocuSign\Admin\Model\PermissionProfileRequest;
@@ -10,6 +11,7 @@ use Example\Controllers\AdminBaseController;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
+use Example\Services\SignatureClientService;
 
 class Eg001CreateNewUser extends AdminBaseController
 {
@@ -27,30 +29,13 @@ class Eg001CreateNewUser extends AdminBaseController
     public function __construct()
     {
         parent::__construct();
-        parent::controller();
 
         $this->checkDsToken();
 
-        // Step 3 start
-        $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
-        $ppReq = $this->clientService->permProfilesApi();
-        $permissionProfiles = $ppReq->getProductPermissionProfiles($this->organizationId, $GLOBALS['DS_CONFIG']['account_id']);
+        $signatureClientService = new SignatureClientService($this->args);
+        $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
 
-        foreach ($permissionProfiles['product_permission_profiles'] as $item) {
-            if ($item['product_name'] ==  "CLM") {
-                $clmPermissionProfiles = $item;
-            }
-            else {
-                $eSignPermissionProfiles = $item;
-            }
-        }
-        // Step 3 end
-
-        $preFill = [
-            'clmPermissionProfiles' => $clmPermissionProfiles,
-            'eSignPermissionProfiles' => $eSignPermissionProfiles,
-        ];
-        parent::controller($preFill);
+        parent::controller($permission_profiles);
     }
 
     /**
@@ -90,7 +75,7 @@ class Eg001CreateNewUser extends AdminBaseController
         $accountId = $GLOBALS['DS_CONFIG']['account_id'];
 
         $permissionProfile = new PermissionProfileRequest([
-            'id' => $userData['eSignPermissionProfileId']
+            'id' => $userData['permission_profile_id']
         ]);
 
         $accountInfo = new NewUserRequestAccountProperties([
@@ -117,18 +102,15 @@ class Eg001CreateNewUser extends AdminBaseController
      */
     public function getTemplateArgs(): array
     {
-        $clmPermissionProfileId = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST["clmPermissionProfileId"]);
-        $esignPermissionProfileId = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST["eSignPermissionProfileId"]);
         $envelope_args = [
             'Name' => $this->checkInputValues($_POST['Name']),
             'FirstName' => $this->checkInputValues($_POST['FirstName']),
             'LastName' => $this->checkInputValues($_POST['LastName']),
             'Email' => $this->checkInputValues($_POST['Email']),
-            'clm_permission_profile_id' => $clmPermissionProfileId,
-            'esign_permission_profile_id' => $esignPermissionProfileId,
+            'permission_profile_id' => $this->checkInputValues($_POST["permission_profile_id"]),
         ];
         return [
-            'account_id' => $_SESSION['ds_account_id'],
+            'account_id' => $GLOBALS['DS_CONFIG']['account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],
             'envelope_args' => $envelope_args

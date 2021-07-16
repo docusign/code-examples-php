@@ -26,7 +26,7 @@ abstract class AdminBaseController extends BaseController
      * Admin base controller
      * @return void
      */
-    public function controller($args = null): void
+    public function controller($permission_profiles = null): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         if (!$this->routerService) {
@@ -34,7 +34,7 @@ abstract class AdminBaseController extends BaseController
         }
 
         if ($method == 'GET') {
-            $this->getController($args);
+            $this->getController($permission_profiles);
         }
 
         if ($method == 'POST') {
@@ -47,7 +47,9 @@ abstract class AdminBaseController extends BaseController
      * Show the example's form page
      * @return void
      */
-    private function getController(?array $args): void
+    private function getController(
+        ?array $permission_profiles
+    ): void
     {
         if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(static::EG . '.html', [
@@ -62,7 +64,8 @@ abstract class AdminBaseController extends BaseController
                     'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . basename(static::FILE),
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
-                    'args' => $args,
+                    'args' => $this->args,
+                    'permission_profiles' => $permission_profiles,
                     'export_id' => isset($_SESSION['export_id']),
                     'import_id' => isset($_SESSION['import_id'])
                 ]);

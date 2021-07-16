@@ -33,34 +33,15 @@
         <input type="text" class="form-control" name="Email" id="Email" required>
     </div>
 
-  {% if args['clmPermissionProfiles'] and args['clmPermissionProfiles']|length > 0 %}
       <div class="form-group">
-          <label for="clmPermissionProfileId">CLM Permission Profile</label>
-          <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
-              {% for profile in args['clmPermissionProfiles']['permission_profiles'] %}
-              <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
+          <label for="permission_profile_id">Permission profile</label>
+          <br>
+          <select id="permission_profile_id" name="permission_profile_id" class="form-control">
+              {% for profile in permission_profiles %}
+              <option value="{{ profile.permission_profile_id }}">{{ profile.permission_profile_name }}</option>
               {% endfor %}
           </select>
       </div>
-  {% else  %}
-      <p>Problem: please first create a clm permission profile.</a>
-          </br>Thank you.</p>
-  {% endif %}
-
-
-  {% if args['eSignPermissionProfiles'] and args['eSignPermissionProfiles']|length > 0  %}
-      <div class="form-group">
-          <label for="eSignPermissionProfileId">eSignature Permission Profile</label>
-          <select id="eSignPermissionProfileId" name="eSignPermissionProfileId" class="form-control">
-              {% for profile in args['eSignPermissionProfiles']['permission_profiles'] %}
-              <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
-              {% endfor %}
-          </select>
-      </div>
-  {% else %}
-      <p>Problem: please first create an eSignature permission profile.</a>
-          </br>Thank you.</p>
-  {% endif %}
 
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <button type="submit" class="btn btn-docu">Submit</button>

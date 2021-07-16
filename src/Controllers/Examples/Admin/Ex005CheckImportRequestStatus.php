@@ -2,10 +2,8 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Api\BulkImportsApi;
 use Example\Controllers\AdminBaseController;
-
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Api\BulkImportsApi.php";
+use DocuSign\OrgAdmin\Api\BulkImportsApi;
 
 class Ex005CheckImportRequestStatus extends AdminBaseController
 {
@@ -61,7 +59,11 @@ class Ex005CheckImportRequestStatus extends AdminBaseController
         return $bulkImportsApi->getBulkUserImportRequest($this->organizationId, $importId)->__toString();
     }
 
-    function getTemplateArgs(): array
+    /**
+     * Get specific template arguments
+     * @return array
+     */
+    public function getTemplateArgs(): array
     {
         return [
             'account_id' => $_SESSION['ds_account_id'],
