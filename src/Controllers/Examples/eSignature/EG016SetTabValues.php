@@ -107,7 +107,7 @@ class EG016SetTabValues extends eSignBaseController
         # 3. Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating
         # the signer? See the `authentication_method' definition
-        # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
+        # https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/
         $recipient_view_request = $this->clientService->getRecipientViewRequest(
             $authentication_method,
             $args["envelope_args"]
