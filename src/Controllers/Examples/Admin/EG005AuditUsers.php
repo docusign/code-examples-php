@@ -2,10 +2,10 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\OrgAdmin\Api\UsersApi\GetUserProfilesOptions;
-use DocuSign\OrgAdmin\Api\UsersApi\GetUsersOptions;
-use DocuSign\OrgAdmin\Client\ApiException;
-use DocuSign\OrgAdmin\Model\UsersDrilldownResponse;
+use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
+use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Model\UsersDrilldownResponse;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\AdminApiClientService;
 use Example\Services\RouterService;
@@ -36,6 +36,7 @@ class EG005AuditUsers extends AdminApiBaseController
         $this->args = $this->getTemplateArgs();
         $this->clientService = new AdminApiClientService($this->args);
         $this->routerService = new RouterService();
+        
         parent::controller($this->eg, $this->routerService, basename(__FILE__));
     }
 
@@ -91,9 +92,11 @@ class EG005AuditUsers extends AdminApiBaseController
         $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
         $options->setLastModifiedSince($from_date);
 
+        $orgId = $this->clientService->getOrgAdminId($this->args);
+
         try {
             # Step 3 start
-            $modifiedUsers = $admin_api->getUsers($args["organization_id"], $options);
+            $modifiedUsers = $admin_api->getUsers($orgId, $options);
             foreach ($modifiedUsers["users"] as $user) {
                 $profileOptions = New GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
@@ -102,13 +105,13 @@ class EG005AuditUsers extends AdminApiBaseController
                 // echo "<br/>";
                 // echo "<br/>";
 
-                $res = $admin_api->getUserProfiles($args["organization_id"], $profileOptions);
+                $res = $admin_api->getUserProfiles($orgId, $profileOptions);
                 $results->setUsers($res->getUsers());
                 $decoded = json_decode((string)$results, true);
                 array_push($resultsArr, $decoded["users"]);
             }
             # Step 3 end
-        } catch (Exception $e) {
+        } catch (ApiException $e) {
             $GLOBALS['twig']->display('error.html', [
                     'error_code' => $e->getCode(),
                     'error_message' =>  $e->getMessage()]
@@ -130,7 +133,6 @@ class EG005AuditUsers extends AdminApiBaseController
     {
         
         $args = [
-            'organization_id' => $GLOBALS['DS_CONFIG']['organization_id'],
             'account_id' => $_SESSION['ds_account_id'],
             'ds_access_token' => $_SESSION['ds_access_token'] 
         ];

@@ -2,11 +2,11 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\OrgAdmin\Model\ProductPermissionProfileRequest;
-use DocuSign\OrgAdmin\Client\ApiException;
-use DocuSign\OrgAdmin\Model\AddUserResponse;
-use DocuSign\OrgAdmin\Model\DSGroupRequest;
-use DocuSign\OrgAdmin\Model\NewMultiProductUserAddRequest;
+use DocuSign\Admin\Model\ProductPermissionProfileRequest;
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Model\AddUserResponse;
+use DocuSign\Admin\Model\DSGroupRequest;
+use DocuSign\Admin\Model\NewMultiProductUserAddRequest;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\AdminApiClientService;
 use Example\Services\RouterService;
@@ -25,6 +25,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
     private $eg = "aeg002";       # Reference (and URL) for this example 
     
+    private $orgId;
+
     /**
      * Create a new controller instance
      *
@@ -42,8 +44,9 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
         // Step 3 start       
         $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
+        $this->orgId = $this->clientService->getOrgAdminId($this->args);
         $ppReq = $this->clientService->permProfilesApi();
-        $permissionProfiles = $ppReq->getProductPermissionProfiles($this->args["organization_id"], $this->args["account_id"]);       
+        $permissionProfiles = $ppReq->getProductPermissionProfiles($this->orgId, $this->args["account_id"]);       
         
         foreach ($permissionProfiles['product_permission_profiles'] as $item) {
             if ($item['product_name'] ==  "CLM") {
@@ -60,7 +63,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
         // Step 4 start
         $dsgReq = $this->clientService->adminGroupsApi();
-        $dsgRes = $dsgReq->getDSGroups($this->args["organization_id"], $this->args["account_id"]);
+        $dsgRes = $dsgReq->getDSGroups($this->orgId, $this->args["account_id"]);
         $dsGroups = $dsgRes["ds_groups"];
         // Step 4 end
         } 
@@ -108,7 +111,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
                 $this->clientService->showDoneTemplate(
                     "Create active user for CLM and eSignature",
                     "Create active user for CLM and eSignature",
-                    "Results from Users::addUsers_0 method:",
+                    "Results from Users::addOrUpdateUsers method:",
                     json_encode(json_encode($results))
                 );
             }
@@ -168,16 +171,11 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         try {
 
             # Step 6 start
-            $results = $admin_api->addUsers_0($args["organization_id"], $args["account_id"], $request);
+            $results = $admin_api->addOrUpdateUser($this->orgId, $args["account_id"], $request);
             # Step 6 end
 
-        } catch (Exception $e) {
-            // var_dump($e);
-            $GLOBALS['twig']->display('error.html', [
-                    'error_code' => $e->getCode(),
-                    'error_message' =>  $e->getMessage()]
-            );
-            exit;
+        } catch (ApiException $e) {
+            $this->clientService->showErrorTemplate($e);
             }              
         return  $results;
     }
@@ -202,7 +200,6 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
 
         $args = [
-            'organization_id' => $GLOBALS['DS_CONFIG']['organization_id'],
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'], 

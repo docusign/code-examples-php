@@ -10,6 +10,7 @@ use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
 
+
 class AdminApiClientService
 {
     /**
@@ -63,7 +64,6 @@ class AdminApiClientService
     
     /**
     * Get product permission profiles
-    * @param {object} args
     */
 
     public function permProfilesApi(): ProductPermissionProfilesApi
@@ -74,7 +74,23 @@ class AdminApiClientService
     
     /**
     * Get product Admin Groups
-    * @param {object} args
+    */
+
+    public function getOrgAdminId(): String
+    { 
+       // It is possible for an account to belong to multiple organizations 
+       // We are returning the first Organization Id found
+       $AccountsApi = new AccountsApi($this->apiClient);
+       $orgs = $AccountsApi->getOrganizations();
+       return $orgs["organizations"][0]["id"];
+        
+    }
+    
+
+
+    /**
+    * Get Org Admin Id
+    *
     */
 
     public function adminGroupsApi(): DSGroupsApi
@@ -82,6 +98,7 @@ class AdminApiClientService
         return new DSGroupsApi($this->apiClient);
         
     }
+    
     
 
     /**

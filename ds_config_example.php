@@ -8,7 +8,6 @@ $DS_CONFIG = [
     'ds_client_secret' => '{SECRET_KEY}', // The app's DocuSign integration key's secret
     'signer_email' => '{SIGNER_EMAIL}',
     'signer_name' => '{SIGNER_NAME}',
-    'organization_id' => '{ORGANIZATION_ID}',    
     'app_url' => 'http://localhost:8080/public', // The url of the application.
     // Ie, the user enters  app_url in their browser to bring up the app's home page
     // Eg http://localhost/code-examples-php/public if the app is installed in a
