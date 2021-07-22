@@ -8,7 +8,7 @@
         <tr>
             <td>
                 <h1 class="display-4">PHP Launcher</h1>
-                <p class="Xlead"> Welcome to the DocuSign C# examples using multiple OAuth flows (JWT and Authorization Code Grant).</p>
+                <p class="Xlead">Welcome to the PHP code examples for DocuSign Admin API with JWT Grant authentication</p>
             </td>
             <td>
                 <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
@@ -81,5 +81,56 @@
     anchors.options.placement = 'left';
     anchors.add('h4')
 </script>
+    <h2>DocuSign Admin Code Examples</h2>
+    <h4 id="Example1">1. <a href="{{ app_url }}">Create a new eSignature user with active status</a> Coming soon</h4>
+    <p>
+        Demonstrates how to create a new eSignature user and activate their account automatically.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/">Users:createUser</a>.
+    </p>
+
+    <h4 id="Example2">2. <a href="{{ app_url ~ 'index.php?page=aeg002'}}">Create a new user with active status for CLM and eSignature</a></h4>
+    <p>
+        Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature APIs) and activate their account automatically.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion/">ClickWraps::updateClickwrapVersion</a>.
+    </p>
+
+
+    <h4 id="Example3">3. <a href="{{ app_url }}">Bulk-export user data</a> Coming soon</h4>
+    <p>
+        Demonstrates how to bulk-export user accounts within an organization into a CSV (comma-separated value) file.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/">UserExport:getUserListExport</a>.
+    </p>
+
+    <h4 id="Example4">4. <a href="{{ app_url }}">Add users via bulk import</a> Coming soon</h4>
+    <p>
+        Demonstrates how to bulk-import users and add user data from an example CSV (comma-separated value) file into a DocuSign Admin organization.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/addbulkuserimport/">UserImport:addBulkUserImport</a>.
+    </p>
+
+    <h4 id="Example5">5. <a href="{{ app_url ~ 'index.php?page=aeg005'}}">Audit Users</a></h4>
+    <p>
+        Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">ClickWraps::getClickwrapAgreements</a>.
+    </p>
+
+    <!-- anchor-js is only for the index page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+    <script>anchors.options.placement = 'left'; anchors.add('h4')</script>
+</div>
 
 {% endblock %}

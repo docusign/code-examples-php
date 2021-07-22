@@ -33,7 +33,7 @@ class Home extends eSignBaseController
             $this->eg = 'home_monitor';
         } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
             $this->eg = 'home_admin';
-        }else {
+        } else {
             $this->eg = 'home';
         }
         $this->routerService = new RouterService();
