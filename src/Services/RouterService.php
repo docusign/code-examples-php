@@ -91,10 +91,10 @@ class RouterService
         'meg001' => 'Monitor\Eg001GetMonitoringData',
         'aeg001' => 'Admin\Eg001CreateNewUser',
         'aeg002' => 'Admin\EG002CreateActiveCLMESignUser',
-        'aeg003' => 'Admin\Eg002BulkExportUserData',
-        'aeg003a' => 'Admin\Ex003CheckRequestStatus',
-        'aeg004' => 'Admin\Ex004BulkImportUserData',
-        'aeg004a' => 'Admin\Ex005CheckImportRequestStatus',
+        'aeg003' => 'Admin\EG003BulkExportUserData',
+        'aeg003a' => 'Admin\EG003aCheckRequestStatus',
+        'aeg004' => 'Admin\EG004BulkImportUserData',
+        'aeg004a' => 'Admin\EG004aCheckImportRequestStatus',
         'aeg005' => 'Admin\EG005AuditUsers'
     ];
 
@@ -162,10 +162,10 @@ class RouterService
         "meg001" => "monitor/eg001_get_monitoring_data.html",
         "aeg001" => "admin/eg001_create_active_user.html",
         "aeg002" => "admin/aeg002_create_new_esignature_clm_user.html",
-        "aeg003" => "admin/eg002_bulk_export_user_data.html",
-        "aeg003a" => "admin/eg003_check_request_status.html",
+        "aeg003" => "admin/eg003_bulk_export_user_data.html",
+        "aeg003a" => "admin/eg003a_check_request_status.html",
         "aeg004" => "admin/eg004_bulk_import_user_data.html",
-        "aeg004a" => "admin/eg005_check_import_request_status.html",
+        "aeg004a" => "admin/eg004a_check_import_request_status.html",
         "aeg005" => "admin/aeg005_audit_users.html"
     ];
 

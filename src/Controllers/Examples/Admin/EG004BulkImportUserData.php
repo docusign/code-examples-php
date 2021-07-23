@@ -16,7 +16,7 @@ include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\
 use InvalidArgumentException;
 use SplFileObject;
 
-class Ex004BulkImportUserData extends AdminBaseController
+class EG004BulkImportUserData extends AdminBaseController
 {
 
     const EG = 'aeg004'; # reference (and url) for this example

@@ -113,7 +113,7 @@ class DocuSign extends AbstractProvider
             ];
         } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
             return [
-                "user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
+                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
             ];
         } else {
             return [

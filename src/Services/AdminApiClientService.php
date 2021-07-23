@@ -4,6 +4,8 @@ namespace Example\Services;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Api\AccountsApi;
+use DocuSign\Admin\Api\BulkExportsApi;
+use DocuSign\Admin\Api\BulkImportsApi;
 use DocuSign\Admin\Api\DSGroupsApi;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 use DocuSign\Admin\Client\ApiClient;
@@ -75,9 +77,9 @@ class AdminApiClientService
     }
     
     /**
-    * Get product Admin Groups
+    * Get Org Admin Id
+    *
     */
-
     public function getOrgAdminId(): String
     { 
        // It is possible for an account to belong to multiple organizations 
@@ -88,11 +90,8 @@ class AdminApiClientService
         
     }
     
-
-
     /**
-    * Get Org Admin Id
-    *
+    * Get product Admin Groups
     */
 
     public function adminGroupsApi(): DSGroupsApi
@@ -101,7 +100,25 @@ class AdminApiClientService
         
     }
     
+    /**
+     * Get Bulk Exports API
+     */
+
+    public function bulkExportsAPI(): BulkExportsApi
+    {
+        return new BulkExportsApi($this->apiClient);
+    }
+     
     
+    /**
+     * Get Bulk Imports API
+     */
+
+    public function bulkImportsApi(): BulkImportsApi
+    {
+        return new BulkImportsApi($this->apiClient);
+    }
+
 
     /**
      * Redirect user to the auth page
@@ -129,11 +146,9 @@ class AdminApiClientService
      */
     public function showErrorTemplate(ApiException $e): void
     {
-        $body = $e->getResponseBody();
-        echo json_encode($body);
         $GLOBALS['twig']->display('error.html', [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
+                'error_code' => $e->getCode(),
+                'error_message' => $e->getMessage()]
         );
     }
 

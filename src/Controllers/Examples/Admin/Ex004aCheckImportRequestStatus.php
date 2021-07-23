@@ -5,10 +5,10 @@ namespace Example\Controllers\Examples\Admin;
 use Example\Controllers\AdminBaseController;
 use DocuSign\OrgAdmin\Api\BulkImportsApi;
 
-class Ex005CheckImportRequestStatus extends AdminBaseController
+class Ex004aCheckImportRequestStatus extends AdminBaseController
 {
 
-    const EG = 'aeg005'; # reference (and url) for this example
+    const EG = 'aeg004a'; # reference (and url) for this example
 
     const FILE = __FILE__;
 
