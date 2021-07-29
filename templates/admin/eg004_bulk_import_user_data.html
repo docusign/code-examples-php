@@ -9,6 +9,11 @@
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
+<p>API method used:
+    <a target='_blank' rel='noopener noreferrer'
+       href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/addbulkuserimport/'>UserImport:addBulkUserImport</a>
+</p>
+
 <form class="eg" action="" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
   <button type="submit" class="btn btn-primary">Submit</button>

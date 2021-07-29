@@ -3,7 +3,7 @@
 namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminBaseController;
-use DocuSign\OrgAdmin\Api\BulkImportsApi;
+use DocuSign\Admin\Api\BulkImportsApi;
 
 class Ex005CheckImportRequestStatus extends AdminBaseController
 {

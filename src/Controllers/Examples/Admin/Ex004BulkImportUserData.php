@@ -2,17 +2,11 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Model\OrganizationImportResponse;
-use Example\Controllers\AdminBaseController;
+use DocuSign\Admin\Api\BulkImportsApi;
 use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Configuration;
-use DocuSign\Admin\Api\BulkImportsApi;
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiClient.php";
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiException.php";
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Configuration.php";
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Api\BulkImportsApi.php";
-
-
+use DocuSign\Admin\Model\OrganizationImportResponse;
+use Example\Controllers\AdminBaseController;
 use InvalidArgumentException;
 use SplFileObject;
 
@@ -70,92 +64,25 @@ class Ex004BulkImportUserData extends AdminBaseController
         $config->addDefaultHeader("Content-Disposition", "attachment; filename=file.csv");
         $apiClient = new ApiClient($config);
 
-        $list = array (
-            array('AccountID', 'UserName', 'UserEmail', 'PermissionSet'),
-            array($GLOBALS['DS_CONFIG']['account_id'], 'FirstLast1', 'exampleuser1@example.com', 'DS Viewer')
+        $bulkImport = new BulkImportsApi($apiClient);
+        $csvFile = dirname(__DIR__, 4) . "\public\demo_documents\bulkimport.csv";
+        $str = file_get_contents($csvFile);
+        $str = str_replace("<accountId>", $GLOBALS['DS_CONFIG']['account_id'], $str);
+        file_put_contents($csvFile, $str);
+
+        $result = $bulkImport->createBulkImportAddUsersRequest(
+            $this->organizationId,
+            new SplFileObject($csvFile)
         );
 
-        $userData = new SplFileObject('file.csv', 'w');
-
-        foreach ($list as $fields) {
-            $userData->fputcsv($fields);
-        }
-        $userData->fflush();
-        /*$userData = "AccountID,UserName,UserEmail,PermissionSet\n" .
-            $GLOBALS['DS_CONFIG']['account_id'] . ",FirstLast1,exampleuser1@example.com,DS Viewer";*/
-
-        $bulkImport = new BulkImportsApi($apiClient);
-        $result = $bulkImport->createBulkImportAddUsersRequestWithHttpInfo($this->organizationId, $userData);
-        //$result = $this->createBulkImport($this->organizationId, $userData, $apiClient);
+        $str = str_replace($GLOBALS['DS_CONFIG']['account_id'], "<accountId>", $str);
+        file_put_contents($csvFile, $str);
 
         $_SESSION['import_id'] = strval($result->getId());
 
         return json_decode($result->__toString());
     }
-
-    /**
-     * Method to call a request method and transform response into OrganizationImportResponse
-     * @param $organization_id
-     * @param $userData
-     * @param $apiClient
-     * @return OrganizationImportResponse
-     * @throws ApiException for API problems.
-     */
-    public function createBulkImport($organization_id, $userData, $apiClient): OrganizationImportResponse
-    {
-        list($response) = $this->createRequestForBulkImport($organization_id, $userData, $apiClient);
-        return $response;
-    }
-
-    /**
-     * Method to create a POST request to the server.
-     * @param $organization_id
-     * @param $_tempBody
-     * @param $apiClient
-     * @return array
-     * @throws ApiException for API problems.
-     */
-    public function createRequestForBulkImport($organization_id, $_tempBody, $apiClient): array
-    {
-        if ($organization_id === null) {
-            throw new InvalidArgumentException('Missing the required parameter $organization_id when calling createBulkImportAddUsersRequest');
-        }
-
-        $resourcePath = "/v2/organizations/" . $organization_id . "/imports/bulk_users/add";
-        $httpBody = $_tempBody ?? '';
-
-        $queryParams = $headerParams = [];
-        $headerParams['Accept'] ??= $apiClient->selectHeaderAccept(['application/json']);
-        $headerParams['Content-Type'] = $apiClient->selectHeaderContentType(['text/csv']);
-
-        if (strlen($apiClient->getConfig()->getAccessToken()) !== 0) {
-            $headerParams['Authorization'] = 'Bearer ' . $apiClient->getConfig()->getAccessToken();
-        }
-
-        try {
-            list($response, $statusCode, $httpHeader) = $apiClient->callApi(
-                $resourcePath,
-                'POST',
-                $queryParams,
-                $httpBody,
-                $headerParams,
-                '\DocuSign\OrgAdmin\Model\OrganizationImportResponse',
-                '/v2/organizations/{organizationId}/imports/bulk_users/add'
-            );
-
-            return [$apiClient->getSerializer()->deserialize($response, '\DocuSign\OrgAdmin\Model\OrganizationImportResponse', $httpHeader), $statusCode, $httpHeader];
-        } catch (ApiException $e) {
-            switch ($e->getCode()) {
-                case 200:
-                    $data = $apiClient->getSerializer()->deserialize($e->getResponseBody(), '\DocuSign\OrgAdmin\Model\OrganizationImportResponse', $e->getResponseHeaders());
-                    $e->setResponseObject($data);
-                    break;
-            }
-
-            throw $e;
-        }
-    }
-
+    
     /**
      * Get specific template arguments
      * @return array
