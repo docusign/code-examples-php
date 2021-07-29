@@ -8,7 +8,6 @@ use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Configuration;
 
-
 class AdminApiClientService
 {
     /**

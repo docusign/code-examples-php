@@ -2,9 +2,6 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Client\ApiClient.php";
-include_once "D:\code-examples-php-private\src\docusign-orgadmin-php-client\src\Api\BulkExportsApi.php";
-
 use DocuSign\Admin\Api\BulkExportsApi;
 use Example\Controllers\AdminBaseController;
 
