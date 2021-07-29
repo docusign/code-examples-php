@@ -71,7 +71,7 @@ class EG004BulkImportUserData extends AdminBaseController
         file_put_contents($csvFile, $str);
 
         $result = $bulkImport->createBulkImportAddUsersRequest(
-            $this->organizationId,
+            $this->clientService->getOrgAdminId($this->args),
             new SplFileObject($csvFile)
         );
 
