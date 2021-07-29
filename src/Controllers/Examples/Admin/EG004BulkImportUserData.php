@@ -10,7 +10,7 @@ use Example\Controllers\AdminBaseController;
 use InvalidArgumentException;
 use SplFileObject;
 
-class Ex004BulkImportUserData extends AdminBaseController
+class EG004BulkImportUserData extends AdminBaseController
 {
 
     const EG = 'aeg004'; # reference (and url) for this example

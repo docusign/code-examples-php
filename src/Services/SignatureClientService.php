@@ -140,10 +140,9 @@ class SignatureClientService
      */
     public function showErrorTemplate(ApiException $e): void
     {
-        $body = $e->getResponseBody();
         $GLOBALS['twig']->display('error.html', [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
+                'error_code' => $e->getCode(),
+                'error_message' => $e->getMessage()]
         );
     }
 
@@ -243,6 +242,7 @@ class SignatureClientService
         try {
             $brands = $accounts_api->listPermissions($args['account_id']);
         } catch (ApiException $e) {
+            var_dump($e);
             $this->showErrorTemplate($e);
             exit;
         }

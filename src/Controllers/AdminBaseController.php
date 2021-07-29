@@ -12,14 +12,13 @@ abstract class AdminBaseController extends BaseController
     protected RouterService $routerService;
     protected AdminApiClientService $clientService;
     private const MINIMUM_BUFFER_MIN = 3;
-    protected string $organizationId;
+
 
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
         $this->clientService = new AdminApiClientService($this->args);
         $this->routerService = new RouterService();
-        $this->organizationId = $GLOBALS['DS_CONFIG']['organization_id'];
     }
 
     /**
