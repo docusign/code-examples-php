@@ -1,0 +1,142 @@
+<?php
+
+namespace Example\Controllers\Examples\Admin;
+
+use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
+use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Model\UsersDrilldownResponse;
+use Example\Controllers\AdminApiBaseController;
+use Example\Services\AdminApiClientService;
+use Example\Services\RouterService;
+use Exception;
+
+class EG005AuditUsers extends AdminApiBaseController
+{
+    /** signatureClientService */
+    private $clientService;
+
+    /** RouterService */
+    private $routerService;
+
+    /** Specific template arguments */
+    private $args;
+
+    private $eg = "aeg005";       # Reference (and URL) for this example
+
+
+
+    /**
+     * Create a new controller instance
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->args = $this->getTemplateArgs();
+        $this->clientService = new AdminApiClientService($this->args);
+        $this->routerService = new RouterService();
+        
+        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+    }
+
+    /**
+     * 1. Check the token
+     * 2. Call the worker method
+     *
+     * @return void
+     * @throws ApiException for API problems and perhaps file access \Exception, too
+     */
+    public function createController(): void
+    {
+        $minimum_buffer_min = 3;
+        if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
+            # Call the worker method
+            # More data validation would be a good idea here
+            # Strip anything other than characters listed
+            $results = $this->worker($this->args);
+
+            if ($results) {
+                $this->clientService->showDoneTemplate(
+                    "Audit users",
+                    "Audit users",
+                    "Results from Users::getUserProfiles method:",
+                    json_encode(json_encode($results))
+                );
+            }
+        } 
+        else {
+            $this->clientService->needToReAuth($this->eg);
+        }
+    }
+    /**
+     * Do the work of the example
+     * 1. Create the envelope request object
+     * 2. Send the envelope
+     *
+     * @param  $args array
+     * @return array ['redirect_url']
+     * @throws ApiException for API problems and perhaps file access \Exception, too
+     */
+    public function worker($args): array 
+    {
+        $resultsArr = [];
+        $results = new UsersDrilldownResponse();
+
+        $admin_api = $this->clientService->getUsersApi();
+        $options = New GetUsersOptions();
+        $options->setAccountId($args["account_id"]);
+
+        # Here we set the from_date to filter envelopes for the last 10 days
+        # Use ISO 8601 date format
+        $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
+        $options->setLastModifiedSince($from_date);
+
+        $orgId = $this->clientService->getOrgAdminId($this->args);
+
+        try {
+            # Step 3 start
+            $modifiedUsers = $admin_api->getUsers($orgId, $options);
+            foreach ($modifiedUsers["users"] as $user) {
+                $profileOptions = New GetUserProfilesOptions();
+                $profileOptions->setEmail($user["email"]);
+                // var_dump($user["email"]);
+                // var_dump($resultsArr);
+                // echo "<br/>";
+                // echo "<br/>";
+
+                $res = $admin_api->getUserProfiles($orgId, $profileOptions);
+                $results->setUsers($res->getUsers());
+                $decoded = json_decode((string)$results, true);
+                array_push($resultsArr, $decoded["users"]);
+            }
+            # Step 3 end
+        } catch (ApiException $e) {
+            $GLOBALS['twig']->display('error.html', [
+                    'error_code' => $e->getCode(),
+                    'error_message' =>  $e->getMessage()]
+            );
+            exit;
+            }
+            
+
+        return  $resultsArr;
+    }
+  
+
+    /**
+     * Get specific template arguments
+     *
+     * @return array
+     */
+    private function getTemplateArgs(): array
+    {
+        
+        $args = [
+            'account_id' => $_SESSION['ds_account_id'],
+            'ds_access_token' => $_SESSION['ds_access_token'] 
+        ];
+
+        return $args;
+    }
+}

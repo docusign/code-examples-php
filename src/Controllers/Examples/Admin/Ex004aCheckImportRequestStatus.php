@@ -2,13 +2,13 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Api\BulkExportsApi;
 use Example\Controllers\AdminBaseController;
+use DocuSign\Admin\Api\BulkImportsApi;
 
-class Ex003CheckRequestStatus extends AdminBaseController
+class Ex004aCheckImportRequestStatus extends AdminBaseController
 {
 
-    const EG = 'aeg003'; # reference (and url) for this example
+    const EG = 'aeg004a'; # reference (and url) for this example
 
     const FILE = __FILE__;
 
@@ -25,7 +25,7 @@ class Ex003CheckRequestStatus extends AdminBaseController
     /**
      * Check the access token and call the worker method
      * @return void
-     * @throws ApiException for API problems.
+     * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
     public function createController(): void
     {
@@ -36,29 +36,27 @@ class Ex003CheckRequestStatus extends AdminBaseController
 
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Check request status",
+                "Check import request status",
                 "Admin API data response output:",
-                "Results from UserExport:getUserListExport method:",
-                json_encode(json_encode($results))
+                "Results from UserImport:getBulkUserImportRequest method:",
+                json_encode($results)
             );
         }
     }
 
     /**
-     * Method to get a request status for bulk-export.
+     * Method to check the request status of bulk-import.
+     * @return string
      * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
-    private function checkRequestStatus()
+    private function checkRequestStatus(): string
     {
-        $apiClient = $this->clientService->getApiClient();
+        // create a bulk exports api instance
+        $bulkImportsApi = new BulkImportsApi($this->clientService->getApiClient());
 
-        $exportId = $_SESSION['export_id'];
+        $importId = $_SESSION['import_id'];
 
-        $bulkExportsApi = new BulkExportsApi($apiClient);
-
-        $result = $bulkExportsApi->getUserListExport($this->organizationId, $exportId);
-
-        return json_decode($result->__toString());
+        return $bulkImportsApi->getBulkUserImportRequest($this->organizationId, $importId)->__toString();
     }
 
     /**
@@ -70,7 +68,7 @@ class Ex003CheckRequestStatus extends AdminBaseController
         return [
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
-            'ds_access_token' => $_SESSION['ds_access_token']
+            'ds_access_token' => $_SESSION['ds_access_token'],
         ];
     }
 }

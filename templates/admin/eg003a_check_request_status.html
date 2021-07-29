@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>3. Check request status</h4>
+<h4>3a. Check request status</h4>
 <p>
     Check the status of your pending request and, if complete, obtain a URL that you can call to download the CSV file containing the export data.
 </p>
@@ -24,7 +24,7 @@
   </form>
 {% else %}
   <p>
-    Problem: please first bulk export user data using <a href="{{ app_url ~ 'index.php?page=aeg002'}}">example 2</a>.<br />
+    Problem: please first bulk export user data using <a href="{{ app_url ~ 'index.php?page=aeg003'}}">example 3</a>.<br />
     Thank you.
   </p>
 {% endif %}

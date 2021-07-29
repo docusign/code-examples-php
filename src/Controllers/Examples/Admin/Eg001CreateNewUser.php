@@ -2,13 +2,10 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Api\AccountsApi;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\NewUserResponse;
 use DocuSign\Admin\Model\PermissionProfileRequest;
 use Example\Controllers\AdminBaseController;
-
-use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
 use Example\Services\SignatureClientService;
@@ -18,6 +15,7 @@ class Eg001CreateNewUser extends AdminBaseController
     const EG = 'aeg001'; # reference (and url) for this example
 
     const FILE = __FILE__;
+    private $orgId;
 
     //private $eg = "aeg001";  # reference (and url) for this example
 
@@ -32,10 +30,17 @@ class Eg001CreateNewUser extends AdminBaseController
 
         $this->checkDsToken();
 
+        $this->orgId = $this->clientService->getOrgAdminId($this->args);
+        try{
+            
         $signatureClientService = new SignatureClientService($this->args);
         $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
-
         parent::controller($permission_profiles);
+
+        } catch (ApiException $e)
+        {
+            $this->clientService->showErrorTemplate($e);
+        }
     }
 
     /**
@@ -46,9 +51,10 @@ class Eg001CreateNewUser extends AdminBaseController
     public function createController(): void
     {
         $this->checkDsToken();
-
         // Call the worker method
-        $results = $this->addActiveUser($this->organizationId, $this->args["envelope_args"]);
+        $args = $this->getTemplateArgs();
+        $args["orgId"] = $this->orgId;
+        $results = $this->addActiveUser($args["envelope_args"]);
 
         if ($results) {
             $this->clientService->showDoneTemplate(
@@ -67,13 +73,10 @@ class Eg001CreateNewUser extends AdminBaseController
      * @return NewUserResponse
      * @throws ApiException
      */
-    private function addActiveUser($organizationId, $userData): NewUserResponse
+    private function addActiveUser($userData): NewUserResponse
     {
-        $apiClient = $this->clientService->getApiClient();
-
-        $usersApi = new UsersApi($apiClient);
-        $accountId = $GLOBALS['DS_CONFIG']['account_id'];
-
+        $usersApi = $this->clientService->getUsersApi();
+        $accountId = $_SESSION['ds_account_id'];
         $permissionProfile = new PermissionProfileRequest([
             'id' => $userData['permission_profile_id']
         ]);
@@ -93,7 +96,7 @@ class Eg001CreateNewUser extends AdminBaseController
             'auto_activate_memberships' => false
         ]);
 
-        return $usersApi->createUser($organizationId, $request);
+        return $usersApi->createUser($this->orgId, $request);
     }
 
     /**
@@ -110,7 +113,7 @@ class Eg001CreateNewUser extends AdminBaseController
             'permission_profile_id' => $this->checkInputValues($_POST["permission_profile_id"]),
         ];
         return [
-            'account_id' => $GLOBALS['DS_CONFIG']['account_id'],
+            'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],
             'envelope_args' => $envelope_args
@@ -119,6 +122,6 @@ class Eg001CreateNewUser extends AdminBaseController
 
     private function checkInputValues($value)
     {
-        return preg_replace('/([^\w \-@.,])+/', '', $value);
+        return preg_replace('/([^\w \+-@.,])+/', '', $value);
     }
 }

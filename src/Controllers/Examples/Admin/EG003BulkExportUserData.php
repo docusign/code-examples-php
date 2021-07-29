@@ -3,12 +3,12 @@
 namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminBaseController;
-use DocuSign\Admin\Api\BulkImportsApi;
 
-class Ex005CheckImportRequestStatus extends AdminBaseController
+use function GuzzleHttp\json_decode;
+
+class EG003BulkExportUserData extends AdminBaseController
 {
-
-    const EG = 'aeg005'; # reference (and url) for this example
+    const EG = 'aeg003'; # reference (and url) for this example
 
     const FILE = __FILE__;
 
@@ -31,32 +31,31 @@ class Ex005CheckImportRequestStatus extends AdminBaseController
     {
         $this->checkDsToken();
 
-        // Call the worker method
-        $results = $this->checkRequestStatus();
+        $results = $this->getExportsData($this->organizationId);
 
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Check import request status",
+                "Bulk export user data",
                 "Admin API data response output:",
-                "Results from UserImport:getBulkUserImportRequest method:",
-                json_encode($results)
+                "Results from UserExport:getUserListExports method:",
+                json_encode(json_encode($results))
             );
         }
     }
 
     /**
-     * Method to check the request status of bulk-import.
-     * @return string
+     * Method to get user bulk-exports from your organization.
      * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
-    private function checkRequestStatus(): string
+    private function getExportsData()
     {
-        // create a bulk exports api instance
-        $bulkImportsApi = new BulkImportsApi($this->clientService->getApiClient());
+        $organizationId = $this->clientService->getOrgAdminId($this->args);
+        $bulkExportsApi = $this->clientService->bulkExportsAPI();
+        $result = $bulkExportsApi->getUserListExports($organizationId);
+        var_dump($result);
+        $_SESSION['export_id'] = strval($result->getExports()[0]->getId());
 
-        $importId = $_SESSION['import_id'];
-
-        return $bulkImportsApi->getBulkUserImportRequest($this->organizationId, $importId)->__toString();
+        return json_decode($result->__toString());
     }
 
     /**

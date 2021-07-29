@@ -1,11 +1,15 @@
 <?php
 
-
 namespace Example\Services;
 
+use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Api\AccountsApi;
+use DocuSign\Admin\Api\BulkExportsApi;
+use DocuSign\Admin\Api\BulkImportsApi;
+use DocuSign\Admin\Api\DSGroupsApi;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 use DocuSign\Admin\Client\ApiClient;
-use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
 
 class AdminApiClientService
@@ -13,12 +17,12 @@ class AdminApiClientService
     /**
      * DocuSign API Client
      */
-    public $apiClient;
+    public ApiClient $apiClient;
 
     /**
      * Router Service
      */
-    public $routerService;
+    public RouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -36,65 +40,84 @@ class AdminApiClientService
 
         $config->setAccessToken($accessToken);
         $config->setHost('https://api-d.docusign.net/management');
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
-        $config->addDefaultHeader("Content-Type", "application/json");       
-        $config->addDefaultHeader("Accept", "application/json");       
+        $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);  
         $this->apiClient = new ApiClient($config);
         # step 2 end 
         
         $this->routerService = new RouterService();
     }
 
-    public function getApiClient(){
-        return $this->apiClient;
-    }
-
     /**
-     * Redirect user to the error page
-     *
-     * @param  ApiException $e
-     * @return void
+     * Getter for the AccountsApi
      */
-    public function showErrorTemplate(ApiException $e): void
+    public function getAccountsApi(): AccountsApi
     {
-        $body = $e->getResponseBody();
 
-        print_r($e);
-        $GLOBALS['twig']->display('error.html', [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
-        );
+        return new AccountsApi($this->apiClient);
+        
     }
 
     /**
-     * Redirect user to the error page
-     *
-     * @param $title string
-     * @param $headline string
-     * @param $message string
-     * @param $results
-     * @return void
+     * Getter for the UsersAPI
      */
-    public function showDoneTemplate($title, $headline, $message, $results = null): void
+    public function getUsersApi(): UsersApi
     {
-        $GLOBALS['twig']->display('example_done.html', [
-            'title' => $title,
-            'h1' => $headline,
-            'message' => $message,
-            'json' => $results
-        ]);
-        exit;
+        return new UsersApi($this->apiClient);
     }
-
+    
     /**
-     * Get product permission profiles
-     * @param {object} args
-     */
+    * Get product permission profiles
+    */
 
     public function permProfilesApi(): ProductPermissionProfilesApi
     {
         return new ProductPermissionProfilesApi($this->apiClient);
+        
     }
+    
+    /**
+    * Get Org Admin Id
+    *
+    */
+    public function getOrgAdminId(): String
+    { 
+       // It is possible for an account to belong to multiple organizations 
+       // We are returning the first Organization Id found
+       $AccountsApi = new AccountsApi($this->apiClient);
+       $orgs = $AccountsApi->getOrganizations();
+       return $orgs["organizations"][0]["id"];
+        
+    }
+    
+    /**
+    * Get product Admin Groups
+    */
+
+    public function adminGroupsApi(): DSGroupsApi
+    {
+        return new DSGroupsApi($this->apiClient);
+        
+    }
+    
+    /**
+     * Get Bulk Exports API
+     */
+
+    public function bulkExportsAPI(): BulkExportsApi
+    {
+        return new BulkExportsApi($this->apiClient);
+    }
+     
+    
+    /**
+     * Get Bulk Imports API
+     */
+
+    public function bulkImportsApi(): BulkImportsApi
+    {
+        return new BulkImportsApi($this->apiClient);
+    }
+
 
     /**
      * Redirect user to the auth page
@@ -112,6 +135,39 @@ class AdminApiClientService
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
         header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+        exit;
+    }
+    /**
+     * Redirect user to the error page
+     *
+     * @param  ApiException $e
+     * @return void
+     */
+    public function showErrorTemplate(ApiException $e): void
+    {
+        $GLOBALS['twig']->display('error.html', [
+                'error_code' => $e->getCode(),
+                'error_message' => $e->getMessage()]
+        );
+    }
+
+    /**
+     * Redirect user to results page
+     *
+     * @param $title string
+     * @param $headline string
+     * @param $message string
+     * @param null $results
+     * @return void
+     */
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
+    {
+        $GLOBALS['twig']->display('example_done.html', [
+            'title' => $title,
+            'h1' => $headline,
+            'message' => $message,
+            'json' => $results
+        ]);
         exit;
     }
 }
