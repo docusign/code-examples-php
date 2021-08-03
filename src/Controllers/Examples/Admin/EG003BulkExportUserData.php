@@ -52,7 +52,7 @@ class EG003BulkExportUserData extends AdminBaseController
         $organizationId = $this->clientService->getOrgAdminId($this->args);
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
         $result = $bulkExportsApi->getUserListExports($organizationId);
-        var_dump($result);
+
         $_SESSION['export_id'] = strval($result->getExports()[0]->getId());
 
         return json_decode($result->__toString());
