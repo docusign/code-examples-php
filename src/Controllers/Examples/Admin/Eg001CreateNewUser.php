@@ -3,18 +3,19 @@
 namespace Example\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
+use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserResponse;
 use DocuSign\Admin\Model\PermissionProfileRequest;
-use Example\Controllers\AdminBaseController;
-use DocuSign\Admin\Model\NewUserRequestAccountProperties;
-use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
+use Example\Controllers\AdminApiBaseController;
 use Example\Services\SignatureClientService;
 
-class Eg001CreateNewUser extends AdminBaseController
+class Eg001CreateNewUser extends AdminApiBaseController
 {
     const EG = 'aeg001'; # reference (and url) for this example
 
     const FILE = __FILE__;
+
     private $orgId;
 
     //private $eg = "aeg001";  # reference (and url) for this example
@@ -31,14 +32,11 @@ class Eg001CreateNewUser extends AdminBaseController
         $this->checkDsToken();
 
         $this->orgId = $this->clientService->getOrgAdminId($this->args);
-        try{
-            
-        $signatureClientService = new SignatureClientService($this->args);
-        $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
-        parent::controller($permission_profiles);
-
-        } catch (ApiException $e)
-        {
+        try {
+            $signatureClientService = new SignatureClientService($this->args);
+            $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
+            parent::controller($this->args, $permission_profiles);
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }
     }
@@ -120,8 +118,12 @@ class Eg001CreateNewUser extends AdminBaseController
         ];
     }
 
-    private function checkInputValues($value)
+    /**
+     * @param $value
+     * @return mixed
+     */
+    private function checkInputValues($value): mixed
     {
-        return preg_replace('/([^\w \+-@.,])+/', '', $value);
+        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
     }
 }
