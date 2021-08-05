@@ -2,15 +2,11 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Api\BulkImportsApi;
-use DocuSign\Admin\Client\ApiClient;
-use DocuSign\Admin\Configuration;
-use DocuSign\Admin\Model\OrganizationImportResponse;
+use Example\Controllers\AdminApiBaseController;
 use Example\Controllers\AdminBaseController;
-use InvalidArgumentException;
 use SplFileObject;
 
-class EG004BulkImportUserData extends AdminBaseController
+class EG004BulkImportUserData extends AdminApiBaseController
 {
 
     const EG = 'aeg004'; # reference (and url) for this example
@@ -56,17 +52,10 @@ class EG004BulkImportUserData extends AdminBaseController
      */
     private function bulkImportUserData()
     {
-        $config = new Configuration();
-        $accessToken = $_SESSION['ds_access_token'];
-
-        $config->setAccessToken($accessToken);
-        $config->setHost('https://api-d.docusign.net/management');
-        $config->addDefaultHeader("Content-Disposition", "attachment; filename=file.csv");
-        $apiClient = new ApiClient($config);
-
-        $bulkImport = new BulkImportsApi($apiClient);
+        $bulkImport = $this->clientService->bulkImportsApi();
         $csvFile = dirname(__DIR__, 4) . "\public\demo_documents\bulkimport.csv";
         $str = file_get_contents($csvFile);
+
         $str = str_replace("<accountId>", $GLOBALS['DS_CONFIG']['account_id'], $str);
         file_put_contents($csvFile, $str);
 

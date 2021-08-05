@@ -7,24 +7,12 @@ use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UsersDrilldownResponse;
 use Example\Controllers\AdminApiBaseController;
-use Example\Services\AdminApiClientService;
-use Example\Services\RouterService;
-use Exception;
 
 class EG005AuditUsers extends AdminApiBaseController
 {
-    /** signatureClientService */
-    private $clientService;
+    const EG = 'aeg005'; # reference (and url) for this example
 
-    /** RouterService */
-    private $routerService;
-
-    /** Specific template arguments */
-    private $args;
-
-    private $eg = "aeg005";       # Reference (and URL) for this example
-
-
+    const FILE = __FILE__;
 
     /**
      * Create a new controller instance
@@ -33,11 +21,9 @@ class EG005AuditUsers extends AdminApiBaseController
      */
     public function __construct()
     {
-        $this->args = $this->getTemplateArgs();
-        $this->clientService = new AdminApiClientService($this->args);
-        $this->routerService = new RouterService();
-        
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        parent::__construct();
+
+        parent::controller();
     }
 
     /**
@@ -129,12 +115,11 @@ class EG005AuditUsers extends AdminApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-        
         $args = [
             'account_id' => $_SESSION['ds_account_id'],
-            'ds_access_token' => $_SESSION['ds_access_token'] 
+            'ds_access_token' => $_SESSION['ds_access_token']
         ];
 
         return $args;

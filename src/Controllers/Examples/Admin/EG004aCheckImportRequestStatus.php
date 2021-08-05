@@ -2,10 +2,9 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use Example\Controllers\AdminBaseController;
-use DocuSign\Admin\Api\BulkImportsApi;
+use Example\Controllers\AdminApiBaseController;
 
-class Ex004aCheckImportRequestStatus extends AdminBaseController
+class EG004ACheckImportRequestStatus extends AdminApiBaseController
 {
 
     const EG = 'aeg004a'; # reference (and url) for this example
@@ -52,11 +51,14 @@ class Ex004aCheckImportRequestStatus extends AdminBaseController
     private function checkRequestStatus(): string
     {
         // create a bulk exports api instance
-        $bulkImportsApi = new BulkImportsApi($this->clientService->getApiClient());
+        $bulkImport = $this->clientService->bulkImportsApi();
 
         $importId = $_SESSION['import_id'];
 
-        return $bulkImportsApi->getBulkUserImportRequest($this->organizationId, $importId)->__toString();
+        return $bulkImport->getBulkUserImportRequest(
+            $this->clientService->getOrgAdminId($this->args),
+            $importId
+        )->__toString();
     }
 
     /**

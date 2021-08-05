@@ -2,11 +2,9 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use Example\Controllers\AdminBaseController;
+use Example\Controllers\AdminApiBaseController;
 
-use function GuzzleHttp\json_decode;
-
-class EG003BulkExportUserData extends AdminBaseController
+class EG003BulkExportUserData extends AdminApiBaseController
 {
     const EG = 'aeg003'; # reference (and url) for this example
 
@@ -53,7 +51,8 @@ class EG003BulkExportUserData extends AdminBaseController
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
         $result = $bulkExportsApi->getUserListExports($organizationId);
 
-        $_SESSION['export_id'] = strval($result->getExports()[0]->getId());
+        if ($result->getExports() !== null)
+            $_SESSION['export_id'] = strval($result->getExports()[0]->getId());
 
         return json_decode($result->__toString());
     }

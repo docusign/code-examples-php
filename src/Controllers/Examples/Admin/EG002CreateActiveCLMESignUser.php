@@ -2,29 +2,19 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Model\ProductPermissionProfileRequest;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\AddUserResponse;
 use DocuSign\Admin\Model\DSGroupRequest;
 use DocuSign\Admin\Model\NewMultiProductUserAddRequest;
+use DocuSign\Admin\Model\ProductPermissionProfileRequest;
 use Example\Controllers\AdminApiBaseController;
-use Example\Services\AdminApiClientService;
-use Example\Services\RouterService;
-use Exception;
 
 class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 {
-    /** AdminClientService */
-    private $clientService;
+    const EG = 'aeg002'; # reference (and url) for this example
 
-    /** RouterService */
-    private $routerService;
+    const FILE = __FILE__;
 
-    /** Specific template arguments */
-    private $args;
-
-    private $eg = "aeg002";       # Reference (and URL) for this example 
-    
     private $orgId;
 
     /**
@@ -34,10 +24,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
      */
     public function __construct()
     {
-
-        $this->args = $this->getTemplateArgs();
-        $this->clientService = new AdminApiClientService($this->args);
-        $this->routerService = new RouterService();
+        parent::__construct();
 
         $minimum_buffer_min = 3;
         if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
@@ -79,14 +66,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             'eSignProductId' => $eSignProductId
         ];
         parent::controller(
-            $this->eg, 
-            $this->routerService, 
-            basename(__FILE__),
             $preFill
         );
-
-
-
     }
 
     /**
@@ -119,12 +100,6 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         else {
             $this->clientService->needToReAuth($this->eg);
         }
-    
-
-
-
-   
-  
    }
    
 
@@ -185,9 +160,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-
         $userName = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST["userName"]);
         $firstName = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST["firstName"]);
         $lastName = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST["lastName"]);
