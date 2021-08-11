@@ -167,7 +167,7 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
     private function getTemplateArgs(): array
     {
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name']);
-        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
+        $signer_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_email']);
         $brand_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['brand_id']);
         $envelope_args = [
             'signer_email' => $signer_email,

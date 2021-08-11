@@ -316,11 +316,11 @@ class EG034UseConditionalRecipients extends eSignBaseController
     private function getTemplateArgs(): array
     {
         $signer1_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer1_name']);
-        $signer1_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer1_email']);
+        $signer1_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer1_email']);
         $signer_2a_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_2a_name']);
-        $signer_2a_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_2a_email']);
+        $signer_2a_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_2a_email']);
         $signer_2b_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_2b_name']);
-        $signer_2b_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_2b_email']);
+        $signer_2b_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_2b_email']);
         $envelope_args = [
             'signer1_email' => $signer1_email,
             'signer1_name' => $signer1_name,

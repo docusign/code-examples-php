@@ -241,7 +241,7 @@ class EG013AddDocToTemplate extends eSignBaseController
     {
         $template_id = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
-        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
+        $signer_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_email']);
         $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_name'     ]);
         $cc_email     = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['cc_email'    ]);
         $item         = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['item'        ]);

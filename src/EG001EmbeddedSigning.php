@@ -185,7 +185,7 @@ class EG001EmbeddedSigning extends eSignBaseController
     private function getTemplateArgs(): array
     {
         $signer_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name']);
-        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);
+        $signer_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_email']);
         $envelope_args = [
             'signer_email' => $signer_email,
             'signer_name' => $signer_name,

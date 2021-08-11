@@ -242,7 +242,7 @@ class EG035SMSDelivery extends eSignBaseController
     private function getTemplateArgs(): array
     {
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerName' ]);
-        $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerEmail']);
+        $signer_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signerEmail']);
         $cc_name      = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccName'     ]);
         $cc_email     = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccEmail'    ]);
         $cc_country_code = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['ccCountryCode']);

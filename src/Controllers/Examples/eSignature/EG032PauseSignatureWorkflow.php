@@ -219,9 +219,9 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
     private function getTemplateArgs(): array
     {
         $signer1_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer1_name']);
-        $signer1_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer1_email']);
+        $signer1_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer1_email']);
         $signer2_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer2_name']);
-        $signer2_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer2_email']);
+        $signer2_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer2_email']);
         $envelope_args = [
             'signer1_email' => $signer1_email,
             'signer1_name' =>  $signer1_name,
