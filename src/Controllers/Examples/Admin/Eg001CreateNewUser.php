@@ -91,7 +91,7 @@ class Eg001CreateNewUser extends AdminApiBaseController
             'email' => $userData['Email'],
             'default_account_id' => $accountId,
             'accounts' => array($accountInfo),
-            'auto_activate_memberships' => false
+            'auto_activate_memberships' => true
         ]);
 
         return $usersApi->createUser($this->orgId, $request);
