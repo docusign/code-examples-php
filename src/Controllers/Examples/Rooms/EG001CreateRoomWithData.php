@@ -110,7 +110,7 @@ class EG001CreateRoomWithData extends \Example\Controllers\RoomsApiBaseControlle
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $room_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['room_name']);
         return [

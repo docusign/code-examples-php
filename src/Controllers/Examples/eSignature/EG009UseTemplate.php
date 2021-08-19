@@ -139,7 +139,7 @@ class EG009UseTemplate extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $template_id  = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);

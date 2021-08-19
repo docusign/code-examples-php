@@ -89,7 +89,7 @@ class EG002ActivateClickwrap extends ClickApiBaseController
         return $response;
     }
 
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $clickwrap_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['clickwrap_id']);
         return [

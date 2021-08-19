@@ -75,12 +75,26 @@ abstract class ClickApiBaseController extends BaseController
 
             }
 
-        
+            
         }
     }
-
+    
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
     abstract function createController();
+
+    /**
+     * @return array
+     */
+    protected function getDefaultTemplateArgs(): array
+    {
+        return [
+            'account_id' => $_SESSION['ds_account_id'],
+            'base_path' => $_SESSION['ds_base_path'],
+            'ds_access_token' => $_SESSION['ds_access_token']
+        ];
+    }
+
+    abstract function getTemplateArgs(): array;
 }

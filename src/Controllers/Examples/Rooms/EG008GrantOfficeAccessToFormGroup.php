@@ -89,7 +89,7 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $office_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['office_id']);
         $form_group_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_group_id']);

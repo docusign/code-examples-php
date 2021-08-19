@@ -239,7 +239,7 @@ class EG035SMSDelivery extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerName' ]);
         $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signerEmail']);

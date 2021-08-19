@@ -134,7 +134,7 @@ class EG007EnvelopeGetDoc extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $envelope_id= isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
         $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;

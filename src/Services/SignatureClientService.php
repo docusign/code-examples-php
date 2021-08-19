@@ -242,7 +242,6 @@ class SignatureClientService
         try {
             $brands = $accounts_api->listPermissions($args['account_id']);
         } catch (ApiException $e) {
-            var_dump($e);
             $this->showErrorTemplate($e);
             exit;
         }
