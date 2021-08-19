@@ -112,7 +112,7 @@ Permission profile ID: {$results["permissionProfileId"]}.<br> Changed settings:.
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $permission_profile_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['permission_profile_id']);
         $permissions_args = [

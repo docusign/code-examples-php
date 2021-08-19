@@ -78,7 +78,7 @@ class EG007CreateFormGroup extends RoomsApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $form_group_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_group_name']);
         return [

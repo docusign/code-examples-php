@@ -67,10 +67,8 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
      */
     public function getTemplateArgs(): array
     {
-        return [
-            'account_id' => $_SESSION['ds_account_id'],
-            'base_path' => $_SESSION['ds_base_path'],
-            'ds_access_token' => $_SESSION['ds_access_token'],
-        ];
+        $default_args = $this->getDefaultTemplateArgs();
+
+        return $default_args;
     }
 }

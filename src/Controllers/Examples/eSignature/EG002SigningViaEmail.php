@@ -219,7 +219,7 @@ class EG002SigningViaEmail extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
 
         $status = "sent";

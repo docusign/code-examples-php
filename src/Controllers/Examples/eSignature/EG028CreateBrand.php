@@ -163,7 +163,7 @@ class EG028CreateBrand extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $brand_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['brand_name']);
         $default_language = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['default_language']);

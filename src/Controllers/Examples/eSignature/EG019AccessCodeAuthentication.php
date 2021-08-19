@@ -165,7 +165,7 @@ class EG019AccessCodeAuthentication extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
         $signer_email = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email']);

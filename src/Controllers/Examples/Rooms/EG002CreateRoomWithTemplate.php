@@ -124,7 +124,7 @@ class EG002CreateRoomWithTemplate extends \Example\Controllers\RoomsApiBaseContr
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $room_name = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['room_name']);
         $template_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['template_id']);
