@@ -5,6 +5,7 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\BulkSendingCopy;
 use DocuSign\eSign\Model\BulkSendingCopyRecipient;
+use DocuSign\eSign\Model\BulkSendingCopyTab;
 use DocuSign\eSign\Model\BulkSendingList;
 use DocuSign\eSign\Model\BulkSendRequest;
 use DocuSign\eSign\Model\CustomFields;
@@ -124,10 +125,21 @@ class EG031BulkSendEnvelopes extends eSignBaseController
             'routing_order' => '1',
             'status' => 'created',
             'delivery_method' => 'Email',
-            'recipient_id' => '12', # Represents your {RECIPIENT_ID}
+            'recipient_id' => '1', # Represents your {RECIPIENT_ID}
             'recipient_type' => "signer"
         ]);
 
+        // # Create a SignHere tab (field on the document)
+        $sign_here = new SignHere([ 
+            'tab_label' => "signHere1", # DocuSign SignHere field/tab
+            'anchor_string' => '/sn1/', 'anchor_units' => 'pixels',
+            'anchor_y_offset' => '10', 'anchor_x_offset' => '20'
+        ]);
+
+        // # Add the tabs model (including the sign_here tab) to the signer
+        // # The Tabs object takes arrays of the different field/tab types
+        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
+        
         $cc = new Signer([
             'name' => 'Multi Bulk Recipient::cc',
             'email' => 'multiBulkRecipients-cc@docusign.com',
@@ -136,7 +148,7 @@ class EG031BulkSendEnvelopes extends eSignBaseController
             'routing_order' => '1',
             'status' => 'created',
             'delivery_method' => 'Email',
-            'recipient_id' => '13', # Represents your {RECIPIENT_ID}
+            'recipient_id' => '2', # Represents your {RECIPIENT_ID}
             'recipient_type' => "signer"
         ]);
 
@@ -182,12 +194,15 @@ class EG031BulkSendEnvelopes extends eSignBaseController
 
         $bulk_copies = [];
         foreach ($signers as $signer) {
+
+
             $recipient_1 = new BulkSendingCopyRecipient([
                 "role_name" => "signer",
                 "tabs" => [],
                 "name" => $signer["signer_name"],
                 "email" => $signer["signer_email"]
             ]);
+
 
             $recipient_2 = new BulkSendingCopyRecipient([
                 "role_name" => "cc",
@@ -236,20 +251,22 @@ class EG031BulkSendEnvelopes extends eSignBaseController
             'document_id' => 1 # A label used to reference the doc
         ]);
 
-        # Create the signer recipient model
+        // # Create the signer recipient model
         $signer = new Signer([ # The signer
-            'email' => $args['signers'][0]['signer_email'], 'name' => $args['signers'][0]['signer_name'],
+            'email' => "multiBulkRecipients-signer@docusign.com", 
+            'name' => "Multi Bulk Recipient::signer",
             'recipient_id' => "1", 'routing_order' => "1",
         ]);
 
-        # Create a SignHere tab (field on the document)
-        $sign_here = new SignHere([ # DocuSign SignHere field/tab
+        // # Create a SignHere tab (field on the document)
+        $sign_here = new SignHere([ 
+            'tab_label' => "signHere1", # DocuSign SignHere field/tab
             'anchor_string' => '/sn1/', 'anchor_units' => 'pixels',
             'anchor_y_offset' => '10', 'anchor_x_offset' => '20'
         ]);
 
-        # Add the tabs model (including the sign_here tab) to the signer
-        # The Tabs object takes arrays of the different field/tab types
+        // # Add the tabs model (including the sign_here tab) to the signer
+        // # The Tabs object takes arrays of the different field/tab types
         $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
 
         # Next, create the top-level envelope definition and populate it
@@ -257,8 +274,7 @@ class EG031BulkSendEnvelopes extends eSignBaseController
             'email_subject' => "Please sign this document sent from the PHP SDK",
             'documents' => [$document],
             # The Recipients object takes arrays for each recipient type
-            'recipients' => new Recipients(['signers' => [$signer]]),
-            'status' => "sent" # Requests that the envelope be created and sent
+            'status' => "created" # Requests that the envelope be created and sent
         ]);
 
         return $envelope_definition;
