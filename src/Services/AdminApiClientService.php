@@ -34,10 +34,10 @@ class AdminApiClientService
     {
         # Construct your API headers
         # Exceptions will be caught by the calling function
-        # step 2 start
-        $config = new Configuration();
         $accessToken = $args['ds_access_token'];
 
+        # step 2 start
+        $config = new Configuration();
         $config->setAccessToken($accessToken);
         $config->setHost('https://api-d.docusign.net/management');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);  
@@ -75,6 +75,10 @@ class AdminApiClientService
         
     }
     
+
+    
+
+
     /**
     * Get Org Admin Id
     *
