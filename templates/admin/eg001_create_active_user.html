@@ -37,11 +37,21 @@
           <label for="permission_profile_id">Permission profile</label>
           <br>
           <select id="permission_profile_id" name="permission_profile_id" class="form-control">
-              {% for profile in permission_profiles %}
+              {% for profile in args['permission_profiles'] %}
               <option value="{{ profile.permission_profile_id }}">{{ profile.permission_profile_name }}</option>
               {% endfor %}
           </select>
       </div>
+
+      <div class="form-group">
+        <label for="group_id">Group Id</label>
+        <br>
+        <select id="group_id" name="group_id" class="form-control">
+            {% for group in args['groups'] %}
+            <option value="{{ group['group_id'] }}">{{ group['group_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <button type="submit" class="btn btn-docu">Submit</button>

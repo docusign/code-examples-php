@@ -3,6 +3,7 @@
 namespace Example\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
+use DocuSign\Admin\Model\GroupRequest;
 use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserResponse;
@@ -32,10 +33,16 @@ class Eg001CreateNewUser extends AdminApiBaseController
         $this->checkDsToken();
 
         $this->orgId = $this->clientService->getOrgAdminId($this->args);
+
         try {
             $signatureClientService = new SignatureClientService($this->args);
             $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
-            parent::controller($this->args, $permission_profiles);
+            $groupsObj = $signatureClientService->getGroups($this->args);
+            $args = [
+                'permission_profiles'=> $permission_profiles,
+                'groups'=> $groupsObj
+            ];
+            parent::controller($args);
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }
@@ -73,15 +80,22 @@ class Eg001CreateNewUser extends AdminApiBaseController
      */
     private function addActiveUser($userData): NewUserResponse
     {
+
+        # Step 3 start
         $usersApi = $this->clientService->getUsersApi();
         $accountId = $_SESSION['ds_account_id'];
         $permissionProfile = new PermissionProfileRequest([
             'id' => $userData['permission_profile_id']
         ]);
 
+        $group = new GroupRequest([
+            'id' => $userData['group_id']
+        ]);
+
         $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
-            'permission_profile' => $permissionProfile
+            'permission_profile' => $permissionProfile,
+            'group' => $group
         ]);
 
         $request = new GlobalNewUserRequest([
@@ -93,8 +107,11 @@ class Eg001CreateNewUser extends AdminApiBaseController
             'accounts' => array($accountInfo),
             'auto_activate_memberships' => true
         ]);
+        # Step 3 end
 
+        # Step 4 start
         return $usersApi->createUser($this->orgId, $request);
+        # Step 4 end
     }
 
     /**
@@ -109,6 +126,7 @@ class Eg001CreateNewUser extends AdminApiBaseController
             'LastName' => $this->checkInputValues($_POST['LastName']),
             'Email' => $this->checkInputValues($_POST['Email']),
             'permission_profile_id' => $this->checkInputValues($_POST["permission_profile_id"]),
+            'group_id' => $this->checkInputValues($_POST["group_id"])
         ];
         return [
             'account_id' => $_SESSION['ds_account_id'],
