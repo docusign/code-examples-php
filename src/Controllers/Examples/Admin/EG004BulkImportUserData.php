@@ -39,7 +39,7 @@ class EG004BulkImportUserData extends AdminApiBaseController
             $this->clientService->showDoneTemplate(
                 "Add users via bulk import",
                 "Add users via bulk import",
-                "Results from the bulk user import:",
+                "Results from UserImport:addBulkUserImport method:",
                 json_encode(json_encode($results))
             );
         }
