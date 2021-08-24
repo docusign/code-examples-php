@@ -178,5 +178,5 @@ abstract class eSignBaseController extends BaseController
         ];
     }
     
-    abstract function getTemplateArgs(): array;
+
 }
