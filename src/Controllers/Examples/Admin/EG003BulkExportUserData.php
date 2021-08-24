@@ -33,8 +33,8 @@ class EG003BulkExportUserData extends AdminApiBaseController
 
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Bulk export user data",
-                "Admin API data response output:",
+                "Bulk-export user data",
+                "Bulk-export user data",
                 "Results from UserExport:getUserListExports method:",
                 json_encode(json_encode($results))
             );
