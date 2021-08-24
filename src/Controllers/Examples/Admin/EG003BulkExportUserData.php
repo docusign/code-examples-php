@@ -29,13 +29,13 @@ class EG003BulkExportUserData extends AdminApiBaseController
     {
         $this->checkDsToken();
 
-        $results = $this->getExportsData($this->organizationId);
-
+        $results = $this->getExportsData();
+        $filePath = realpath($_SERVER["DOCUMENT_ROOT"]). DIRECTORY_SEPARATOR ."demo_documents" . DIRECTORY_SEPARATOR ."ExportedUserData.csv";
         if ($results) {
             $this->clientService->showDoneTemplate(
                 "Bulk-export user data",
                 "Bulk-export user data",
-                "Results from UserExport:getUserListExports method:",
+                "User data exported to $filePath<br>from UserExport:getUserListExports method:",
                 json_encode(json_encode($results))
             );
         }
@@ -50,6 +50,21 @@ class EG003BulkExportUserData extends AdminApiBaseController
         $organizationId = $this->clientService->getOrgAdminId($this->args);
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
         $result = $bulkExportsApi->getUserListExports($organizationId);
+        
+        $csvUri = $result->getExports()[count($result->getExports())-1]->getResults()[0]->getUrl();
+
+
+        # using Guzzle https://guzzle.readthedocs.io/en/latest/index.html
+        $client = new \GuzzleHttp\Client();
+        $client->request('GET', $csvUri, [
+            'headers' => [
+                'Authorization' => "bearer {$this->args['ds_access_token']}",
+                'Accept' => 'application/json',
+                'Content-Type' => "multipart/form-data; "
+            ],
+            'save_to' => "./demo_documents/ExportedUserData.csv"
+        ]);
+    
 
         if ($result->getExports() !== null)
             $_SESSION['export_id'] = strval($result->getExports()[0]->getId());

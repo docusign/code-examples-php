@@ -89,13 +89,13 @@ class Eg001CreateNewUser extends AdminApiBaseController
         ]);
 
         $group = new GroupRequest([
-            'id' => $userData['group_id']
+            'id' => (int) $userData['group_id']
         ]);
 
         $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
             'permission_profile' => $permissionProfile,
-            'group' => $group
+            'groups' => $group
         ]);
 
         $request = new GlobalNewUserRequest([
