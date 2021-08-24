@@ -37,8 +37,8 @@ class EG004BulkImportUserData extends AdminApiBaseController
 
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Bulk import user data",
-                "Admin API data response output:",
+                "Add users via bulk import",
+                "Add users via bulk import",
                 "Results from the bulk user import:",
                 json_encode(json_encode($results))
             );
