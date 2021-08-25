@@ -95,7 +95,7 @@ class Eg001CreateNewUser extends AdminApiBaseController
         $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
             'permission_profile' => $permissionProfile,
-            'groups' => $group
+            'groups' => [ $group ]
         ]);
 
         $request = new GlobalNewUserRequest([
