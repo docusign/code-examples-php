@@ -63,9 +63,9 @@ class Eg001CreateNewUser extends AdminApiBaseController
 
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Create a new user",
-                "Admin API data response output:",
-                "Results from Users:createUser:",
+                "Create a new active eSignature user",
+                "Create a new active eSignature user",
+                "Results from Users::addUsers method:",
                 json_encode(($results->__toString()))
             );
         }
