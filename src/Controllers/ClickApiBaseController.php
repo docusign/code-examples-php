@@ -60,7 +60,7 @@ abstract class ClickApiBaseController extends BaseController
                 $GLOBALS['twig']->display($routerService->getTemplate($eg), [
                     'title' => $routerService->getTitle($eg),
                     'source_file' => $basename,
-                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
+                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url']  . "/Click/" . $basename,
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'args' => $args,

@@ -131,7 +131,7 @@ abstract class eSignBaseController extends BaseController
                     'groups' => $groups,
                     'permission_profiles' => $permission_profiles,
                     'source_file' => $basename,
-                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
+                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . "/eSignature/".  $basename,
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],

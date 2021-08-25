@@ -71,7 +71,7 @@ abstract class AdminApiBaseController extends BaseController
                 $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
                     'title' => $this->routerService->getTitle(static::EG),
                     'source_file' => basename(static::FILE),
-                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . basename(static::FILE),
+                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . "/Admin/". basename(static::FILE),
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'args' => $args,

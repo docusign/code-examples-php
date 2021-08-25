@@ -80,7 +80,7 @@ abstract class RoomsApiBaseController extends BaseController
                     'offices' => $offices,
                     'form_groups' => $formGroups,
                     'source_file' => $basename,
-                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . $basename,
+                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . "/Rooms/". $basename,
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                 ]);
