@@ -2,6 +2,7 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\Admin\Model\OrganizationExportResponse;
 use Example\Controllers\AdminApiBaseController;
 
 class EG003BulkExportUserData extends AdminApiBaseController
@@ -52,11 +53,17 @@ class EG003BulkExportUserData extends AdminApiBaseController
 
         # Step 3 start
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
-        $result = $bulkExportsApi->getUserListExports($organizationId);
+        $request = new OrganizationExportResponse();
+        $request->setType("organization_memberships_export");
+        $bulkList = $bulkExportsApi->createUserListExport($organizationId, $request);        
         # Step 3 end
 
+        sleep(10);
+        
         # Step 4 start
-        $csvUri = $result->getExports()[0]->getResults()[0]->getUrl();
+        $result = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
+        $csvUri = $result->getResults()[0]->getUrl();
+
         $client = new \GuzzleHttp\Client();
         $client->request('GET', $csvUri, [
             'headers' => [
@@ -68,8 +75,8 @@ class EG003BulkExportUserData extends AdminApiBaseController
         ]);
         # Step 4 end
 
-        if ($result->getExports() !== null)
-            $_SESSION['export_id'] = strval($result->getExports()[0]->getId());
+        if ($result->getResults() !== null)
+            $_SESSION['export_id'] = strval($result->getResults()[0]->getId());
 
         return json_decode($result->__toString());
     }
