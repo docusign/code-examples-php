@@ -1,2 +1,3 @@
-AccountID,AccountName,FirstName,LastName,UserEmail,eSignPermissionProfile,Group,Language,UserTitle,CompanyName,AddressLine1,AddressLine2,City,StateRegionProvince,PostalCode,Phone,LoginPolicy,AutoActivate
-<accountId>,Sample Account,John,Markson,John@testing.test,Account Administrator,Everyone,en,Mr.,Some Division,123 4th St,Suite C1,Seattle,WA,8178,2065559999,fedAuthRequired,false
+AccountID,UserName,UserEmail,PermissionSet
+<accountId>,FirstLast1,exampleuser1@example.com,DS Viewer,
+<accountId>,FirstLast2,exampleuser2@example.com,DS Viewer
