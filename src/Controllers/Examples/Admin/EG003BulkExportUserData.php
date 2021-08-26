@@ -75,9 +75,12 @@ class EG003BulkExportUserData extends AdminApiBaseController
         ]);
         # Step 4 end
 
-        if ($result->getResults() !== null)
-            $_SESSION['export_id'] = strval($result->getResults()[0]->getId());
+        if ($result->getResults() !== null) {
 
+        
+            $_SESSION['export_id'] = strval($result->getResults()[0]->getId());
+        }
+        $result = $bulkExportsApi->getUserListExports($organizationId);
         return json_decode($result->__toString());
     }
 
