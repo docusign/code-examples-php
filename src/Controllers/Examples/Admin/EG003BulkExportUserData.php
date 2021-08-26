@@ -56,7 +56,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
         # Step 3 end
 
         # Step 4 start
-        $csvUri = $result->getExports()[count($result->getExports())-1]->getResults()[0]->getUrl();
+        $csvUri = $result->getExports()[0]->getResults()[0]->getUrl();
         $client = new \GuzzleHttp\Client();
         $client->request('GET', $csvUri, [
             'headers' => [
