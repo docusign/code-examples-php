@@ -47,14 +47,16 @@ class EG003BulkExportUserData extends AdminApiBaseController
      */
     private function getExportsData()
     {
+
         $organizationId = $this->clientService->getOrgAdminId($this->args);
+
+        # Step 3 start
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
         $result = $bulkExportsApi->getUserListExports($organizationId);
-        
+        # Step 3 end
+
+        # Step 4 start
         $csvUri = $result->getExports()[count($result->getExports())-1]->getResults()[0]->getUrl();
-
-
-        # using Guzzle https://guzzle.readthedocs.io/en/latest/index.html
         $client = new \GuzzleHttp\Client();
         $client->request('GET', $csvUri, [
             'headers' => [
@@ -64,7 +66,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
             ],
             'save_to' => "./demo_documents/ExportedUserData.csv"
         ]);
-    
+        # Step 4 end
 
         if ($result->getExports() !== null)
             $_SESSION['export_id'] = strval($result->getExports()[0]->getId());

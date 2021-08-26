@@ -52,17 +52,21 @@ class EG004BulkImportUserData extends AdminApiBaseController
      */
     private function bulkImportUserData()
     {
-        $bulkImport = $this->clientService->bulkImportsApi();
+
+        
+        
         $csvFile = dirname(__DIR__, 4) . "\public\demo_documents\bulkimport.csv";
         $str = file_get_contents($csvFile);
-
         $str = str_replace("<accountId>", $GLOBALS['DS_CONFIG']['account_id'], $str);
         file_put_contents($csvFile, $str);
-
+        
+        # Step 3 start
+        $bulkImport = $this->clientService->bulkImportsApi();
         $result = $bulkImport->createBulkImportAddUsersRequest(
             $this->clientService->getOrgAdminId($this->args),
             new SplFileObject($csvFile)
         );
+        # Step 3 end
 
         $str = str_replace($GLOBALS['DS_CONFIG']['account_id'], "<accountId>", $str);
         file_put_contents($csvFile, $str);

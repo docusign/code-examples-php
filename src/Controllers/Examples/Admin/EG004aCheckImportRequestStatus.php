@@ -53,13 +53,15 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
         // create a bulk exports api instance
         $bulkImport = $this->clientService->bulkImportsApi();
 
+        # Step 4 start
         $importId = $_SESSION['import_id'];
-
         return $bulkImport->getBulkUserImportRequest(
             $this->clientService->getOrgAdminId($this->args),
             $importId
         )->__toString();
-    }
+        # Step 4 end
+    }   
+        
 
     /**
      * Get specific template arguments

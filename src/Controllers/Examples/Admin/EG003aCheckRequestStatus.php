@@ -52,9 +52,11 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
 
         $exportId = $_SESSION['export_id'];
-
+        
+        # Step 4 start
         $result = $bulkExportsApi->getUserListExport($this->clientService->getOrgAdminId($this->args), $exportId);
-
+        # Step 4 end
+        
         return json_decode($result->__toString());
     }
 

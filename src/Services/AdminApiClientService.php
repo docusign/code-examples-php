@@ -37,11 +37,11 @@ class AdminApiClientService
         $accessToken = $args['ds_access_token'];
 
         # step 2 start
-        $config = new Configuration();
-        $config->setAccessToken($accessToken);
-        $config->setHost('https://api-d.docusign.net/management');
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);  
-        $this->apiClient = new ApiClient($config);
+$config = new Configuration();
+$config->setAccessToken($accessToken);
+$config->setHost('https://api-d.docusign.net/management');
+$config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);  
+$this->apiClient = new ApiClient($config);
         # step 2 end 
         
         $this->routerService = new RouterService();

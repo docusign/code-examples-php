@@ -58,7 +58,6 @@ class Eg001CreateNewUser extends AdminApiBaseController
         $this->checkDsToken();
         // Call the worker method
         $args = $this->getTemplateArgs();
-        $args["orgId"] = $this->orgId;
         $results = $this->addActiveUser($args["envelope_args"]);
 
         if ($results) {
@@ -82,31 +81,31 @@ class Eg001CreateNewUser extends AdminApiBaseController
     {
 
         # Step 3 start
-        $usersApi = $this->clientService->getUsersApi();
-        $accountId = $_SESSION['ds_account_id'];
-        $permissionProfile = new PermissionProfileRequest([
-            'id' => $userData['permission_profile_id']
-        ]);
+$usersApi = $this->clientService->getUsersApi();
+$accountId = $_SESSION['ds_account_id'];
+$permissionProfile = new PermissionProfileRequest([
+    'id' => $userData['permission_profile_id']
+]);
 
-        $group = new GroupRequest([
-            'id' => (int) $userData['group_id']
-        ]);
+$group = new GroupRequest([
+    'id' => (int) $userData['group_id']
+]);
 
-        $accountInfo = new NewUserRequestAccountProperties([
-            'id' => $accountId,
-            'permission_profile' => $permissionProfile,
-            'groups' => [ $group ]
-        ]);
+$accountInfo = new NewUserRequestAccountProperties([
+    'id' => $accountId,
+    'permission_profile' => $permissionProfile,
+    'groups' => [ $group ]
+]);
 
-        $request = new GlobalNewUserRequest([
-            'user_name' => $userData['Name'],
-            'first_name' => $userData['FirstName'],
-            'last_name' => $userData['LastName'],
-            'email' => $userData['Email'],
-            'default_account_id' => $accountId,
-            'accounts' => array($accountInfo),
-            'auto_activate_memberships' => true
-        ]);
+$request = new GlobalNewUserRequest([
+    'user_name' => $userData['Name'],
+    'first_name' => $userData['FirstName'],
+    'last_name' => $userData['LastName'],
+    'email' => $userData['Email'],
+    'default_account_id' => $accountId,
+    'accounts' => array($accountInfo),
+    'auto_activate_memberships' => true
+]);
         # Step 3 end
 
         # Step 4 start
