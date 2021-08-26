@@ -50,8 +50,7 @@ class EG005AuditUsers extends AdminApiBaseController
                     json_encode(json_encode($results))
                 );
             }
-        } 
-        else {
+        } else {
             $this->clientService->needToReAuth($this->eg);
         }
     }
@@ -64,47 +63,60 @@ class EG005AuditUsers extends AdminApiBaseController
      * @return array ['redirect_url']
      * @throws ApiException for API problems and perhaps file access \Exception, too
      */
-    public function worker($args): array 
+    public function worker($args): array
     {
+        # Step 5a start
         $resultsArr = [];
         $results = new UsersDrilldownResponse();
+        # Step 5a end
 
         $admin_api = $this->clientService->getUsersApi();
-        $options = New GetUsersOptions();
-        $options->setAccountId($args["account_id"]);
 
         # Here we set the from_date to filter envelopes for the last 10 days
         # Use ISO 8601 date format
+
+        # Step 3 start
+        $options = new GetUsersOptions();
+        $options->setAccountId($args["account_id"]);
         $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
         $options->setLastModifiedSince($from_date);
 
         $orgId = $this->clientService->getOrgAdminId($this->args);
 
         try {
-            # Step 3 start
-            $modifiedUsers = $admin_api->getUsers($orgId, $options);
-            foreach ($modifiedUsers["users"] as $user) {
-                $profileOptions = New GetUserProfilesOptions();
-                $profileOptions->setEmail($user["email"]);
 
+            $modifiedUsers = $admin_api->getUsers($orgId, $options);
+            # Step 3 end
+
+            # Step 4 start
+            foreach ($modifiedUsers["users"] as $user) {
+                $profileOptions = new GetUserProfilesOptions();
+                $profileOptions->setEmail($user["email"]);
+                # Step 4 end
+
+                # Step 5b start
                 $res = $admin_api->getUserProfiles($orgId, $profileOptions);
                 $results->setUsers($res->getUsers());
                 $decoded = json_decode((string)$results, true);
                 array_push($resultsArr, $decoded["users"]);
+                # Step 5b end
             }
-            # Step 3 end
+
         } catch (ApiException $e) {
-            $GLOBALS['twig']->display('error.html', [
+            $GLOBALS['twig']->display(
+                'error.html',
+                [
                     'error_code' => $e->getCode(),
-                    'error_message' =>  $e->getMessage()]
+                    'error_message' =>  $e->getMessage()
+                ]
             );
             exit;
-            }
-            
+        }
+
 
         return  $resultsArr;
     }
-  
+
 
     /**
      * Get specific template arguments
