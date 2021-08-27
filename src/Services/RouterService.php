@@ -89,7 +89,7 @@ class RouterService
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
         'meg001' => 'Monitor\Eg001GetMonitoringData',
-        'aeg001' => 'Admin\Eg001CreateNewUser',
+        'aeg001' => 'Admin\EG001CreateNewUser',
         'aeg002' => 'Admin\EG002CreateActiveCLMESignUser',
         'aeg003' => 'Admin\EG003BulkExportUserData',
         'aeg003a' => 'Admin\EG003aCheckRequestStatus',
@@ -161,12 +161,12 @@ class RouterService
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
         "meg001" => "monitor/eg001_get_monitoring_data.html",
         "aeg001" => "admin/eg001_create_active_user.html",
-        "aeg002" => "admin/aeg002_create_new_esignature_clm_user.html",
+        "aeg002" => "admin/eg002_create_new_esignature_clm_user.html",
         "aeg003" => "admin/eg003_bulk_export_user_data.html",
         "aeg003a" => "admin/eg003a_check_request_status.html",
         "aeg004" => "admin/eg004_bulk_import_user_data.html",
         "aeg004a" => "admin/eg004a_check_import_request_status.html",
-        "aeg005" => "admin/aeg005_audit_users.html"
+        "aeg005" => "admin/eg005_audit_users.html"
     ];
 
     /**
