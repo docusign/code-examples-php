@@ -11,7 +11,7 @@ use DocuSign\Admin\Model\PermissionProfileRequest;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\SignatureClientService;
 
-class Eg001CreateNewUser extends AdminApiBaseController
+class EG001CreateNewUser extends AdminApiBaseController
 {
     const EG = 'aeg001'; # reference (and url) for this example
 
