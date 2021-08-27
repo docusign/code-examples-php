@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>1. Create a new active eSignature use</h4>
+<h4>1. Create a new active eSignature user</h4>
 <p>Demonstrates how to create a new eSignature user and activate their account automatically.</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
+<p>API methods used:
   <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>AccountPermissionProfiles::list</a>.
+     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>AccountPermissionProfiles::list</a>,
      <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups::list</a>.
+     href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups::list</a>,
      <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>Users::createUser</a>.
+     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>Users::createUser</a>
 </p>
 
 <p>
@@ -42,7 +42,7 @@
     </div>
 
       <div class="form-group">
-          <label for="permission_profile_id">Permission profile</label>
+          <label for="permission_profile_id">eSignature permission profile</label>
           <br>
           <select id="permission_profile_id" name="permission_profile_id" class="form-control">
               {% for profile in args['permission_profiles'] %}
@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-group">
-        <label for="group_id">Group Id</label>
+        <label for="group_id">DocuSign Admin group</label>
         <br>
         <select id="group_id" name="group_id" class="form-control">
             {% for group in args['groups'] %}
