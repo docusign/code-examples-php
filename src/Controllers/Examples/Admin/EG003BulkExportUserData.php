@@ -34,8 +34,8 @@ class EG003BulkExportUserData extends AdminApiBaseController
         $filePath = realpath($_SERVER["DOCUMENT_ROOT"]). DIRECTORY_SEPARATOR ."demo_documents" . DIRECTORY_SEPARATOR ."ExportedUserData.csv";
         if ($results) {
             $this->clientService->showDoneTemplate(
-                "Bulk-export user data",
-                "Bulk-export user data",
+                "Bulk export user data",
+                "Bulk export user data",
                 "User data exported to $filePath<br>from UserExport:getUserListExports method:",
                 json_encode(json_encode($results))
             );
@@ -58,7 +58,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
         $bulkList = $bulkExportsApi->createUserListExport($organizationId, $request);        
         # Step 3 end
 
-        sleep(10);
+        sleep(15);
         
         # Step 4 start
         $result = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
