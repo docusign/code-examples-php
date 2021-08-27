@@ -2,7 +2,7 @@
 {% block content %}
 
 <h4>2. {{ title }}</h4>
-<p>Demonstrates how to create an active user for CLM and eSignature.</p>
+<p>Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature) and activate their account automatically.</p>
 
 
 {% if show_doc %}
@@ -41,20 +41,6 @@
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
 
-    {% if args['clmPermissionProfiles'] and args['clmPermissionProfiles']|length > 0 %}
-        <div class="form-group">
-            <label for="clmPermissionProfileId">CLM Permission Profile</label>
-            <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
-                {% for profile in args['clmPermissionProfiles']['permission_profiles'] %}
-                    <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
-                {% endfor %}
-            </select>
-        </div>
-    {% else  %}
-        <p>Problem: please first create a clm permission profile.</a>
-            </br>Thank you.</p>
-    {% endif %}
-
 
     {% if args['eSignPermissionProfiles'] and args['eSignPermissionProfiles']|length > 0  %}
         <div class="form-group">
@@ -69,6 +55,21 @@
         <p>Problem: please first create an eSignature permission profile.</a>
             </br>Thank you.</p>
     {% endif %}
+
+    {% if args['clmPermissionProfiles'] and args['clmPermissionProfiles']|length > 0 %}
+        <div class="form-group">
+            <label for="clmPermissionProfileId">CLM Permission Profile</label>
+            <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
+                {% for profile in args['clmPermissionProfiles']['permission_profiles'] %}
+                    <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
+                {% endfor %}
+            </select>
+        </div>
+    {% else  %}
+        <p>Problem: please first create a clm permission profile.</a>
+            </br>Thank you.</p>
+    {% endif %}
+
 
     {% if args['dsGroups'] and args['dsGroups']|length > 0  %}
         <div class="form-group">
