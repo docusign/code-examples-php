@@ -91,8 +91,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
                 $results = json_decode((string)$results, true);
                 $this->clientService->showDoneTemplate(
-                    "Create active user for CLM and eSignature",
-                    "Create active user for CLM and eSignature",
+                    "Create a new active user for CLM and eSignature",
+                    "Create a new active user for CLM and eSignature",
                     "Results from Users::addOrUpdateUsers method:",
                     json_encode(json_encode($results))
                 );
