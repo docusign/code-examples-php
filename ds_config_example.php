@@ -30,8 +30,8 @@ $DS_CONFIG = [
     'documentation' => false,
     'organization_id' => '{ORGANIZATION_ID}',
     'account_id' => '{ACCOUNT_ID}',
-    'premissionProfile_id' => '{PREMISSION_PROFILE_ID}',
-    'premissionProfile_name' => '{PREMISSION_PROFILE_NAME}',
+    'permissionProfile_id' => '{PERMISSION_PROFILE_ID}',
+    'permissionProfile_name' => '{PERMISSION_PROFILE_NAME}',
 ];
 
 $JWT_CONFIG = [

@@ -31,7 +31,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
         $this->checkDsToken();
 
         $results = $this->getExportsData();
-        $filePath = realpath($_SERVER["DOCUMENT_ROOT"]). DIRECTORY_SEPARATOR ."demo_documents" . DIRECTORY_SEPARATOR ."ExportedUserData.csv";
+        $filePath = realpath($_SERVER["DOCUMENT_ROOT"]). DIRECTORY_SEPARATOR ."public" . DIRECTORY_SEPARATOR ."demo_documents" . DIRECTORY_SEPARATOR ."ExportedUserData.csv";
         if ($results) {
             $this->clientService->showDoneTemplate(
                 "Bulk export user data",
