@@ -230,7 +230,7 @@ class RouterService
         "reg009" => "Assign a form to a form group",
         "meg001" => "Get monitoring data",
         "aeg001" => "Create a new user with active status",
-        "aeg002" => "Create a new user with active status for CLM and eSignature",
+        "aeg002" => "Create a new active user for CLM and eSignature",
         "aeg003" => "How to bulk-export user data",
         "aeg003a" => "Check request status",
         "aeg004" => "How to bulk-import user data",
