@@ -114,7 +114,7 @@ class EG025PermissionSetUserGroup extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $permission_profile_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['permission_profile_id']);
         $group_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['group_id']);

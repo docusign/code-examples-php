@@ -103,7 +103,7 @@ class EG006CreateExternalFormFillSession extends \Example\Controllers\RoomsApiBa
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $room_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['room_id']);
         $form_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_id']);

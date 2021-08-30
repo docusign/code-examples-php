@@ -94,7 +94,7 @@ class EG004AddFormsToRoom extends \Example\Controllers\RoomsApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $room_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['room_id']);
         $form_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_id']);

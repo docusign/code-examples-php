@@ -106,7 +106,7 @@ class EG005EnvelopeRecipients extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $envelope_id= isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
         $args = [

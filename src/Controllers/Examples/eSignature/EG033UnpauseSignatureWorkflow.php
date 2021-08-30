@@ -109,7 +109,7 @@ class EG033UnpauseSignatureWorkflow extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $args = [
             'account_id' => $_SESSION['ds_account_id'],

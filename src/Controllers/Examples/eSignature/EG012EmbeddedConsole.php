@@ -103,7 +103,7 @@ class EG012EmbeddedConsole extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $starting_view = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['starting_view']);
         $envelope_id= isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
