@@ -287,7 +287,7 @@ class EG031BulkSendEnvelopes extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $signer_name_1  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name_1']);
         $signer_email_1 = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_email_1']);

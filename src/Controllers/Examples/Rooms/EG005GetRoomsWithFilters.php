@@ -91,7 +91,7 @@ class EG005GetRoomsWithFilters extends \Example\Controllers\RoomsApiBaseControll
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $start_date = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['start_date']);
         $end_date = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['end_date']);

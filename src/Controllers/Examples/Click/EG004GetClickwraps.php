@@ -78,12 +78,10 @@ class EG004GetClickwraps extends ClickApiBaseController
         return $results;
     }
 
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-        return [
-            'account_id' => $_SESSION['ds_account_id'],
-            'base_path' => $_SESSION['ds_base_path'],
-            'ds_access_token' => $_SESSION['ds_access_token']
-        ];
+        $default = $this->getDefaultTemplateArgs();
+
+        return $default;
     }
 }

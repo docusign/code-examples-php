@@ -96,7 +96,7 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $form_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_id']);
         $form_group_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['form_group_id']);

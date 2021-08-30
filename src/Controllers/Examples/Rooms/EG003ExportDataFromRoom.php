@@ -81,7 +81,7 @@ class EG003ExportDataFromRoom extends \Example\Controllers\RoomsApiBaseControlle
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
         $room_id = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['room_id']);
         return [

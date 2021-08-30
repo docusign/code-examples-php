@@ -4,8 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61ceee9ed20e7db76f027678be6eb171",
+    "content-hash": "514be57d65fe1b9a9337ee643bd0d631",
     "packages": [
+        {
+            "name": "docusign/admin-client",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "C:/Users/robert.knight/src/DPE/robert-knight/SDKs/docusign-admin-php-client-master",
+                "reference": "38dd4dd537cca89ce1116045b0cdc15c703aa47c"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "firebase/php-jwt": "^5.0",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "*",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DocuSign\\Admin\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "DocuSign\\Admin\\": "test/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "DocuSign",
+                    "homepage": "https://developers.docusign.com"
+                }
+            ],
+            "description": "The DocuSign package makes integrating DocuSign into your apps and websites a super fast and painless process. The library is open sourced on GitHub, look for the docusign-admin-php-client repository.",
+            "homepage": "https://developers.docusign.com",
+            "keywords": [
+                "Admin",
+                "DocuSign",
+                "api",
+                "php",
+                "sdk"
+            ],
+            "transport-options": {
+                "relative": false
+            }
+        },
         {
             "name": "docusign/click-client",
             "version": "v1.0.0",
@@ -66,16 +120,16 @@
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.2.0",
+            "version": "v6.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "17198ed2ab833cbfd322e63d04533f4e0eb854a6"
+                "reference": "cfc6f2637e9b37ea802f380e05251b935ea88076"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/17198ed2ab833cbfd322e63d04533f4e0eb854a6",
-                "reference": "17198ed2ab833cbfd322e63d04533f4e0eb854a6",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/cfc6f2637e9b37ea802f380e05251b935ea88076",
+                "reference": "cfc6f2637e9b37ea802f380e05251b935ea88076",
                 "shasum": ""
             },
             "require": {
@@ -119,22 +173,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.2.0"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/vv6.3.0"
             },
-            "time": "2021-06-08T17:07:41+00:00"
+            "time": "2021-07-27T17:23:11+00:00"
         },
         {
             "name": "docusign/monitor-client",
-            "version": "v1.0.0-beta",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-monitor-php-client.git",
-                "reference": "4751599006f910646395d858aaf6be387af2c501"
+                "reference": "f7229911cee171a2cc2ab994ec101b5bffa4c4b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/4751599006f910646395d858aaf6be387af2c501",
-                "reference": "4751599006f910646395d858aaf6be387af2c501",
+                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/f7229911cee171a2cc2ab994ec101b5bffa4c4b5",
+                "reference": "f7229911cee171a2cc2ab994ec101b5bffa4c4b5",
                 "shasum": ""
             },
             "require": {
@@ -177,9 +231,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-monitor-php-client/issues",
-                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.0.0-beta"
+                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.0.0"
             },
-            "time": "2021-05-14T19:50:01+00:00"
+            "time": "2021-06-24T23:32:14+00:00"
         },
         {
             "name": "docusign/rooms-client",
@@ -1017,16 +1071,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.23.0",
+            "version": "v1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1"
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
-                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9174a3d80210dca8daa7f31fec659150bbeabfc6",
+                "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6",
                 "shasum": ""
             },
             "require": {
@@ -1077,7 +1131,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
             },
             "funding": [
                 {
@@ -1093,7 +1147,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-27T09:27:20+00:00"
+            "time": "2021-05-27T12:26:48+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -1257,7 +1311,7 @@
     "stability-flags": {
         "docusign/esign-client": 5,
         "docusign/rooms-client": 5,
-        "docusign/monitor-client": 10
+        "docusign/admin-client": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

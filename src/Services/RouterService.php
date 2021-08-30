@@ -36,6 +36,7 @@ class RouterService
         'home_rooms' => 'Home',
         'home_click' => 'Home',
         'home_monitor' => 'Home',
+        'home_admin' => 'Home',
         'ds_return' => 'DsReturn',
         'must_authenticate' => 'MustAuthenticate',
         'eg001' => 'EG001EmbeddedSigning',
@@ -88,6 +89,13 @@ class RouterService
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
         'meg001' => 'Monitor\Eg001GetMonitoringData',
+        'aeg001' => 'Admin\EG001CreateNewUser',
+        'aeg002' => 'Admin\EG002CreateActiveCLMESignUser',
+        'aeg003' => 'Admin\EG003BulkExportUserData',
+        'aeg003a' => 'Admin\EG003aCheckRequestStatus',
+        'aeg004' => 'Admin\EG004BulkImportUserData',
+        'aeg004a' => 'Admin\EG004aCheckImportRequestStatus',
+        'aeg005' => 'Admin\EG005AuditUsers'
     ];
 
     /**
@@ -99,7 +107,9 @@ class RouterService
         "home"  => "home.html",
         "home_rooms" => "home_rooms.html",
         "home_monitor" => "home_monitor.html",
+        "home_admin" => "home_admin.html",
         "home_click" => "home_click.html",
+        "home_admin" => "home_admin.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
         "eg002" => "esignature/eg002_signing_via_email.html",
         "eg003" => "esignature/eg003_list_envelopes.html",
@@ -150,6 +160,13 @@ class RouterService
         "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
         "meg001" => "monitor/eg001_get_monitoring_data.html",
+        "aeg001" => "admin/eg001_create_active_user.html",
+        "aeg002" => "admin/eg002_create_new_esignature_clm_user.html",
+        "aeg003" => "admin/eg003_bulk_export_user_data.html",
+        "aeg003a" => "admin/eg003a_check_request_status.html",
+        "aeg004" => "admin/eg004_bulk_import_user_data.html",
+        "aeg004a" => "admin/eg004a_check_import_request_status.html",
+        "aeg005" => "admin/eg005_audit_users.html"
     ];
 
     /**
@@ -159,7 +176,9 @@ class RouterService
         "home" => "Home--PHP Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
         "home_monitor" => "Home--PHP Monitor Code Examples",
+        "home_admin" => "Home--PHP Admin Code Examples",
         "home_click" => "Home--PHP Click Code Examples",
+        "home_admin" => "Home--PHP Admin Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
         "eg003" => "List of changed envelopes",
@@ -210,6 +229,13 @@ class RouterService
         "reg008" => "Grant office access to a form group",
         "reg009" => "Assign a form to a form group",
         "meg001" => "Get monitoring data",
+        "aeg001" => "Create a new user with active status",
+        "aeg002" => "Create a new active user for CLM and eSignature",
+        "aeg003" => "How to bulk-export user data",
+        "aeg003a" => "Check request status",
+        "aeg004" => "How to bulk-import user data",
+        "aeg004a" => "Check the request status",
+        "aeg005" => "Audit users"
     ];
 
     /**

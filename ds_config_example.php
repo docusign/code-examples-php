@@ -26,8 +26,12 @@ $DS_CONFIG = [
     'gateway_account_id' => '{GATEWAY_ACCOUNT_ID}',
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
-    'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/examples/eSignature/',
+    'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/examples/eSignature',
     'documentation' => false,
+    'organization_id' => '{ORGANIZATION_ID}',
+    'account_id' => '{ACCOUNT_ID}',
+    'permissionProfile_id' => '{PERMISSION_PROFILE_ID}',
+    'permissionProfile_name' => '{PERMISSION_PROFILE_NAME}',
 ];
 
 $JWT_CONFIG = [
@@ -41,7 +45,8 @@ $EXAMPLES_API_TYPE = [
     'Rooms' => false,
     'ESignature' => true,
     'Click' => false,
-    'Monitor' => false
+    'Monitor' => false,
+    'Admin' => false
 ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;

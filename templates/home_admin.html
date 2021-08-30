@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="jumbotron jumbotron-fluid">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <h1 class="display-4">PHP Launcher</h1>
+                <p class="Xlead">Run and explore DocuSign Admin API code examples with Authorization Code Grant or JWT Grant authentication</p>
+            </td>
+            <td>
+                <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container" style="margin-top: 40px" id="index-page">
+
+    
+    <h2>Admin API Code Examples</h2>
+    <h4 id="Example1">1. <a href="{{ app_url ~ 'index.php?page=aeg001'}}">Create a new active eSignature user</a></h4>
+    <p>
+        Demonstrates how to create a new eSignature user and activate their account automatically.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' rel='noopener noreferrer' href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>AccountPermissionProfiles:list</a>, 
+        <a target='_blank' rel='noopener noreferrer' href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups:list</a>, 
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/">Users:createUser</a>
+    </p>
+
+    <h4 id="Example2">2. <a href="{{ app_url ~ 'index.php?page=aeg002'}}">Create a new active user for CLM and eSignature</a></h4>
+    <p>
+        Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature) and activate their account automatically.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/productpermissionprofiles/productpermissionprofiles/getproductpermissionprofiles/">ProductPermissionProfiles:getProductPermissionProfiles</a>,
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/dsgroups/dsgroups/getdsgroups/">DsGroups:getDsGroups</a>,
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/addorupdateuser/">MultiProductUserManagement:addOrUpdateUser</a>
+    </p>
+
+
+    <h4 id="Example3">3. <a href="{{ app_url~ 'index.php?page=aeg003' }}">Bulk export user data</a></h4>
+    <p>
+        Demonstrates how to bulk export user accounts within an organization into a CSV (comma-separated value) file.
+    </p>
+    <p>
+        API methods used:
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/createuserlistexport/">UserExport:createUserListExport</a>,
+        <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/">UserExport:getUserListExport</a>
+    </p>
+
+    <!--
+   <h4 id="Example3a">
+       3a. <a href="{{ app_url ~ 'index.php?page=aeg003a'}}">Check request status</a>
+   </h4>
+   <p>
+       Check the status of your pending request and, if complete, obtain a URL that you can call to download the CSV file containing the export data.
+   </p>
+   <p>API method used:
+       <a target='_blank' rel='noopener noreferrer'
+          href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/'>UserExport:getUserListExport</a>
+   </p>
+   -->
+
+   <h4 id="Example4">4. <a href="{{ app_url~ 'index.php?page=aeg004' }}">Add users via bulk import</a></h4>
+   <p>
+       Demonstrates how to bulk import users and add user data from an example CSV (comma-separated value) file into a DocuSign Admin organization.
+   </p>
+   <p>
+       API methods used:
+       <a target='_blank' rel='noopener noreferrer' href="https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/addbulkuserimport/">UserImport:addBulkUserImport</a>,
+       <a target='_blank' rel='noopener noreferrer' href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/getbulkuserimportrequest/'>UserImport :getBulkUserImportRequest</a>
+   </p>
+
+    <!--
+   <h4 id="Example4a">
+       4a. <a href="{{ app_url ~ 'index.php?page=aeg004a'}}">Check the request status</a>
+   </h4>
+   <p>Check the status of your pending request and, if complete, obtain a URL that you can call to download the CSV file containing the data to verify that the updates were made</p>
+   <p>API method used:
+       <a target='_blank' rel='noopener noreferrer'
+          href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userimport/getbulkuserimportrequest/'>UserImport :getBulkUserImportRequest</a>
+   </p>
+   -->
+
+   <h4 id="Example5">5. <a href="{{ app_url ~ 'index.php?page=aeg005'}}">Audit Users</a></h4>
+   <p>
+       Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
+   </p>
+   <p>
+       API methods used:
+       <a target="_blank" rel="noopener noreferrer" href="https://developers.docusign.com/docs/admin-api/reference/users/users/getusers/">Users:getUsers</a>,
+       <a target="_blank" rel="noopener noreferrer" href="https://developers.docusign.com/docs/admin-api/reference/users/users/getuserprofiles/">Users:getUserProfiles</a>
+   </p>
+
+   <!-- anchor-js is only for the index page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.1/anchor.min.js"></script>
+    <script>anchors.options.placement = 'left'; anchors.add('h4')</script>
+</div>
+
+ 
+
+{% endblock %}

@@ -107,14 +107,10 @@ class EG003ListEnvelopes extends eSignBaseController
      *
      * @return array
      */
-    private function getTemplateArgs(): array
+    public function getTemplateArgs(): array
     {
-        $args = [
-            'account_id' => $_SESSION['ds_account_id'],
-            'base_path' => $_SESSION['ds_base_path'],
-            'ds_access_token' => $_SESSION['ds_access_token'],
-        ];
+        $default_args = $this->getDefaultTemplateArgs();
 
-        return $args;
+        return $default_args;
     }
 }

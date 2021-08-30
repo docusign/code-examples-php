@@ -31,6 +31,8 @@ class Home extends eSignBaseController
             $this->eg = 'home_click';
         } elseif($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
             $this->eg = 'home_monitor';
+        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
+            $this->eg = 'home_admin';
         } else {
             $this->eg = 'home';
         }
