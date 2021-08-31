@@ -4,12 +4,7 @@
                   "DocuSign\\OAuth2\\Client\\Provider\\": "src/"
                  }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "C:\\Users\\robert.knight\\src\\DPE\\robert-knight\\SDKs\\docusign-admin-php-client-master"
-        }
-    ],    
+ 
     "require": {
         "docusign/click-client": "1.0.0",
         "docusign/esign-client": "^6.2.0-rc",
