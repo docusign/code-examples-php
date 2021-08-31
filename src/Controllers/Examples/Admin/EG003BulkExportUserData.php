@@ -62,6 +62,9 @@ class EG003BulkExportUserData extends AdminApiBaseController
         
         # Step 4 start
         $result = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
+        # Step 4 end
+
+        # Step 5 start
         $csvUri = $result->getResults()[0]->getUrl();
 
         $client = new \GuzzleHttp\Client();
@@ -73,7 +76,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
             ],
             'save_to' => "./demo_documents/ExportedUserData.csv"
         ]);
-        # Step 4 end
+        # Step 5 end
 
         if ($result->getResults() !== null) {
 
