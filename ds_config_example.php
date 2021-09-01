@@ -27,11 +27,7 @@ $DS_CONFIG = [
     'gateway_name' => "stripe",
     'gateway_display_name' => "Stripe",
     'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/Examples',
-    'documentation' => false,
-    'organization_id' => '{ORGANIZATION_ID}',
-    'account_id' => '{ACCOUNT_ID}',
-    'permissionProfile_id' => '{PERMISSION_PROFILE_ID}',
-    'permissionProfile_name' => '{PERMISSION_PROFILE_NAME}',
+    'documentation' => false
 ];
 
 $JWT_CONFIG = [
