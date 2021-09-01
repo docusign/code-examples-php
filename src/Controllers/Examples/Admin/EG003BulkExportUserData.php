@@ -36,7 +36,7 @@ class EG003BulkExportUserData extends AdminApiBaseController
             $this->clientService->showDoneTemplate(
                 "Bulk export user data",
                 "Bulk export user data",
-                "User data exported to $filePath<br>from UserExport:getUserListExports method:",
+                "User data exported to $filePath<br>from UserExport:getUserListExport method:",
                 json_encode(json_encode($results))
             );
         }

@@ -9,11 +9,11 @@
 
 <p>API methods used:
   <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>AccountPermissionProfiles::list</a>,
+     href='https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/'>AccountPermissionProfiles::list</a>,
      <a target='_blank' rel='noopener noreferrer'
      href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups::list</a>,
      <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>Users::createUser</a>
+     href='https://developers.docusign.com/docs/admin-api/reference/users/users/createuser/'>Users::createUser</a>.
 </p>
 
 <p>
@@ -52,7 +52,7 @@
       </div>
 
       <div class="form-group">
-        <label for="group_id">DocuSign Admin group</label>
+        <label for="group_id">eSignature group</label>
         <br>
         <select id="group_id" name="group_id" class="form-control">
             {% for group in args['groups'] %}
