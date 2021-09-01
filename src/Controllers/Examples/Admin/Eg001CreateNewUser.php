@@ -139,7 +139,7 @@ $request = new GlobalNewUserRequest([
      * @param $value
      * @return mixed
      */
-    private function checkInputValues($value): mixed
+    private function checkInputValues($value): string
     {
         return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
     }
