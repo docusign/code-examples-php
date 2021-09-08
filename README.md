@@ -2,7 +2,7 @@
 
 ### GitHub repo: [code-examples-php](./README.md)
 
-This GitHub repo includes code examples for the DocuSign eSignature REST API, Rooms API, Click API, and Monitor API. To switch between API code examples, modify the `EXAMPLES_API_TYPE` setting in the ds_config.php file. Change the value of either `ESignature`, `Rooms`, `Click`, `Monitor`, or `Admin` to `true` to use the corresponding API. Set only one API type to `true` and set the remaining to `false`.
+This GitHub repo includes code examples for the DocuSign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `EXAMPLES_API_TYPE` setting in the ds_config.php file. Set only one API type to `true` and set the remaining to `false`.
 
 If none of the API types are set to `true`, the DocuSign eSignature REST API code examples will be shown. If multiple API types are set to `true`, only the first will be shown.
 
