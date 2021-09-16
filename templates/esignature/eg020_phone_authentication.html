@@ -1,12 +1,11 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>21. Send an envelope using phone Authentication</h4>
-<p>Anchor text
+<h4>20. Require Phone Authentication for a Recipient</h4>
+<p>Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.</p>
+<p>The envelope includes a PDF file. Anchor text 
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+     is used to position the signing fields in the documents.
 </p>
-<p>This is a general example of creating and sending an envelope (a signing request) to multiple recipients,
-    with multiple documents, and with signature fields for the documents.</p>
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
@@ -15,14 +14,18 @@
 <p>API method used:
     <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
 </p>
-
 <p>
     View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signer_name">Phone Number</label>
+        <label for="country_code">Signer Country Code</label>
+        <input type="text" class="form-control" id="country_code" placeholder="1" name="country_code"
+               value="{{ country_code }}" required>
+    </div>
+       <div class="form-group">
+        <label for="phone_number">Signer Phone Number</label>
         <input type="text" class="form-control" id="phone_number" placeholder="415-555-1212" name="phone_number"
                value="{{ phone_number }}" required>
     </div>
