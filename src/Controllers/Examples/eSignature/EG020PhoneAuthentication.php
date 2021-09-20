@@ -64,8 +64,8 @@ class EG020PhoneAuthentication extends eSignBaseController
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
                 # which need an envelope_id
                 $this->clientService->showDoneTemplate(
-                    "Envelope sent",
-                    "Envelope sent",
+                    "Require Phone Authentication for a Recipient",
+                    "Require Phone Authentication for a Recipient",
                     "The envelope has been created and sent!<br/>
                         Envelope ID {$results["envelope_id"]}."
                 );
