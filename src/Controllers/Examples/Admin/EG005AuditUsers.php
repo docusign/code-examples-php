@@ -46,7 +46,7 @@ class EG005AuditUsers extends AdminApiBaseController
                 $this->clientService->showDoneTemplate(
                     "Audit users",
                     "Audit users",
-                    "Results from Users::getUserProfiles method:",
+                    "Results from eSignUserManagement:getUserProfiles method:",
                     json_encode(json_encode($results))
                 );
             }
