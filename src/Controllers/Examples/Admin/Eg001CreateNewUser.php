@@ -80,13 +80,15 @@ class EG001CreateNewUser extends AdminApiBaseController
     private function addActiveUser($userData): NewUserResponse
     {
 
-        # Step 3 start
+
 $usersApi = $this->clientService->getUsersApi();
 $accountId = $_SESSION['ds_account_id'];
+# Step 3 start
 $permissionProfile = new PermissionProfileRequest([
     'id' => $userData['permission_profile_id']
 ]);
-
+# Step 3 end
+# Step 4 start        
 $group = new GroupRequest([
     'id' => (int) $userData['group_id']
 ]);
@@ -96,7 +98,8 @@ $accountInfo = new NewUserRequestAccountProperties([
     'permission_profile' => $permissionProfile,
     'groups' => [ $group ]
 ]);
-
+# Step 4 end
+# Step 5 start
 $request = new GlobalNewUserRequest([
     'user_name' => $userData['Name'],
     'first_name' => $userData['FirstName'],
@@ -106,11 +109,11 @@ $request = new GlobalNewUserRequest([
     'accounts' => array($accountInfo),
     'auto_activate_memberships' => true
 ]);
-        # Step 3 end
+# Step 5 end
 
-        # Step 4 start
+        # Step 6 start
         return $usersApi->createUser($this->orgId, $request);
-        # Step 4 end
+        # Step 6 end
     }
 
     /**
