@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 021:phone authentication
+ * Example 020: Phone Authentication for recipient
  */
 
 namespace Example\Controllers\Examples\eSignature;
@@ -8,8 +8,10 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
-use DocuSign\eSign\Model\RecipientPhoneAuthentication;
 use DocuSign\eSign\Model\Recipients;
+use DocuSign\eSign\Model\RecipientIdentityPhoneNumber;
+use DocuSign\eSign\Model\RecipientIdentityInputOption;
+use DocuSign\eSign\Model\RecipientIdentityVerification;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
@@ -17,7 +19,7 @@ use Example\Controllers\eSignBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\RouterService;
 
-class EG021PhoneAuthentication extends eSignBaseController
+class EG020PhoneAuthentication extends eSignBaseController
 {
     /** signatureClientService */
     private $clientService;
@@ -28,7 +30,7 @@ class EG021PhoneAuthentication extends eSignBaseController
     /** Specific template arguments */
     private $args;
 
-    private $eg = "eg021";  # reference (and url) for this example
+    private $eg = "eg020";  # reference (and url) for this example
 
     /**
      * Create a new controller instance.
@@ -62,8 +64,8 @@ class EG021PhoneAuthentication extends eSignBaseController
                 $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
                 # which need an envelope_id
                 $this->clientService->showDoneTemplate(
-                    "Envelope sent",
-                    "Envelope sent",
+                    "Require Phone Authentication for a Recipient",
+                    "Require Phone Authentication for a Recipient",
                     "The envelope has been created and sent!<br/>
                         Envelope ID {$results["envelope_id"]}."
                 );
@@ -140,10 +142,18 @@ class EG021PhoneAuthentication extends eSignBaseController
         $signer1Tabs = new Tabs;
         $signer1Tabs->setSignHereTabs(array($signHere1));
 
-        $phoneAuthentication = new RecipientPhoneAuthentication;
-        $providedPhoneNumber='415-555-1212';  # represents your {PHONE_NUMBER}
-        $phoneAuthentication->setSenderProvidedNumbers(array($providedPhoneNumber));
-        $phoneAuthentication->setRecipMayProvideNumber('true');
+        $phoneNumber = new RecipientIdentityPhoneNumber;
+        $phoneNumber->setCountryCode($args['signer_country_code']);
+        $phoneNumber->setNumber($args['signer_phone_number']);
+
+        $inputOption = new RecipientIdentityInputOption;
+        $inputOption->setName('phone_number_list');
+        $inputOption->setValueType('PhoneNumberList');
+        $inputOption->setPhoneNumberList(array($phoneNumber));
+
+        $identityVerification = new RecipientIdentityVerification;
+        $identityVerification->setWorkflowId('c368e411-1592-4001-a3df-dca94ac539ae');
+        $identityVerification->setInputOptions(array($inputOption));
 
         $signer1 = new Signer([
             'name' => $args['signer_name'],
@@ -153,9 +163,7 @@ class EG021PhoneAuthentication extends eSignBaseController
             'delivery_method' => 'Email',
             'recipient_id' => '1', # represents your {RECIPIENT_ID}
             'tabs' => $signer1Tabs,
-            'phone_authentication' => $phoneAuthentication,
-            'require_id_lookup' => 'true',
-            'id_check_configuration_name' => "Phone Auth $"
+            'identity_verification' => $identityVerification
         ]);
 
         $recipients = new Recipients;
@@ -176,9 +184,13 @@ class EG021PhoneAuthentication extends eSignBaseController
     {
         $signer_name  = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['signer_name' ]);
         $signer_email = preg_replace('/([^\w +\-\@\.\,])+/', '', $_POST['signer_email']);
+        $signer_country_code = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['country_code']);
+        $signer_phone_number = preg_replace('/([^\w \-\@\.\,])+/', '', $_POST['phone_number']);
         $envelope_args = [
             'signer_email' => $signer_email,
             'signer_name' => $signer_name,
+            'signer_country_code' => $signer_country_code,
+            'signer_phone_number' => $signer_phone_number,
         ];
         $args = [
             'account_id' => $_SESSION['ds_account_id'],
