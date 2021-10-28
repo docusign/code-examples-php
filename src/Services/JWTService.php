@@ -1,12 +1,12 @@
 <?php
 
-
 namespace Example\Services;
 
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
 use Example\Controllers\Auth\DocuSign;
-
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use Throwable;
 
 class JWTService
 {
@@ -15,7 +15,7 @@ class JWTService
     protected static $access_token;
     protected static $expiresInTimestamp;
     protected static $account;
-    protected static $apiClient;
+    protected static ApiClient $apiClient;
 
     public function __construct()
     {
@@ -30,7 +30,7 @@ class JWTService
     {
         if (
             is_null(self::$access_token)
-            || (time() +  self::TOKEN_REPLACEMENT_IN_SECONDS) > self::$expiresInTimestamp
+            || (time() + self::TOKEN_REPLACEMENT_IN_SECONDS) > self::$expiresInTimestamp
         ) {
             $this->login();
         }
@@ -38,6 +38,7 @@ class JWTService
 
     /**
      * DocuSign login handler
+     * @throws \DocuSign\eSign\Client\ApiException
      */
     public function login()
     {
@@ -62,36 +63,37 @@ class JWTService
     private function configureJwtAuthorizationFlowByKey()
     {
         self::$apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
-        $privateKey = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/' . $GLOBALS['JWT_CONFIG']['private_key_file'], true);
+        $privateKey = file_get_contents(
+            $_SERVER['DOCUMENT_ROOT'] . '/' . $GLOBALS['JWT_CONFIG']['private_key_file'],
+            true
+        );
 
         $scope = (new DocuSign())->getDefaultScopes()[0];
-
         //Make sure to add the "impersonation" scope when using JWT authorization
         $jwt_scope = $scope . " impersonation";
 
         try {
             $response = self::$apiClient->requestJWTUserToken(
-               $GLOBALS['JWT_CONFIG']['ds_client_id'],
-               $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
-               $privateKey,
-               $jwt_scope,
+                $aud = $GLOBALS['JWT_CONFIG']['ds_client_id'],
+                $aud = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'],
+                $aud = $privateKey,
+                $aud = $jwt_scope
             );
 
             return $response[0];    //code...
-        } catch (\Throwable $th) {
-            
+        } catch (Throwable $th) {
             // we found consent_required in the response body meaning first time consent is needed
             if (strpos($th->getMessage(), "consent_required") !== false) {
-                $_SESSION['consent_set'] = true;
-                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query([
-                    'scope'         => $jwt_scope,
-                    'redirect_uri'  => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
-                    'client_id'     => $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                    'state'         => $_SESSION['oauth2state'],
-                    'response_type' => 'code'
-                ]);
+                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query(
+                    [
+                            'scope' => $jwt_scope,
+                            'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
+                            'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
+                            'state' => $_SESSION['oauth2state'],
+                            'response_type' => 'code'
+                        ]
+                );
                 header('Location: ' . $authorizationURL);
-                exit();
             }
         }
     }
@@ -110,7 +112,7 @@ class JWTService
             try {
                 // We have an access token, which we may use in authenticated
                 // requests against the service provider's API.
-                
+
                 $this->flash('You have authenticated with DocuSign.');
                 $_SESSION['ds_access_token'] = self::$access_token->getAccessToken();
                 $_SESSION['ds_refresh_token'] = self::$access_token->getRefreshToken();
@@ -126,7 +128,7 @@ class JWTService
                 $_SESSION['ds_account_id'] = $account_info[0]->getAccountId();
                 $_SESSION['ds_account_name'] = $account_info[0]->getAccountName();
                 $_SESSION['ds_base_path'] = $account_info[0]->getBaseUri() . $base_uri_suffix;
-            } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+            } catch (IdentityProviderException $e) {
                 // Failed to get the access token or user details.
                 exit($e->getMessage());
             }

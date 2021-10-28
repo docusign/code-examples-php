@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminApiBaseController;
 use Example\Controllers\AdminBaseController;
+use Example\Services\Examples\Admin\BulkImportUserDataService;
 use SplFileObject;
 
 class EG004BulkImportUserData extends AdminApiBaseController
@@ -27,13 +28,16 @@ class EG004BulkImportUserData extends AdminApiBaseController
      * Check the access token and call the worker method
      * @return void
      * @throws ApiException for API problems.
+     * @throws \DocuSign\Admin\Client\ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
+        $organizationId = $this->clientService->getOrgAdminId();
+
         // Call the worker method
-        $results = $this->bulkImportUserData();
+        $results = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId);
 
         if ($results) {
             $this->clientService->showDoneTemplate(
@@ -44,37 +48,6 @@ class EG004BulkImportUserData extends AdminApiBaseController
             );
         }
     }
-
-    /**
-     * Method to prepare headers and create a bulk-import.
-     * @throws ApiException for API problems.
-     * @throws \DocuSign\Admin\Client\ApiException
-     */
-    private function bulkImportUserData()
-    {
-
-        
-        
-        $csvFile = dirname(__DIR__, 4) . "\public\demo_documents\bulkimport.csv";
-        $str = file_get_contents($csvFile);
-        $str = str_replace("<accountId>", $GLOBALS['DS_CONFIG']['account_id'], $str);
-        file_put_contents($csvFile, $str);
-        
-        # Step 3 start
-        $bulkImport = $this->clientService->bulkImportsApi();
-        $result = $bulkImport->createBulkImportAddUsersRequest(
-            $this->clientService->getOrgAdminId($this->args),
-            new SplFileObject($csvFile)
-        );
-        # Step 3 end
-
-        $str = str_replace($GLOBALS['DS_CONFIG']['account_id'], "<accountId>", $str);
-        file_put_contents($csvFile, $str);
-
-        $_SESSION['import_id'] = strval($result->getId());
-
-        return json_decode($result->__toString());
-    }
     
     /**
      * Get specific template arguments
@@ -82,8 +55,6 @@ class EG004BulkImportUserData extends AdminApiBaseController
      */
     public function getTemplateArgs(): array
     {
-        $default_args = $this->getDefaultTemplateArgs();
-
-        return $default_args;
+        return $this->getDefaultTemplateArgs();
     }
 }

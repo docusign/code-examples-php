@@ -3,14 +3,11 @@
 namespace Example\Controllers;
 
 use Example\Services\RouterService;
+use Example\Services\SignatureClientService;
 
 abstract class eSignBaseController extends BaseController
 {
-
-    # DCM-3905 The SDK helper method for setting the SigningUIVersion is temporarily unavailable at this time. 
-    # As a temporary workaround, a raw JSON settings object is passed to sdk methods that use a permission profile. 
-
-    # Default settings for updating and creating permissions
+    private const MINIMUM_BUFFER_MIN = 3;
     private const SETTINGS = [
         "useNewDocuSignExperienceInterface" => "optional",
         "allowBulkSending" => "true",
@@ -38,13 +35,28 @@ abstract class eSignBaseController extends BaseController
         "powerFormRole" => "admin",
         "vaultingMode" => "none"
     ];
+    protected SignatureClientService $clientService;
+    protected RouterService $routerService;
+    protected array $args;
+
+    # DCM-3905 The SDK helper method for setting the SigningUIVersion is temporarily unavailable at this time.
+    # As a temporary workaround, a raw JSON settings object is passed to sdk methods that use a permission profile.
+
+    # Default settings for updating and creating permissions
+
+    public function __construct()
+    {
+        $this->args = $this->getTemplateArgs();
+        $this->clientService = new SignatureClientService($this->args);
+        $this->routerService = new RouterService();
+    }
+
+    abstract function getTemplateArgs(): array;
 
     /**
      * Base controller
      *
-     * @param $eg string
-     * @param $routerService RouterService
-     * @param $basename string|null
+     * @param null $eg
      * @param $brand_languages array|null
      * @param $brands array|null
      * @param $permission_profiles array|null
@@ -52,30 +64,36 @@ abstract class eSignBaseController extends BaseController
      * @return void
      */
     public function controller(
-        string $eg,
-        RouterService $routerService,
-        $basename = null,
-        $brand_languages = null,
-        $brands = null,
-        $permission_profiles = null,
-        $groups = null
-    ): void
-    {
+        $eg = null,
+        array $brand_languages = null,
+        array $brands = null,
+        array $permission_profiles = null,
+        array $groups = null
+    ): void {
+        if (empty($eg)) {
+            $eg = static::EG;
+        }
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
-            $this->getController($eg, $routerService, $basename, $brand_languages, $brands, $permission_profiles, $groups);
-        };
+            $this->getController(
+                $eg,
+                basename(static::FILE),
+                $brand_languages,
+                $brands,
+                $permission_profiles,
+                $groups
+            );
+        }
         if ($method == 'POST') {
-            $routerService->check_csrf();
+            $this->routerService->check_csrf();
             $this->createController();
-        };
+        }
     }
 
     /**
      * Show the example's form page
      *
-     * @param $eg string
-     * @param $routerService RouterService
+     * @param $eg
      * @param $basename string|null
      * @param $brand_languages array|null
      * @param $brands array|null
@@ -84,33 +102,31 @@ abstract class eSignBaseController extends BaseController
      * @return void
      */
     function getController(
-        string $eg,
-        RouterService $routerService,
+        $eg,
         ?string $basename,
-        $brand_languages = null,
-        $brands = null,
-        $permission_profiles = null,
-        $groups = null
-    ): void
-    {
- 
-        if ($this->isHomePage($eg)){
-                $GLOBALS['twig']->display($eg . '.html', [
+        array $brand_languages = null,
+        array $brands = null,
+        array $permission_profiles = null,
+        array $groups = null
+    ): void {
+        if ($this->isHomePage($eg)) {
+            $GLOBALS['twig']->display(
+                $eg . '.html',
+                [
                     'title' => $this->homePageTitle($eg),
                     'show_doc' => false
-                ]);
-
+                ]
+            );
         } else {
-
-            if ($routerService->ds_token_ok()) {
-                $pause_envelope_ok = isset($_SESSION["pause_envelope_id"]) ? $_SESSION["pause_envelope_id"] : false;
-                $envelope_id = isset($_SESSION['envelope_id']) ? $_SESSION['envelope_id'] : false;
-                $template_id = isset($_SESSION['template_id']) ? $_SESSION['template_id'] : false;
-                $envelope_documents = isset($_SESSION['envelope_documents']) ? $_SESSION['envelope_documents'] : false;
+            if ($this->routerService->ds_token_ok()) {
+                $pause_envelope_ok = $_SESSION["pause_envelope_id"] ?? false;
+                $envelope_id = $_SESSION['envelope_id'] ?? false;
+                $template_id = $_SESSION['template_id'] ?? false;
+                $envelope_documents = $_SESSION['envelope_documents'] ?? false;
                 $gateway = $GLOBALS['DS_CONFIG']['gateway_account_id'];
                 $gateway_ok = $gateway && strlen($gateway) > 25;
                 $document_options = [];
-    
+
                 if ($envelope_documents) {
                     # Prepare the select items
                     $cb = function ($item): array {
@@ -118,9 +134,9 @@ abstract class eSignBaseController extends BaseController
                     };
                     $document_options = array_map($cb, $envelope_documents['documents']);
                 }
-    
+
                 $displayOptions = [
-                    'title' => $routerService->getTitle($eg),
+                    'title' => $this->routerService->getTitle($eg),
                     'template_ok' => $template_id,
                     'envelope_ok' => $envelope_id,
                     'gateway_ok' => $gateway_ok,
@@ -138,20 +154,20 @@ abstract class eSignBaseController extends BaseController
                     'signer_email' => $GLOBALS['DS_CONFIG']['signer_email'],
                     'pause_envelope_ok' => $pause_envelope_ok
                 ];
-    
-                $GLOBALS['twig']->display($routerService->getTemplate($eg), $displayOptions);
+
+                $GLOBALS['twig']->display($this->routerService->getTemplate($eg), $displayOptions);
+            } else {
+                $this->saveCurrentUrlToSession($eg);
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+                exit;
             }
-
-            else {
-                
-
-            $this->saveCurrentUrlToSession($eg);
-            header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
-            exit;
         }
     }
 
-    }
+    /**
+     * Declaration for the base controller creator. Each creator should be described in specific Controller
+     */
+    abstract function createController();
 
     /**
      * Get static Profile settings
@@ -160,11 +176,6 @@ abstract class eSignBaseController extends BaseController
     {
         return self::SETTINGS;
     }
-
-    /**
-     * Declaration for the base controller creator. Each creator should be described in specific Controller
-     */
-    abstract function createController();
 
     /**
      * @return array
@@ -177,6 +188,34 @@ abstract class eSignBaseController extends BaseController
             'ds_access_token' => $_SESSION['ds_access_token']
         ];
     }
-    
 
+    /**
+     * Check email input value using regular expression
+     * @param $email
+     * @return string
+     */
+    protected function checkEmailInputValue($email): string
+    {
+        return preg_replace('/([^\w +\-\@\.\,])+/', '', $email);
+    }
+
+    /**
+     * Check input values using regular expressions
+     * @param $value
+     * @return string
+     */
+    protected function checkInputValues($value): string
+    {
+        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
+    }
+
+    /**
+     * Check ds
+     */
+    protected function checkDsToken()
+    {
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+            $this->clientService->needToReAuth(static::EG);
+        }
+    }
 }
