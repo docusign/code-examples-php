@@ -1,9 +1,10 @@
 <?php
 
 namespace Example\Services;
-use DocuSign\Click\Client\ApiException;
+
 use DocuSign\Click\Api\AccountsApi;
 use DocuSign\Click\Client\ApiClient;
+use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Configuration;
 
 class ClickApiClientService
@@ -28,14 +29,14 @@ class ClickApiClientService
     {
         # Construct your API headers
         # Exceptions will be caught by the calling function
-        
+
         # Step 2 Start
         $config = new Configuration();
         $config->setHost('https://demo.docusign.net/clickapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         # Step 2 End
-        
+
         $this->routerService = new RouterService();
     }
 
@@ -65,19 +66,23 @@ class ClickApiClientService
         header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
         exit;
     }
+
     /**
      * Redirect user to the error page
      *
-     * @param  ApiException $e
+     * @param ApiException $e
      * @return void
      */
     public function showErrorTemplate(ApiException $e): void
     {
         $body = $e->getResponseBody();
         echo json_encode($body);
-        $GLOBALS['twig']->display('error.html', [
+        $GLOBALS['twig']->display(
+            'error.html',
+            [
                 'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
+                'error_message' => $body->message ?? unserialize($body)->message
+            ]
         );
     }
 
@@ -92,12 +97,15 @@ class ClickApiClientService
      */
     public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
     {
-        $GLOBALS['twig']->display('example_done.html', [
-            'title' => $title,
-            'h1' => $headline,
-            'message' => $message,
-            'json' => $results
-        ]);
+        $GLOBALS['twig']->display(
+            'example_done.html',
+            [
+                'title' => $title,
+                'h1' => $headline,
+                'message' => $message,
+                'json' => $results
+            ]
+        );
         exit;
     }
 }

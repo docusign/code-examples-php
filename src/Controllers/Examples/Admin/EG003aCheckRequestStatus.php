@@ -2,7 +2,9 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
+use Example\Services\Examples\Admin\CheckRequestStatusService;
 
 class EG003ACheckRequestStatus extends AdminApiBaseController
 {
@@ -10,6 +12,8 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
     const EG = 'aeg003a'; # reference (and url) for this example
 
     const FILE = __FILE__;
+
+    private string $orgId;
 
     /**
      * Create a new controller instance.
@@ -19,19 +23,24 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
     {
         parent::__construct();
         parent::controller();
+
+        $this->orgId = $this->clientService->getOrgAdminId($this->args);
     }
 
     /**
      * Check the access token and call the worker method
      * @return void
      * @throws ApiException for API problems.
+     * @throws ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
+        $exportId = $_SESSION['export_id'];
+
         // Call the worker method
-        $results = $this->checkRequestStatus();
+        $results = CheckRequestStatusService::checkRequestStatus($this->clientService, $this->orgId, $exportId);
 
         if ($results) {
             $this->clientService->showDoneTemplate(
@@ -44,30 +53,11 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
     }
 
     /**
-     * Method to get a request status for bulk-export.
-     * @throws \DocuSign\OrgAdmin\Client\ApiException
-     */
-    private function checkRequestStatus()
-    {
-        $bulkExportsApi = $this->clientService->bulkExportsAPI();
-
-        $exportId = $_SESSION['export_id'];
-        
-        # Step 4 start
-        $result = $bulkExportsApi->getUserListExport($this->clientService->getOrgAdminId($this->args), $exportId);
-        # Step 4 end
-        
-        return json_decode($result->__toString());
-    }
-
-    /**
      * Get specific template arguments
      * @return array
      */
     public function getTemplateArgs(): array
     {
-        $default_args = $this->getDefaultTemplateArgs();
-
-        return $default_args;
+        return $this->getDefaultTemplateArgs();
     }
 }

@@ -10,6 +10,7 @@ use DocuSign\Admin\Model\NewUserResponse;
 use DocuSign\Admin\Model\PermissionProfileRequest;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\SignatureClientService;
+use Example\Services\Examples\Admin\CreateNewUserService;
 
 class EG001CreateNewUser extends AdminApiBaseController
 {
@@ -17,7 +18,7 @@ class EG001CreateNewUser extends AdminApiBaseController
 
     const FILE = __FILE__;
 
-    private $orgId;
+    private string $orgId;
 
     //private $eg = "aeg001";  # reference (and url) for this example
 
@@ -56,9 +57,14 @@ class EG001CreateNewUser extends AdminApiBaseController
     public function createController(): void
     {
         $this->checkDsToken();
+
         // Call the worker method
         $args = $this->getTemplateArgs();
-        $results = $this->addActiveUser($args["envelope_args"]);
+        $results = CreateNewUserService::addActiveUser(
+            $this->orgId,
+            $args["envelope_args"],
+            $this->clientService
+        );
 
         if ($results) {
             $this->clientService->showDoneTemplate(
@@ -68,49 +74,6 @@ class EG001CreateNewUser extends AdminApiBaseController
                 json_encode(($results->__toString()))
             );
         }
-    }
-
-    /**
-     * Method to add a new user to your organization.
-     * @param $organizationId
-     * @param $userData
-     * @return NewUserResponse
-     * @throws ApiException
-     */
-    private function addActiveUser($userData): NewUserResponse
-    {
-
-        # Step 3 start
-$usersApi = $this->clientService->getUsersApi();
-$accountId = $_SESSION['ds_account_id'];
-$permissionProfile = new PermissionProfileRequest([
-    'id' => $userData['permission_profile_id']
-]);
-
-$group = new GroupRequest([
-    'id' => (int) $userData['group_id']
-]);
-
-$accountInfo = new NewUserRequestAccountProperties([
-    'id' => $accountId,
-    'permission_profile' => $permissionProfile,
-    'groups' => [ $group ]
-]);
-
-$request = new GlobalNewUserRequest([
-    'user_name' => $userData['Name'],
-    'first_name' => $userData['FirstName'],
-    'last_name' => $userData['LastName'],
-    'email' => $userData['Email'],
-    'default_account_id' => $accountId,
-    'accounts' => array($accountInfo),
-    'auto_activate_memberships' => true
-]);
-        # Step 3 end
-
-        # Step 4 start
-        return $usersApi->createUser($this->orgId, $request);
-        # Step 4 end
     }
 
     /**

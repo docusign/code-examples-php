@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Example\Services;
 
 use DocuSign\Monitor\Client\ApiClient;
@@ -12,12 +11,12 @@ class MonitorApiClientService
     /**
      * DocuSign API Client
      */
-    public $apiClient;
+    public ApiClient $apiClient;
 
     /**
      * Router Service
      */
-    public $routerService;
+    public RouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -36,31 +35,34 @@ class MonitorApiClientService
         $config->setAccessToken($accessToken);
         $config->setHost('https://lens-d.docusign.net');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
-        $config->addDefaultHeader("Content-Type", "application/json");       
+        $config->addDefaultHeader("Content-Type", "application/json");
         $this->apiClient = new ApiClient($config);
-        # step 2 end 
-        
+        # step 2 end
+
         $this->routerService = new RouterService();
     }
 
-    public function getApiClient(){
+    public function getApiClient(): ApiClient
+    {
         return $this->apiClient;
     }
 
     /**
      * Redirect user to the error page
      *
-     * @param  ApiException $e
+     * @param ApiException $e
      * @return void
      */
     public function showErrorTemplate(ApiException $e): void
     {
         $body = $e->getResponseBody();
 
-        print_r($e);
-        $GLOBALS['twig']->display('error.html', [
+        $GLOBALS['twig']->display(
+            'error.html',
+            [
                 'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
+                'error_message' => $body->message ?? unserialize($body)->message
+            ]
         );
     }
 
@@ -73,14 +75,17 @@ class MonitorApiClientService
      * @param $results
      * @return void
      */
-    public function showDoneTemplate($title, $headline, $message, $results = null): void
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
     {
-        $GLOBALS['twig']->display('example_done.html', [
-            'title' => $title,
-            'h1' => $headline,
-            'message' => $message,
-            'json' => $results
-        ]);
+        $GLOBALS['twig']->display(
+            'example_done.html',
+            [
+                'title' => $title,
+                'h1' => $headline,
+                'message' => $message,
+                'json' => $results
+            ]
+        );
         exit;
     }
 

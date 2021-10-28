@@ -1,32 +1,32 @@
 <?php
 
-
 namespace Example\Services;
+
 use DocuSign\Rooms\Api\ExternalFormFillSessionsApi;
 use DocuSign\Rooms\Api\FormGroupsApi;
+use DocuSign\Rooms\Api\FormLibrariesApi;
 use DocuSign\Rooms\Api\OfficesApi;
-use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Api\RolesApi;
 use DocuSign\Rooms\Api\RoomsApi;
-use DocuSign\Rooms\Client\ApiClient;
 use DocuSign\Rooms\Api\RoomTemplatesApi;
-use DocuSign\Rooms\Api\FormLibrariesApi;
+use DocuSign\Rooms\Client\ApiClient;
+use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Configuration;
 use DocuSign\Rooms\Model\FormGroup;
 use DocuSign\Rooms\Model\FormGroupForCreate;
-use \DocuSign\Rooms\Model\Room;
+use DocuSign\Rooms\Model\Room;
 
 class RoomsApiClientService
 {
     /**
      * DocuSign API Client
      */
-    public $apiClient;
+    public ApiClient $apiClient;
 
     /**
      * Router Service
      */
-    public $routerService;
+    public RouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -42,39 +42,8 @@ class RoomsApiClientService
         $config->setHost('https://demo.rooms.docusign.com/restapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
-        # Step 2 end        
+        # Step 2 end
         $this->routerService = new RouterService();
-    }
-    /**
-     * Getter for the RolesApi
-     */
-    public function getRolesApi(): RolesApi
-    {
-        return new RolesApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the FormGroupsApi
-     */
-    public function getFromGroupsApi(): FormGroupsApi
-    {
-        return new FormGroupsApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the OfficesApi
-     */
-    public function getOfficesApi(): OfficesApi
-    {
-        return new OfficesApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the RoomsApi
-     */
-    public function getRoomsApi(): RoomsApi
-    {
-        return new RoomsApi($this->apiClient);
     }
 
     /**
@@ -83,14 +52,6 @@ class RoomsApiClientService
     public function getRoomTemplatesApi(): RoomTemplatesApi
     {
         return new RoomTemplatesApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the FormLibrariesApi
-     */
-    public function getFormLibrariesApi(): FormLibrariesApi
-    {
-        return new FormLibrariesApi($this->apiClient);
     }
 
     public function getExternalFormFillSessionsApi(): ExternalFormFillSessionsApi
@@ -116,21 +77,6 @@ class RoomsApiClientService
         header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
         exit;
     }
-    /**
-     * Redirect user to the error page
-     *
-     * @param  ApiException $e
-     * @return void
-     */
-    public function showErrorTemplate(ApiException $e): void
-    {
-        $body = $e->getResponseBody();
-        echo json_encode($body);
-        $GLOBALS['twig']->display('error.html', [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message]
-        );
-    }
 
     /**
      * Redirect user to the error page
@@ -141,16 +87,20 @@ class RoomsApiClientService
      * @param $results
      * @return void
      */
-    public function showDoneTemplate($title, $headline, $message, $results = null): void
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
     {
-        $GLOBALS['twig']->display('example_done.html', [
-            'title' => $title,
-            'h1' => $headline,
-            'message' => $message,
-            'json' => $results
-        ]);
+        $GLOBALS['twig']->display(
+            'example_done.html',
+            [
+                'title' => $title,
+                'h1' => $headline,
+                'message' => $message,
+                'json' => $results
+            ]
+        );
         exit;
     }
+
     /**
      * @param $args
      * @return array
@@ -158,13 +108,40 @@ class RoomsApiClientService
     public function getRoles($args): array
     {
         $roles_api = $this->getRolesApi();
-        try{
+        try {
             $roles = $roles_api->getRoles($args["account_id"]);
-        }  catch (ApiException $e) {
+        } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
         return $roles['roles'];
+    }
+
+    /**
+     * Getter for the RolesApi
+     */
+    public function getRolesApi(): RolesApi
+    {
+        return new RolesApi($this->apiClient);
+    }
+
+    /**
+     * Redirect user to the error page
+     *
+     * @param ApiException $e
+     * @return void
+     */
+    public function showErrorTemplate(ApiException $e): void
+    {
+        $body = $e->getResponseBody();
+        echo json_encode($body);
+        $GLOBALS['twig']->display(
+            'error.html',
+            [
+                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
+                'error_message' => $body->message ?? unserialize($body)->message
+            ]
+        );
     }
 
     /**
@@ -177,12 +154,21 @@ class RoomsApiClientService
         $rooms_api = $this->getRoomsApi();
         try {
             $response = $rooms_api->createRoom($args['account_id'], $room);
-        }  catch (ApiException $e) {
+        } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
         return $response;
     }
+
+    /**
+     * Getter for the RoomsApi
+     */
+    public function getRoomsApi(): RoomsApi
+    {
+        return new RoomsApi($this->apiClient);
+    }
+
     /**
      * Get list of available rooms
      *
@@ -200,6 +186,7 @@ class RoomsApiClientService
         }
         return $rooms['rooms'];
     }
+
     /**
      * Get details for specific room
      *
@@ -207,7 +194,8 @@ class RoomsApiClientService
      * @param $account_id
      * @return Room
      */
-    public function getRoom($room_id, $account_id): Room {
+    public function getRoom($room_id, $account_id): Room
+    {
         $rooms_api = $this->getRoomsApi();
         try {
             $room = $rooms_api->getRoom($room_id, $account_id);
@@ -217,13 +205,15 @@ class RoomsApiClientService
         }
         return $room;
     }
+
     /**
      * Get available Form Libraries
      *
      * @param $args
      * @return array $forms_library_summaries
      */
-    public function getFormLibraries($args): array {
+    public function getFormLibraries($args): array
+    {
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
             $form_libraries = $form_libraries_api->getFormLibraries($args['account_id']);
@@ -235,13 +225,22 @@ class RoomsApiClientService
     }
 
     /**
+     * Getter for the FormLibrariesApi
+     */
+    public function getFormLibrariesApi(): FormLibrariesApi
+    {
+        return new FormLibrariesApi($this->apiClient);
+    }
+
+    /**
      * Get available forms in specific form library
      *
      * @param $forms_library_id
      * @param $account_id
      * @return array $forms
      */
-    public function getFormLibraryForms($forms_library_id, $account_id): array {
+    public function getFormLibraryForms($forms_library_id, $account_id): array
+    {
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
             $forms = $form_libraries_api->getFormLibraryForms($forms_library_id, $account_id);
@@ -251,6 +250,7 @@ class RoomsApiClientService
         }
         return $forms['forms'];
     }
+
     /**
      * Get available document for specific room
      *
@@ -258,7 +258,8 @@ class RoomsApiClientService
      * @param $account_id
      * @return array $documents
      */
-    public function getDocuments($room_id, $account_id): array {
+    public function getDocuments($room_id, $account_id): array
+    {
         $rooms_api = $this->getRoomsApi();
         try {
             $documents = $rooms_api->getDocuments($room_id, $account_id);
@@ -272,7 +273,7 @@ class RoomsApiClientService
     /**
      * Create from groups for specific account
      *
-     * @param $account_id
+     * @param string $account_id
      * @param FormGroupForCreate $formGroup
      * @return FormGroup
      */
@@ -289,12 +290,21 @@ class RoomsApiClientService
     }
 
     /**
+     * Getter for the FormGroupsApi
+     */
+    public function getFromGroupsApi(): FormGroupsApi
+    {
+        return new FormGroupsApi($this->apiClient);
+    }
+
+    /**
      * Get from groups for specific account
      *
      * @param $account_id
      * @return array $form_groups
      */
-    public function getFormGroups($account_id): array {
+    public function getFormGroups($account_id): array
+    {
         $form_groups_api = $this->getFromGroupsApi();
         try {
             $form_groups = $form_groups_api->getFormGroups($account_id);
@@ -311,7 +321,8 @@ class RoomsApiClientService
      * @param $account_id
      * @return array $offices
      */
-    public function getOffices($account_id): array {
+    public function getOffices($account_id): array
+    {
         $offices_api = $this->getOfficesApi();
         try {
             $offices = $offices_api->getOffices($account_id);
@@ -320,5 +331,13 @@ class RoomsApiClientService
             exit;
         }
         return $offices['office_summaries'];
+    }
+
+    /**
+     * Getter for the OfficesApi
+     */
+    public function getOfficesApi(): OfficesApi
+    {
+        return new OfficesApi($this->apiClient);
     }
 }

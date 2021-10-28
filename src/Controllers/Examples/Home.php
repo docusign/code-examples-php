@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -14,8 +15,8 @@ use Example\Services\RouterService;
 class Home extends eSignBaseController
 {
     /** RouterService */
-    private RouterService $routerService;
-
+    protected RouterService $routerService;
+    const FILE = __FILE__;
     private string $eg;  # Reference (and URL) for this example
 
     /**
@@ -25,20 +26,31 @@ class Home extends eSignBaseController
      */
     public function __construct()
     {
-        if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
+        parent::__construct();
+
+        if ($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true) {
             $this->eg = 'home_rooms';
-        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true) {
+        } elseif ($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true) {
             $this->eg = 'home_click';
-        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
+        } elseif ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
             $this->eg = 'home_monitor';
         } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
             $this->eg = 'home_admin';
         } else {
             $this->eg = 'home';
         }
-        $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService);
+        if (empty($this->routerService)) {
+            $this->routerService = new RouterService();
+        }
+        parent::controller($this->eg);
     }
 
-    public function createController() {}
+    public function createController()
+    {
+    }
+
+    public function getTemplateArgs(): array
+    {
+        return [];
+    }
 }

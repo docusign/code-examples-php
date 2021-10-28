@@ -7,7 +7,10 @@ abstract class BaseController
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
-    # Save the current operation so it will be resumed after authentication
+    /**
+     * Save the current operation so it will be resumed after authentication
+     * @param string $eg
+     */
     protected function saveCurrentUrlToSession($eg)
     {
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
