@@ -1,29 +1,21 @@
 <?php
 
-
 namespace Example\Services;
 
 use Example\Controllers\Auth\DocuSign;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 
 class CodeGrantService
 {
-    /**
-     * Set flash for the current user session
-     * @param $msg string
-     */
-    public function flash(string $msg): void
-    {
-        if (! isset($_SESSION['flash'])) {$_SESSION['flash'] = [];}
-        array_push($_SESSION['flash'], $msg);
-    }
-
     /**
      * Checker for the CSRF token
      */
     function checkToken(): void
     {
-        if ( ! (isset($_POST['csrf_token']) &&
-            hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))) {
+        if (
+            !(isset($_POST['csrf_token']) &&
+            hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))
+        ) {
             # trouble!
             $this->flash('CSRF token problem!');
             header('Location: ' . $GLOBALS['app_url']);
@@ -32,18 +24,15 @@ class CodeGrantService
     }
 
     /**
-     * Get OAUTH provider
-     * @return DocuSign $provider
+     * Set flash for the current user session
+     * @param $msg string
      */
-    function get_oauth_provider(): DocuSign
+    public function flash(string $msg): void
     {
-        return new DocuSign([
-            'clientId' => $GLOBALS['DS_CONFIG']['ds_client_id'],
-            'clientSecret' => $GLOBALS['DS_CONFIG']['ds_client_secret'],
-            'redirectUri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
-            'authorizationServer' => $GLOBALS['DS_CONFIG']['authorization_server'],
-            'allowSilentAuth' => $GLOBALS['DS_CONFIG']['allow_silent_authentication']
-        ]);
+        if (!isset($_SESSION['flash'])) {
+            $_SESSION['flash'] = [];
+        }
+        array_push($_SESSION['flash'], $msg);
     }
 
     /**
@@ -58,6 +47,23 @@ class CodeGrantService
         // Redirect the user to the authorization URL.
         header('Location: ' . $authorizationUrl);
         exit;
+    }
+
+    /**
+     * Get OAUTH provider
+     * @return DocuSign $provider
+     */
+    function get_oauth_provider(): DocuSign
+    {
+        return new DocuSign(
+            [
+                'clientId' => $GLOBALS['DS_CONFIG']['ds_client_id'],
+                'clientSecret' => $GLOBALS['DS_CONFIG']['ds_client_secret'],
+                'redirectUri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
+                'authorizationServer' => $GLOBALS['DS_CONFIG']['authorization_server'],
+                'allowSilentAuth' => $GLOBALS['DS_CONFIG']['allow_silent_authentication']
+            ]
+        );
     }
 
     /**
@@ -76,9 +82,12 @@ class CodeGrantService
         } else {
             try {
                 // Try to get an access token using the authorization code grant.
-                $accessToken = $provider->getAccessToken('authorization_code', [
-                    'code' => $_GET['code']
-                ]);
+                $accessToken = $provider->getAccessToken(
+                    'authorization_code',
+                    [
+                        'code' => $_GET['code']
+                    ]
+                );
 
                 $this->flash('You have authenticated with DocuSign.');
                 // We have an access token, which we may use in authenticated
@@ -98,11 +107,11 @@ class CodeGrantService
                 $_SESSION['ds_account_id'] = $account_info["account_id"];
                 $_SESSION['ds_account_name'] = $account_info["account_name"];
                 $_SESSION['ds_base_path'] = $account_info["base_uri"] . $base_uri_suffix;
-            } catch (\League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
+            } catch (IdentityProviderException $e) {
                 // Failed to get the access token or user details.
                 exit($e->getMessage());
             }
-            if (! $redirectUrl) {
+            if (!$redirectUrl) {
                 $redirectUrl = $GLOBALS['app_url'];
             }
             header('Location: ' . $redirectUrl);

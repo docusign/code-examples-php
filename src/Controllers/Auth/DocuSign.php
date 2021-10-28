@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -102,24 +103,28 @@ class DocuSign extends AbstractProvider
      */
     public function getDefaultScopes(): array
     {
-        if($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true){
-            return [
-                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
-                . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
-            ];
-        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true){
-            return [
-                "signature click.manage click.send"
-            ];
-        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
-            return [
-                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
-            ];
-        } else {
-            return [
-                "signature"
-            ];
+        $scopes =  [];
+        if ($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true) {
+            array_push( $scopes, "room_forms", "dtr.rooms.read",  "dtr.rooms.write", "dtr.documents.read", "dtr.documents.write",
+                "dtr.profile.read", "dtr.profile.write", "dtr.company.read", "dtr.company.write");
+
         }
+
+        if ($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true) {
+            array_push( $scopes, "signature", "click.manage", "click.send");
+        }
+
+        if($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
+            array_push( $scopes, "signature", "user_write", "group_read", "organization_read", "permission_read", "user_read", "account_read", "domain_read", "identity_provider_read");
+        }
+
+        if($GLOBALS['EXAMPLES_API_TYPE']['ESignature'] == true) {
+            array_push( $scopes, "signature");
+        }
+
+        array_unique($scopes);
+
+        return [implode(" ", $scopes)];
     }
 
     /**
@@ -130,14 +135,16 @@ class DocuSign extends AbstractProvider
      * @param  string $data Parsed response data
      * @return void
      */
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (isset($data['error'])) {
-            throw new IdentityProviderException(
-                $data['error'],
-                0,
-                $response
-            );
+            if (!empty($response)) {
+                throw new IdentityProviderException(
+                    $data['error'],
+                    0,
+                    $response
+                );
+            }
         }
     }
 

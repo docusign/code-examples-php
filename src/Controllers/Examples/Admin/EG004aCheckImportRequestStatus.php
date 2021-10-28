@@ -3,6 +3,7 @@
 namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminApiBaseController;
+use Example\Services\Examples\Admin\CheckImportRequestStatusService;
 
 class EG004ACheckImportRequestStatus extends AdminApiBaseController
 {
@@ -25,13 +26,20 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
      * Check the access token and call the worker method
      * @return void
      * @throws \DocuSign\OrgAdmin\Client\ApiException
+     * @throws \DocuSign\Admin\Client\ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
+        $importId = $_SESSION['import_id'];
+        $organizationId = $this->clientService->getOrgAdminId();
         // Call the worker method
-        $results = $this->checkRequestStatus();
+        $results = CheckImportRequestStatusService::checkRequestStatus(
+            $this->clientService,
+            $organizationId,
+            $importId
+        );
 
         if ($results) {
             $this->clientService->showDoneTemplate(
@@ -42,26 +50,6 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
             );
         }
     }
-
-    /**
-     * Method to check the request status of bulk-import.
-     * @return string
-     * @throws \DocuSign\OrgAdmin\Client\ApiException
-     */
-    private function checkRequestStatus(): string
-    {
-        // create a bulk exports api instance
-        $bulkImport = $this->clientService->bulkImportsApi();
-
-        # Step 4 start
-        $importId = $_SESSION['import_id'];
-        return $bulkImport->getBulkUserImportRequest(
-            $this->clientService->getOrgAdminId($this->args),
-            $importId
-        )->__toString();
-        # Step 4 end
-    }   
-        
 
     /**
      * Get specific template arguments

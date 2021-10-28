@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -8,6 +9,7 @@
 
 namespace Example\Controllers\Auth;
 
+use Exception;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
 class DocuSignResourceOwner implements ResourceOwnerInterface
@@ -17,7 +19,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @var array
      */
-    protected $response;
+    protected array $response;
 
     /**
      * The default or selected account.
@@ -49,7 +51,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      * Creates new resource owner.
      *
      * @param array $response
-     * @throws \Exception if an account is selected but not found.
+     * @throws Exception if an account is selected but not found.
      */
     public function __construct(array $response = array())
     {
@@ -58,36 +60,31 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
 
         // Find the selected or default account
         if ($this->target_account_id) {
-            foreach ($response['accounts'] as $account_info)
-            {
-                if ($account_info['account_id'] == $this->target_account_id)
-                {
+            foreach ($response['accounts'] as $account_info) {
+                if ($account_info['account_id'] == $this->target_account_id) {
                     $this->account_info = $account_info;
                     break;
                 }
             }
             if (! $this->account_info) {
-                throw new \Exception("Targeted Account Id not found.");
+                throw new Exception("Targeted Account Id not found.");
             }
         } else {
             // Find the default account info
-            foreach ($response['accounts'] as $account_info)
-            {
-                if ($account_info['is_default'])
-                {
+            foreach ($response['accounts'] as $account_info) {
+                if ($account_info['is_default']) {
                     $this->account_info = $account_info;
                     break;
                 }
             }
         }
-
     }
     /**
      * Returns the identifier of the authorized resource owner.
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->getUserId();
     }
@@ -97,7 +94,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getUserId()
+    public function getUserId(): ?string
     {
         return $this->response['sub'] ?: null;
     }
@@ -107,7 +104,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->response['email'] ?: null;
     }
@@ -117,7 +114,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @return string|null
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->response['name'] ?: null;
     }
@@ -125,7 +122,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
     /**
      * Get selected account info
      *
-     * @return [account_id, is_default, account_name, base_url]
+     * @return array|bool|mixed [account_id, is_default, account_name, base_url]
      */
     public function getAccountInfo()
     {
@@ -138,7 +135,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function getAccounts()
+    public function getAccounts(): array
     {
         return $this->response['accounts'];
     }
@@ -148,7 +145,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
      *
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->response;
     }

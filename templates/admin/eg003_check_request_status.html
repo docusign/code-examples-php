@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>3. Check request status</h4>
+<p>
+    Check the status of your pending request and, if complete, obtain a URL that you can call to download the CSV file containing the export data.
+</p>
+
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>API method used:
+  <a target='_blank' rel='noopener noreferrer'
+     href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/'>UserExport:getUserListExport</a>.
+</p>
+
+{% if export_id == 1 %}
+  <p>
+    Uses the export information that was recieved during previous step
+  </p>
+  <form class="eg" action="" method="post">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% else %}
+  <p>
+    Problem: please first bulk export user data using <a href="{{ app_url ~ 'index.php?page=aeg002'}}">example 2</a>.<br />
+    Thank you.
+  </p>
+{% endif %}
+
+{% endblock %}

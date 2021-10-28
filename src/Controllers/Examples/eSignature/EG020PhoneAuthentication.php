@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Example 020: Phone Authentication for recipient
  */
@@ -16,21 +17,12 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use Example\Controllers\eSignBaseController;
-use Example\Services\SignatureClientService;
-use Example\Services\RouterService;
+use Example\Services\Examples\eSignature\SmsAuthenticationService;
 
 class EG020PhoneAuthentication extends eSignBaseController
 {
-    /** signatureClientService */
-    private $clientService;
-
-    /** RouterService */
-    private $routerService;
-
-    /** Specific template arguments */
-    private $args;
-
-    private $eg = "eg020";  # reference (and url) for this example
+    const EG = 'eg020'; # reference (and URL) for this example
+    const FILE = __FILE__;
 
     /**
      * Create a new controller instance.
@@ -39,10 +31,8 @@ class EG020PhoneAuthentication extends eSignBaseController
      */
     public function __construct()
     {
-        $this->args = $this->getTemplateArgs();
-        $this->clientService = new SignatureClientService($this->args);
-        $this->routerService = new RouterService();
-        parent::controller($this->eg, $this->routerService, basename(__FILE__));
+        parent::__construct();
+        parent::controller();
     }
 
     /**
@@ -50,7 +40,6 @@ class EG020PhoneAuthentication extends eSignBaseController
      * 2. Call the worker method
      *
      * @return void
-     * @throws ApiException for API problems and perhaps file access \Exception too.
      */
     public function createController(): void
     {
@@ -192,13 +181,11 @@ class EG020PhoneAuthentication extends eSignBaseController
             'signer_country_code' => $signer_country_code,
             'signer_phone_number' => $signer_phone_number,
         ];
-        $args = [
+        return [
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],
             'envelope_args' => $envelope_args
         ];
-
-        return $args;
     }
 }

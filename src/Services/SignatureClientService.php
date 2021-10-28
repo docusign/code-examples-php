@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Example\Services;
 
 use DocuSign\eSign\Api\AccountsApi;
@@ -18,12 +17,12 @@ class SignatureClientService
     /**
      * DocuSign API Client
      */
-    public $apiClient;
+    public ApiClient $apiClient;
 
     /**
      * Router Service
      */
-    public $routerService;
+    public RouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -38,18 +37,10 @@ class SignatureClientService
         # Step 2 start
         $config = new Configuration();
         $config->setHost($args['base_path']);
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);    
+        $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
-        # Step 2 end    
+        # Step 2 end
         $this->routerService = new RouterService();
-    }
-
-    /**
-     * Getter for the EnvelopesApi
-     */
-    public function getEnvelopeApi(): EnvelopesApi
-    {
-        return new EnvelopesApi($this->apiClient);
     }
 
     /**
@@ -58,22 +49,6 @@ class SignatureClientService
     public function getTemplatesApi(): TemplatesApi
     {
         return new TemplatesApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the AccountsApi
-     */
-    public function getAccountsApi(): AccountsApi
-    {
-        return new AccountsApi($this->apiClient);
-    }
-
-    /**
-     * Getter for the AccountsApi
-     */
-    public function getGroupsApi(): GroupsApi
-    {
-        return new GroupsApi($this->apiClient);
     }
 
     /**
@@ -89,13 +64,16 @@ class SignatureClientService
      */
     public function getRecipientViewRequest($authentication_method, $envelope_args): RecipientViewRequest
     {
-        return new RecipientViewRequest([
-            'authentication_method' => $authentication_method,
-            'client_user_id' => $envelope_args['signer_client_id'],
-            'recipient_id' => '1',
-            'return_url' => $envelope_args['ds_return_url'],
-            'user_name' => $envelope_args['signer_name'], 'email' => $envelope_args['signer_email']
-        ]);
+        return new RecipientViewRequest(
+            [
+                'authentication_method' => $authentication_method,
+                'client_user_id' => $envelope_args['signer_client_id'],
+                'recipient_id' => '1',
+                'return_url' => $envelope_args['ds_return_url'],
+                'user_name' => $envelope_args['signer_name'],
+                'email' => $envelope_args['signer_email']
+            ]
+        );
     }
 
     /**
@@ -104,9 +82,9 @@ class SignatureClientService
      * @param $account_id string
      * @param $envelope_id string
      * @param $recipient_view_request RecipientViewRequest
-     * @return mixed - the list of Recipient Views
+     * @return \DocuSign\eSign\Model\ViewUrl - the list of Recipient Views
      */
-    public function getRecipientView($account_id, $envelope_id, $recipient_view_request)
+    public function getRecipientView(string $account_id, string $envelope_id, RecipientViewRequest $recipient_view_request): \DocuSign\eSign\Model\ViewUrl
     {
         try {
             $envelope_api = $this->getEnvelopeApi();
@@ -115,15 +93,20 @@ class SignatureClientService
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
             if ($error_code == "WORKFLOW_UPDATE_RECIPIENTROUTING_NOT_ALLOWED") {
-                $GLOBALS['twig']->display('error_eg34.html', [
+                $GLOBALS['twig']->display(
+                    'error_eg34.html',
+                    [
                         'error_code' => $error_code,
-                        'error_message' => $error_message]
+                        'error_message' => $error_message
+                    ]
                 );
-            }
-            else {
-                $GLOBALS['twig']->display('error.html', [
+            } else {
+                $GLOBALS['twig']->display(
+                    'error.html',
+                    [
                         'error_code' => $error_code,
-                        'error_message' => $error_message]
+                        'error_message' => $error_message
+                    ]
                 );
             }
             exit;
@@ -133,17 +116,11 @@ class SignatureClientService
     }
 
     /**
-     * Redirect user to the error page
-     *
-     * @param  ApiException $e
-     * @return void
+     * Getter for the EnvelopesApi
      */
-    public function showErrorTemplate(ApiException $e): void
+    public function getEnvelopeApi(): EnvelopesApi
     {
-        $GLOBALS['twig']->display('error.html', [
-                'error_code' => $e->getCode(),
-                'error_message' => $e->getMessage()]
-        );
+        return new EnvelopesApi($this->apiClient);
     }
 
     /**
@@ -155,14 +132,17 @@ class SignatureClientService
      * @param $results
      * @return void
      */
-    public function showDoneTemplate($title, $headline, $message, $results = null): void
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
     {
-        $GLOBALS['twig']->display('example_done.html', [
-            'title' => $title,
-            'h1' => $headline,
-            'message' => $message,
-            'json' => $results
-        ]);
+        $GLOBALS['twig']->display(
+            'example_done.html',
+            [
+                'title' => $title,
+                'h1' => $headline,
+                'message' => $message,
+                'json' => $results
+            ]
+        );
         exit;
     }
 
@@ -192,10 +172,10 @@ class SignatureClientService
      * @param $template string
      * @param $title string
      * @param $eg string
-     * @param $is_ok null|array
+     * @param $is_ok array|null
      * @return void
      */
-    public function envelopeNotCreated($basename, $template, $title, $eg, $is_ok = null)
+    public function envelopeNotCreated(string $basename, string $template, string $title, string $eg, array $is_ok = null): void
     {
         $conf = [
             'title' => $title,
@@ -212,10 +192,10 @@ class SignatureClientService
     /**
      *  Get the lis of the Brands
      *
-     * @param  array $args
+     * @param array $args
      * @return array $brands
      */
-    public function getBrands($args): array
+    public function getBrands(array $args): array
     {
         # Retrieve all brands using the AccountBrands::List
         $accounts_api = $this->getAccountsApi();
@@ -230,12 +210,38 @@ class SignatureClientService
     }
 
     /**
+     * Getter for the AccountsApi
+     */
+    public function getAccountsApi(): AccountsApi
+    {
+        return new AccountsApi($this->apiClient);
+    }
+
+    /**
+     * Redirect user to the error page
+     *
+     * @param ApiException $e
+     * @return void
+     */
+    public function showErrorTemplate(ApiException $e): void
+    {
+        $body = $e->getResponseBody();
+        $GLOBALS['twig']->display(
+            'error.html',
+            [
+                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
+                'error_message' => $body->message ?? unserialize($body)->message
+            ]
+        );
+    }
+
+    /**
      *  Get the lis of the Permission Profiles
      *
-     * @param  array $args
+     * @param array $args
      * @return array $brands
      */
-    public function getPermissionsProfiles($args): array
+    public function getPermissionsProfiles(array $args): array
     {
         # Retrieve all brands using the AccountBrands::List
         $accounts_api = $this->getAccountsApi();
@@ -252,10 +258,10 @@ class SignatureClientService
     /**
      *  Get the lis of the Groups
      *
-     * @param  array $args
+     * @param array $args
      * @return array $brands
      */
-    public function getGroups($args): array
+    public function getGroups(array $args): array
     {
         # Retrieve all Groups using the GroupInformation::List
         $accounts_api = $this->getGroupsApi();
@@ -267,6 +273,14 @@ class SignatureClientService
         }
 
         return $brands['groups'];
+    }
+
+    /**
+     * Getter for the AccountsApi
+     */
+    public function getGroupsApi(): GroupsApi
+    {
+        return new GroupsApi($this->apiClient);
     }
 
     /**

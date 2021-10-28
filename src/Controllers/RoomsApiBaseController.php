@@ -2,15 +2,28 @@
 
 namespace Example\Controllers;
 
+use Example\Services\RoomsApiClientService;
 use Example\Services\RouterService;
+
 abstract class RoomsApiBaseController extends BaseController
 {
+    private const MINIMUM_BUFFER_MIN = 3;
+    protected RoomsApiClientService $clientService;
+    protected RouterService $routerService;
+    protected array $args;
+
+    public function __construct()
+    {
+        $this->args = $this->getTemplateArgs();
+        $this->clientService = new RoomsApiClientService($this->args);
+        $this->routerService = new RouterService();
+    }
+
+    abstract function getTemplateArgs(): array;
+
     /**
      * Base controller
      *
-     * @param $eg string
-     * @param $routerService RouterService
-     * @param $basename string|null
      * @param $templates array|null
      * @param $rooms array|null
      * @param $forms array|null
@@ -19,31 +32,25 @@ abstract class RoomsApiBaseController extends BaseController
      * @return void
      */
     public function controller(
-        string $eg,
-        RouterService $routerService,
-        $basename = null,
-        $templates = null,
-        $rooms = null,
-        $forms = null,
+        array $templates = null,
+        array $rooms = null,
+        array $forms = null,
         $offices = null,
         $formGroups = null
-    ): void
-    {
+    ): void {
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
-            $this->getController($eg, $routerService, $basename, $templates, $rooms, $forms, $offices, $formGroups);
-        };
+            $this->getController(basename(static::FILE), $templates, $rooms, $forms, $offices, $formGroups);
+        }
         if ($method == 'POST') {
-            $routerService->check_csrf();
+            $this->routerService->check_csrf();
             $this->createController();
-        };
+        }
     }
 
     /**
      * Show the example's form page
      *
-     * @param $eg string
-     * @param $routerService RouterService
      * @param $basename string|null
      * @param $templates array|null
      * @param $rooms array|null
@@ -53,27 +60,25 @@ abstract class RoomsApiBaseController extends BaseController
      * @return void
      */
     private function getController(
-        string $eg,
-        RouterService $routerService,
         ?string $basename,
         ?array $templates,
-        $rooms = null,
-        $forms = null,
+        array $rooms = null,
+        array $forms = null,
         $offices = null,
         $formGroups = null
     ): void
     {
-        if ($this->isHomePage($eg)){
-            $GLOBALS['twig']->display($eg . '.html', [
-                'title' => $this->homePageTitle($eg),
+        if ($this->isHomePage(static::EG)){
+            $GLOBALS['twig']->display(static::EG . '.html', [
+                'title' => $this->homePageTitle(static::EG),
                 'show_doc' => false
             ]);
        
          } else {
 
-            if ($routerService->ds_token_ok()) {
-                $GLOBALS['twig']->display($routerService->getTemplate($eg), [
-                    'title' => $routerService->getTitle($eg),
+            if ($this->routerService->ds_token_ok()) {
+                $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
+                    'title' => $this->routerService->getTitle(static::EG),
                     'templates' => $templates,
                     'rooms' => $rooms,
                     'forms' => $forms,
@@ -81,7 +86,7 @@ abstract class RoomsApiBaseController extends BaseController
                     'form_groups' => $formGroups,
                     'source_file' => $basename,
                     'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . "/Rooms/". $basename,
-                    'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $eg,
+                    'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                 ]);
             } 
@@ -89,7 +94,7 @@ abstract class RoomsApiBaseController extends BaseController
 
             
             # Save the current operation so it will be resumed after authentication
-            $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
+            $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
             exit;
             }
@@ -112,6 +117,24 @@ abstract class RoomsApiBaseController extends BaseController
             'ds_access_token' => $_SESSION['ds_access_token']
         ];
     }
-    
-    abstract function getTemplateArgs(): array;
+
+    /**
+     * Check input values using regular expressions
+     * @param $value
+     * @return string
+     */
+    protected function checkInputValues($value): string
+    {
+        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
+    }
+
+    /**
+     * Check ds
+     */
+    protected function checkDsToken()
+    {
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+            $this->clientService->needToReAuth(static::EG);
+        }
+    }
 }

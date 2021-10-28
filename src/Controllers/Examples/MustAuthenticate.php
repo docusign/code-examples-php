@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -13,7 +14,9 @@ class MustAuthenticate
     public function controller()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {$this->getController();};
+        if ($method == 'GET') {
+            $this->getController();
+        }
     }
 
     private function getController()

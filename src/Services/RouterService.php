@@ -1,33 +1,9 @@
 <?php
 
-
 namespace Example\Services;
 
 class RouterService
 {
-    /**
-     * The list of controllers for each example
-     */
-    public $authService;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // To ignore the Notice instead of Isset on missing POST vars
-        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-        $_SESSION['auth_service'] = $_POST['auth_type'];
-
-        if ($_SESSION['auth_service'] == "jwt") {
-            $this->authService = new JWTService();
-        } else {
-            $this->authService = new CodeGrantService();
-        }
-    }
-
     /**
      * The list of controllers for each example
      */
@@ -96,14 +72,13 @@ class RouterService
         'aeg004a' => 'Admin\EG004aCheckImportRequestStatus',
         'aeg005' => 'Admin\EG005AuditUsers'
     ];
-
     /**
      * The list of templates with examples
      */
     private const TEMPLATES = [
         "must_authenticate" => "must_authenticate.html",
         "ds_return" => "ds_return.html",
-        "home"  => "home.html",
+        "home" => "home.html",
         "home_rooms" => "home_rooms.html",
         "home_monitor" => "home_monitor.html",
         "home_admin" => "home_admin.html",
@@ -166,7 +141,6 @@ class RouterService
         "aeg004a" => "admin/eg004a_check_import_request_status.html",
         "aeg005" => "admin/eg005_audit_users.html"
     ];
-
     /**
      * The list of titles for each example
      */
@@ -234,21 +208,43 @@ class RouterService
         "aeg004a" => "Check the request status",
         "aeg005" => "Audit users"
     ];
+    /**
+     * The list of controllers for each example
+     */
+    public $authService;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // To ignore the Notice instead of Isset on missing POST vars
+        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+        $_SESSION['auth_service'] = $_POST['auth_type'];
+
+        if ($_SESSION['auth_service'] == "jwt") {
+            $this->authService = new JWTService();
+        } else {
+            $this->authService = new CodeGrantService();
+        }
+    }
 
     /**
      * Page router
      */
     public function router(): void
     {
-
-
         $page = $_GET['page'] ?? 'home';
 
 
         if ($page == 'home') {
-
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
+            if (
+                $GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok(
+                ) == false && !isset($_SESSION['beenHere'])
+            ) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
@@ -287,22 +283,23 @@ class RouterService
             $this->ds_logout(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_return') {
-            $GLOBALS['twig']->display('ds_return.html', [
-                'title' => 'Returned data',
-                'event' => isset($_GET['event']) ? $_GET['event'] : false,
-                'envelope_id' => isset($_GET['envelope_id']) ? $_GET['envelope_id'] : false,
-                'state' => isset($_GET['state']) ? $_GET['state'] : false
-            ]);
+            $GLOBALS['twig']->display(
+                'ds_return.html',
+                [
+                    'title' => 'Returned data',
+                    'event' => $_GET['event'] ?? false,
+                    'envelope_id' => $_GET['envelope_id'] ?? false,
+                    'state' => $_GET['state'] ?? false
+                ]
+            );
             $_SESSION['beenHere'] = true;
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-            $controller = '\Example\\' .$this->getController($page);
+            $controller = '\Example\\' . $this->getController($page);
             new $controller($page);
             exit();
-
-
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
@@ -316,11 +313,29 @@ class RouterService
      * @param int $buffer_min buffer time needed in minutes
      * @return boolean $ok true iff the user has an access token that will be good for another buffer min
      */
-    function ds_token_ok($buffer_min = 10): bool
+    function ds_token_ok(int $buffer_min = 10): bool
     {
         $ok = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
-        $ok = $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
-        return $ok;
+        return $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
+    }
+
+    /**
+     * Get Controller for the template example
+     *
+     * @param $eg
+     * @return string
+     */
+    public function getController($eg): string
+    {
+        return self::CONTROLLER[$eg];
+    }
+
+    /**
+     * DocuSign login handler
+     */
+    function ds_login(): void
+    {
+        $this->authService->login();
     }
 
     /**
@@ -333,51 +348,9 @@ class RouterService
         if (isset($_SESSION['eg'])) {
             $redirectUrl = $_SESSION['eg'];
         }
-        # JWT login shortcut since user consent was granted
-        if (isset($_SESSION['consent_set'])) {
-            unset($_SESSION['consent_set']);
-            $this->authService = new JWTService();
-            $this->ds_login();
-        }
         # reset the session
         $this->ds_logout_internal();
         $this->authService->authCallback($redirectUrl);
-    }
-
-    /**
-     * DocuSign login handler
-     */
-    function ds_login(): void
-    {
-        $this->authService->login();
-    }
-
-    /**
-     * Checker for the CSRF token
-     */
-    function check_csrf(): void
-    {
-        $this->authService->checkToken();
-    }
-
-    /**
-     * Set flash for the current user session
-     * @param $msg string
-     */
-    public function flash(string $msg): void
-    {
-        $this->authService->flash($msg);
-    }
-
-    /**
-     * DocuSign logout handler
-     */
-    function ds_logout(): void
-    {
-        $this->ds_logout_internal();
-        $this->flash('You have logged out from DocuSign.');
-        header('Location: ' . $GLOBALS['app_url']);
-        exit;
     }
 
     /**
@@ -421,27 +394,43 @@ class RouterService
         if (isset($_SESSION['template_id'])) {
             unset($_SESSION['template_id']);
         }
-
     }
 
     /**
-     * Get Controller for the template example
-     *
-     * @param $eg
-     * @return mixed
+     * DocuSign logout handler
      */
-    public function getController($eg)
+    function ds_logout(): void
     {
-        return self::CONTROLLER[$eg];
+        $this->ds_logout_internal();
+        $this->flash('You have logged out from DocuSign.');
+        header('Location: ' . $GLOBALS['app_url']);
+        exit;
+    }
+
+    /**
+     * Set flash for the current user session
+     * @param $msg string
+     */
+    public function flash(string $msg): void
+    {
+        $this->authService->flash($msg);
+    }
+
+    /**
+     * Checker for the CSRF token
+     */
+    function check_csrf(): void
+    {
+        $this->authService->checkToken();
     }
 
     /**
      * Get the template example
      *
      * @param $eg
-     * @return mixed
+     * @return string
      */
-    public function getTemplate($eg)
+    public function getTemplate($eg): string
     {
         return self::TEMPLATES[$eg];
     }
@@ -450,9 +439,9 @@ class RouterService
      * Get Controller for the template example
      *
      * @param $eg
-     * @return mixed
+     * @return string
      */
-    public function getTitle($eg)
+    public function getTitle($eg): string
     {
         return self::TITLES[$eg];
     }

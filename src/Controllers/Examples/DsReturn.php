@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: larry.kluger
@@ -13,10 +14,7 @@ use Example\Services\RouterService;
 
 class DsReturn extends BaseController
 {
-    /** RouterService */
-    private $routerService;
-
-    private $eg = "ds_return";  # Reference (and URL) for this example
+    private RouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -26,7 +24,7 @@ class DsReturn extends BaseController
     public function __construct()
     {
         $this->routerService = new RouterService();
-        $this->getController($this->eg, $this->routerService);
+        $this->getController();
     }
 
     /**
@@ -34,6 +32,11 @@ class DsReturn extends BaseController
      *
      * @return void
      */
-    public function getController() {}
-    public function createController() {}
+    public function getController(): void
+    {
+    }
+    
+    public function createController()
+    {
+    }
 }

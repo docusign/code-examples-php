@@ -68,17 +68,12 @@ class AdminApiClientService
     /**
     * Get product permission profiles
     */
-
     public function permProfilesApi(): ProductPermissionProfilesApi
     {
         return new ProductPermissionProfilesApi($this->apiClient);
         
     }
     
-
-    
-
-
     /**
     * Get Org Admin Id
     *
@@ -96,7 +91,6 @@ class AdminApiClientService
     /**
     * Get product Admin Groups
     */
-
     public function adminGroupsApi(): DSGroupsApi
     {
         return new DSGroupsApi($this->apiClient);
@@ -112,7 +106,6 @@ class AdminApiClientService
         return new BulkExportsApi($this->apiClient);
     }
      
-    
     /**
      * Get Bulk Imports API
      */
@@ -121,7 +114,6 @@ class AdminApiClientService
     {
         return new BulkImportsApi($this->apiClient);
     }
-
 
     /**
      * Redirect user to the auth page
@@ -141,6 +133,7 @@ class AdminApiClientService
         header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
         exit;
     }
+
     /**
      * Redirect user to the error page
      *
