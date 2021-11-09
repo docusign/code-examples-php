@@ -10,7 +10,7 @@ $DS_CONFIG = [
     'signer_name' => '{SIGNER_NAME}',
     'app_url' => 'http://localhost:8080/public', // The url of the application.
     // Ie, the user enters  app_url in their browser to bring up the app's home page
-    // Eg http://localhost/code-examples-php/public if the app is installed in a
+    // Eg http://localhost/code-examples-php/public (no trailing slash) if the app is installed in a
     // development directory that is accessible via web server.
     // NOTE => You must add a Redirect URI of app_url/index.php?page=ds_callback to your Integration Key.
     'authorization_server' => 'https://account-d.docusign.com',
