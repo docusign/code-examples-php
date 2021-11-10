@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\AddFormsToRoomService;
 
 class EG004AddFormsToRoom extends RoomsApiBaseController
 {
-
     const EG = 'reg004'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -49,15 +48,15 @@ class EG004AddFormsToRoom extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = AddFormsToRoomService::addFormsToRoom($this->args, $this->clientService);
+        $roomsDocument = AddFormsToRoomService::addFormsToRoom($this->args, $this->clientService);
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($roomsDocument) {
+            $roomsDocument = json_decode((string)$roomsDocument, true);
             $this->clientService->showDoneTemplate(
                 "Add a form to a room",
                 "The DocuSign Form was successfully added to the room",
                 "Results from the Rooms::AddFormToRoom method",
-                json_encode(json_encode($results))
+                json_encode(json_encode($roomsDocument))
             );
         }
     }

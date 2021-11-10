@@ -39,12 +39,12 @@ class EG005GetClickwrapResponses extends ClickApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = GetClickwrapResponseService::getClickwrapResponse($this->args, $this->clientService);
+        $clickwrapResponse = GetClickwrapResponseService::getClickwrapResponse($this->args, $this->clientService);
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($clickwrapResponse) {
+            $clickwrapResponse = json_decode((string)$clickwrapResponse, true);
             array_walk_recursive(
-                $results,
+                $clickwrapResponse,
                 function (&$v) {
                     if (gettype($v) == 'string' && strlen($v) > 500) {
                         $v = 'String (Length = ' . strlen($v) . ')..';
@@ -55,7 +55,7 @@ class EG005GetClickwrapResponses extends ClickApiBaseController
                 "Get clickwrap responses",
                 "Get clickwrap responses",
                 "Results from the ClickWraps::getClickwrap method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($clickwrapResponse))
             );
         }
     }

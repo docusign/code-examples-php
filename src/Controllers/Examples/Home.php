@@ -45,7 +45,7 @@ class Home extends eSignBaseController
         parent::controller($this->eg);
     }
 
-    public function createController()
+    public function createController(): void
     {
     }
 

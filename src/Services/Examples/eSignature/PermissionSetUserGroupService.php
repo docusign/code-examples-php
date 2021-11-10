@@ -20,7 +20,6 @@ class PermissionSetUserGroupService
     # ***DS.snippet.0.start
     public static function permissionSetUserGroup(array $args, $clientService): string
     {
-
         # Step 3. Construct your request body
         $groups_api = $clientService->getGroupsApi();
         $group = new Group($args['permission_args']);
@@ -28,7 +27,7 @@ class PermissionSetUserGroupService
 
         try {
             # Step 4. call the eSignature REST API
-            $results = $groups_api->updateGroups(
+            $updatedGroups = $groups_api->updateGroups(
                 $args['account_id'],
                 $group_information
             );
@@ -37,7 +36,7 @@ class PermissionSetUserGroupService
             exit;
         }
 
-        return $results;
+        return $updatedGroups;
     }
     # ***DS.snippet.0.end
 }

@@ -45,7 +45,7 @@ class BulkSendEnvelopesService
         $bulk_list_id = $bulk_list["list_id"];
 
         # Step 4. Create an envelope
-        $envelope_definition = BulkSendEnvelopesService::make_draft_envelope($demoDocsPath);
+        $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath);
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
 
@@ -96,7 +96,7 @@ class BulkSendEnvelopesService
 
         // # Add the tabs model (including the sign_here tab) to the signer
         // # The Tabs object takes arrays of the different field/tab types
-        $signer->setTabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
+        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
 
         $cc = new Signer(
             [
@@ -112,7 +112,7 @@ class BulkSendEnvelopesService
             ]
         );
 
-        $recipients = new Recipients(['signers' => [$signer], 'carbon_copies'=>[$cc]]);
+        $recipients = new Recipients(['signers' => [$signer, $cc]]);
         $envelope_api->createRecipient($args['account_id'], $envelope_id, $recipients);
 
         # Step 7. Initiate bulk send
@@ -127,7 +127,7 @@ class BulkSendEnvelopesService
         # Step 8. Confirm successful batch send
         # Exceptions will be caught by the calling function
         try {
-            $results = $bulk_envelopes_api->getBulkSendBatchStatus(
+            $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatus(
                 $args['account_id'],
                 $batch['batch_id']
             );
@@ -136,7 +136,7 @@ class BulkSendEnvelopesService
             exit;
         }
 
-        return $results;
+        return $bulkSendBatchStatus;
     }
 
     /**
@@ -196,7 +196,7 @@ class BulkSendEnvelopesService
      * @param string $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_draft_envelope(string $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(string $demoDocsPath): EnvelopeDefinition
     {
         # Document 1 (PDF) has tag /sn1/
         #
@@ -222,29 +222,11 @@ class BulkSendEnvelopesService
             [ # The signer
                 'email' => "multiBulkRecipients-signer@docusign.com",
                 'name' => "Multi Bulk Recipient::signer",
-                'role_name' => "signer",
                 'recipient_id' => "1",
                 'routing_order' => "1",
-                'status'=> "created",
-                "delivery_method" => "email",
-                "recipient_type" => "signer"
             ]
         );
 
-        $cc = new Signer(
-            [ # The signer
-            'email' => "multiBulkRecipients-cc@docusign.com",
-            'name' => "Multi Bulk Recipient::cc",
-            'recipient_id' => "1",
-            'routing_order' => "1",
-            'role_name' => "cc",
-            'recipient_id' => "2",
-            'routing_order' => "1",
-            'status'=> "created",
-            "delivery_method" => "email",
-            "recipient_type" => "signer"
-        ]
-    );
         // # Create a SignHere tab (field on the document)
         $sign_here = new SignHere(
             [
@@ -258,7 +240,7 @@ class BulkSendEnvelopesService
 
         // # Add the tabs model (including the sign_here tab) to the signer
         // # The Tabs object takes arrays of the different field/tab types
-        $signer->setTabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
+        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
 
         # Next, create the top-level envelope definition and populate it
         $envelope_definition = new EnvelopeDefinition(
@@ -266,14 +248,9 @@ class BulkSendEnvelopesService
                 'email_subject' => "Please sign this document sent from the PHP SDK",
                 'documents' => [$document],
                 # The Recipients object takes arrays for each recipient type
-                'status' => "created", # Requests that the envelope be created and sent
-                'envelope_id_stamping' => "true"
+                'status' => "created" # Requests that the envelope be created and sent
             ]
         );
-
-        $envelope_definition->setRecipients([
-            "signers" => [$signer], "carbon_copies"=>[$cc]
-        ]);
 
         return $envelope_definition;
     }

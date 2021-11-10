@@ -37,11 +37,11 @@ class EG006EnvelopeDocs extends eSignBaseController
         $envelope_id = $this->args['envelope_id'];
         if ($envelope_id) {
             # 2. Call the worker method
-            $results = EnvelopeDocsService::envelopeDocs($this->args, $this->clientService);
+            $envelopeDocumentsResult = EnvelopeDocsService::envelopeDocs($this->args, $this->clientService);
 
-            if ($results) {
+            if ($envelopeDocumentsResult) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
+                $envelopeDocumentsResult = json_decode((string)$envelopeDocumentsResult, true);
 
                 # Save the envelope_id and its list of documents in the session so
                 # they can be used in example 7 (download a document)
@@ -59,14 +59,14 @@ class EG006EnvelopeDocs extends eSignBaseController
                     }
                     return $new;
                 };
-                $envelope_doc_items = array_map($map_documents, $results['envelopeDocuments']);
+                $envelope_doc_items = array_map($map_documents, $envelopeDocumentsResult['envelopeDocuments']);
                 $documents = array_merge($standard_doc_items, $envelope_doc_items);
                 $_SESSION['envelope_documents'] = ['envelope_id' => $envelope_id, 'documents' => $documents]; # Save
                 $this->clientService->showDoneTemplate(
                     "Envelope documents list",
                     "List the envelope's documents",
                     "Results from the EnvelopeDocuments::list method:",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($envelopeDocumentsResult))
                 );
             }
         } else {

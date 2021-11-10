@@ -7,7 +7,6 @@ use Example\Services\Examples\Admin\CheckImportRequestStatusService;
 
 class EG004ACheckImportRequestStatus extends AdminApiBaseController
 {
-
     const EG = 'aeg004a'; # reference (and url) for this example
 
     const FILE = __FILE__;
@@ -35,18 +34,18 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
         $importId = $_SESSION['import_id'];
         $organizationId = $this->clientService->getOrgAdminId();
         // Call the worker method
-        $results = CheckImportRequestStatusService::checkRequestStatus(
+        $importRequestStatus = CheckImportRequestStatusService::checkRequestStatus(
             $this->clientService,
             $organizationId,
             $importId
         );
 
-        if ($results) {
+        if ($importRequestStatus) {
             $this->clientService->showDoneTemplate(
                 "Check import request status",
                 "Admin API data response output:",
                 "Results from UserImport:getBulkUserImportRequest method:",
-                json_encode($results)
+                json_encode($importRequestStatus)
             );
         }
     }

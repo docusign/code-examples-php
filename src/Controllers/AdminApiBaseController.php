@@ -92,7 +92,7 @@ abstract class AdminApiBaseController extends BaseController
     /**
      * Check ds
      */
-    protected function checkDsToken()
+    protected function checkDsToken(): void
     {
         if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
             $this->clientService->needToReAuth(static::EG);
@@ -102,7 +102,7 @@ abstract class AdminApiBaseController extends BaseController
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-    abstract function createController();
+    abstract function createController(): void;
 
     /**
      * @return array

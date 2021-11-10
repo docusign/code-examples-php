@@ -78,7 +78,7 @@ class SendBinaryDocsService
         # using Guzzle https://guzzle.readthedocs.io/en/latest/index.html
         $client = new Client();
         $uri = "{$args['base_path']}/v2.1/accounts/{$args['account_id']}/envelopes";
-        $results = $client->request('POST', $uri, [
+        $responseInterface = $client->request('POST', $uri, [
             'headers' => [
                 'Authorization' => "bearer {$args['ds_access_token']}",
                 'Accept' => 'application/json',
@@ -86,9 +86,9 @@ class SendBinaryDocsService
             ],
             'body' => $req_body
         ]);
-        $json_results = json_decode((string)$results->getBody());
+        $responseInterfaceToJson = json_decode((string)$responseInterface->getBody());
 
-        return ['envelope_id' => $json_results->envelope_id];
+        return ['envelope_id' => $responseInterfaceToJson->envelope_id];
     }
 
     /**

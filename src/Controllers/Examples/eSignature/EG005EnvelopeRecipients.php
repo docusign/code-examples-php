@@ -37,15 +37,15 @@ class EG005EnvelopeRecipients extends eSignBaseController
         $envelope_id = $this->args['envelope_id'];
         if ($envelope_id) {
             # 2. Call the worker method
-            $results = EnvelopeRecipientsService::envelopeRecipients($this->args, $this->clientService);
-            if ($results) {
+            $recipients = EnvelopeRecipientsService::envelopeRecipients($this->args, $this->clientService);
+            if ($recipients) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
+                $recipients = json_decode((string)$recipients, true);
                 $this->clientService->showDoneTemplate(
                     "Envelope recipients results",
                     "List the envelope's recipients and their status",
                     "Results from the EnvelopesRecipients::list method:",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($recipients))
                 );
             }
         } else {

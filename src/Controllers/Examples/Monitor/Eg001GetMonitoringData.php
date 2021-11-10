@@ -8,7 +8,6 @@ use Example\Services\JWTService;
 
 class Eg001GetMonitoringData extends MonitorBaseController
 {
-
     const EG = 'meg001'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -39,14 +38,14 @@ class Eg001GetMonitoringData extends MonitorBaseController
             $auth->login();
         } else {
             // Call the worker method
-            $results = GetMonitoringDataService::getMonitoringData($this->clientService);
+            $monitoringData = GetMonitoringDataService::getMonitoringData($this->clientService);
 
-            if ($results) {
+            if ($monitoringData) {
                 $this->clientService->showDoneTemplate(
                     "Monitoring data",
                     "Monitoring data result",
                     "Results from DataSet:GetStream method:",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($monitoringData))
                 );
             }
         }

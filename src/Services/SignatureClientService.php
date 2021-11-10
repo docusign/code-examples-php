@@ -88,7 +88,7 @@ class SignatureClientService
     {
         try {
             $envelope_api = $this->getEnvelopeApi();
-            $results = $envelope_api->createRecipientView($account_id, $envelope_id, $recipient_view_request);
+            $viewUrl = $envelope_api->createRecipientView($account_id, $envelope_id, $recipient_view_request);
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
@@ -112,7 +112,7 @@ class SignatureClientService
             exit;
         }
 
-        return $results;
+        return $viewUrl;
     }
 
     /**

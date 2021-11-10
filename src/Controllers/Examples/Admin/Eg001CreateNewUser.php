@@ -3,11 +3,6 @@
 namespace Example\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use DocuSign\Admin\Model\GroupRequest;
-use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
-use DocuSign\Admin\Model\NewUserRequestAccountProperties;
-use DocuSign\Admin\Model\NewUserResponse;
-use DocuSign\Admin\Model\PermissionProfileRequest;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\SignatureClientService;
 use Example\Services\Examples\Admin\CreateNewUserService;
@@ -60,18 +55,18 @@ class EG001CreateNewUser extends AdminApiBaseController
 
         // Call the worker method
         $args = $this->getTemplateArgs();
-        $results = CreateNewUserService::addActiveUser(
+        $newUserResponse = CreateNewUserService::addActiveUser(
             $this->orgId,
             $args["envelope_args"],
             $this->clientService
         );
 
-        if ($results) {
+        if ($newUserResponse) {
             $this->clientService->showDoneTemplate(
                 "Create a new active eSignature user",
                 "Create a new active eSignature user",
                 "Results from eSignUserManagement:createUser method:",
-                json_encode(($results->__toString()))
+                json_encode(($newUserResponse->__toString()))
             );
         }
     }

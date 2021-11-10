@@ -23,16 +23,16 @@ class EmbeddedSendingService
         # 1. Create the envelope as a draft using eg002's worker
         # Exceptions will be caught by the calling function
         $args['envelope_args']['status'] = 'created';
-        $results = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath);
-        $envelope_id = $results['envelope_id'];
+        $demoDocsPath = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath);
+        $envelope_id = $demoDocsPath['envelope_id'];
 
         # 2. Create sender view
         $view_request = new ReturnUrlRequest(['return_url' => $args['ds_return_url']]);
         $envelope_api = $clientService->getEnvelopeApi();
-        $results = $envelope_api->createSenderView($args['account_id'], $envelope_id, $view_request);
+        $senderView = $envelope_api->createSenderView($args['account_id'], $envelope_id, $view_request);
 
         # Switch to the Recipients / Documents view if requested by the user in the form
-        $url = $results['url'];
+        $url = $senderView['url'];
         if ($args['starting_view'] == "recipient") {
             $url = str_replace('send=1', 'send=0', $url);
         }

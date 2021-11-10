@@ -1,18 +1,17 @@
 <?php
 
 /**
- * Example 010: Send binary docs with multipart mime: Remote signer, cc; the envelope has three documents
+ * Example 002: Remote signer, cc, envelope has three documents
  */
 
 namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SendBinaryDocsService;
-use GuzzleHttp\Exception\GuzzleException;
+use Example\Services\Examples\eSignature\SmsAuthenticationService;
 
-class EG010SendBinaryDocs extends eSignBaseController
+class EG020SmsAuthentication extends eSignBaseController
 {
-    const EG = 'eg010'; # reference (and URL) for this example
+    const EG = 'eg020'; # reference (and URL) for this example
     const FILE = __FILE__;
 
     /**
@@ -31,24 +30,22 @@ class EG010SendBinaryDocs extends eSignBaseController
      * 2. Call the worker method
      *
      * @return void
-     * @throws GuzzleException
      */
     public function createController(): void
     {
+        # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
-        # 2. Call the worker method
-        # More data validation would be a good idea here
-        # Strip anything other than characters listed
-        $envelopeId = SendBinaryDocsService::sendBinaryDocs($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
 
-        if ($envelopeId) {
-            $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
-                                                                # which need an envelope_id
+        $envelopeAuthentification = SmsAuthenticationService::smsAuthentication($this->args, $this->clientService);
+
+        if ($envelopeAuthentification) {
+            $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
+            # which need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Envelope sent",
                 "Envelope sent",
                 "The envelope has been created and sent!<br/>
-                    Envelope ID {$envelopeId["envelope_id"]}."
+                    Envelope ID {$envelopeAuthentification["envelope_id"]}."
             );
         }
     }
@@ -63,8 +60,6 @@ class EG010SendBinaryDocs extends eSignBaseController
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
-            'cc_email' => $this->checkEmailInputValue($_POST['cc_email']),
-            'cc_name' => $this->checkInputValues($_POST['cc_name']),
         ];
         return [
             'account_id' => $_SESSION['ds_account_id'],

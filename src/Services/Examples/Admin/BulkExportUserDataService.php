@@ -34,11 +34,11 @@ class BulkExportUserDataService
         sleep(15);
 
         # Step 4 start
-        $result = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
+        $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
         # Step 4 end
 
         # Step 5 start
-        $csvUri = $result->getResults()[0]->getUrl();
+        $csvUri = $organizationExportResponse->getResults()[0]->getUrl();
 
         $client = new Client();
         $client->request(
@@ -55,10 +55,10 @@ class BulkExportUserDataService
         );
         # Step 5 end
 
-        if ($result->getResults() !== null) {
-            $_SESSION['export_id'] = strval($result->getResults()[0]->getId());
+        if ($organizationExportResponse->getResults() !== null) {
+            $_SESSION['export_id'] = strval($organizationExportResponse->getResults()[0]->getId());
         }
-        $result = $bulkExportsApi->getUserListExports($organizationId);
-        return json_decode($result->__toString());
+        $organizationExportResponse = $bulkExportsApi->getUserListExports($organizationId);
+        return json_decode($organizationExportResponse->__toString());
     }
 }

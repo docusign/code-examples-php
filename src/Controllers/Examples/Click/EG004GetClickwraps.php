@@ -31,15 +31,15 @@ class EG004GetClickwraps extends ClickApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = GetClickwrapsService::getClickwraps($this->args, $this->clientService);
+        $clickwrapResponse = GetClickwrapsService::getClickwraps($this->args, $this->clientService);
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($clickwrapResponse) {
+            $clickwrapResponse = json_decode((string)$clickwrapResponse, true);
             $this->clientService->showDoneTemplate(
                 "Get a list of clickwraps",
                 "Get a list of clickwraps",
                 "Results from the ClickWraps::getClickwraps method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($clickwrapResponse))
             );
         }
     }

@@ -37,16 +37,16 @@ class EG018EnvelopeCustomFieldData extends eSignBaseController
         $envelope_id = $this->args['envelope_id'];
         if ($envelope_id) {
             # 2. Call the worker method
-            $results = EnvelopeCustomFieldDataService::envelopeCustomFieldData($this->args, $this->clientService);
+            $customFieldEnvelope = EnvelopeCustomFieldDataService::envelopeCustomFieldData($this->args, $this->clientService);
 
-            if ($results) {
+            if ($customFieldEnvelope) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
+                $customFieldEnvelope = json_decode((string)$customFieldEnvelope, true);
                 $this->clientService->showDoneTemplate(
                     "Envelope status results",
                     "Envelope status results",
                     "Results from the Envelopes::get method:",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($customFieldEnvelope))
                 );
             }
         } else {

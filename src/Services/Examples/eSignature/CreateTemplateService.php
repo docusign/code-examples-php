@@ -38,27 +38,26 @@ class CreateTemplateService
         $templates_api = $clientService->getTemplatesApi();
         $options = new ListTemplatesOptions();
         $options->setSearchText($template_name);
-        $results = $templates_api->listTemplates($args['account_id'], $options);
+        $templatesListResponse = $templates_api->listTemplates($args['account_id'], $options);
 
-        if ($results['result_set_size'] > 0) {
-            $template_id = $results['envelope_templates'][0]['template_id'];
-            $results_template_name = $results['envelope_templates'][0]['name'];
+        if ($templatesListResponse['result_set_size'] > 0) {
+            $template_id = $templatesListResponse['envelope_templates'][0]['template_id'];
+            $results_template_name = $templatesListResponse['envelope_templates'][0]['name'];
         } else {
             # Template not found -- so create it
             # Step 2 create the template
             $template_req_object = CreateTemplateService::make_template_req($template_name, $demoDocsPath);
-            $results = $templates_api->createTemplate($args['account_id'], $template_req_object);
-            $template_id = $results['template_id'];
-            $results_template_name = $results['name'];
+            $templatesListResponse = $templates_api->createTemplate($args['account_id'], $template_req_object);
+            $template_id = $templatesListResponse['template_id'];
+            $results_template_name = $templatesListResponse['name'];
         }
 
         return [
             'template_id' => $template_id,
             'template_name' => $results_template_name,
-            'created_new_template' => !($results['result_set_size'] > 0)
+            'created_new_template' => !($templatesListResponse['result_set_size'] > 0)
         ];
     }
-
 
     /**
      * Create a template request object

@@ -7,7 +7,6 @@ use DocuSign\eSign\Model\Envelope;
 
 class EnvelopeInfoService
 {
-
     /**
      * Do the work of the example
      * 1. Get the envelope's data
@@ -23,13 +22,13 @@ class EnvelopeInfoService
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         try {
-            $results = $envelope_api->getEnvelope($args['account_id'], $args['envelope_id']);
+            $envelopeId = $envelope_api->getEnvelope($args['account_id'], $args['envelope_id']);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $results;
+        return $envelopeId;
     }
     # ***DS.snippet.0.end
 }

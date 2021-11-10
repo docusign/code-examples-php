@@ -67,7 +67,7 @@ class DocuSignResourceOwner implements ResourceOwnerInterface
                 }
             }
             if (! $this->account_info) {
-                throw new Exception("Targeted Account Id not found.");
+                throw new Exception("Targeted Account with Id{$this->target_account_id} not found.");
             }
         } else {
             // Find the default account info

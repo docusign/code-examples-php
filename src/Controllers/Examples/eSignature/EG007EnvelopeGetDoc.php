@@ -40,15 +40,15 @@ class EG007EnvelopeGetDoc extends eSignBaseController
             # Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
-            $results = EnvelopeGetDocService::envelopeGetDoc($this->args, $this->clientService);
+            $docNameAndData = EnvelopeGetDocService::envelopeGetDoc($this->args, $this->clientService);
 
-            if ($results) {
+            if ($docNameAndData) {
                 # See https://stackoverflow.com/a/27805443/64904
-                header("Content-Type: {$results['mimetype']}");
-                header("Content-Disposition: attachment; filename=\"{$results['doc_name']}\"");
+                header("Content-Type: {$docNameAndData['mimetype']}");
+                header("Content-Disposition: attachment; filename=\"{$docNameAndData['doc_name']}\"");
                 ob_clean();
                 flush();
-                $file_path = $results['data']->getPathname();
+                $file_path = $docNameAndData['data']->getPathname();
                 readfile($file_path);
                 exit();
             }

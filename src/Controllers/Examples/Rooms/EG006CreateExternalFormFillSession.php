@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\CreateExternalFormFillSessionService;
 
 class EG006CreateExternalFormFillSession extends RoomsApiBaseController
 {
-
     const EG = "reg006"; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -81,18 +80,18 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                 ]
             );
         } else {
-            $results = CreateExternalFormFillSessionService::createExternalFormFillSession(
+            $createExternalFormResponse = CreateExternalFormFillSessionService::createExternalFormFillSession(
                 $this->args,
                 $this->clientService
             );
 
-            if ($results) {
-                $results = json_decode((string)$results, true);
+            if ($createExternalFormResponse) {
+                $createExternalFormResponse = json_decode((string)$createExternalFormResponse, true);
                 $this->clientService->showDoneTemplate(
                     "Create an external form fill session",
                     "Create an external form fill session",
                     "Results of Rooms::createExternalFormFillSession",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($createExternalFormResponse))
                 );
             }
         }

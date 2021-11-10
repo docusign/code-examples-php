@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\CreateRoomWithTemplatesService;
 
 class EG002CreateRoomWithTemplate extends RoomsApiBaseController
 {
-
     const EG = 'reg002'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -38,21 +37,20 @@ class EG002CreateRoomWithTemplate extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = CreateRoomWithTemplatesService::createRoomWithTemplates($this->args, $this->clientService);
+        $room = CreateRoomWithTemplatesService::createRoomWithTemplates($this->args, $this->clientService);
 
-        if ($results) {
-            $room_name = $results['name'];
-            $room_id = $results['room_id'];
-            $results = json_decode((string)$results, true);
+        if ($room) {
+            $room_name = $room['name'];
+            $room_id = $room['room_id'];
+            $room = json_decode((string)$room, true);
             $this->clientService->showDoneTemplate(
                 "Creating a room with a template",
                 "Creating a room with a template",
                 "Room $room_name has been created!<BR>Room ID: $room_id",
-                json_encode(json_encode($results))
+                json_encode(json_encode($room))
             );
         }
     }
-
 
     /**
      * Get specific template arguments

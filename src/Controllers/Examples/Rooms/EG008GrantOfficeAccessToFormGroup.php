@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\GrantOfficeAccessToFormGroupService;
 
 class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
 {
-
     const EG = 'reg008'; # reference (and URL) for this example
     const FILE = __FILE__;
 

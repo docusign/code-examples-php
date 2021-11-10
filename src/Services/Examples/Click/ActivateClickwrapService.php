@@ -11,7 +11,6 @@ use Example\Services\RouterService;
 
 class ActivateClickwrapService
 {
-
     /**
      * @param  $args array
      * @param ClickApiClientService $clientService
@@ -41,7 +40,6 @@ class ActivateClickwrapService
 
         return $response;
     }
-
 
     public static function getInactiveClickwraps(
         RouterService $routerService,

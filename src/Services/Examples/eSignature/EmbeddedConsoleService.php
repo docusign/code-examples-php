@@ -29,8 +29,8 @@ class EmbeddedConsoleService
 
         # 2. Call the API method
         $envelope_api = $clientService->getEnvelopeApi();
-        $results = $envelope_api->createConsoleView($args['account_id'], $view_request);
-        $url = $results['url'];
+        $consoleView = $envelope_api->createConsoleView($args['account_id'], $view_request);
+        $url = $consoleView['url'];
 
         return ['redirect_url' =>  $url];
     }

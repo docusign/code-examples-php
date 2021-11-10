@@ -31,17 +31,17 @@ class EG001CreateRoomWithData extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = CreateRoomsWithDataService::createRoomsWithData($this->args, $this->clientService);
+        $room = CreateRoomsWithDataService::createRoomsWithData($this->args, $this->clientService);
 
-        if ($results) {
-            $room_name = $results['name'];
-            $room_id = $results['room_id'];
-            $results = json_decode((string)$results, true);
+        if ($room) {
+            $room_name = $room['name'];
+            $room_id = $room['room_id'];
+            $room = json_decode((string)$room, true);
             $this->clientService->showDoneTemplate(
                 "Creating a room with data",
                 "Creating a room with data",
                 "Room $room_name has been created!<BR>Room ID: $room_id",
-                json_encode(json_encode($results))
+                json_encode(json_encode($room))
             );
         }
     }

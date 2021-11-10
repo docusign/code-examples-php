@@ -21,12 +21,12 @@ class GetClickwrapsService
             # Step 3 Start
             $accountsApi = $clientService->accountsApi();
             $options = new GetClickwrapsOptions();
-            $results = $accountsApi->getClickwraps($args['account_id'], $options);
+            $clickwrapVersionsResponse = $accountsApi->getClickwraps($args['account_id'], $options);
             # Step 3 End
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        return $results;
+        return $clickwrapVersionsResponse;
     }
 }

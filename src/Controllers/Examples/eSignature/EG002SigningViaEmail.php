@@ -43,15 +43,15 @@ class EG002SigningViaEmail extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = SigningViaEmailService::signingViaEmail($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeResponse = SigningViaEmailService::signingViaEmail($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
 
-        if ($results) {
-            $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
+        if ($envelopeResponse) {
+            $_SESSION["envelope_id"] = $envelopeResponse["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Envelope sent",
                 "Envelope sent",
-                "The envelope has been created and sent!<br/> Envelope ID {$results["envelope_id"]}."
+                "The envelope has been created and sent!<br/> Envelope ID {$envelopeResponse["envelope_id"]}."
             );
         }
     }

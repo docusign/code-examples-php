@@ -37,14 +37,14 @@ class EG012EmbeddedConsole extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = EmbeddedConsoleService::embeddedConsole($this->args, $this->clientService);
+        $redirectUrl = EmbeddedConsoleService::embeddedConsole($this->args, $this->clientService);
 
-        if ($results) {
+        if ($redirectUrl) {
             # Redirect the user to the NDSE view
             # Don't use an iFrame!
             # State can be stored/recovered using the framework's session or a
             # query parameter on the returnUrl
-            header('Location: ' . $results["redirect_url"]);
+            header('Location: ' . $redirectUrl["redirect_url"]);
             exit;
         }
     }

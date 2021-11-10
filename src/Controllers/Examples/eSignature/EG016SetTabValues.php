@@ -40,17 +40,17 @@ class EG016SetTabValues extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = SetTabValuesService::setTabValues($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
+        $envelopeResponse = SetTabValuesService::setTabValues($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
 
-        if ($results) {
-            $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
+        if ($envelopeResponse) {
+            $_SESSION["envelope_id"] = $envelopeResponse["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
 
             # Redirect the user to the embedded signing
             # Don't use an iFrame!
             # State can be stored/recovered using the framework's session or a
             # query parameter on the returnUrl (see the makerecipient_view_request method)
-            header('Location: ' . $results["redirect_url"]);
+            header('Location: ' . $envelopeResponse["redirect_url"]);
             exit;
         }
     }
