@@ -2,7 +2,6 @@
 
 namespace Example\Services\Examples\Admin;
 
-use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserResponse;

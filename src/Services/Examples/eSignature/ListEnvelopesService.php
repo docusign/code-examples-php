@@ -32,13 +32,13 @@ class ListEnvelopesService
         $options = new ListStatusChangesOptions();
         $options->setFromDate($from_date);
         try {
-            $results = $envelope_api->listStatusChanges($args['account_id'], $options);
+            $statusChanges = $envelope_api->listStatusChanges($args['account_id'], $options);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $results;
+        return $statusChanges;
     }
     # ***DS.snippet.0.end
 }

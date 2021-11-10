@@ -46,8 +46,6 @@ class EG034UseConditionalRecipients extends eSignBaseController
         }
     }
 
-
-
     /**
      * Get specific template arguments
      *

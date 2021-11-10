@@ -52,9 +52,7 @@ class AdminApiClientService
      */
     public function getAccountsApi(): AccountsApi
     {
-
         return new AccountsApi($this->apiClient);
-        
     }
 
     /**
@@ -71,7 +69,6 @@ class AdminApiClientService
     public function permProfilesApi(): ProductPermissionProfilesApi
     {
         return new ProductPermissionProfilesApi($this->apiClient);
-        
     }
     
     /**
@@ -94,7 +91,6 @@ class AdminApiClientService
     public function adminGroupsApi(): DSGroupsApi
     {
         return new DSGroupsApi($this->apiClient);
-        
     }
     
     /**

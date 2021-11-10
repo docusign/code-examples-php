@@ -7,7 +7,6 @@ use Example\Services\Examples\Click\CreateClickwrapService;
 
 class EG001CreateClickwrap extends ClickApiBaseController
 {
-
     const EG = 'ceg001'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -32,16 +31,19 @@ class EG001CreateClickwrap extends ClickApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = CreateClickwrapService::createClickwrap($this->args, self::DEMO_DOCS_PATH, $this->clientService);
+        $clickwrapSummaryResponse = CreateClickwrapService::createClickwrap(
+            $this->args, 
+            self::DEMO_DOCS_PATH, 
+            $this->clientService);
 
-        if ($results) {
-            $clickwrap_name = $results['clickwrapName'];
-            $results = json_decode((string)$results, true);
+        if ($clickwrapSummaryResponse) {
+            $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
+            $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplate(
                 "Creating a clickwrap example",
                 "Creating a clickwrap example",
                 "Clickwrap $clickwrap_name has been created!",
-                json_encode(json_encode($results))
+                json_encode(json_encode($clickwrapSummaryResponse))
             );
         }
     }

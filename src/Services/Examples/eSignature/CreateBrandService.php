@@ -28,7 +28,7 @@ class CreateBrandService
 
         try {
             # Step 4 Call the eSignature REST API
-            $results = $accounts_api->createBrand($args['account_id'], $brand);
+            $createdBrand = $accounts_api->createBrand($args['account_id'], $brand);
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
@@ -42,7 +42,7 @@ class CreateBrandService
             }
         }
 
-        return ['brand_id' => $results->getBrands()[0]->getBrandId()];
+        return ['brand_id' => $createdBrand->getBrands()[0]->getBrandId()];
     }
     # ***DS.snippet.0.end
 }

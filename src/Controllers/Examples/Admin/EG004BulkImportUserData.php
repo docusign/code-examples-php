@@ -3,13 +3,10 @@
 namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminApiBaseController;
-use Example\Controllers\AdminBaseController;
 use Example\Services\Examples\Admin\BulkImportUserDataService;
-use SplFileObject;
 
 class EG004BulkImportUserData extends AdminApiBaseController
 {
-
     const EG = 'aeg004'; # reference (and url) for this example
 
     const FILE = __FILE__;
@@ -37,14 +34,14 @@ class EG004BulkImportUserData extends AdminApiBaseController
         $organizationId = $this->clientService->getOrgAdminId();
 
         // Call the worker method
-        $results = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId);
+        $bulkImport = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId);
 
-        if ($results) {
+        if ($bulkImport) {
             $this->clientService->showDoneTemplate(
                 "Add users via bulk import",
                 "Add users via bulk import",
                 "Results from UserImport:addBulkUserImport method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($bulkImport))
             );
         }
     }

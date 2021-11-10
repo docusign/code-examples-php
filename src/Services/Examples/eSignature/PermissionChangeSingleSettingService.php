@@ -26,7 +26,7 @@ class PermissionChangeSingleSettingService
 
         try {
             # Step 4. Call the eSignature REST API
-            $results = $accounts_api->updatePermissionProfile(
+            $updateProfileResponse = $accounts_api->updatePermissionProfile(
                 $args['account_id'],
                 $args['permission_args']['permission_profile_id'],
                 $permission_profile
@@ -36,7 +36,7 @@ class PermissionChangeSingleSettingService
             exit;
         }
 
-        return $results;
+        return $updateProfileResponse;
     }
     # ***DS.snippet.0.end
 }

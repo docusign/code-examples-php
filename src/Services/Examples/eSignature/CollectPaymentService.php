@@ -35,9 +35,9 @@ class CollectPaymentService
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
-        $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
 
-        return ['envelope_id' => $results->getEnvelopeId()];
+        return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
     }
 
     /**

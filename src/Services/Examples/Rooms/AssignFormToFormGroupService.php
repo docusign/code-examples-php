@@ -24,7 +24,7 @@ class AssignFormToFormGroupService
         try {
             # Step 6 Start
             $form_api = $clientService->getFromGroupsApi();
-            $result = $form_api->assignFormGroupForm($args['form_group_id'], $args["account_id"], $form_group_form_to_assign);
+            $formGroupResult = $form_api->assignFormGroupForm($args['form_group_id'], $args["account_id"], $form_group_form_to_assign);
             # Step 6 End
         } catch (ApiException $e) {
             error_log($e);
@@ -32,7 +32,7 @@ class AssignFormToFormGroupService
             exit;
         }
 
-        return $result;
+        return $formGroupResult;
     }
 
     /**

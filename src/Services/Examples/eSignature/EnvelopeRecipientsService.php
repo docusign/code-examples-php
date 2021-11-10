@@ -22,13 +22,13 @@ class EnvelopeRecipientsService
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         try {
-            $results = $envelope_api->listRecipients($args['account_id'], $args['envelope_id']);
+            $listRecipients = $envelope_api->listRecipients($args['account_id'], $args['envelope_id']);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $results;
+        return $listRecipients;
     }
     # ***DS.snippet.0.end
 }

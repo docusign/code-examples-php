@@ -4,7 +4,6 @@ namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\Examples\Admin\AuditUsersService;
-use Example\Controllers\Examples\Admin\ApiException;
 
 class EG005AuditUsers extends AdminApiBaseController
 {
@@ -38,14 +37,14 @@ class EG005AuditUsers extends AdminApiBaseController
         # More data validation would be a good idea here
         # Strip anything other than characters listed
         $organizationId = $this->clientService->getOrgAdminId();
-        $results = AuditUsersService::auditUsers($this->clientService, $this->args, $organizationId);
+        $auditedUsers = AuditUsersService::auditUsers($this->clientService, $this->args, $organizationId);
 
-        if ($results) {
+        if ($auditedUsers) {
             $this->clientService->showDoneTemplate(
                 "Audit users",
                 "Audit users",
                 "Results from eSignUserManagement:getUserProfiles method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($auditedUsers))
             );
         }
     }

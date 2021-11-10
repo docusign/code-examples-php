@@ -39,16 +39,16 @@ class EG009UseTemplate extends eSignBaseController
             # 2. Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
-            $results = UseTemplateService::useTemplate($this->args, $this->clientService);
+            $envelopeId = UseTemplateService::useTemplate($this->args, $this->clientService);
 
-            if ($results) {
-                $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
+            if ($envelopeId) {
+                $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
                                                                     # which need an envelope_id
                 $this->clientService->showDoneTemplate(
                     "Envelope sent",
                     "Envelope sent",
                     "The envelope has been created and sent!<br/>
-                        Envelope ID {$results["envelope_id"]}."
+                        Envelope ID {$envelopeId["envelope_id"]}."
                 );
             }
         } else {

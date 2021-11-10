@@ -2,12 +2,8 @@
 
 namespace Example\Services\Examples\Admin;
 
-use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Client\ApiException as ApiExceptionAlias;
-use DocuSign\Admin\Configuration;
-use DocuSign\Admin\Model\OrganizationImportResponse;
 use Example\Services\AdminApiClientService;
-use InvalidArgumentException;
 use SplFileObject;
 
 class BulkImportUserDataService
@@ -27,7 +23,7 @@ class BulkImportUserDataService
 
         # Step 3 start
         $bulkImport = $clientService->bulkImportsApi();
-        $result = $bulkImport->createBulkImportAddUsersRequest(
+        $organizationImportResponse = $bulkImport->createBulkImportAddUsersRequest(
             $organizationId,
             new SplFileObject($csvFile)
         );
@@ -36,8 +32,8 @@ class BulkImportUserDataService
         $str = str_replace($GLOBALS['DS_CONFIG']['account_id'], "<accountId>", $str);
         file_put_contents($csvFile, $str);
 
-        $_SESSION['import_id'] = strval($result->getId());
+        $_SESSION['import_id'] = strval($organizationImportResponse->getId());
 
-        return json_decode($result->__toString());
+        return json_decode($organizationImportResponse->__toString());
     }
 }

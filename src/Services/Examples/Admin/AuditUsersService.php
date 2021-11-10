@@ -25,8 +25,8 @@ class AuditUsersService
         string $organizationId
     ): array {
         # Step 5a start
-        $resultsArr = [];
-        $results = new UsersDrilldownResponse();
+        $usersInformation = [];
+        $userDrilldownResponse = new UsersDrilldownResponse();
         # Step 5a end
 
         $admin_api = $clientService->getUsersApi();
@@ -52,9 +52,9 @@ class AuditUsersService
 
                 # Step 5b start
                 $res = $admin_api->getUserProfiles($organizationId, $profileOptions);
-                $results->setUsers($res->getUsers());
-                $decoded = json_decode((string)$results, true);
-                array_push($resultsArr, $decoded["users"]);
+                $userDrilldownResponse->setUsers($res->getUsers());
+                $decoded = json_decode((string)$userDrilldownResponse, true);
+                array_push($usersInformation, $decoded["users"]);
                 # Step 5b end
             }
         } catch (ApiException $e) {
@@ -68,6 +68,6 @@ class AuditUsersService
             exit;
         }
 
-        return $resultsArr;
+        return $usersInformation;
     }
 }

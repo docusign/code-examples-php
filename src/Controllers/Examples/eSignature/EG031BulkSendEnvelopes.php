@@ -36,17 +36,17 @@ class EG031BulkSendEnvelopes extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = json_decode(
+        $bulkSendBatchStatus = json_decode(
             BulkSendEnvelopesService::bulkSendEnvelopes($this->args, $this->clientService, self::DEMO_DOCS_PATH),
             true
         );
 
-        if ($results) {
+        if ($bulkSendBatchStatus) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Bulk sending envelopes to multiple recipients",
                 "Bulk sending envelopes to multiple recipients",
-                "The envelope has been sent to recipients!<br/> Batch id: {$results['batchId']}"
+                "The envelope has been sent to recipients!<br/> Batch id: {$bulkSendBatchStatus['batchId']}"
             );
         }
     }

@@ -35,14 +35,14 @@ class EG029ApplyBrandToEnvelope extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = ApplyBrandToEnvelopeService::applyBrandToEnvelope($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
+        $envelopeId = ApplyBrandToEnvelopeService::applyBrandToEnvelope($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
 
-        if ($results) {
+        if ($envelopeId) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Brand applying to envelope",
                 "Brand applying to envelope",
-                "The brand has been applied to the envelope!<br/> Envelope ID {$results["envelope_id"]}."
+                "The brand has been applied to the envelope!<br/> Envelope ID {$envelopeId["envelope_id"]}."
             );
         }
 

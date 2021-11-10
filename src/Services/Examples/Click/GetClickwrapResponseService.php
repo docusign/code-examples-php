@@ -31,7 +31,6 @@ class GetClickwrapResponseService
         return $response;
     }
 
-
     public static function getClickwraps(
         RouterService $routerService,
         ClickApiClientService $clientService,

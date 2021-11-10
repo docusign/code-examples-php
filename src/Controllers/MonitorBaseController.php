@@ -82,7 +82,7 @@ abstract class MonitorBaseController extends BaseController
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
 
-    abstract function createController();
+    abstract function createController(): void;
     
     /**
      * @return array

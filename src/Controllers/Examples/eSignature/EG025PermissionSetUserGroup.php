@@ -42,16 +42,16 @@ class EG025PermissionSetUserGroup extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = json_decode(PermissionSetUserGroupService::permissionSetUserGroup($this->args, $this->clientService), true);
+        $updatedGroups = json_decode(PermissionSetUserGroupService::permissionSetUserGroup($this->args, $this->clientService), true);
 
-        if ($results) {
+        if ($updatedGroups) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Set a permission profile to a group of users",
                 "Set a permission profile to a group of users",
                 "The permission profile has been set!<br/>
-                Permission profile id: {$results['groups'][0]['permissionProfileId']}<br/>
-                Group id: {$results['groups'][0]['groupId']}"
+                Permission profile id: {$updatedGroups['groups'][0]['permissionProfileId']}<br/>
+                Group id: {$updatedGroups['groups'][0]['groupId']}"
             );
         }
     }

@@ -39,14 +39,14 @@ class EG027PermissionDelete extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = PermissionDeleteService::permissionDelete($this->args, $this->clientService);
+        $deleteResponse = PermissionDeleteService::permissionDelete($this->args, $this->clientService);
 
-        if ($results) {
+        if ($deleteResponse) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Deleting a permission profile",
                 "Deleting a permission profile",
-                $results
+                $deleteResponse
             );
         }
     }

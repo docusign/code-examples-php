@@ -47,8 +47,6 @@ class EG033UnpauseSignatureWorkflow extends eSignBaseController
         }
     }
 
-
-
     /**
      * Get specific template arguments
      *

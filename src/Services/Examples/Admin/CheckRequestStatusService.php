@@ -2,7 +2,6 @@
 
 namespace Example\Services\Examples\Admin;
 
-use DocuSign\Admin\Api\BulkExportsApi;
 use DocuSign\Admin\Client\ApiException;
 use Example\Services\AdminApiClientService;
 
@@ -17,12 +16,10 @@ class CheckRequestStatusService
         string $organizationId,
         string $exportId
     ) {
-        $apiClient = $clientService->getApiClient();
+        $bulkExportsApi = $clientService->bulkExportsAPI();
 
-        $bulkExportsApi = new BulkExportsApi($apiClient);
+        $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $exportId);
 
-        $result = $bulkExportsApi->getUserListExport($organizationId, $exportId);
-
-        return json_decode($result->__toString());
+        return json_decode($organizationExportResponse->__toString());
     }
 }

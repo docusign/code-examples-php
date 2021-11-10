@@ -30,13 +30,13 @@ class SigningViaEmailService
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return ['envelope_id' => $results->getEnvelopeId()];
+        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
     }
 
     /**

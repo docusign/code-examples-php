@@ -39,15 +39,15 @@ class EG002ActivateClickwrap extends ClickApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = ActivateClickwrapService::activateClickwrap($this->args, $this->clientService);
+        $clickwrapSummaryResponse = ActivateClickwrapService::activateClickwrap($this->args, $this->clientService);
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($clickwrapSummaryResponse) {
+            $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplate(
                 "Activate Clickwrap",
                 "Activate Clickwrap",
                 "Clickwrap activated",
-                json_encode(json_encode($results))
+                json_encode(json_encode($clickwrapSummaryResponse))
             );
         }
     }

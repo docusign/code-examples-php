@@ -36,15 +36,14 @@ class SMSDeliveryService
         # Exceptions will be caught by the calling function
         try {
             # Step 3. Create and send the envelope
-            $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return ['envelope_id' => $results->getEnvelopeId()];
+        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
     }
-
 
     /**
      * Creates envelope definition
@@ -92,8 +91,6 @@ class SMSDeliveryService
             'number' => $args['cc_phone_number']
         ]);
         $CCSMSDelivery->setPhoneNumber($CCsignerPhone);
-
-
 
         # Create a CC recipient to receive a copy of the documents
         $CC = new CarbonCopy([

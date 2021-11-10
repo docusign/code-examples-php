@@ -77,19 +77,19 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         # Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = CreateActiveCLMESignUserService::createActiveCLMESignUser(
+        $addUsersResponse = CreateActiveCLMESignUserService::createActiveCLMESignUser(
             $this->clientService,
             $this->args,
             $this->orgId
         );
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($addUsersResponse) {
+            $addUsersResponse = json_decode((string)$addUsersResponse, true);
             $this->clientService->showDoneTemplate(
                 "Create a new active user for CLM and eSignature",
                 "Create a new active user for CLM and eSignature",
                 "Results from MultiProductUserManagement:addOrUpdateUser method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($addUsersResponse))
             );
         }
     }

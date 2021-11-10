@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\GetRoomsWithFiltersService;
 
 class EG005GetRoomsWithFilters extends RoomsApiBaseController
 {
-
     const EG = 'reg005'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -38,17 +37,17 @@ class EG005GetRoomsWithFilters extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = GetRoomsWithFiltersService::getRoomsWithFilter($this->args, $this->clientService);
+        $roomSummaryList = GetRoomsWithFiltersService::getRoomsWithFilter($this->args, $this->clientService);
 
-        if ($results) {
+        if ($roomSummaryList) {
             $start_date = $this->args['start_date'];
             $end_date = $this->args['end_date'];
-            $results = json_decode((string)$results, true);
+            $roomSummaryList = json_decode((string)$roomSummaryList, true);
             $this->clientService->showDoneTemplate(
                 "Rooms filtered by date",
                 "Rooms that have had their field data, updated within the time period between $start_date and $end_date",
                 "Results from the Rooms::GetRooms methods",
-                json_encode(json_encode($results))
+                json_encode(json_encode($roomSummaryList))
             );
         }
     }

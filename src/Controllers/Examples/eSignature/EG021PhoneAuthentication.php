@@ -36,16 +36,16 @@ class EG021PhoneAuthentication extends eSignBaseController
         # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
 
-        $results = PhoneAuthenticationService::phoneAuthentication($this->args, $this->clientService);
+        $envelopeAuthentification = PhoneAuthenticationService::phoneAuthentication($this->args, $this->clientService);
 
-        if ($results) {
-            $_SESSION["envelope_id"] = $results["envelope_id"]; # Save for use by other examples
+        if ($envelopeAuthentification) {
+            $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
             # which need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Envelope sent",
                 "Envelope sent",
                 "The envelope has been created and sent!<br/>
-                    Envelope ID {$results["envelope_id"]}."
+                    Envelope ID {$envelopeAuthentification["envelope_id"]}."
             );
         }
     }

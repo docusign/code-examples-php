@@ -127,7 +127,7 @@ class BulkSendEnvelopesService
         # Step 8. Confirm successful batch send
         # Exceptions will be caught by the calling function
         try {
-            $results = $bulk_envelopes_api->getBulkSendBatchStatus(
+            $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatus(
                 $args['account_id'],
                 $batch['batch_id']
             );
@@ -136,7 +136,7 @@ class BulkSendEnvelopesService
             exit;
         }
 
-        return $results;
+        return $bulkSendBatchStatus;
     }
 
     /**

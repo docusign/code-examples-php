@@ -81,14 +81,14 @@ class EG028CreateBrand extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = CreateBrandService::createBrand($this->args, $this->clientService);
+        $brandId = CreateBrandService::createBrand($this->args, $this->clientService);
 
-        if ($results["brand_id"] != null) {
+        if ($brandId["brand_id"] != null) {
             # Success if there's an envelope Id and the brand name isn't a duplicate
             $this->clientService->showDoneTemplate(
                 "New Brand sent",
                 "New Brand sent",
-                "The Brand has been created!<br/> Brand ID {$results["brand_id"]}."
+                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}."
             );
         }
         # If the brand name is null the brand name is a duplicate.

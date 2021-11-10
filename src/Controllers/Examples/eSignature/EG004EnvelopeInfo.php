@@ -39,16 +39,16 @@ class EG004EnvelopeInfo extends eSignBaseController
             # 2. Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
-            $results = EnvelopeInfoService::envelopeInfo($this->args, $this->clientService);
+            $envelope = EnvelopeInfoService::envelopeInfo($this->args, $this->clientService);
 
-            if ($results) {
+            if ($envelope) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
-                $results = json_decode((string)$results, true);
+                $envelope = json_decode((string)$envelope, true);
                 $this->clientService->showDoneTemplate(
                     "Envelope status results",
                     "Envelope status results",
                     "Results from the Envelopes::get method:",
-                    json_encode(json_encode($results))
+                    json_encode(json_encode($envelope))
                 );
             }
         } else {

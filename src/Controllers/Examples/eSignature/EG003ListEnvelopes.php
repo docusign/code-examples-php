@@ -35,16 +35,16 @@ class EG003ListEnvelopes extends eSignBaseController
     {
         $this->checkDsToken();
         # 2. Call the worker method
-        $results = ListEnvelopesService::listEnvelopes($this->args, $this->clientService);
+        $envelopesInformation = ListEnvelopesService::listEnvelopes($this->args, $this->clientService);
 
-        if ($results) {
+        if ($envelopesInformation) {
             # results is an object that implements ArrayAccess. Convert to a regular array:
-            $results = json_decode((string)$results, true);
+            $envelopesInformation = json_decode((string)$envelopesInformation, true);
             $this->clientService->showDoneTemplate(
                 "Envelope list",
                 "List envelopes results",
                 "Results from the Envelopes::listStatusChanges method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($envelopesInformation))
             );
         }
     }

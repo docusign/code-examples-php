@@ -45,22 +45,22 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
      * 2. Call the worker method
      * 3. Return created clickwrap version
      */
-    function createController()
+    function createController(): void
     {
         $this->checkDsToken();
-        $results = CreateNewClickwrapVersionService::createNewClickwrapVersion(
+        $clickwrapSummaryResponse = CreateNewClickwrapVersionService::createNewClickwrapVersion(
             $this->args,
             $this::DEMO_DOCS_PATH,
             $this->clientService
         );
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($clickwrapSummaryResponse) {
+            $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplate(
                 "Creating a new clickwrap version example",
                 "Creating a new clickwrap version example",
                 "Clickwrap version has been created!",
-                json_encode(json_encode($results))
+                json_encode(json_encode($clickwrapSummaryResponse))
             );
         }
     }

@@ -40,15 +40,15 @@ class EG024PermissionCreate extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $results = PermissionCreateService::permisssionCreate($this->args, $this->clientService);
+        $permissionProfile = PermissionCreateService::permisssionCreate($this->args, $this->clientService);
 
-        if ($results) {
+        if ($permissionProfile) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Creating a permission profile",
                 "Creating a permission profile",
                 "The permission profile has been created!<br/> 
-                Permission profile ID {$results["permission_profile_id"]}."
+                Permission profile ID {$permissionProfile["permission_profile_id"]}."
             );
         }
     }

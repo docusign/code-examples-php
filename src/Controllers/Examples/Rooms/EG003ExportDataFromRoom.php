@@ -7,7 +7,6 @@ use Example\Services\Examples\Rooms\ExportDataFromRoomService;
 
 class EG003ExportDataFromRoom extends RoomsApiBaseController
 {
-
     const EG = 'reg003'; # reference (and URL) for this example
     const FILE = __FILE__;
 
@@ -38,15 +37,15 @@ class EG003ExportDataFromRoom extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = ExportDataFromRoomService::exportDataFromRoom($this->args, $this->clientService);
+        $fieldData = ExportDataFromRoomService::exportDataFromRoom($this->args, $this->clientService);
 
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        if ($fieldData) {
+            $fieldData = json_decode((string)$fieldData, true);
             $this->clientService->showDoneTemplate(
                 "Field data associated with a room",
                 "Field data associated with a room",
                 "Results from the Rooms::GetRoomFieldData method",
-                json_encode(json_encode($results))
+                json_encode(json_encode($fieldData))
             );
         }
     }

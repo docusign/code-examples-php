@@ -14,7 +14,7 @@ class PermissionCreateService
      *
      * @param array $args
      * @param $clientService
-     * @return PermissionProfile $results
+     * @return PermissionProfile $permissionProfile
      */
     # ***DS.snippet.0.start
     public static function permisssionCreate(array $args, $clientService): PermissionProfile
@@ -26,7 +26,7 @@ class PermissionCreateService
 
         try {
             # Step 4. Call the eSignature REST API
-            $results = $accounts_api->createPermissionProfile(
+            $permissionProfile = $accounts_api->createPermissionProfile(
                 $args['account_id'],
                 $permission_profile
             );
@@ -35,7 +35,7 @@ class PermissionCreateService
             exit;
         }
 
-        return $results;
+        return $permissionProfile;
     }
     # ***DS.snippet.0.end
 }

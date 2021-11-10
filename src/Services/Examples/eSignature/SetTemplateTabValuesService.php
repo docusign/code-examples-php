@@ -40,8 +40,8 @@ class SetTemplateTabValuesService
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
-        $results = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-        $envelope_id = $results->getEnvelopeId();
+        $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $envelope_id = $envelopeResponse->getEnvelopeId();
 
         # 3. Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating
@@ -54,9 +54,9 @@ class SetTemplateTabValuesService
 
         # 4. Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
-        $results = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 
-        return ['envelope_id' => $envelope_id, 'redirect_url' => $results['url']];
+        return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
     }
 
     /**

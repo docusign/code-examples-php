@@ -8,7 +8,6 @@ use Example\Services\Examples\Admin\CheckRequestStatusService;
 
 class EG003ACheckRequestStatus extends AdminApiBaseController
 {
-
     const EG = 'aeg003a'; # reference (and url) for this example
 
     const FILE = __FILE__;
@@ -40,14 +39,14 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
         $exportId = $_SESSION['export_id'];
 
         // Call the worker method
-        $results = CheckRequestStatusService::checkRequestStatus($this->clientService, $this->orgId, $exportId);
+        $bulkExports = CheckRequestStatusService::checkRequestStatus($this->clientService, $this->orgId, $exportId);
 
-        if ($results) {
+        if ($bulkExports) {
             $this->clientService->showDoneTemplate(
                 "Check request status",
                 "Admin API data response output:",
                 "Results from UserExport:getUserListExport method:",
-                json_encode(json_encode($results))
+                json_encode(json_encode($bulkExports))
             );
         }
     }

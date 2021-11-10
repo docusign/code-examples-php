@@ -27,7 +27,7 @@ class GetMonitoringDataService
             $cursor = "";
             $complete = false;
             $options = new GetStreamOptions();
-            $results = array();
+            $monitoringLogs = array();
 
             // First call the endpoint with no cursor to get the first records.
             // After each call, save the cursor and use it to make the next
@@ -35,10 +35,10 @@ class GetMonitoringDataService
             // the monitoring records
             do {
                 $options->setCursor($cursor);
-                $result = $datasetApi->getStream('monitor', '2.0', $options);
+                $cursoredResult = $datasetApi->getStream('monitor', '2.0', $options);
 
                 $key = "end_cursor";
-                $endCursor = $result->$key;
+                $endCursor = $cursoredResult->$key;
 
                 // If the endCursor from the response is the same as the one that you already have,
                 // it means that you have reached the
@@ -47,7 +47,7 @@ class GetMonitoringDataService
                     $complete = true;
                 } else {
                     $cursor = $endCursor;
-                    array_push($results, json_decode($result));
+                    array_push($monitoringLogs, json_decode($cursoredResult));
                 }
             } while (!$complete);
         } catch (ApiException $e) {
@@ -57,8 +57,8 @@ class GetMonitoringDataService
         # step 3 end
 
         // Cleaning the data from wrong symbols
-        $results = json_encode($results);
-        $results = str_replace("'", "", $results);
-        return json_decode($results, true);
+        $monitoringLogs = json_encode($monitoringLogs);
+        $monitoringLogs = str_replace("'", "", $monitoringLogs);
+        return json_decode($monitoringLogs, true);
     }
 }

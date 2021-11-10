@@ -248,6 +248,5 @@ class UseConditionalRecipientsService
         $envelope_definition->setStatus($envelope_args['status']);
         return $envelope_definition;
     }
-
     # ***DS.snippet.0.end
 }

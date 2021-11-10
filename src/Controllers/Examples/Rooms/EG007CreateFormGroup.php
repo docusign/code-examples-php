@@ -31,14 +31,14 @@ class EG007CreateFormGroup extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
-        $results = CreateFormGroupService::createFormGroup($this->args, $this->clientService);
-        if ($results) {
-            $results = json_decode((string)$results, true);
+        $formGroup = CreateFormGroupService::createFormGroup($this->args, $this->clientService);
+        if ($formGroup) {
+            $formGroup = json_decode((string)$formGroup, true);
             $this->clientService->showDoneTemplate(
                 "Create a form group",
                 "Create a form group",
                 "Results of FormGroups::createFormGroup",
-                json_encode(json_encode($results))
+                json_encode(json_encode($formGroup))
             );
         }
     }
