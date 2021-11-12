@@ -31,6 +31,7 @@ class CheckImportRequestStatusService
             return "Please refresh the page";
         }
         else {
+            session_unset($_SESSION['import_id']);
             return $response->__toString();
         }       
         
