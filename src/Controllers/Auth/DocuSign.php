@@ -101,7 +101,7 @@ class DocuSign extends AbstractProvider
      *
      * @return array
      */
-    public function getDefaultScopes(): array
+/*    public function getDefaultScopes(): array
     {
         $scopes =  [];
         if ($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true) {
@@ -126,7 +126,28 @@ class DocuSign extends AbstractProvider
 
         return [implode(" ", $scopes)];
     }
-
+*/
+public function getDefaultScopes(): array
+{
+    if($_SESSION['api_type'] == 'Rooms'){
+        return [
+            "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
+            . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
+        ];
+    } elseif($_SESSION['api_type'] == 'Click'){
+        return [
+            "signature click.manage click.send"
+        ];
+    } elseif($_SESSION['api_type'] == 'Admin') {
+        return [
+            "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
+        ];
+    } else {
+        return [
+            "signature"
+        ];
+    }
+}
     /**
      * Check a provider response for errors.
      *

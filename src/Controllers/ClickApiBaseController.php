@@ -75,7 +75,7 @@ abstract class ClickApiBaseController extends BaseController
             else {
                 # Save the current operation so it will be resumed after authentication
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
                 exit;
             }
         }

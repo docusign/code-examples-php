@@ -36,7 +36,7 @@ class EG023IDVAuthentication extends eSignBaseController
         # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
 
-        $envelopeAuthentification = IDVAuthenticationService::idvAuthentication($this->args, $this->clientService);
+        $envelopeAuthentification = IDVAuthenticationService::idvAuthentication($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
 
         if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples

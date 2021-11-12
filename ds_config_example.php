@@ -37,14 +37,14 @@ $JWT_CONFIG = [
     "private_key_file" => "./private.key", // path to private key file
 ];
 
-$EXAMPLES_API_TYPE = [
-    'Rooms' => false,
-    'ESignature' => true,
-    'Click' => false,
-    'Monitor' => false,
-    'Admin' => false
-];
+// $EXAMPLES_API_TYPE = [
+//     'Rooms' => false,
+//     'ESignature' => true,
+//     'Click' => false,
+//     'Monitor' => false,
+//     'Admin' => false
+// ];
 
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
 $GLOBALS['JWT_CONFIG'] = $JWT_CONFIG;
-$GLOBALS['EXAMPLES_API_TYPE'] = $EXAMPLES_API_TYPE;
+// $GLOBALS['EXAMPLES_API_TYPE'] = $EXAMPLES_API_TYPE;

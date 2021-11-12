@@ -16,10 +16,10 @@ class AccessCodeAuthenticationService
      * @param $clientService
      * @return array ['envelope_id']
      */
-    public static function accessCodeAuthentication(array $args, $clientService): array
+    public static function accessCodeAuthentication(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = AccessCodeAuthenticationService::make_envelope($args["envelope_args"]);
+        $envelope_definition = AccessCodeAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -37,11 +37,12 @@ class AccessCodeAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
-        $envelopeAndSigner = SmsAuthenticationService::constructAnEnvelope();
+        $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
+
 
         $signer1 = new Signer([
             'name' => $args['signer_name'],

@@ -17,10 +17,10 @@ class KbAuthenticationService
      * @return array ['envelope_id']
      */
     # ***DS.snippet.0.start
-    public static function kbAuthentification(array $args, $clientService): array
+    public static function kbAuthentification(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = KbAuthenticationService::make_envelope($args["envelope_args"]);
+        $envelope_definition = KbAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -38,9 +38,9 @@ class KbAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
-        $envelopeAndSigner = SmsAuthenticationService::constructAnEnvelope();
+        $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
