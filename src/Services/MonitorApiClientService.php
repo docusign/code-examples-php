@@ -104,7 +104,7 @@ class MonitorApiClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
         exit;
     }
 }

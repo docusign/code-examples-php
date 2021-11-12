@@ -9,6 +9,14 @@
 <p><pre class="json-display"><code id="json-display"></code></pre></p>
 {%  endif %}
 
+{% if import_id %}
+<!-- Admin Bulk Import has a pending import request -->
+<p><a href="{{ app_url ~ 'index.php?page=aeg004a' }}">Check Request status</a></p>
+
+{% else %}
 <p><a href="{{ app_url }}">Continue</a></p>
+{% endif %}
+
+
 
 {% endblock %}

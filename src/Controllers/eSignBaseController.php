@@ -158,7 +158,7 @@ abstract class eSignBaseController extends BaseController
                 $GLOBALS['twig']->display($this->routerService->getTemplate($eg), $displayOptions);
             } else {
                 $this->saveCurrentUrlToSession($eg);
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
                 exit;
             }
         }

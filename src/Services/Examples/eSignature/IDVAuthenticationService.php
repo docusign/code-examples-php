@@ -18,10 +18,10 @@ class IDVAuthenticationService
      * @return array ['envelope_id']
      */
     # ***DS.snippet.0.start
-    public static function idvAuthentication(array $args, $clientService): array
+    public static function idvAuthentication(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = IDVAuthenticationService::make_envelope($args["envelope_args"], $clientService);
+        $envelope_definition = IDVAuthenticationService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -40,7 +40,7 @@ class IDVAuthenticationService
      * @param $clientService
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
     {
         # Retrieve the workflow ID
         $accounts_api = $clientService->getAccountsApi();
@@ -48,7 +48,7 @@ class IDVAuthenticationService
         $accounts_data = $accounts_response->getIdentityVerification();
         $accounts_id = $accounts_data[0]['workflow_id'];
 
-        $envelopeAndSigner = SmsAuthenticationService::constructAnEnvelope();
+        $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 

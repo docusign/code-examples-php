@@ -3,7 +3,9 @@
 namespace Example\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
-use DocuSign\eSign\Model\RecipientPhoneAuthentication;
+use DocuSign\eSign\Model\RecipientIdentityPhoneNumber;
+use DocuSign\eSign\Model\RecipientIdentityInputOption;
+use DocuSign\eSign\Model\RecipientIdentityVerification;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 
@@ -18,10 +20,10 @@ class PhoneAuthenticationService
      * @return array ['envelope_id']
      */
     # ***DS.snippet.0.start
-    public static function phoneAuthentication(array $args, $clientService): array
+    public static function phone_authentication(array $args, $demoDocsPath, $clientService): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = PhoneAuthenticationService::make_envelope($args["envelope_args"]);
+        $envelope_definition = PhoneAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -39,16 +41,25 @@ class PhoneAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
-        $envelopeAndSigner = SmsAuthenticationService::constructAnEnvelope();
+
+        $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
-        $phoneAuthentication = new RecipientPhoneAuthentication();
-        $providedPhoneNumber = '415-555-1212';  # represents your {PHONE_NUMBER}
-        $phoneAuthentication->setSenderProvidedNumbers(array($providedPhoneNumber));
-        $phoneAuthentication->setRecipMayProvideNumber('true');
+        $phoneNumber = new RecipientIdentityPhoneNumber;
+        $phoneNumber->setCountryCode($args['signer_country_code']);
+        $phoneNumber->setNumber($args['signer_phone_number']);
+
+        $inputOption = new RecipientIdentityInputOption;
+        $inputOption->setName('phone_number_list');
+        $inputOption->setValueType('PhoneNumberList');
+        $inputOption->setPhoneNumberList(array($phoneNumber));
+
+        $identityVerification = new RecipientIdentityVerification;
+        $identityVerification->setWorkflowId('c368e411-1592-4001-a3df-dca94ac539ae');
+        $identityVerification->setInputOptions(array($inputOption));
 
         $signer1 = new Signer([
             'name' => $args['signer_name'],
@@ -58,10 +69,9 @@ class PhoneAuthenticationService
             'delivery_method' => 'Email',
             'recipient_id' => '1', # represents your {RECIPIENT_ID}
             'tabs' => $signer1Tabs,
-            'phone_authentication' => $phoneAuthentication,
-            'require_id_lookup' => 'true',
-            'id_check_configuration_name' => "Phone Auth $"
+            'identity_verification' => $identityVerification
         ]);
+
 
         $recipients = new Recipients();
         $recipients->setSigners(array($signer1));

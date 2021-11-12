@@ -4,17 +4,19 @@ namespace Example\Services;
 
 class RouterService
 {
+
     /**
      * The list of controllers for each example
      */
     private const CONTROLLER = [
-        'home' => 'Home',
+        'home_esig' => 'Home',
         'home_rooms' => 'Home',
         'home_click' => 'Home',
         'home_monitor' => 'Home',
         'home_admin' => 'Home',
         'ds_return' => 'DsReturn',
         'must_authenticate' => 'MustAuthenticate',
+        'select_api' => 'SelectAPI',
         'eg001' => 'EG001EmbeddedSigning',
         'eg002' => 'eSignature\EG002SigningViaEmail',
         'eg003' => 'eSignature\EG003ListEnvelopes',
@@ -77,11 +79,11 @@ class RouterService
      */
     private const TEMPLATES = [
         "must_authenticate" => "must_authenticate.html",
+        "select_api" => "select_api.html",
         "ds_return" => "ds_return.html",
-        "home" => "home.html",
+        "home_esig"  => "home_esig.html",
         "home_rooms" => "home_rooms.html",
         "home_monitor" => "home_monitor.html",
-        "home_admin" => "home_admin.html",
         "home_click" => "home_click.html",
         "home_admin" => "home_admin.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
@@ -145,12 +147,11 @@ class RouterService
      * The list of titles for each example
      */
     private const TITLES = [
-        "home" => "Home--PHP Code Examples",
+        "home_esig" => "Home--PHP eSignature Code Examples",
         "home_rooms" => "Home--PHP Rooms Code Examples",
         "home_monitor" => "Home--PHP Monitor Code Examples",
         "home_admin" => "Home--PHP Admin Code Examples",
         "home_click" => "Home--PHP Click Code Examples",
-        "home_admin" => "Home--PHP Admin Code Examples",
         "eg001" => "Use embedded signing",
         "eg002" => "Signing via email",
         "eg003" => "List of changed envelopes",
@@ -213,6 +214,7 @@ class RouterService
      */
     public $authService;
 
+
     /**
      * Create a new controller instance.
      *
@@ -224,6 +226,11 @@ class RouterService
         error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
         $_SESSION['auth_service'] = $_POST['auth_type'];
 
+        // this one DOES work to get with the API picker & JWT commenting it out forces eSignature every time
+        if (isset($_POST["api_type"])) {
+                    $_SESSION['api_type'] = $_POST['api_type'];
+            }
+
         if ($_SESSION['auth_service'] == "jwt") {
             $this->authService = new JWTService();
         } else {
@@ -231,31 +238,71 @@ class RouterService
         }
     }
 
+
     /**
      * Page router
      */
     public function router(): void
     {
-        $page = $_GET['page'] ?? 'home';
+
+        switch ($_SESSION['api_type']):
+
+            case "Admin":
+                $homeRoute = 'home_admin';
+                break;
+            case "Click":
+                $homeRoute = 'home_click';
+                break;
+            case "Monitor":
+                $homeRoute = 'home_monitor';
+                break;
+            case  "Rooms":
+                $homeRoute = 'home_rooms';
+                break;
+            default:
+                $homeRoute = 'home_esig';
+                break;
+        endswitch;
 
 
-        if ($page == 'home') {
+
+        $page = $_GET['page'] ?? $homeRoute;
+
+
+        if ($page == $homeRoute) {
+
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if (
-                $GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok(
-                ) == false && !isset($_SESSION['beenHere'])
-            ) {
+
+            if ($this->ds_token_ok() == false) {
+                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
+            }
+
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+                $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
                 new $controller($page);
                 exit();
             }
         }
 
-        if ($page == 'must_authenticate') {
-            if ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
+        if($page == 'select_api') {
+            $this->ds_logout_internal();
+            //is it quickstart have they signed in already?
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true'  && !isset($_SESSION['beenHere'])) {
+                // we should default to ESignature for the first runthrough
+                $_SESSION["api_type"] = "ESignature";
+                $this->ds_login();
+                exit();
+            }
+            $controller = 'Example\Controllers\Examples\\' . $this->getController($page);
+            $c = new $controller();
+            $c->controller();
+            exit();
+        }
+        elseif ($page == 'must_authenticate') {
+            if ($_SESSION['api_type'] == 'Monitor') {
                 //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
                 $this->authService = new JWTService();
@@ -272,7 +319,8 @@ class RouterService
             $c = new $controller();
             $c->controller();
             exit();
-        } elseif ($page == 'ds_login') {
+        
+        }elseif ($page == 'ds_login') {
             $this->ds_login(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_callback') {
@@ -349,7 +397,11 @@ class RouterService
             $redirectUrl = $_SESSION['eg'];
         }
         # reset the session
+        $tempAPIType = $_SESSION["api_type"];
         $this->ds_logout_internal();
+
+        // Workaround for ACG apiTypePicker
+        $_SESSION["api_type"] = $tempAPIType;
         $this->authService->authCallback($redirectUrl);
     }
 
@@ -393,6 +445,9 @@ class RouterService
         }
         if (isset($_SESSION['template_id'])) {
             unset($_SESSION['template_id']);
+        }
+        if (isset($_SESSION['api_type'])) {
+            unset($_SESSION['api_type']);
         }
     }
 

@@ -11,6 +11,9 @@ use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
+use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
+
+use Stringable;
 
 class AdminApiClientService
 {
@@ -71,6 +74,35 @@ class AdminApiClientService
         return new ProductPermissionProfilesApi($this->apiClient);
     }
     
+
+    /** 
+     * Get the UserId
+     *
+     */
+// public function getAccountId(string $emailAddress): String
+
+// {
+
+   // $options = new GetUserProfilesOptions(); 
+   // $options->setEmail($emailAddress);
+   // $AdminAccounts = $this->getUsersApi();
+   // $results = $AdminAccounts->getUserProfiles($this->getOrgAdminId(), $options);
+
+   // if (empty($results->getUsers())){
+   //     throw new ApiException(" Could not get an account id from the request.");
+   // }
+
+   // $accountId = $results->getUsers();
+   // var_dump($accountId[0]["default_user_id"]);
+
+   // return $accountId[0]["default_user_id"];
+
+//     return $_SESSION['ds_account_id'];
+
+// }
+
+
+
     /**
     * Get Org Admin Id
     *
@@ -126,7 +158,7 @@ class AdminApiClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=must_authenticate');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
         exit;
     }
 
@@ -153,13 +185,14 @@ class AdminApiClientService
      * @param null $results
      * @return void
      */
-    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null, string $import_id = null): void
     {
         $GLOBALS['twig']->display('example_done.html', [
             'title' => $title,
             'h1' => $headline,
             'message' => $message,
-            'json' => $results
+            'json' => $results,
+            'import_id' => $import_id
         ]);
         exit;
     }

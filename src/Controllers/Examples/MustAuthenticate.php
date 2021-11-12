@@ -13,14 +13,6 @@ class MustAuthenticate
 {
     public function controller()
     {
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {
-            $this->getController();
-        }
-    }
-
-    private function getController()
-    {
         $GLOBALS['twig']->display('must_authenticate.html', [
             'title' => 'Please authenticate with DocuSign',
             'show_doc' => false

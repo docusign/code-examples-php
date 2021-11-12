@@ -26,19 +26,26 @@ class Home extends eSignBaseController
      */
     public function __construct()
     {
-        parent::__construct();
 
-        if ($GLOBALS['EXAMPLES_API_TYPE']['Rooms'] == true) {
+        parent::__construct();
+        session_start();
+        // this is never getting fired off, even when POST is set
+        // if (isset($_POST["api_type"])){
+        //     $_SESSION['api_type'] = $_POST['api_type'];
+        // }
+
+        if($_SESSION['api_type'] == 'Rooms'){
             $this->eg = 'home_rooms';
-        } elseif ($GLOBALS['EXAMPLES_API_TYPE']['Click'] == true) {
+        } elseif($_SESSION['api_type'] == 'Click') {
             $this->eg = 'home_click';
-        } elseif ($GLOBALS['EXAMPLES_API_TYPE']['Monitor'] == true) {
+        } elseif($_SESSION['api_type'] == 'Monitor') {
             $this->eg = 'home_monitor';
-        } elseif($GLOBALS['EXAMPLES_API_TYPE']['Admin'] == true) {
+        } elseif($_SESSION['api_type'] == 'Admin') {
             $this->eg = 'home_admin';
         } else {
-            $this->eg = 'home';
+            $this->eg = 'home_esig';
         }
+    
         if (empty($this->routerService)) {
             $this->routerService = new RouterService();
         }

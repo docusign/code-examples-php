@@ -31,6 +31,10 @@
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=ds_logout' }}" id="logout"
            data-busy="href">Logout <span class="sr-only">(current)</span></a>
       </li>
+      <li>
+        <a class="nav-link" href="{{ app_url ~ 'index.php?page=select_api' }}" id="selectApi"
+           data-busy="href">Change API Type <span class="sr-only">(current)</span></a>
+      </li>
       {% else %}
       <li>
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=must_authenticate' }}" id="login"

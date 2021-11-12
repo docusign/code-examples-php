@@ -69,8 +69,7 @@ class JWTService
         );
 
         $scope = (new DocuSign())->getDefaultScopes()[0];
-        //Make sure to add the "impersonation" scope when using JWT authorization
-        $jwt_scope = $scope . " impersonation";
+        $jwt_scope = $scope;
 
         try {
             $response = self::$apiClient->requestJWTUserToken(
@@ -86,7 +85,7 @@ class JWTService
             if (strpos($th->getMessage(), "consent_required") !== false) {
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query(
                     [
-                            'scope' => $jwt_scope,
+                            'scope' => "impersonation+".$jwt_scope,
                             'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
                             'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
                             'state' => $_SESSION['oauth2state'],
