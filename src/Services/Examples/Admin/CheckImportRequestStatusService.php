@@ -22,10 +22,18 @@ class CheckImportRequestStatusService
         $bulkImport = $clientService->bulkImportsApi();
 
         # Step 4 start
-        return $bulkImport->getBulkUserImportRequest(
+        $response = $bulkImport->getBulkUserImportRequest(
             $organizationId,
             $importId
-        )->__toString();
+        );
+
+        if ($response->getStatus()== "queued"){
+            return "Please refresh the page";
+        }
+        else {
+            return $response->__toString();
+        }       
+        
         # Step 4 end
     }
 }

@@ -39,14 +39,23 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
             $organizationId,
             $importId
         );
-
+        // The import request status is still pending
         if ($importRequestStatus) {
-            $this->clientService->showDoneTemplate(
-                "Check import request status",
-                "Admin API data response output:",
-                "Results from UserImport:getBulkUserImportRequest method:",
-                json_encode($importRequestStatus)
-            );
+            if($importRequestStatus == "Please refresh the page") {
+                $this->clientService->showDoneTemplate(
+                    "Check import request status",
+                    $importRequestStatus,
+                    ""
+                );                
+            }
+            else {            
+                $this->clientService->showDoneTemplate(
+                    "Check import request status",
+                    "Admin API data response output:",
+                    "Results from UserImport:getBulkUserImportRequest method:",
+                    json_encode($importRequestStatus)
+                );
+            }
         }
     }
 
