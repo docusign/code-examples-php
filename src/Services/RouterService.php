@@ -273,13 +273,13 @@ class RouterService
 
             // We're not logged in and Quickstart is true:  Route to the 1st example.
 
-            if ($this->ds_token_ok() == false) {
-                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
-            }
-
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
-            } else {
+            }
+            elseif ($this->ds_token_ok() == false) {
+                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
+            }
+            else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
                 $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
                 new $controller($page);
