@@ -107,7 +107,7 @@ abstract class ClickApiBaseController extends BaseController
             $this->clientService->needToReAuth(static::EG);
         }
     }
-
+    
     /**
      * Check input values using regular expressions
      * @param $value

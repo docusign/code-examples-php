@@ -3,10 +3,10 @@
 namespace Example\Controllers\Examples\Admin;
 
 use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\CheckImportRequestStatusService;
 
 class EG004ACheckImportRequestStatus extends AdminApiBaseController
 {
+
     const EG = 'aeg004a'; # reference (and url) for this example
 
     const FILE = __FILE__;
@@ -25,39 +25,43 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
      * Check the access token and call the worker method
      * @return void
      * @throws \DocuSign\OrgAdmin\Client\ApiException
-     * @throws \DocuSign\Admin\Client\ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
-        $importId = $_SESSION['import_id'];
-        $organizationId = $this->clientService->getOrgAdminId();
         // Call the worker method
-        $importRequestStatus = CheckImportRequestStatusService::checkRequestStatus(
-            $this->clientService,
-            $organizationId,
-            $importId
-        );
-        // The import request status is still pending
-        if ($importRequestStatus) {
-            if($importRequestStatus == "Please refresh the page") {
-                $this->clientService->showDoneTemplate(
-                    "Check import request status",
-                    $importRequestStatus,
-                    ""
-                );                
-            }
-            else {            
-                $this->clientService->showDoneTemplate(
-                    "Check import request status",
-                    "Admin API data response output:",
-                    "Results from UserImport:getBulkUserImportRequest method:",
-                    json_encode($importRequestStatus)
-                );
-            }
+        $results = $this->checkRequestStatus();
+
+        if ($results) {
+            $this->clientService->showDoneTemplate(
+                "Check import request status",
+                "Admin API data response output:",
+                "Results from UserImport:getBulkUserImportRequest method:",
+                json_encode($results)
+            );
         }
     }
+
+    /**
+     * Method to check the request status of bulk-import.
+     * @return string
+     * @throws \DocuSign\OrgAdmin\Client\ApiException
+     */
+    private function checkRequestStatus(): string
+    {
+        // create a bulk exports api instance
+        $bulkImport = $this->clientService->bulkImportsApi();
+
+        # Step 4 start
+        $importId = $_SESSION['import_id'];
+        return $bulkImport->getBulkUserImportRequest(
+            $this->clientService->getOrgAdminId($this->args),
+            $importId
+        )->__toString();
+        # Step 4 end
+    }   
+        
 
     /**
      * Get specific template arguments

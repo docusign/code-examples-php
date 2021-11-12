@@ -2,17 +2,14 @@
 
 namespace Example\Controllers\Examples\Admin;
 
-use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\CheckRequestStatusService;
 
 class EG003ACheckRequestStatus extends AdminApiBaseController
 {
+
     const EG = 'aeg003a'; # reference (and url) for this example
 
     const FILE = __FILE__;
-
-    private string $orgId;
 
     /**
      * Create a new controller instance.
@@ -22,33 +19,45 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
     {
         parent::__construct();
         parent::controller();
-
-        $this->orgId = $this->clientService->getOrgAdminId($this->args);
     }
 
     /**
      * Check the access token and call the worker method
      * @return void
      * @throws ApiException for API problems.
-     * @throws ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
-        $exportId = $_SESSION['export_id'];
-
         // Call the worker method
-        $bulkExports = CheckRequestStatusService::checkRequestStatus($this->clientService, $this->orgId, $exportId);
+        $results = $this->checkRequestStatus();
 
-        if ($bulkExports) {
+        if ($results) {
             $this->clientService->showDoneTemplate(
                 "Check request status",
                 "Admin API data response output:",
                 "Results from UserExport:getUserListExport method:",
-                json_encode(json_encode($bulkExports))
+                json_encode(json_encode($results))
             );
         }
+    }
+
+    /**
+     * Method to get a request status for bulk-export.
+     * @throws \DocuSign\OrgAdmin\Client\ApiException
+     */
+    private function checkRequestStatus()
+    {
+        $bulkExportsApi = $this->clientService->bulkExportsAPI();
+
+        $exportId = $_SESSION['export_id'];
+        
+        # Step 4 start
+        $result = $bulkExportsApi->getUserListExport($this->clientService->getOrgAdminId($this->args), $exportId);
+        # Step 4 end
+        
+        return json_decode($result->__toString());
     }
 
     /**
@@ -57,6 +66,8 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
      */
     public function getTemplateArgs(): array
     {
-        return $this->getDefaultTemplateArgs();
+        $default_args = $this->getDefaultTemplateArgs();
+
+        return $default_args;
     }
 }
