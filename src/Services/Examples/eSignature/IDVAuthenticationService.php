@@ -2,6 +2,7 @@
 
 namespace Example\Services\Examples\eSignature;
 
+use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\RecipientIdentityVerification;
 use DocuSign\eSign\Model\Recipients;
@@ -17,7 +18,7 @@ class IDVAuthenticationService
      * @param $clientService
      * @return array ['envelope_id']
      */
-    # ***DS.snippet.0.start
+   
     public static function idvAuthentication(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
@@ -43,12 +44,22 @@ class IDVAuthenticationService
     public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
     {
         # Retrieve the workflow ID
+        # Step 3 start
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
-        $accounts_data = $accounts_response->getIdentityVerification();
-        $accounts_id = $accounts_data[0]['workflow_id'];
+        $workflows_data = $accounts_response->getIdentityVerification();
+        $workflow_id = '';
+        foreach ($workflows_data as $workflow){
+            if ($workflow['default_name'] == 'DocuSign ID Verification') 
+                $workflow_id = $workflow['workflow_id'];
+        }
+        # Step 3 end
+
+        if ($workflow_id == '') 
+        throw new ApiException('Please contact <a href="https://support.docusign.com">DocuSign Support</a> to enable Phone Auth in your account.');
 
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
+        # Step 4 start
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
@@ -64,15 +75,16 @@ class IDVAuthenticationService
         ]);
 
         $wFObj = new RecipientIdentityVerification();
-        $wFObj->setWorkflowId($accounts_id);
+        $wFObj->setWorkflowId($workflow_id);
 
         $signer1->setIdentityVerification($wFObj);
 
         $recipients = new Recipients();
         $recipients->setSigners(array($signer1));
         $envelope_definition->setRecipients($recipients);
+        # Step 4 end
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+
 }
