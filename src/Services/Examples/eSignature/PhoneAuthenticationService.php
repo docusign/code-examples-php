@@ -2,6 +2,7 @@
 
 namespace Example\Services\Examples\eSignature;
 
+use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\RecipientIdentityPhoneNumber;
 use DocuSign\eSign\Model\RecipientIdentityInputOption;
@@ -22,13 +23,15 @@ class PhoneAuthenticationService
     # ***DS.snippet.0.start
     public static function phone_authentication(array $args, $demoDocsPath, $clientService): array
     {
-        # 1. Create the envelope request object
-        $envelope_definition = PhoneAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
+        # Create the envelope request object
+        $envelope_definition = PhoneAuthenticationService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
 
-        # 2. call Envelopes::create API method
+        # call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        # Step 5 start
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        # Step 5 end
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
     }
@@ -41,10 +44,25 @@ class PhoneAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
     {
 
+        # Retrieve the workflow ID
+        # Step 3 start
+        $accounts_api = $clientService->getAccountsApi();
+        $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
+        $workflows_data = $accounts_response->getIdentityVerification();
+        $workflow_id = '';
+        foreach ($workflows_data as $workflow) {
+            if ($workflow['default_name'] == 'Phone Authentication')
+                $workflow_id = $workflow['workflow_id'];  
+        }
+        # step 3 end
+        if ($workflow_id == '') 
+          throw new ApiException('Please contact <a href="https://support.docusign.com">DocuSign Support</a> to enable Phone Auth in your account.');
+        
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
+        # step 4 start
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
@@ -58,7 +76,7 @@ class PhoneAuthenticationService
         $inputOption->setPhoneNumberList(array($phoneNumber));
 
         $identityVerification = new RecipientIdentityVerification;
-        $identityVerification->setWorkflowId('c368e411-1592-4001-a3df-dca94ac539ae');
+        $identityVerification->setWorkflowId($workflow_id);
         $identityVerification->setInputOptions(array($inputOption));
 
         $signer1 = new Signer([
@@ -77,6 +95,7 @@ class PhoneAuthenticationService
         $recipients->setSigners(array($signer1));
 
         $envelope_definition->setRecipients($recipients);
+        # Step 4 end
 
         return $envelope_definition;
     }

@@ -229,7 +229,7 @@ class SignatureClientService
         $GLOBALS['twig']->display(
             'error.html',
             [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
+                'error_code' => $body->errorCode ?? unserialize($body)->errorCode ?? $e->getMessage(),
                 'error_message' => $body->message ?? unserialize($body)->message
             ]
         );

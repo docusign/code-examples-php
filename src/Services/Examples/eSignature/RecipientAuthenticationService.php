@@ -79,8 +79,8 @@ class RecipientAuthenticationService
         $signHere1 = new SignHere(
             [
                 'name' => 'SignHereTab',
-                'x_position' => '75',
-                'y_position' => '572',
+                'x_position' => '200',
+                'y_position' => '160',
                 'tab_label' => 'SignHereTab',
                 'page_number' => '1',
                 'document_id' => '1',
