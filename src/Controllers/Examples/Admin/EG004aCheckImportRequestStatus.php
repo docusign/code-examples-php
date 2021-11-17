@@ -30,6 +30,10 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
     {
         $this->checkDsToken();
 
+        // We've access the example without having an import ID, therefore, let's send the user to get an import ID
+        if(!isset($_SESSION['import_id'])){
+            header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=aeg004');
+        }
         // Call the worker method
         $results = $this->checkRequestStatus();
 
