@@ -36,6 +36,11 @@ abstract class AdminApiBaseController extends BaseController
             $this->routerService = new RouterService();
         }
 
+        //override for batch import request status
+        if($_REQUEST['page'] == 'aeg004a'){
+            $this->createController(); 
+        };
+        
         if ($method == 'GET') {
             $this->getController($args, $permission_profiles);
         };

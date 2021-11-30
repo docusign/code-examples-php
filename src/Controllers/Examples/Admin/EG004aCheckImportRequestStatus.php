@@ -31,19 +31,31 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
         $this->checkDsToken();
 
         // We've access the example without having an import ID, therefore, let's send the user to get an import ID
-        if(!isset($_SESSION['import_id'])){
+        if (!isset($_SESSION['import_id'])) {
             header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=aeg004');
         }
         // Call the worker method
         $results = $this->checkRequestStatus();
 
         if ($results) {
-            $this->clientService->showDoneTemplate(
-                "Check import request status",
-                "Admin API data response output:",
-                "Results from UserImport:getBulkUserImportRequest method:",
-                json_encode($results)
-            );
+            if ($results["status"] == "queued") {
+                $this->clientService->showDoneTemplate(
+                    "Request not complete",
+                    "Request not complete",
+                    "The request has not completed, please refresh this page",
+                    NULL,
+                    $_SESSION["import_id"]
+                );
+                
+            } else {
+                $this->clientService->showDoneTemplate(
+                    "Check import request status",
+                    "Admin API data response output:",
+                    "Results from UserImport:getBulkUserImportRequest method:",
+                    json_encode($results->__toString())
+                );
+
+            }
         }
     }
 
@@ -52,7 +64,7 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
      * @return string
      * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
-    private function checkRequestStatus(): string
+    private function checkRequestStatus(): object
     {
         // create a bulk exports api instance
         $bulkImport = $this->clientService->bulkImportsApi();
@@ -62,10 +74,10 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
         return $bulkImport->getBulkUserImportRequest(
             $this->clientService->getOrgAdminId($this->args),
             $importId
-        )->__toString();
+        );
         # Step 4 end
-    }   
-        
+    }
+
 
     /**
      * Get specific template arguments
