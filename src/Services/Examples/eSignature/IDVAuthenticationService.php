@@ -56,7 +56,7 @@ class IDVAuthenticationService
         # Step 3 end
 
         if ($workflow_id == '') 
-        throw new ApiException('Please contact <a href="https://support.docusign.com">DocuSign Support</a> to enable Phone Auth in your account.');
+        throw new ApiException('Please contact <a href="https://support.docusign.com">DocuSign Support</a> to enable IDV in your account.');
 
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         # Step 4 start

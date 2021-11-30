@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\IDVAuthenticationService;
+use DocuSign\eSign\Client\ApiException;
 
 class EG023IDVAuthentication extends eSignBaseController
 {
@@ -36,8 +37,12 @@ class EG023IDVAuthentication extends eSignBaseController
         # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
 
-        $envelopeAuthentification = IDVAuthenticationService::idvAuthentication($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
-
+        try {
+            $envelopeAuthentification = IDVAuthenticationService::idvAuthentication($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+            }
+        catch (ApiException $e){
+            $this->clientService->showErrorTemplate($e);
+        }
         if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
             # which need an envelope_id
