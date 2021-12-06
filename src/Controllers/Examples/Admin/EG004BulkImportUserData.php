@@ -37,8 +37,17 @@ class EG004BulkImportUserData extends AdminApiBaseController
         $bulkImport = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId, $GLOBALS["DS_CONFIG"]["signer_email"]);
 
         if ($bulkImport) {
-            $_SERVER["REQUEST_METHOD"] = 'POST';
-            header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=aeg004a');
+            $this->clientService->showDoneTemplate(
+                "Add users via bulk import",
+                "Add users via bulk import",
+                "Results from UserImport:addBulkUserImport method:",
+                json_encode(json_encode($bulkImport)),
+                $_SESSION['import_id']
+            );
+
+            // skip the response page and just forward to aeg004a
+            // $_SERVER["REQUEST_METHOD"] = 'POST';
+            // header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=aeg004a');
         }
     }
     
