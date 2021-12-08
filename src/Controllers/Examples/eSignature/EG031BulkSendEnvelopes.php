@@ -46,7 +46,8 @@ class EG031BulkSendEnvelopes extends eSignBaseController
             $this->clientService->showDoneTemplate(
                 "Bulk sending envelopes to multiple recipients",
                 "Bulk sending envelopes to multiple recipients",
-                "The envelope has been sent to recipients!<br/> Batch id: {$bulkSendBatchStatus['batchId']}"
+                "The envelope has been sent to recipients!<br/> Batch id: {$bulkSendBatchStatus['batchId']}",
+                json_encode(json_encode($bulkSendBatchStatus))
             );
         }
     }

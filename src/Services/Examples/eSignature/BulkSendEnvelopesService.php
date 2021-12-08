@@ -12,6 +12,7 @@ use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
+use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\TextCustomField;
@@ -39,17 +40,19 @@ class BulkSendEnvelopesService
         $bulk_envelopes_api = $clientService->getBulkEnvelopesApi();
         $envelope_api = $clientService->getEnvelopeApi();
 
-        # Step 3. Submit a bulk list
+        # Step 3 start
         $bulk_sending_list = BulkSendEnvelopesService::createBulkSendingList($args["signers"]);
         $bulk_list = $bulk_envelopes_api->createBulkSendList($args["account_id"], $bulk_sending_list);
         $bulk_list_id = $bulk_list["list_id"];
+        # Step 3 end
 
-        # Step 4. Create an envelope
+        # Step 4.1 start
         $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath);
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
+        # Step 4.1 end
 
-        # Step 5. Attach your bulk list ID to the envelope
+        # Step 5 start
         $text_custom_fields = new TextCustomField(
             [
                 "name" => "mailingListId",
@@ -67,55 +70,9 @@ class BulkSendEnvelopesService
         );
 
         $envelope_api->createCustomFields($args["account_id"], $envelope_id, $custom_fields);
+        # Step 5 end
 
-        # Step 6. Add placeholder recipients
-        $signer = new Signer(
-            [
-                'name' => 'Multi Bulk Recipient::signer',
-                'email' => 'multiBulkRecipients-signer@docusign.com',
-                'role_name' => "signer",
-                'note' => "",
-                'routing_order' => '1',
-                'status' => 'created',
-                'delivery_method' => 'Email',
-                'recipient_id' => '1', # Represents your {RECIPIENT_ID}
-                'recipient_type' => "signer"
-            ]
-        );
-
-        // # Create a SignHere tab (field on the document)
-        $sign_here = new SignHere(
-            [
-                'tab_label' => "signHere1", # DocuSign SignHere field/tab
-                'anchor_string' => '/sn1/',
-                'anchor_units' => 'pixels',
-                'anchor_y_offset' => '10',
-                'anchor_x_offset' => '20'
-            ]
-        );
-
-        // # Add the tabs model (including the sign_here tab) to the signer
-        // # The Tabs object takes arrays of the different field/tab types
-        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
-
-        $cc = new Signer(
-            [
-                'name' => 'Multi Bulk Recipient::cc',
-                'email' => 'multiBulkRecipients-cc@docusign.com',
-                'role_name' => "cc",
-                'note' => "",
-                'routing_order' => '1',
-                'status' => 'created',
-                'delivery_method' => 'Email',
-                'recipient_id' => '2', # Represents your {RECIPIENT_ID}
-                'recipient_type' => "signer"
-            ]
-        );
-
-        $recipients = new Recipients(['signers' => [$signer, $cc]]);
-        $envelope_api->createRecipient($args['account_id'], $envelope_id, $recipients);
-
-        # Step 7. Initiate bulk send
+        # Step 6 start
         $bulk_send_request = new BulkSendRequest(['envelope_or_template_id' => $envelope_id]);
 
         $batch = $bulk_envelopes_api->createBulkSendRequest(
@@ -123,8 +80,9 @@ class BulkSendEnvelopesService
             $bulk_list_id,
             $bulk_send_request
         );
+        # step 6 end
 
-        # Step 8. Confirm successful batch send
+        # Step 7 start
         # Exceptions will be caught by the calling function
         try {
             $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatus(
@@ -135,6 +93,7 @@ class BulkSendEnvelopesService
             $clientService->showErrorTemplate($e);
             exit;
         }
+        # Step 7 end
 
         return $bulkSendBatchStatus;
     }
@@ -189,6 +148,7 @@ class BulkSendEnvelopesService
         return $bulk_sending_list;
     }
 
+    # Step 4.2 start
     /**
      *  Creates envelope definition
      *  Parameters for the envelope: signer_email, signer_name, signer_client_id
@@ -224,6 +184,24 @@ class BulkSendEnvelopesService
                 'name' => "Multi Bulk Recipient::signer",
                 'recipient_id' => "1",
                 'routing_order' => "1",
+                'recipient_type' => "signer",
+                'delievery_method' => "email",
+                'status' => "created",
+                'role_name' => "signer"
+            ]
+        );
+
+        // # Create the cc recipient model
+        $cc = new CarbonCopy(
+            [ # The signer
+                'email' => "multiBulkRecipients-cc@docusign.com",
+                'name' => "Multi Bulk Recipient::cc",
+                'recipient_id' => "2",
+                'routing_order' => "2",
+                'recipient_type' => "cc",
+                'delievery_method' => "email",
+                'status' => "created",
+                'role_name' => "cc"
             ]
         );
 
@@ -248,12 +226,14 @@ class BulkSendEnvelopesService
                 'email_subject' => "Please sign this document sent from the PHP SDK",
                 'documents' => [$document],
                 # The Recipients object takes arrays for each recipient type
+                'recipients' => ['signers' => [$signer], 'carbonCopies' => [$cc]],
                 'status' => "created" # Requests that the envelope be created and sent
             ]
         );
 
         return $envelope_definition;
     }
+    # Step 4.2 end
 
     # ***DS.snippet.0.end
 }
