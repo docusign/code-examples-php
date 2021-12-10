@@ -43,8 +43,8 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
                     "Request not complete",
                     "Request not complete",
                     "The request has not completed, please refresh this page",
-                    NULL,
-                    $_SESSION["import_id"]
+                    Null,
+                    "refreshPage"
                 );
                 
             } else {
@@ -61,7 +61,7 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
 
     /**
      * Method to check the request status of bulk-import.
-     * @return string
+     * @return object
      * @throws \DocuSign\OrgAdmin\Client\ApiException
      */
     private function checkRequestStatus(): object

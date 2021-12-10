@@ -11,12 +11,23 @@
 </p>
 {% endif %}
 
-{% if pending %}
 
-<form action="index.php?page=a004a" method="POST">
+
+
+{% if import_id == "refreshPage" %}
+
+<!-- We're on the refresh page, DO NOTHING, wait for a state other than 'queued' ;) -->
+
+
+{% elseif import_id %}
+
+
+<form action="index.php?page=aeg004a" method="POST">
     <input type="submit" class="btn btn-link" style="padding:0" value="Check the request status">
     <p><a href="{{ app_url }}">Continue</a></p>
 </form>
+
+
 
 {% else %}
 <p><a href="{{ app_url }}">Continue</a></p>
