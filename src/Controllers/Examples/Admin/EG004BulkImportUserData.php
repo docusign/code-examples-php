@@ -35,7 +35,6 @@ class EG004BulkImportUserData extends AdminApiBaseController
 
         // Call the worker method
         $bulkImport = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId, $GLOBALS["DS_CONFIG"]["signer_email"]);
-
         if ($bulkImport) {
             $this->clientService->showDoneTemplate(
                 "Add users via bulk import",

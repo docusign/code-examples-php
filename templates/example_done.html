@@ -16,7 +16,7 @@
 
 {% if import_id == "refreshPage" %}
 
-<!-- We're on the refresh page, DO NOTHING, wait for a state other than 'queued' ;) -->
+{# We're on the refresh page, DO NOTHING, wait for a state other than 'queued' ;) #}
 
 
 {% elseif import_id %}
@@ -26,8 +26,6 @@
     <input type="submit" class="btn btn-link" style="padding:0" value="Check the request status">
     <p><a href="{{ app_url }}">Continue</a></p>
 </form>
-
-
 
 {% else %}
 <p><a href="{{ app_url }}">Continue</a></p>

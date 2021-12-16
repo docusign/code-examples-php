@@ -192,7 +192,7 @@ class AdminApiClientService
             'h1' => $headline,
             'message' => $message,
             'json' => $results,
-            'pending' => $import_id
+            'import_id' => $import_id
         ]);
         exit;
     }
