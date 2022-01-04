@@ -50,7 +50,7 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
             } else {
                 $this->clientService->showDoneTemplate(
                     "Check import request status",
-                    "Admin API data response output:",
+                    "Add users via bulk import",
                     "Results from UserImport:getBulkUserImportRequest method:",
                     json_encode($results->__toString())
                 );
