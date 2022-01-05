@@ -85,12 +85,12 @@ class JWTService
             if (strpos($th->getMessage(), "consent_required") !== false) {
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query(
                     [
-                            'scope' => "impersonation+".$jwt_scope,
-                            'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
-                            'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                            'state' => $_SESSION['oauth2state'],
-                            'response_type' => 'code'
-                        ]
+                        'scope' => "impersonation+" . $jwt_scope,
+                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
+                        'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
+                        'state' => $_SESSION['oauth2state'],
+                        'response_type' => 'code'
+                    ]
                 );
                 header('Location: ' . $authorizationURL);
             }
@@ -106,7 +106,12 @@ class JWTService
     {
         // Check given state against previously stored one to mitigate CSRF attack
         if (!self::$access_token) {
-            exit('Invalid JWT state');
+            if (isset($_GET['code'])) {
+                // we have obtained consent, let's shortcut and login the user
+                $this->login();
+            } else {
+                exit('Invalid JWT state');
+            }
         } else {
             try {
                 // We have an access token, which we may use in authenticated

@@ -222,19 +222,22 @@ class RouterService
      */
     public function __construct()
     {
+
         // To ignore the Notice instead of Isset on missing POST vars
         error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-        $_SESSION['auth_service'] = $_POST['auth_type'];
 
-        // this one DOES work to get with the API picker & JWT commenting it out forces eSignature every time
+        if (isset( $_POST['auth_type'])) {
+            $_SESSION['auth_service'] = $_POST['auth_type'];
+            }   
+
         if (isset($_POST["api_type"])) {
                     $_SESSION['api_type'] = $_POST['api_type'];
             }
 
-        if ($_SESSION['auth_service'] == "jwt") {
-            $this->authService = new JWTService();
-        } else {
+        if ($_SESSION['auth_service'] == "code_grant") {
             $this->authService = new CodeGrantService();
+        } else {
+            $this->authService = new JWTService();
         }
     }
 
@@ -327,7 +330,6 @@ class RouterService
             $this->ds_callback(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_logout') {
-            // this variable lets the program know we've already logged in via Quickstart the first time.
             $this->ds_logout(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_return') {
@@ -340,6 +342,7 @@ class RouterService
                     'state' => $_GET['state'] ?? false
                 ]
             );
+            // this variable lets the program know we've already logged in via Quickstart the first time.
             $_SESSION['beenHere'] = true;
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
@@ -450,6 +453,9 @@ class RouterService
         }
         if (isset($_SESSION['api_type'])) {
             unset($_SESSION['api_type']);
+        }
+        if (isset($_SESSION['auth_service'])) {
+            unset($_SESSION['auth_service']);
         }
     }
 
