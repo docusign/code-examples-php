@@ -26,11 +26,12 @@ class JWTService
     /**
      * Checker for the JWT token
      */
-    protected function checkToken()
+    public function checkToken()
     {
+
         if (
-            is_null(self::$access_token)
-            || (time() + self::TOKEN_REPLACEMENT_IN_SECONDS) > self::$expiresInTimestamp
+            is_null($_SESSION['ds_access_token'])
+            || (time() + self::TOKEN_REPLACEMENT_IN_SECONDS) > (int) $_SESSION['ds_expiration']
         ) {
             $this->login();
         }
@@ -119,7 +120,6 @@ class JWTService
 
                 $this->flash('You have authenticated with DocuSign.');
                 $_SESSION['ds_access_token'] = self::$access_token->getAccessToken();
-                $_SESSION['ds_refresh_token'] = self::$access_token->getRefreshToken();
                 $_SESSION['ds_expiration'] = time() + (self::$access_token->getExpiresIn() * 60); # expiration time.
 
                 // Using the access token, we may look up details about the
