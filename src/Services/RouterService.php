@@ -398,10 +398,12 @@ class RouterService
         }
         # reset the session
         $tempAPIType = $_SESSION["api_type"];
+        $tempGrant = $_SESSION["auth_service"];
         $this->ds_logout_internal();
 
         // Workaround for ACG apiTypePicker
         $_SESSION["api_type"] = $tempAPIType;
+        $_SESSION["auth_service"] = $tempGrant;
         $this->authService->authCallback($redirectUrl);
     }
 
