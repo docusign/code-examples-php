@@ -52,7 +52,7 @@ class AccessCodeAuthenticationService
             'delivery_method' => 'Email',
             'recipient_id' => '1', # represents your {RECIPIENT_ID}
             'tabs' => $signer1Tabs,
-            'access_code' => 'NJ9@D1' #represents your {ACCESS_CODE}
+            'access_code' => $args['access_code'] #represents your {ACCESS_CODE}
         ]);
 
         $recipients = new Recipients();

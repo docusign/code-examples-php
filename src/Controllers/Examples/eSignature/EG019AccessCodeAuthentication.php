@@ -61,6 +61,7 @@ class EG019AccessCodeAuthentication extends eSignBaseController
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
+            'access_code' => $this->checkInputValues($_POST['access_code'])
         ];
         return [
             'account_id' => $_SESSION['ds_account_id'],
