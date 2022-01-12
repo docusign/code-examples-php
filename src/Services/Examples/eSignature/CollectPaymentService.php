@@ -134,8 +134,8 @@ class CollectPaymentService
             'anchor_x_offset' => '0',
             'list_items' => [
                 ['text' => "1"   , 'value' => "1"   ], ['text' => "2", 'value' => "2"],
-                ['text' => "3", 'value' => "3"], ['text' => "3" , 'value' => "3" ],
-                ['text' => "4"  , 'value' => "4"  ], ['text' => "5", 'value' => "5"]
+                ['text' => "3", 'value' => "3"], ['text' => "4" , 'value' => "4" ],
+                ['text' => "5"  , 'value' => "5"  ], ['text' => "6", 'value' => "6"]
             ],
             'required' => "true",
             'tab_label' => "l1q"
@@ -150,8 +150,8 @@ class CollectPaymentService
             'anchor_x_offset' => '0',
             'list_items' => [
                 ['text' => "1"   , 'value' => "1"   ], ['text' => "2", 'value' => "2"],
-                ['text' => "3", 'value' => "3"], ['text' => "3" , 'value' => "3" ],
-                ['text' => "4"  , 'value' => "4"  ], ['text' => "5", 'value' => "5"]
+                ['text' => "3", 'value' => "3"], ['text' => "4" , 'value' => "4" ],
+                ['text' => "5"  , 'value' => "5"  ], ['text' => "6", 'value' => "6"]
             ],
             'required' => "true",
             'tab_label' => "l2q"
