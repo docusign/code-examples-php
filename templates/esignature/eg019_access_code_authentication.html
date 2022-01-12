@@ -1,12 +1,12 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>19. Send an envelope using Recipient Access Code Authentication</h4>
+<h4>19. Require access code authentication for a recipient</h4>
+<p>Sends an envelope that requires entering an access code for the purpose of multifactor authentication.</p>
 <p>Anchor text
     (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the signing fields in the documents.
+    is used to position the SignHere tab on the document.
 </p>
-<p>This is a general example of creating and sending an envelope (a signing request) to multiple recipients,
-    with multiple documents, and with signature fields for the documents.</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
@@ -16,7 +16,7 @@
     <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
 </p>
 <p>
-    <strong>Note:</strong> To see the access code feature, you have to specify a different email address than the one that was used for the develoer account.
+    <strong>Note:</strong> To see the access code feature, you have to specify a different email address than the developer account email address.
 </p>
 <p>
     View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
