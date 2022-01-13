@@ -3,11 +3,10 @@
 <h4>14. Send a request for Accept payments</h4>
 
 <h5 style="color: purple;">Note: This example will only work if the sender's DocuSign account
-    is (<a href="https://github.com/docusign/code-examples-php#payments-code-example">configured with a DocuSign payment gateway</a>).
+    is <a href="https://github.com/docusign/code-examples-php#payments-code-example">configured with a DocuSign payment gateway</a>.
 </h5>
 <p>Sends an order form with online payment by credit card.</p>
-<p>(<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the fields in the document.
+<p><a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a> is used to position the fields in the document.
 </p>
 
 {% if show_doc %}
@@ -39,7 +38,7 @@
     <div class="form-group">
         <label for="cc_email">CC Email</label>
         <input type="email" class="form-control" id="cc_email" name="cc_email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               aria-describedby="emailHelp" placeholder="pat@example.com" required>
         <small id="emailHelpCC" class="form-text text-muted">The email for the cc recipient must be different from the signer's email.</small>
     </div>
     <div class="form-group">
