@@ -31,34 +31,48 @@ class BulkExportUserDataService
         $bulkList = $bulkExportsApi->createUserListExport($organizationId, $request);
         # Step 3 end
 
-        sleep(15);
+        sleep(10);
 
         # Step 4 start
         $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
         # Step 4 end
 
         # Step 5 start
-        $csvUri = $organizationExportResponse->getResults()[0]->getUrl();
+        try {
+            if ($organizationExportResponse["percent_completed"] < 100) {
+                sleep(25);
+                $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
 
-        $client = new Client();
-        $client->request(
-            'GET',
-            $csvUri,
-            [
-                'headers' => [
-                    'Authorization' => "bearer {$arguments['ds_access_token']}",
-                    'Accept' => 'application/json',
-                    'Content-Type' => "multipart/form-data; "
-                ],
-                'save_to' => "./demo_documents/ExportedUserData.csv"
-            ]
-        );
-        # Step 5 end
+                if ($organizationExportResponse["percent_completed"] < 100) {
+                    sleep(15);
+                    $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
+                }
+            }
 
-        if ($organizationExportResponse->getResults() !== null) {
-            $_SESSION['export_id'] = strval($organizationExportResponse->getResults()[0]->getId());
+            $csvUri = $organizationExportResponse->getResults()[0]->getUrl();
+
+            $client = new Client();
+            $client->request(
+                'GET',
+                $csvUri,
+                [
+                    'headers' => [
+                        'Authorization' => "bearer {$arguments['ds_access_token']}",
+                        'Accept' => 'application/json',
+                        'Content-Type' => "multipart/form-data; "
+                    ],
+                    'save_to' => "./demo_documents/ExportedUserData.csv"
+                ]
+            );
+            # Step 5 end
+
+            if ($organizationExportResponse->getResults() !== null) {
+                $_SESSION['export_id'] = strval($organizationExportResponse->getResults()[0]->getId());
+            }
+            $organizationExportResponse = $bulkExportsApi->getUserListExports($organizationId);
+            return json_decode($organizationExportResponse->__toString());
+        } catch (ApiException $e) {
+            $clientService->showErrorTemplate($e);
         }
-        $organizationExportResponse = $bulkExportsApi->getUserListExports($organizationId);
-        return json_decode($organizationExportResponse->__toString());
     }
 }
