@@ -1,16 +1,13 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>14. Send an envelope with an order form, including a payment field.</h4>
+<h4>14. Send a request for Accept payments</h4>
 
 <h5 style="color: purple;">Note: This example will only work if the sender's DocuSign account
-    is set up with a DocuSign payment gateway. Since the Payment Gateway ID
-    is set in the configuration file, you will need to run your
-    own instance of this project to set it.
+    is (<a href="https://github.com/docusign/code-examples-php#payments-code-example">configured with a DocuSign payment gateway</a>).
 </h5>
-
-<p>Anchor strings
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    are used to position the fields in the documents.
+<p>Sends an order form with online payment by credit card.</p>
+<p>(<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
+    is used to position the fields in the document.
 </p>
 
 {% if show_doc %}
@@ -54,7 +51,7 @@
     <button type="submit" class="btn btn-docu">Submit</button>
 </form>
 {% else %}
-<p>Problem: please set the <b>DS_PAYMENT_GATEWAY_ID</b> value in the configuration file.</p>
+<p>Problem: Please set the <b>Gateway Account ID</b> value in ds_config.php.</p>
 {% endif %}
 
 {% endblock %}
