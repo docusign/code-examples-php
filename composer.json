@@ -6,16 +6,16 @@
     },
  
     "require": {
-        "docusign/admin-client": "1.0.0-beta",
+        "docusign/admin-client": "1.0.0",
         "docusign/click-client": "1.0.0",
-        "docusign/esign-client": "^6.2.0-rc",
-        "docusign/rooms-client": "^1.1.0-rc",
+        "docusign/esign-client": "6.5.0",
+        "docusign/rooms-client": "2.0.0",
         "docusign/monitor-client": "1.0.0",    
-        "twig/twig": "^2.0",
-        "league/oauth2-client": "^2.4",
+        "twig/twig": "3.3.3",
+        "league/oauth2-client": "2.6.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.5",
-        "firebase/php-jwt": "^5.0",
-        "mashape/unirest-php": "^3.0"
+        "guzzlehttp/guzzle": "7.4.0",
+        "firebase/php-jwt": "5.5.1",
+        "mashape/unirest-php": "3.0.4"
     }
 }
