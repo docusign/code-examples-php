@@ -126,18 +126,32 @@ class CollectPaymentService
             'anchor_y_offset' => '10', 'anchor_units' => 'pixels',
             'anchor_x_offset' => '20']);
 
-        $list1 = CreateTemplateService::createListOfButtonOptions();
-
-        $list2 = new ModelList([
+        $list1 = new ModelList([
             'font' => "helvetica",
             'font_size' => "size11",
             'anchor_string' => '/l1q/',
             'anchor_y_offset' => '-10', 'anchor_units' => 'pixels',
             'anchor_x_offset' => '0',
             'list_items' => [
-                ['text' => "Red"   , 'value' => "red"   ], ['text' => "Orange", 'value' => "orange"],
-                ['text' => "Yellow", 'value' => "yellow"], ['text' => "Green" , 'value' => "green" ],
-                ['text' => "Blue"  , 'value' => "blue"  ], ['text' => "Indigo", 'value' => "indigo"]
+                ['text' => "1"   , 'value' => "1"   ], ['text' => "2", 'value' => "2"],
+                ['text' => "3", 'value' => "3"], ['text' => "4" , 'value' => "4" ],
+                ['text' => "5"  , 'value' => "5"  ], ['text' => "6", 'value' => "6"]
+            ],
+            'required' => "true",
+            'tab_label' => "l1q"
+        ]);
+    
+    
+        $list2 = new ModelList([
+            'font' => "helvetica",
+            'font_size' => "size11",
+            'anchor_string' => '/l2q/',
+            'anchor_y_offset' => '-10', 'anchor_units' => 'pixels',
+            'anchor_x_offset' => '0',
+            'list_items' => [
+                ['text' => "1"   , 'value' => "1"   ], ['text' => "2", 'value' => "2"],
+                ['text' => "3", 'value' => "3"], ['text' => "4" , 'value' => "4" ],
+                ['text' => "5"  , 'value' => "5"  ], ['text' => "6", 'value' => "6"]
             ],
             'required' => "true",
             'tab_label' => "l2q"
