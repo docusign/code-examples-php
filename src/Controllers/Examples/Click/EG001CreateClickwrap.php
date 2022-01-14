@@ -40,8 +40,8 @@ class EG001CreateClickwrap extends ClickApiBaseController
             $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
             $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplate(
-                "Creating a clickwrap example",
-                "Creating a clickwrap example",
+                "Create a clickwrap example",
+                "Create a clickwrap example",
                 "Clickwrap $clickwrap_name has been created",
                 json_encode(json_encode($clickwrapSummaryResponse))
             );
