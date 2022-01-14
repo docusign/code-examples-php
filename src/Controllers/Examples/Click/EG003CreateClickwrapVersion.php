@@ -58,18 +58,11 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
             $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
             $clickwrap_version = $clickwrapSummaryResponse['versionNumber'];
-            $suffixes = array('th','st','nd','rd','th','th','th','th','th','th');
-            if (($clickwrap_version%100) >= 11 && ($clickwrap_version%100) <= 13) {
-                $suffix = 'th';
-            }
-            else {
-                $suffix = $suffixes[$clickwrap_version%10];
-            }
             
             $this->clientService->showDoneTemplate(
                 "Creating a new clickwrap version example",
                 "Creating a new clickwrap version example",
-                "The $clickwrap_version$suffix version of clickwrap $clickwrap_name has been created",
+                "Version $clickwrap_version of clickwrap $clickwrap_name has been created",
                 json_encode(json_encode($clickwrapSummaryResponse))
             );
         }
