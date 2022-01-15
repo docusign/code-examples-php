@@ -88,7 +88,7 @@ class SendBinaryDocsService
         ]);
         $responseInterfaceToJson = json_decode((string)$responseInterface->getBody());
 
-        return ['envelope_id' => $responseInterfaceToJson->envelope_id];
+        return ['envelope_id' => $responseInterfaceToJson->envelopeId];
     }
 
     /**
