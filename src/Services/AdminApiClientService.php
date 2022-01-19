@@ -113,7 +113,10 @@ class AdminApiClientService
        // We are returning the first Organization Id found
        $AccountsApi = new AccountsApi($this->apiClient);
        $orgs = $AccountsApi->getOrganizations();
-       return $orgs["organizations"][0]["id"];
+       if ($orgs["organizations"] == null)
+         throw new ApiException ("You must create an organization for this account to be able to use the DocuSign Admin API.", 1);
+       else
+         return $orgs["organizations"][0]["id"];
         
     }
     
