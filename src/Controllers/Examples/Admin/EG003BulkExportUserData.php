@@ -32,20 +32,27 @@ class EG003BulkExportUserData extends AdminApiBaseController
     {
         $this->checkDsToken();
 
-        $organizationId = $this->clientService->getOrgAdminId();
+        try
+        {
+            $organizationId = $this->clientService->getOrgAdminId();
 
-        $bulkExports = BulkExportUserDataService::getExportsData($this->clientService, $this->args, $organizationId);
-        $filePath = realpath(
-                $_SERVER["DOCUMENT_ROOT"]
-            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
-        if ($bulkExports) {
-            $this->clientService->showDoneTemplate(
-                "Bulk export user data",
-                "Bulk export user data",
-                "User data exported to $filePath<br>from UserExport:getUserListExport method:",
-                json_encode(json_encode($bulkExports))
-            );
+            $bulkExports = BulkExportUserDataService::getExportsData($this->clientService, $this->args, $organizationId);
+            $filePath = realpath(
+                    $_SERVER["DOCUMENT_ROOT"]
+                ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
+            if ($bulkExports) {
+                $this->clientService->showDoneTemplate(
+                    "Bulk export user data",
+                    "Bulk export user data",
+                    "User data exported to $filePath<br>from UserExport:getUserListExport method:",
+                    json_encode(json_encode($bulkExports))
+                );
+            }
         }
+        catch (ApiException $e)
+        {
+            $this->clientService->showErrorTemplate($e);
+        }    
     }
 
     /**
