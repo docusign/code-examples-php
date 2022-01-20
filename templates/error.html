@@ -4,12 +4,12 @@
 <p>Error information:</p>
 
 {% if error_code %}
-<p>{{ error_code | raw }} {{ error_message }}</p>
+<p>{{ error_code | raw }} {{ error_message | raw  }}</p>
 {% else %}
 <p><pre>{{ err }}</pre></p>
 {% endif %}
 
 
-<p><a href="/">Continue</a></p>
+<p><a href="{{ app_url }}">Continue</a></p>
 
 {% endblock %}
