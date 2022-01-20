@@ -115,7 +115,7 @@ class AdminApiClientService
        $orgs = $AccountsApi->getOrganizations();
        if ($orgs["organizations"] == null)
          throw new ApiException ("You must create an 
-         <a target='_blank' href=\"https://support.docusign.com/guides/org-admin-guide\">organization</a> for this account to be able to use the DocuSign Admin API.", 1);
+         <a target='_blank' href='https://support.docusign.com/guides/org-admin-guide'>organization</a> for this account to be able to use the DocuSign Admin API.", 1);
        else
          return $orgs["organizations"][0]["id"];
         
