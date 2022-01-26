@@ -112,8 +112,7 @@
     </p>
 
     <h4 id="example010">10. <a href="{{ app_url ~ 'index.php?page=eg010'}}">Attach documents using binary transfer</a></h4>
-    <p>Multipart data transfer is used to send the documents in binary format to DocuSign
-        Binary transfer is 33% more efficient than Base64 encoding.
+    <p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than Base64 encoding.
     </p>
     <p>API method used:
         <a target ='_blank' 
@@ -136,8 +135,7 @@
     </p>
 
     <h4 id="example013">13. <a href="{{ app_url ~ 'index.php?page=eg013'}}">Request a signature using a composite template</a></h4>
-    <p>Sends an envelope based on a template. In addition to the template's document(s), this example adds an additional document to the envelope 
-        by using the
+    <p>Sends an envelope based on a template. In addition to the template's document, this example adds an additional document to the envelope using the
         <a target='_blank' 
            href='https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/'>Composite templates</a> feature.</p>
     <p>API methods used:
@@ -167,7 +165,7 @@
     </p>
 
     <h4 id="example016">16. <a href="{{ app_url ~ 'index.php?page=eg016'}}">Set envelope tab values</a></h4>
-    <p>Creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to be read-only, 
+    <p>Creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to read-only, 
         others can be updated by the recipient. This example also stores metadata with the envelope.</p>
     <p>
       API methods used:
@@ -247,7 +245,7 @@
            href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/">AccountPermissionProfiles::update</a>.
     </p>
     <h4 id="example027">27. <a href="{{ app_url ~ 'index.php?page=eg027'}}">Delete a permission profile</a></h4>
-    <p>Lists all available permissions profiles and allows you to delete any without associated users. 
+    <p>Lists all permission profiles and allows you to delete any without associated users. 
         <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.</p>
     <p>API method used:
         <a target ='_blank' 
@@ -312,7 +310,7 @@
     
     <h4 id="example033">33. <a href="{{ app_url ~ 'index.php?page=eg033'}}">Unpause a signature workflow</a></h4>
     <p>Updates an envelope to resume the workflow that has been paused. 
-        You must have created at least one envelope with a paused signature workflow to run this example.</p>
+        You must have created an envelope with a paused signature workflow to run this example.</p>
     <p>API method used:
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::update</a>.
