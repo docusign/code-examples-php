@@ -174,7 +174,7 @@ class RouterService
         "eg020" => "Require Phone Authentication for a Recipient",
         "eg022" => "Knowledge Based Authentication",
         "eg023" => "ID Verification Authentication",
-        "eg024" => "Permissions creating",
+        "eg024" => "Create a permission profile",
         "eg025" => "Permissions deleting",
         "eg026" => "Permission change single setting",
         "eg027" => "Permissions delete",
