@@ -45,8 +45,8 @@ class EG024PermissionCreate extends eSignBaseController
         if ($permissionProfile) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
-                "Creating a permission profile",
-                "Creating a permission profile",
+                "Create a permission profile",
+                "Create a permission profile",
                 "The permission profile has been created!<br/> 
                 Permission profile ID {$permissionProfile["permission_profile_id"]}."
             );
