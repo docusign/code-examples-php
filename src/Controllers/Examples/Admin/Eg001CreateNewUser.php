@@ -28,9 +28,9 @@ class EG001CreateNewUser extends AdminApiBaseController
 
         $this->checkDsToken();
 
-        $this->orgId = $this->clientService->getOrgAdminId($this->args);
-
         try {
+            $this->orgId = $this->clientService->getOrgAdminId($this->args);
+
             $signatureClientService = new SignatureClientService($this->args);
             $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
             $groupsObj = $signatureClientService->getGroups($this->args);
