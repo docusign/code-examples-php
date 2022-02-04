@@ -306,6 +306,7 @@ color: darkblue;">Order Processing Division</h2>
         <h4>Ordered by {$args['signer_name']}</h4>
         <p style="margin-top:0em; margin-bottom:0em;">Email: {$args['signer_email']}</p>
         <p style="margin-top:0em; margin-bottom:0em;">Copy to: {$args['cc_name']}, {$args['cc_email']}</p>
+        <p style="margin-top:3em; margin-bottom:0em;">Item: <b> {$args['item']} </b>, quantity: <b> {$args['quantity']} </b> at market price.</p>
         <p style="margin-top:3em;">
   Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.
         </p>
