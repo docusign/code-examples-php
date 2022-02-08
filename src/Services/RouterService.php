@@ -178,7 +178,7 @@ class RouterService
         "eg025" => "Permissions deleting",
         "eg026" => "Permission change single setting",
         "eg027" => "Permissions delete",
-        "eg028" => "Create brand",
+        "eg028" => "Create a brand",
         "eg029" => "Apply brand to envelope",
         "eg030" => "Apply brand to template",
         "eg031" => "Bulk sending envelopes to multiple recipients",

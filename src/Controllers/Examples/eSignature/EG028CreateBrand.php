@@ -86,9 +86,9 @@ class EG028CreateBrand extends eSignBaseController
         if ($brandId["brand_id"] != null) {
             # Success if there's an envelope Id and the brand name isn't a duplicate
             $this->clientService->showDoneTemplate(
-                "New Brand sent",
-                "New Brand sent",
-                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}."
+                "Create a brand",
+                "Create a brand",
+                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}"
             );
         }
         # If the brand name is null the brand name is a duplicate.
