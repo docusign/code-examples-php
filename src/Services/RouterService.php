@@ -174,7 +174,7 @@ class RouterService
         "eg020" => "Require Phone Authentication for a Recipient",
         "eg022" => "Knowledge Based Authentication",
         "eg023" => "ID Verification Authentication",
-        "eg024" => "Permissions creating",
+        "eg024" => "Create a permission profile",
         "eg025" => "Permissions deleting",
         "eg026" => "Permission change single setting",
         "eg027" => "Permissions delete",
@@ -275,8 +275,8 @@ class RouterService
         if ($page == $homeRoute) {
 
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $this->ds_token_ok() == false  && !isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
+                $_SESSION['beenHere'] = "false";
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
             }
             elseif ($this->ds_token_ok() == false) {
@@ -295,6 +295,7 @@ class RouterService
             //is it quickstart have they signed in already?
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true'  && !isset($_SESSION['beenHere'])) {
                 // we should default to ESignature for the first runthrough
+                $_SESSION['beenHere'] = "true";
                 $_SESSION["api_type"] = "ESignature";
                 $this->ds_login();
                 exit();
@@ -313,7 +314,7 @@ class RouterService
                 exit();
             }
             //is it quickstart have they signed in already?
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true') {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' &&  !isset($_SESSION['beenHere'])) {
                 //Let's just shortcut to login immediately
                 $this->ds_login();
                 exit();
@@ -343,7 +344,6 @@ class RouterService
                 ]
             );
             // this variable lets the program know we've already logged in via Quickstart the first time.
-            $_SESSION['beenHere'] = true;
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
