@@ -88,7 +88,7 @@ class EG028CreateBrand extends eSignBaseController
             $this->clientService->showDoneTemplate(
                 "Create a brand",
                 "Create a brand",
-                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}."
+                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}"
             );
         }
         # If the brand name is null the brand name is a duplicate.
