@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95df54347de817c047b7a49e9f94b961",
+    "content-hash": "a967a197ccd53111251461264951b984",
     "packages": [
         {
             "name": "docusign/admin-client",
@@ -58,10 +58,6 @@
                 "php",
                 "sdk"
             ],
-            "support": {
-                "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
-                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.0.0"
-            },
             "time": "2021-09-17T17:53:52+00:00"
         },
         {
@@ -225,10 +221,6 @@
                 "php",
                 "sdk"
             ],
-            "support": {
-                "issues": "https://github.com/docusign/docusign-monitor-php-client/issues",
-                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.0.0"
-            },
             "time": "2021-06-24T23:32:14+00:00"
         },
         {
@@ -283,10 +275,6 @@
                 "rooms",
                 "sdk"
             ],
-            "support": {
-                "issues": "https://github.com/docusign/docusign-rooms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.0.0"
-            },
             "time": "2021-10-06T02:53:16+00:00"
         },
         {
@@ -340,10 +328,6 @@
                 "jwt",
                 "php"
             ],
-            "support": {
-                "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/v5.5.1"
-            },
             "time": "2021-11-08T20:18:51+00:00"
         },
         {
@@ -530,10 +514,6 @@
             "keywords": [
                 "promise"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.1"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -645,10 +625,6 @@
                 "uri",
                 "url"
             ],
-            "support": {
-                "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.1.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -775,11 +751,6 @@
                 "https",
                 "rest"
             ],
-            "support": {
-                "email": "opensource@mashape.com",
-                "issues": "https://github.com/Mashape/unirest-php/issues",
-                "source": "https://github.com/Mashape/unirest-php/tree/master"
-            },
             "time": "2016-08-11T17:49:21+00:00"
         },
         {
@@ -825,11 +796,6 @@
                 "pseudorandom",
                 "random"
             ],
-            "support": {
-                "email": "info@paragonie.com",
-                "issues": "https://github.com/paragonie/random_compat/issues",
-                "source": "https://github.com/paragonie/random_compat"
-            },
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
@@ -879,9 +845,6 @@
                 "psr",
                 "psr-18"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-client/tree/master"
-            },
             "time": "2020-06-29T06:28:15+00:00"
         },
         {
@@ -934,9 +897,6 @@
                 "request",
                 "response"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/master"
-            },
             "time": "2019-04-30T12:38:16+00:00"
         },
         {
@@ -987,9 +947,6 @@
                 "request",
                 "response"
             ],
-            "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
-            },
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
@@ -1030,10 +987,6 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "support": {
-                "issues": "https://github.com/ralouphie/getallheaders/issues",
-                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
-            },
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
@@ -1261,16 +1214,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.7",
+            "version": "v3.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "8f168c6ffa3ce76d1786b3cd52275424a3fc675b"
+                "reference": "972d8604a92b7054828b539f2febb0211dd5945c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8f168c6ffa3ce76d1786b3cd52275424a3fc675b",
-                "reference": "8f168c6ffa3ce76d1786b3cd52275424a3fc675b",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/972d8604a92b7054828b539f2febb0211dd5945c",
+                "reference": "972d8604a92b7054828b539f2febb0211dd5945c",
                 "shasum": ""
             },
             "require": {
@@ -1329,7 +1282,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-03T21:15:37+00:00"
+            "time": "2022-02-04T06:59:48+00:00"
         }
     ],
     "packages-dev": [],
