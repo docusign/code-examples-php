@@ -81,7 +81,7 @@ class RouterService
         "must_authenticate" => "must_authenticate.html",
         "select_api" => "select_api.html",
         "ds_return" => "ds_return.html",
-        "home_esig"  => "home_esig.html",
+        "home_esig" => "home_esig.html",
         "home_rooms" => "home_rooms.html",
         "home_monitor" => "home_monitor.html",
         "home_click" => "home_click.html",
@@ -222,17 +222,16 @@ class RouterService
      */
     public function __construct()
     {
-
         // To ignore the Notice instead of Isset on missing POST vars
         error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
-        if (isset( $_POST['auth_type'])) {
+        if (isset($_POST['auth_type'])) {
             $_SESSION['auth_service'] = $_POST['auth_type'];
-            }   
+        }
 
         if (isset($_POST["api_type"])) {
-                    $_SESSION['api_type'] = $_POST['api_type'];
-            }
+            $_SESSION['api_type'] = $_POST['api_type'];
+        }
 
         if ($_SESSION['auth_service'] == "code_grant") {
             $this->authService = new CodeGrantService();
@@ -247,7 +246,6 @@ class RouterService
      */
     public function router(): void
     {
-
         switch ($_SESSION['api_type']):
 
             case "Admin":
@@ -268,12 +266,10 @@ class RouterService
         endswitch;
 
 
-
         $page = $_GET['page'] ?? $homeRoute;
 
 
         if ($page == $homeRoute) {
-
             // We're not logged in and Quickstart is true:  Route to the 1st example.
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
                 $_SESSION['beenHere'] = "false";
@@ -288,10 +284,10 @@ class RouterService
             }
         }
 
-        if($page == 'select_api') {
+        if ($page == 'select_api') {
             $this->ds_logout_internal();
             //is it quickstart have they signed in already?
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true'  && !isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
                 // we should default to ESignature for the first runthrough
                 $_SESSION['beenHere'] = "true";
                 $_SESSION["api_type"] = "ESignature";
@@ -302,8 +298,7 @@ class RouterService
             $c = new $controller();
             $c->controller();
             exit();
-        }
-        elseif ($page == 'must_authenticate') {
+        } elseif ($page == 'must_authenticate') {
             if ($_SESSION['api_type'] == 'Monitor') {
                 //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
@@ -312,7 +307,7 @@ class RouterService
                 exit();
             }
             //is it quickstart have they signed in already?
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' &&  !isset($_SESSION['beenHere'])) {
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
                 //Let's just shortcut to login immediately
                 $this->ds_login();
                 exit();
@@ -321,8 +316,7 @@ class RouterService
             $c = new $controller();
             $c->controller();
             exit();
-        
-        }elseif ($page == 'ds_login') {
+        } elseif ($page == 'ds_login') {
             $this->ds_login(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_callback') {
@@ -380,35 +374,6 @@ class RouterService
     }
 
     /**
-     * DocuSign login handler
-     */
-    function ds_login(): void
-    {
-        $this->authService->login();
-    }
-
-    /**
-     * Called via a redirect from DocuSign authentication service
-     */
-    function ds_callback(): void
-    {
-        # Save the redirect eg if present
-        $redirectUrl = false;
-        if (isset($_SESSION['eg'])) {
-            $redirectUrl = $_SESSION['eg'];
-        }
-        # reset the session
-        $tempAPIType = $_SESSION["api_type"];
-        $tempGrant = $_SESSION["auth_service"];
-        $this->ds_logout_internal();
-
-        // Workaround for ACG apiTypePicker
-        $_SESSION["api_type"] = $tempAPIType;
-        $_SESSION["auth_service"] = $tempGrant;
-        $this->authService->authCallback($redirectUrl);
-    }
-
-    /**
      * Unset all items from the session
      */
     function ds_logout_internal(): void
@@ -455,6 +420,35 @@ class RouterService
         if (isset($_SESSION['auth_service'])) {
             unset($_SESSION['auth_service']);
         }
+    }
+
+    /**
+     * DocuSign login handler
+     */
+    function ds_login(): void
+    {
+        $this->authService->login();
+    }
+
+    /**
+     * Called via a redirect from DocuSign authentication service
+     */
+    function ds_callback(): void
+    {
+        # Save the redirect eg if present
+        $redirectUrl = false;
+        if (isset($_SESSION['eg'])) {
+            $redirectUrl = $_SESSION['eg'];
+        }
+        # reset the session
+        $tempAPIType = $_SESSION["api_type"];
+        $tempGrant = $_SESSION["auth_service"];
+        $this->ds_logout_internal();
+
+        // Workaround for ACG apiTypePicker
+        $_SESSION["api_type"] = $tempAPIType;
+        $_SESSION["auth_service"] = $tempGrant;
+        $this->authService->authCallback($redirectUrl);
     }
 
     /**
