@@ -21,9 +21,12 @@ class SelectAPI
 
     private function getController()
     {
-        $GLOBALS['twig']->display('select_api.html', [
-            'title' => 'Please select a DocuSign API',
-            'show_doc' => false
-        ]);
+        $GLOBALS['twig']->display(
+            'select_api.html',
+            [
+                'title' => 'Please select a DocuSign API',
+                'show_doc' => false
+            ]
+        );
     }
 }

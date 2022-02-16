@@ -37,11 +37,15 @@ class EG019AccessCodeAuthentication extends eSignBaseController
         # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
 
-        $envelopeId = AccessCodeAuthenticationService::accessCodeAuthentication($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeId = AccessCodeAuthenticationService::accessCodeAuthentication(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH
+        );
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
-                                                                # which need an envelope_id
+            # which need an envelope_id
             $this->clientService->showDoneTemplate(
                 "Envelope sent",
                 "Envelope sent",

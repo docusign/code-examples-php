@@ -90,12 +90,14 @@ class EG028CreateBrand extends eSignBaseController
                 "New Brand sent",
                 "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}."
             );
-        }
-        # If the brand name is null the brand name is a duplicate.
+        } # If the brand name is null the brand name is a duplicate.
         else {
-            $GLOBALS['twig']->display('error_eg028.html', [
-                'title' => 'Duplicate Brand Name'
-            ]);
+            $GLOBALS['twig']->display(
+                'error_eg028.html',
+                [
+                    'title' => 'Duplicate Brand Name'
+                ]
+            );
         }
     }
 

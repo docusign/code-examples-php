@@ -36,7 +36,11 @@ class EG022KbAuthentication extends eSignBaseController
         # Step 1: Obtain your OAuth Token
         $this->checkDsToken();
 
-        $envelopeAuthentification = KbAuthenticationService::kbAuthentification($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeAuthentification = KbAuthenticationService::kbAuthentification(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH
+        );
 
         if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples

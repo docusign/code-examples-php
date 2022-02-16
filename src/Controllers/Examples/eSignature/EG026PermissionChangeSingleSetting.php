@@ -39,11 +39,14 @@ class EG026PermissionChangeSingleSetting extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $permissionProfile = PermissionChangeSingleSettingService::permissionChangeSingleSetting($this->args, $this->clientService);
+        $permissionProfile = PermissionChangeSingleSettingService::permissionChangeSingleSetting(
+            $this->args,
+            $this->clientService
+        );
 
         if ($permissionProfile) {
             # That need an envelope_id
-            $permissionProfile = json_decode((string) $permissionProfile, true);
+            $permissionProfile = json_decode((string)$permissionProfile, true);
             $this->clientService->showDoneTemplate(
                 "Changing setting in a permission profile",
                 "Changing setting in a permission profile",

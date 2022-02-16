@@ -25,22 +25,19 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
         $this->checkDsToken();
 
-        try
-        {
+        try {
             // Step 3 start       
             $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
             $this->orgId = $this->clientService->getOrgAdminId($this->args);
             $ppReq = $this->clientService->permProfilesApi();
-            $permissionProfiles = $ppReq->getProductPermissionProfiles($this->orgId, $this->args["account_id"]);       
-    
+            $permissionProfiles = $ppReq->getProductPermissionProfiles($this->orgId, $this->args["account_id"]);
+
 
             foreach ($permissionProfiles['product_permission_profiles'] as $item) {
-                if ($item['product_name'] ==  "CLM") {
+                if ($item['product_name'] == "CLM") {
                     $clmPermissionProfiles = $item;
                     $clmProductId = $item["product_id"];
-
-                }
-                else {
+                } else {
                     $eSignPermissionProfiles = $item;
                     $eSignProductId = $item["product_id"];
                 }
@@ -52,7 +49,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             $dsgRes = $dsgReq->getDSGroups($this->orgId, $this->args["account_id"]);
             $dsGroups = $dsgRes["ds_groups"];
             // Step 4 end
-        
+
             $preFill = [
                 'clmPermissionProfiles' => $clmPermissionProfiles,
                 'eSignPermissionProfiles' => $eSignPermissionProfiles,
@@ -63,11 +60,9 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             parent::controller(
                 $preFill
             );
-        }
-        catch (ApiException $e)
-        {
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
-        }        
+        }
     }
 
     /**

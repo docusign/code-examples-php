@@ -14,7 +14,7 @@ class EG017SetTemplateTabValues extends eSignBaseController
     const EG = 'eg017'; # reference (and URL) for this example
     const FILE = __FILE__;
     private int $signer_client_id = 1000; # Used to indicate that the signer will use embedded
-                                      # signing. Represents the signer's userId within your application.
+    # signing. Represents the signer's userId within your application.
 
     /**
      * Create a new controller instance.
@@ -41,11 +41,14 @@ class EG017SetTemplateTabValues extends eSignBaseController
             # 2. Call the worker method
             # More data validation would be a good idea here
             # Strip anything other than characters listed
-            $envelopeFromTemplate = SetTemplateTabValuesService::setTemplateTabValues($this->args, $this->clientService);
+            $envelopeFromTemplate = SetTemplateTabValuesService::setTemplateTabValues(
+                $this->args,
+                $this->clientService
+            );
 
             if ($envelopeFromTemplate) {
                 $_SESSION["envelope_id"] = $envelopeFromTemplate["envelope_id"]; # Save for use by other examples
-                                                                    # which need an envelope_id
+                # which need an envelope_id
 
                 # Redirect the user to the embedded signing
                 # Don't use an iFrame!

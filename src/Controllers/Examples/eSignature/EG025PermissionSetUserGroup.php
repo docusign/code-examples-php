@@ -42,7 +42,10 @@ class EG025PermissionSetUserGroup extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $updatedGroups = json_decode(PermissionSetUserGroupService::permissionSetUserGroup($this->args, $this->clientService), true);
+        $updatedGroups = json_decode(
+            PermissionSetUserGroupService::permissionSetUserGroup($this->args, $this->clientService),
+            true
+        );
 
         if ($updatedGroups) {
             # That need an envelope_id

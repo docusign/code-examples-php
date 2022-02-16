@@ -35,7 +35,11 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeId = ApplyBrandToTemplateService::applyBrandToTemplate($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
+        $envelopeId = ApplyBrandToTemplateService::applyBrandToTemplate(
+            $this->args,
+            $this::DEMO_DOCS_PATH,
+            $this->clientService
+        );
 
         if ($envelopeId) {
             # That need an envelope_id

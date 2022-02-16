@@ -32,11 +32,14 @@ class EG003BulkExportUserData extends AdminApiBaseController
     {
         $this->checkDsToken();
 
-        try
-        {
+        try {
             $organizationId = $this->clientService->getOrgAdminId();
 
-            $bulkExports = BulkExportUserDataService::getExportsData($this->clientService, $this->args, $organizationId);
+            $bulkExports = BulkExportUserDataService::getExportsData(
+                $this->clientService,
+                $this->args,
+                $organizationId
+            );
             $filePath = realpath(
                     $_SERVER["DOCUMENT_ROOT"]
                 ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
@@ -48,11 +51,9 @@ class EG003BulkExportUserData extends AdminApiBaseController
                     json_encode(json_encode($bulkExports))
                 );
             }
-        }
-        catch (ApiException $e)
-        {
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
-        }    
+        }
     }
 
     /**

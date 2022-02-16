@@ -2,9 +2,9 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\Examples\Admin\BulkImportUserDataService;
-use DocuSign\Admin\Client\ApiException;
 
 
 class EG004BulkImportUserData extends AdminApiBaseController
@@ -27,18 +27,21 @@ class EG004BulkImportUserData extends AdminApiBaseController
      * Check the access token and call the worker method
      * @return void
      * @throws ApiException for API problems.
-     * @throws \DocuSign\Admin\Client\ApiException
+     * @throws ApiException
      */
     public function createController(): void
     {
         $this->checkDsToken();
 
-        try
-        {
+        try {
             $organizationId = $this->clientService->getOrgAdminId();
 
             // Call the worker method
-            $bulkImport = BulkImportUserDataService::bulkImportUserData($this->clientService, $organizationId, $GLOBALS["DS_CONFIG"]["signer_email"]);
+            $bulkImport = BulkImportUserDataService::bulkImportUserData(
+                $this->clientService,
+                $organizationId,
+                $GLOBALS["DS_CONFIG"]["signer_email"]
+            );
             if ($bulkImport) {
                 $this->clientService->showDoneTemplate(
                     "Add users via bulk import",
@@ -52,13 +55,11 @@ class EG004BulkImportUserData extends AdminApiBaseController
                 // $_SERVER["REQUEST_METHOD"] = 'POST';
                 // header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=aeg004a');
             }
-        }
-        catch (ApiException $e)
-        {
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }
-}
-    
+    }
+
     /**
      * Get specific template arguments
      * @return array

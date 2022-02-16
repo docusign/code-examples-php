@@ -278,11 +278,9 @@ class RouterService
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
                 $_SESSION['beenHere'] = "false";
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
-            }
-            elseif ($this->ds_token_ok() == false) {
+            } elseif ($this->ds_token_ok() == false) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
-            }
-            else {
+            } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
                 $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
                 new $controller($page);

@@ -40,7 +40,11 @@ class EG001EmbeddedSigning extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeIdAndReturnUrl = EmbeddedSigningService::worker($this->args, $this->clientService, self::DEMO_DOCS_PATH);
+        $envelopeIdAndReturnUrl = EmbeddedSigningService::worker(
+            $this->args,
+            $this->clientService,
+            self::DEMO_DOCS_PATH
+        );
 
         if ($envelopeIdAndReturnUrl) {
             # Redirect the user to the embedded signing
