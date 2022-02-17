@@ -291,6 +291,7 @@ class RouterService
                 // we should default to ESignature for the first runthrough
                 $_SESSION['beenHere'] = "true";
                 $_SESSION["api_type"] = "ESignature";
+                $this->authService = new CodeGrantService();
                 $this->ds_login();
                 exit();
             }
