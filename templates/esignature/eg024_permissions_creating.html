@@ -2,7 +2,7 @@
 
 <h4>24. {{ title }}</h4>
 <p>
-    This code example demonstrates how to create a new permission profile.
+    Creates a user group’s permission profile.
 </p>
 
 {% if show_doc %}
@@ -11,7 +11,7 @@
 
 <p>
     API method used:
-    <a href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/" target="_blank">Accounts::createPermissionProfile</a>
+    <a href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/" target="_blank">AccountPermissionProfiles::create</a>
 </p>
 
 <p>
@@ -20,7 +20,7 @@
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="permission_profile_name">Permissions profile name</label>
+        <label for="permission_profile_name">Permission profile name</label>
         <input type="text" class="form-control" id="permission_profile_name" placeholder="Permission profile name"
                name="permission_profile_name" value="{{ permission_profile_name }}" required>
     </div>

@@ -19,7 +19,8 @@
   View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
 </p>
 
-<form class="eg" action="" method="post">
+
+<form class="eg" action="" method="post" onsubmit='$("#feedback,#busy").show();'>
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
   <button type="submit" class="btn btn-docu">Continue</button>
 </form>

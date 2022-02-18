@@ -52,11 +52,12 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
     {
         $this->checkDsToken();
         AssignFormToFormGroupService::assignFormToFormGroup($this->args, $this->clientService);
+        $group_id = $this->args['form_group_id'];
+        $form_id = $this->args['form_id'];
         $this->clientService->showDoneTemplate(
             "Assign a form to a form group",
             "Assign a form to a form group",
-            "Results from the FormGroups::AssignFormGroupForm method" .
-            "<pre>Code: 204<br />Description: Office was successfully assigned to the form group</pre>"
+            "Form $form_id has been assigned to Form Group ID $group_id"
         );
     }
 

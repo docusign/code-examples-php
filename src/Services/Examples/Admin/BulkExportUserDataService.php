@@ -31,7 +31,7 @@ class BulkExportUserDataService
         $bulkList = $bulkExportsApi->createUserListExport($organizationId, $request);
         # Step 3 end
 
-        sleep(10);
+        sleep(30);
 
         # Step 4 start
         $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
