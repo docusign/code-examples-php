@@ -32,7 +32,6 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             $ppReq = $this->clientService->permProfilesApi();
             $permissionProfiles = $ppReq->getProductPermissionProfiles($this->orgId, $this->args["account_id"]);
 
-
             foreach ($permissionProfiles['product_permission_profiles'] as $item) {
                 if ($item['product_name'] == "CLM") {
                     $clmPermissionProfiles = $item;

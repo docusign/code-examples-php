@@ -265,9 +265,7 @@ class RouterService
                 break;
         endswitch;
 
-
         $page = $_GET['page'] ?? $homeRoute;
-
 
         if ($page == $homeRoute) {
             // We're not logged in and Quickstart is true:  Route to the 1st example.
