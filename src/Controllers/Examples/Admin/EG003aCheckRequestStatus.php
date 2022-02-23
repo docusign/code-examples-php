@@ -2,6 +2,7 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\OrgAdmin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 
 class EG003ACheckRequestStatus extends AdminApiBaseController
@@ -45,18 +46,18 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
 
     /**
      * Method to get a request status for bulk-export.
-     * @throws \DocuSign\OrgAdmin\Client\ApiException
+     * @throws ApiException
      */
     private function checkRequestStatus()
     {
         $bulkExportsApi = $this->clientService->bulkExportsAPI();
 
         $exportId = $_SESSION['export_id'];
-        
+
         # Step 4 start
         $result = $bulkExportsApi->getUserListExport($this->clientService->getOrgAdminId($this->args), $exportId);
         # Step 4 end
-        
+
         return json_decode($result->__toString());
     }
 

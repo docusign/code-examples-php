@@ -4,8 +4,8 @@ namespace Example\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
-use Example\Services\SignatureClientService;
 use Example\Services\Examples\Admin\CreateNewUserService;
+use Example\Services\SignatureClientService;
 
 class EG001CreateNewUser extends AdminApiBaseController
 {
@@ -35,8 +35,8 @@ class EG001CreateNewUser extends AdminApiBaseController
             $permission_profiles = $signatureClientService->getPermissionsProfiles($this->args);
             $groupsObj = $signatureClientService->getGroups($this->args);
             $args = [
-                'permission_profiles'=> $permission_profiles,
-                'groups'=> $groupsObj
+                'permission_profiles' => $permission_profiles,
+                'groups' => $groupsObj
             ];
             parent::controller($args);
         } catch (ApiException $e) {

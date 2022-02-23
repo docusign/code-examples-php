@@ -37,7 +37,11 @@ class EG011EmbeddedSending extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeIdAndRedirectUrl = EmbeddedSendingService::embeddedSending($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeIdAndRedirectUrl = EmbeddedSendingService::embeddedSending(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH
+        );
 
         if ($envelopeIdAndRedirectUrl) {
             # Redirect the user to the NDSE view

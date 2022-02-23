@@ -2,6 +2,7 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\OrgAdmin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 
 class EG004ACheckImportRequestStatus extends AdminApiBaseController
@@ -24,7 +25,7 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
     /**
      * Check the access token and call the worker method
      * @return void
-     * @throws \DocuSign\OrgAdmin\Client\ApiException
+     * @throws ApiException
      */
     public function createController(): void
     {
@@ -43,10 +44,9 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
                     "Request not complete",
                     "Request not complete",
                     "The request has not completed, please refresh this page",
-                    Null,
+                    null,
                     "refreshPage"
                 );
-                
             } else {
                 $this->clientService->showDoneTemplate(
                     "Check import request status",
@@ -54,7 +54,6 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
                     "Results from UserImport:getBulkUserImportRequest method:",
                     json_encode($results->__toString())
                 );
-
             }
         }
     }
@@ -62,7 +61,7 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
     /**
      * Method to check the request status of bulk-import.
      * @return object
-     * @throws \DocuSign\OrgAdmin\Client\ApiException
+     * @throws ApiException
      */
     private function checkRequestStatus(): object
     {

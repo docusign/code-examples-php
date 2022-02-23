@@ -32,9 +32,10 @@ class EG001CreateClickwrap extends ClickApiBaseController
     {
         $this->checkDsToken();
         $clickwrapSummaryResponse = CreateClickwrapService::createClickwrap(
-            $this->args, 
-            self::DEMO_DOCS_PATH, 
-            $this->clientService);
+            $this->args,
+            self::DEMO_DOCS_PATH,
+            $this->clientService
+        );
 
         if ($clickwrapSummaryResponse) {
             $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];

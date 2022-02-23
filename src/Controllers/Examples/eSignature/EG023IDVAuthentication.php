@@ -6,9 +6,9 @@
 
 namespace Example\Controllers\Examples\eSignature;
 
+use DocuSign\eSign\Client\ApiException;
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\IDVAuthenticationService;
-use DocuSign\eSign\Client\ApiException;
 
 class EG023IDVAuthentication extends eSignBaseController
 {
@@ -38,9 +38,12 @@ class EG023IDVAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
-            $envelopeAuthentification = IDVAuthenticationService::idvAuthentication($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
-            }
-        catch (ApiException $e){
+            $envelopeAuthentification = IDVAuthenticationService::idvAuthentication(
+                $this->args,
+                $this->clientService,
+                $this::DEMO_DOCS_PATH
+            );
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }
         if ($envelopeAuthentification) {

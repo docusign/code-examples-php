@@ -33,7 +33,11 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelope_id = PauseSignatureWorkflowService::pauseSignatureWorkflow($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelope_id = PauseSignatureWorkflowService::pauseSignatureWorkflow(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH
+        );
 
         if ($envelope_id) {
             $_SESSION["pause_envelope_id"] = $envelope_id;
@@ -58,9 +62,9 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
     {
         $envelope_args = [
             'signer1_email' => $this->checkEmailInputValue($_POST['signer1_email']),
-            'signer1_name' =>  $this->checkInputValues($_POST['signer1_name']),
+            'signer1_name' => $this->checkInputValues($_POST['signer1_name']),
             'signer2_email' => $this->checkEmailInputValue($_POST['signer2_email']),
-            'signer2_name' =>  $this->checkInputValues($_POST['signer2_name']),
+            'signer2_name' => $this->checkInputValues($_POST['signer2_name']),
             'status' => "Sent",
         ];
         return [

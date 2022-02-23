@@ -36,11 +36,16 @@ class EG008CreateTemplate extends eSignBaseController
     {
         $this->checkDsToken();
         # 2. Call the worker method
-        $templateInformation = CreateTemplateService::createTemplate($this->args, $this->template_name, $this::DEMO_DOCS_PATH, $this->clientService);
+        $templateInformation = CreateTemplateService::createTemplate(
+            $this->args,
+            $this->template_name,
+            $this::DEMO_DOCS_PATH,
+            $this->clientService
+        );
         if ($templateInformation) {
             $_SESSION["template_id"] = $templateInformation["template_id"]; # Save for use by other examples
             $msg = $templateInformation['created_new_template'] ? "The template has been created!" :
-                        "Done. The template already existed in your account.";
+                "Done. The template already existed in your account.";
 
             $this->clientService->showDoneTemplate(
                 "Template results",

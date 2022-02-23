@@ -33,7 +33,11 @@ class EG034UseConditionalRecipients extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelope_id = UseConditionalRecipientsService::useConditionalRecipients($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelope_id = UseConditionalRecipientsService::useConditionalRecipients(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH
+        );
 
         if ($envelope_id) {
             # That need an envelope_id

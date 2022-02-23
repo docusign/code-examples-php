@@ -2,9 +2,9 @@
 
 namespace Example\Controllers\Examples\Admin;
 
+use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\Examples\Admin\AuditUsersService;
-use DocuSign\Admin\Client\ApiException;
 
 class EG005AuditUsers extends AdminApiBaseController
 {
@@ -37,8 +37,7 @@ class EG005AuditUsers extends AdminApiBaseController
         # Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        try
-            {
+        try {
             $organizationId = $this->clientService->getOrgAdminId();
             $auditedUsers = AuditUsersService::auditUsers($this->clientService, $this->args, $organizationId);
 
@@ -50,9 +49,7 @@ class EG005AuditUsers extends AdminApiBaseController
                     json_encode(json_encode($auditedUsers))
                 );
             }
-        }
-        catch (ApiException $e)
-        {
+        } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }
     }

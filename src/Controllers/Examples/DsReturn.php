@@ -35,7 +35,7 @@ class DsReturn extends BaseController
     public function getController(): void
     {
     }
-    
+
     public function createController(): void
     {
     }

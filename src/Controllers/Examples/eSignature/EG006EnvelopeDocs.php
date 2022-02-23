@@ -46,14 +46,18 @@ class EG006EnvelopeDocs extends eSignBaseController
                 # Save the envelope_id and its list of documents in the session so
                 # they can be used in example 7 (download a document)
                 $standard_doc_items = [
-                    ['name' => 'Combined'   , 'type' => 'content', 'document_id' => 'combined'],
-                    ['name' => 'Zip archive', 'type' => 'zip'    , 'document_id' => 'archive']];
+                    ['name' => 'Combined', 'type' => 'content', 'document_id' => 'combined'],
+                    ['name' => 'Zip archive', 'type' => 'zip', 'document_id' => 'archive']
+                ];
                 # The certificate of completion is named "summary".
                 # We give it a better name below.
                 $map_documents = function ($doc) {
                     if ($doc['documentId'] == "certificate") {
-                        $new = ['document_id' => $doc['documentId'], 'name' => "Certificate of completion",
-                                'type' => $doc['type']];
+                        $new = [
+                            'document_id' => $doc['documentId'],
+                            'name' => "Certificate of completion",
+                            'type' => $doc['type']
+                        ];
                     } else {
                         $new = ['document_id' => $doc['documentId'], 'name' => $doc['name'], 'type' => $doc['type']];
                     }

@@ -14,9 +14,9 @@ use Example\Services\RouterService;
 
 class Home extends eSignBaseController
 {
+    const FILE = __FILE__;
     /** RouterService */
     protected RouterService $routerService;
-    const FILE = __FILE__;
     private string $eg;  # Reference (and URL) for this example
 
     /**
@@ -26,7 +26,6 @@ class Home extends eSignBaseController
      */
     public function __construct()
     {
-
         parent::__construct();
         session_start();
         // this is never getting fired off, even when POST is set
@@ -34,18 +33,18 @@ class Home extends eSignBaseController
         //     $_SESSION['api_type'] = $_POST['api_type'];
         // }
 
-        if($_SESSION['api_type'] == 'Rooms'){
+        if ($_SESSION['api_type'] == 'Rooms') {
             $this->eg = 'home_rooms';
-        } elseif($_SESSION['api_type'] == 'Click') {
+        } elseif ($_SESSION['api_type'] == 'Click') {
             $this->eg = 'home_click';
-        } elseif($_SESSION['api_type'] == 'Monitor') {
+        } elseif ($_SESSION['api_type'] == 'Monitor') {
             $this->eg = 'home_monitor';
-        } elseif($_SESSION['api_type'] == 'Admin') {
+        } elseif ($_SESSION['api_type'] == 'Admin') {
             $this->eg = 'home_admin';
         } else {
             $this->eg = 'home_esig';
         }
-    
+
         if (empty($this->routerService)) {
             $this->routerService = new RouterService();
         }

@@ -2,9 +2,9 @@
 
 namespace Example\Controllers\Examples\eSignature;
 
+use DocuSign\eSign\Client\ApiException;
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\PhoneAuthenticationService;
-use DocuSign\eSign\Client\ApiException;
 
 class EG020PhoneAuthentication extends eSignBaseController
 {
@@ -34,12 +34,15 @@ class EG020PhoneAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
-            $envelopeAuthentification = PhoneAuthenticationService::phone_authentication($this->args, $this::DEMO_DOCS_PATH, $this->clientService);
-            } 
-            catch (ApiException $e) {
-                $this->clientService->showErrorTemplate($e);
-            }
-            if ($envelopeAuthentification) {
+            $envelopeAuthentification = PhoneAuthenticationService::phone_authentication(
+                $this->args,
+                $this::DEMO_DOCS_PATH,
+                $this->clientService
+            );
+        } catch (ApiException $e) {
+            $this->clientService->showErrorTemplate($e);
+        }
+        if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
             # which need an envelope_id
             $this->clientService->showDoneTemplate(
@@ -58,7 +61,6 @@ class EG020PhoneAuthentication extends eSignBaseController
      */
     public function getTemplateArgs(): array
     {
-
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
