@@ -42,11 +42,12 @@ class EG002ActivateClickwrap extends ClickApiBaseController
         $clickwrapSummaryResponse = ActivateClickwrapService::activateClickwrap($this->args, $this->clientService);
 
         if ($clickwrapSummaryResponse) {
+            $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
             $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplate(
                 "Activate Clickwrap",
                 "Activate Clickwrap",
-                "Clickwrap activated",
+                "The clickwrap $clickwrap_name has been activated.",
                 json_encode(json_encode($clickwrapSummaryResponse))
             );
         }
