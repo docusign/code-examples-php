@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Example 035: SMS Delivery with remote signer and carbon copy.
+ * Example 036: Delayed Routing.
  */
 
 namespace Example\Controllers\Examples\eSignature;
@@ -9,9 +9,9 @@ namespace Example\Controllers\Examples\eSignature;
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\SMSDeliveryService;
 
-class EG035SMSDelivery extends eSignBaseController
+class EG036DelayedRouting extends eSignBaseController
 {
-    const EG = 'eg035'; # reference (and URL) for this example
+    const EG = 'eg036'; # reference (and URL) for this example
     const FILE = __FILE__;
 
     /**
