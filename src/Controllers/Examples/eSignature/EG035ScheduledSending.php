@@ -7,7 +7,7 @@
 namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SMSDeliveryService;
+use Example\Services\Examples\eSignature\ScheduledSendingService;
 
 class EG035ScheduledSending extends eSignBaseController
 {
@@ -38,7 +38,7 @@ class EG035ScheduledSending extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeId = SMSDeliveryService::smsDelivery($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeId = ScheduledSendingService::scheduleEnvelope($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
@@ -61,12 +61,7 @@ class EG035ScheduledSending extends eSignBaseController
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signerEmail']),
             'signer_name' => $this->checkInputValues($_POST['signerName']),
-            'signer_country_code' => $this->checkInputValues($_POST['countryCode']),
-            'signer_phone_number' => $this->checkInputValues($_POST['phoneNumber']),
-            'cc_email' => $this->checkEmailInputValue($_POST['ccEmail']),
-            'cc_name' => $this->checkInputValues($_POST['ccName']),
-            'cc_country_code' => $this->checkInputValues($_POST['ccCountryCode']),
-            'cc_phone_number' => $this->checkInputValues($_POST['ccPhoneNumber']),
+            'resumeDate' => $this->checkInputValues($_POST['resumeDate']),
             'status' => 'sent'
         ];
         return [
