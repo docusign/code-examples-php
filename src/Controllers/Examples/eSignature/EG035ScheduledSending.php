@@ -44,9 +44,9 @@ class EG035ScheduledSending extends eSignBaseController
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
             $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!<br/> Envelope ID {$envelopeId["envelope_id"]}."
+                "Envelope scheduled",
+                "Envelope scheduled",
+                "The envelope has been created and scheduled!<br/> Envelope ID {$envelopeId["envelope_id"]}."
             );
         }
     }

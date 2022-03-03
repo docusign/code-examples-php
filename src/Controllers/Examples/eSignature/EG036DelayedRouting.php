@@ -7,7 +7,7 @@
 namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SMSDeliveryService;
+use Example\Services\Examples\eSignature\DelayedRoutingService;
 
 class EG036DelayedRouting extends eSignBaseController
 {
@@ -38,7 +38,7 @@ class EG036DelayedRouting extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeId = SMSDeliveryService::smsDelivery($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeId = DelayedRoutingService::SendEnvelopeWithDelayedRouting($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
@@ -59,14 +59,11 @@ class EG036DelayedRouting extends eSignBaseController
     public function getTemplateArgs(): array
     {
         $envelope_args = [
-            'signer_email' => $this->checkEmailInputValue($_POST['signerEmail']),
-            'signer_name' => $this->checkInputValues($_POST['signerName']),
-            'signer_country_code' => $this->checkInputValues($_POST['countryCode']),
-            'signer_phone_number' => $this->checkInputValues($_POST['phoneNumber']),
-            'cc_email' => $this->checkEmailInputValue($_POST['ccEmail']),
-            'cc_name' => $this->checkInputValues($_POST['ccName']),
-            'cc_country_code' => $this->checkInputValues($_POST['ccCountryCode']),
-            'cc_phone_number' => $this->checkInputValues($_POST['ccPhoneNumber']),
+            'signer1_email' => $this->checkEmailInputValue($_POST['signer1Email']),
+            'signer1_name' => $this->checkInputValues($_POST['signer1Name']),
+            'signer2_email' => $this->checkEmailInputValue($_POST['signer2Email']),
+            'signer2_name' => $this->checkInputValues($_POST['signer2Name']),
+            'delay' => $this->checkInputValues($_POST['delay']),
             'status' => 'sent'
         ];
         return [

@@ -27,20 +27,8 @@ class CreateAnEnvelopeFunctionService
             'file_extension' => 'html',  # many different document types are accepted
             'document_id' => '1'  # a label used to reference the doc
         ]);
-        $document2 = new Document([  # create the DocuSign document object
-            'document_base64' => $doc2_b64,
-            'name' => 'Battle Plan',  # can be different from actual file name
-            'file_extension' => 'docx',  # many different document types are accepted
-            'document_id' => '2'  # a label used to reference the doc
-        ]);
-        $document3 = new Document([  # create the DocuSign document object
-            'document_base64' => $doc3_b64,
-            'name' => 'Lorem Ipsum',  # can be different from actual file name
-            'file_extension' => 'pdf',  # many different document types are accepted
-            'document_id' => '3'  # a label used to reference the doc
-        ]);
         # The order in the docs array determines the order in the envelope
-        $envelope_definition->setDocuments([$document1, $document2, $document3]);
+        $envelope_definition->setDocuments([$document1]);
         return $envelope_definition;
     }
 }
