@@ -11,6 +11,7 @@ use DocuSign\eSign\Model\RecipientAdditionalNotification;
 use DocuSign\eSign\Model\RecipientPhoneNumber;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Workflow;
+use DocuSign\eSign\Model\WorkflowStep;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
@@ -120,7 +121,26 @@ class DelayedRoutingService
         $envelope_definition->setRecipients($recipients);
 
         # Add the workflow to delay the second recipient
+        $delay = (string)$args['delay'] . ':00:00';
+        $rule = new EnvelopeDelayRuleApiModel([
+            'delay' => $delay
+        ]);
+        $delayed_routing = new DelayedRoutingApiModel([
+            'rules' => [$rule]
+        ]);
+        $workflow_step = new WorkflowStep([
+            'action' => 'pause_before',
+            'trigger_on_item' => 'routing_order',
+            'item_id' => '2',
+            'status' => 'pending',
+            'delayed_routing' => $delayed_routing
+        ]);
 
+        $workflow = new Workflow([
+            'workflow_steps'  =>  [$workflow_step]
+        ]);
+        
+        $envelope_definition->setWorkflow($workflow);
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
