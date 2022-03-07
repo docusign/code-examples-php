@@ -53,7 +53,7 @@ class SMSDeliveryService
      * DocuSign will convert all of the documents to the PDF format.
      * The recipients' field tags are placed using <b>anchor</b> strings.
      *
-     * Parameters for the envelope: signer_email, signer_name, signer_client_id
+     * Parameters for the envelope: signer_name, signer_client_id
      *
      * @param  $args array
      * @param $clientService
@@ -64,38 +64,29 @@ class SMSDeliveryService
     {
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
 
-        $SMSDelivery = new RecipientAdditionalNotification();
-        $SMSDelivery->setSecondaryDeliveryMethod("SMS");
-
         $signerPhone = new RecipientPhoneNumber([
             'country_code' => $args['signer_country_code'],
             'number' => $args['signer_phone_number']
         ]);
-        $SMSDelivery->setPhoneNumber($signerPhone);
 
         # Create the signer recipient model
         $signer1 = new Signer([
-            'email' => $args['signer_email'], 'name' => $args['signer_name'],
-            'recipient_id' => "1", 'routing_order' => "1", "additional_notifications" => array($SMSDelivery)
+            'name' => $args['signer_name'], 'phone_number' => $signerPhone,
+            'recipient_id' => "1", 'routing_order' => "1"
             ]);
         # routingOrder (lower means earlier) determines the order of deliveries
         # to the recipients. Parallel routing order is supported by using the
         # same integer as the order for two or more recipients.
 
-
-        $CCSMSDelivery = new RecipientAdditionalNotification();
-        $CCSMSDelivery->setSecondaryDeliveryMethod("SMS");
-
         $CCsignerPhone = new RecipientPhoneNumber([
             'country_code' => $args['cc_country_code'],
             'number' => $args['cc_phone_number']
         ]);
-        $CCSMSDelivery->setPhoneNumber($CCsignerPhone);
 
         # Create a CC recipient to receive a copy of the documents
         $CC = new CarbonCopy([
-            'email' => $args['cc_email'], 'name' => $args['cc_name'],
-            'recipient_id' => "2", 'routing_order' => "2", "additional_notifications" => array($CCSMSDelivery)
+            'name' => $args['cc_name'], 'phone_number' => $CCsignerPhone,
+            'recipient_id' => "2", 'routing_order' => "2"
             ]);
 
         return SMSDeliveryService::addSignersToTheDelivery($signer1, $CC, $envelope_definition, $args);
