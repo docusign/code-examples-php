@@ -59,11 +59,9 @@ class EG037SMSDelivery extends eSignBaseController
     public function getTemplateArgs(): array
     {
         $envelope_args = [
-            'signer_email' => $this->checkEmailInputValue($_POST['signerEmail']),
             'signer_name' => $this->checkInputValues($_POST['signerName']),
             'signer_country_code' => $this->checkInputValues($_POST['countryCode']),
             'signer_phone_number' => $this->checkInputValues($_POST['phoneNumber']),
-            'cc_email' => $this->checkEmailInputValue($_POST['ccEmail']),
             'cc_name' => $this->checkInputValues($_POST['ccName']),
             'cc_country_code' => $this->checkInputValues($_POST['ccCountryCode']),
             'cc_phone_number' => $this->checkInputValues($_POST['ccPhoneNumber']),
