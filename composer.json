@@ -8,7 +8,7 @@
     "require": {
         "docusign/admin-client": "1.0.0",
         "docusign/click-client": "1.1.0",
-        "docusign/esign-client": "6.6.0",
+        "docusign/esign-client": "6.7.0",
         "docusign/rooms-client": "2.0.0",
         "docusign/monitor-client": "1.0.0",    
         "twig/twig": "3.3.8",
