@@ -50,6 +50,7 @@ class ApplyBrandToTemplateService
 
         # Next, create the top-level envelope definition and populate it
         return new EnvelopeDefinition([
+            'template_id' => $args['envelope_args']['template_id'],
             'email_subject' => "Please sign this document sent from the PHP SDK",
             'documents' => [$document],
             # The Recipients object takes arrays for each recipient type

@@ -31,7 +31,8 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
     public function createController(): void
     {
         $this->checkDsToken();
-        $template_id = $this->args['template_id'];
+        $template_id = $this->args['envelope_args']['template_id'];
+        
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
@@ -67,10 +68,12 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
      */
     public function getTemplateArgs(): array
     {
+        $template_id = $_SESSION['template_id'] ?? false;
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
             'brand_id' => $this->checkInputValues($_POST['brand_id']),
+            'template_id' => $template_id
         ];
         return [
             'account_id' => $_SESSION['ds_account_id'],
