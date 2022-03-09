@@ -31,22 +31,22 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
     public function createController(): void
     {
         $this->checkDsToken();
-        $template_id = $this->args['template_id'];
+        $template_id = $this->args['envelope_args']['template_id'];
+        
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
         $envelopeId = ApplyBrandToTemplateService::applyBrandToTemplate(
             $this->args,
-            $this::DEMO_DOCS_PATH,
             $this->clientService
         );
 
-        if ($envelopeId) {
+        if($envelopeId) {
             # That need an envelope_id
             $this->clientService->showDoneTemplate(
-                "Brand applying to template",
-                "Brand applying to template",
-                "The brand has been applied to the template!<br/> Envelope ID {$envelopeId["envelope_id"]}."
+                "Envelope sent",
+                "Envelope sent",
+                "The envelope has been created and sent!<br />Envelope ID {$envelopeId["envelope_id"]}."
             );
         }
         if (!$template_id) {
@@ -67,10 +67,14 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
      */
     public function getTemplateArgs(): array
     {
+        $template_id = $_SESSION['template_id'] ?? false;
         $envelope_args = [
             'signer_email' => $this->checkEmailInputValue($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
+            'cc_email' => $this->checkEmailInputValue($_POST['cc_email']),
+            'cc_name' => $this->checkInputValues($_POST['cc_name']),
             'brand_id' => $this->checkInputValues($_POST['brand_id']),
+            'template_id' => $template_id
         ];
         return [
             'account_id' => $_SESSION['ds_account_id'],
