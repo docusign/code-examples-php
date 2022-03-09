@@ -132,7 +132,6 @@ class DelayedRoutingService
             'action' => 'pause_before',
             'trigger_on_item' => 'routing_order',
             'item_id' => '2',
-            'status' => 'pending',
             'delayed_routing' => $delayed_routing
         ]);
 

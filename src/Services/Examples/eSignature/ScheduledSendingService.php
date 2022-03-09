@@ -111,7 +111,6 @@ class ScheduledSendingService
             'resume_date' => $args['resumeDate']
         ]);
         $scheduled_sending = new DelayedRoutingApiModel([
-            'status' => 'pending',
             'rules' => [$rule]
         ]);
         $workflow = new Workflow([
