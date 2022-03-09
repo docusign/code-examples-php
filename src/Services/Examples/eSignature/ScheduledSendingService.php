@@ -31,6 +31,7 @@ class ScheduledSendingService
     public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath): array
     {
         # Step 2. Create the envelope definition
+        # Step 2 start
         $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
         $envelope_api = $clientService->getEnvelopeApi();
 
@@ -39,7 +40,9 @@ class ScheduledSendingService
         # Exceptions will be caught by the calling function
         try {
             # Step 3. Create and send the envelope
+            # Step 3 start
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            # Step 3 end
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -121,6 +124,7 @@ class ScheduledSendingService
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
+        # Step 2 end
 
         return $envelope_definition;
     }

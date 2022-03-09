@@ -40,7 +40,9 @@ class DelayedRoutingService
         # Exceptions will be caught by the calling function
         try {
             # Step 3. Create and send the envelope
+            # Step 3 start
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            # Step 3 end
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -68,6 +70,7 @@ class DelayedRoutingService
     {
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
 
+        # Step 2 start
         # Create the signer recipient models
         $signer1 = new Signer([
             'email' => $args['signer1_email'], 'name' => $args['signer1_name'],
@@ -143,6 +146,7 @@ class DelayedRoutingService
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
+        # Step 2 end
 
         return $envelope_definition;
     }
