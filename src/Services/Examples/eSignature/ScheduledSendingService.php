@@ -123,7 +123,7 @@ class ScheduledSendingService
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
-        # Step 2b end
+        # Step 2 end
 
         return $envelope_definition;
     }
