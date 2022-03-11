@@ -28,10 +28,10 @@ class DelayedRoutingService
      * @param $demoDocsPath
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
+
     public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath): array
     {
-        # Step 2. Create the envelope definition
+        # Create the envelope definition
         $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
         $envelope_api = $clientService->getEnvelopeApi();
 
@@ -39,7 +39,7 @@ class DelayedRoutingService
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            # Step 3. Create and send the envelope
+            # Create and send the envelope
             # Step 3 start
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
             # Step 3 end
@@ -150,5 +150,4 @@ class DelayedRoutingService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
 }
