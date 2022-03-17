@@ -44,8 +44,8 @@ class EG037SMSDelivery extends eSignBaseController
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
             $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
+                "Request a signature by SMS delivery",
+                "Request a signature by SMS delivery",
                 "The envelope has been created and sent!<br/> Envelope ID {$envelopeId["envelope_id"]}."
             );
         }
