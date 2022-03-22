@@ -30,7 +30,6 @@ class CreateNewClickwrapVersionService
                 'consent_button_text' => 'Accept',
                 'display_name' => $args['clickwrap_name'],
                 'must_read' => true,
-                'must_view' => false,
                 'require_accept' => false,
                 'document_display' => 'document',
                 'downloadable' => false,
