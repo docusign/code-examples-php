@@ -37,7 +37,6 @@ class CreateClickwrapService
                 'format' => 'modal',
                 'has_decline_button' => true,
                 'must_read' => true,
-                'must_view' => true,
                 'require_accept' => true,
                 'document_display' => 'document'
             ]

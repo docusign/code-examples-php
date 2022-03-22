@@ -27,17 +27,19 @@ class ScheduledSendingService
      * @param $demoDocsPath
      * @return array ['redirect_url']
      */
-
+    # ***DS.snippet.0.start
     public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath): array
     {
-        # Create the envelope definition
+        # Step 2. Create the envelope definition
+        # Step 2 start
         $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
         $envelope_api = $clientService->getEnvelopeApi();
+
 
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            # Create and send the envelope
+            # Step 3. Create and send the envelope
             # Step 3 start
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
             # Step 3 end
@@ -66,7 +68,6 @@ class ScheduledSendingService
      */
     public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
     {
-        # Step 2 start
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
 
         # Create the signer recipient model
@@ -127,4 +128,5 @@ class ScheduledSendingService
 
         return $envelope_definition;
     }
+    # ***DS.snippet.0.end
 }

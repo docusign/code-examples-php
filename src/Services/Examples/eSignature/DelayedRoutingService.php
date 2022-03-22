@@ -39,7 +39,7 @@ class DelayedRoutingService
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            # Create and send the envelope
+            # Step 3. Create and send the envelope
             # Step 3 start
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
             # Step 3 end
