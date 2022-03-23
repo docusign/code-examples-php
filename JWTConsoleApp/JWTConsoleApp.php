@@ -1,14 +1,16 @@
 <?php
 
+namespace Example;
+
+use Services\SignatureClientService;
+use Example\Services\Examples\eSignature\SigningViaEmailService;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Client\ApiException;
 
 
-
 require "vendor/autoload.php";
-require "ds_config.php";
-
+require "ds_config_jwt_mini.php";
 
 $rsaPrivateKey = file_get_contents($GLOBALS['JWT_CONFIG']['private_key_file']);
 $integration_key = $GLOBALS['JWT_CONFIG']['ds_client_id'];
@@ -16,24 +18,26 @@ $impersonatedUserId = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'];
 $scopes = "signature impersonation";
 
 
+
 $config = new Configuration();
 $apiClient = new ApiClient($config);
-
+$args = [];
 // Collect user information through prompts
 echo "Welcome to the JWT Code example!\n";
 echo "Enter the signer's email address: \n";
-$signer_email = trim(fgets(STDIN));
+$args['envelope_args']['signer_email'] = trim(fgets(STDIN));
 
 echo "Enter the signer's name: \n";
-$signer_name = trim(fgets(STDIN));
+$args['envelope_args']['signer_name'] = trim(fgets(STDIN));
 
 echo "Enter the carbon copy's email address: \n";
-$cc_email = trim(fgets(STDIN));
+$args['envelope_args']['cc_email'] = trim(fgets(STDIN));
 
 echo "Enter the carbon copy's name: \n";
-$cc_name = trim(fgets(STDIN)); 
+$args['envelope_args']['cc_name'] = trim(fgets(STDIN)); 
 
 
+$clientService = new SignatureClientService($args);
 // get the information from the app.config file
 
 
@@ -78,52 +82,9 @@ if (isset($response)) {
     $apiClient = new ApiClient($config);
 
     try {
-        // Create an envelope definition object
-        $envelope = new \DocuSign\eSign\Model\EnvelopeDefinition();
-        $envelope->setEmailSubject("Please sign this document set");
-        $envelope->setStatus("sent");
-
-        // Crete a tab object
-        $signHere = new \DocuSign\eSign\Model\SignHere();
-        $signHere->setDocumentId("1");
-        $signHere->setPageNumber("1");
-        $signHere->setXPosition("191");
-        $signHere->setYPosition("148");
-
-        $tabs = new \DocuSign\eSign\Model\Tabs();
-        $tabs->setSignHereTabs(array($signHere));
-
-        // Set recipients
-        $signer = new \DocuSign\eSign\Model\Signer();
-        $signer->setEmail($signer_email);
-        $signer->setName($signer_name);
-        $signer->setRecipientId("1");
-        $signer->setTabs($tabs);
-
-        $cc = new \DocuSign\eSign\Model\CarbonCopy();
-        $cc->setEmail($cc_email);
-        $cc->setName($cc_name);
-        $cc->setRecipientId("2");
-
-        $recipients = new \DocuSign\eSign\Model\Recipients();
-        $recipients->setSigners(array($signer));
-        $recipients->setCarbonCopies(array($cc));
         
-        $envelope->setRecipients($recipients);
-
-        // Add document
-        $document = new \DocuSign\eSign\Model\Document();
-        $document->setDocumentBase64("VGhhbmtzIGZvciByZXZpZXdpbmcgdGhpcyEKCldlJ2xsIG1vdmUgZm9yd2FyZCBhcyBzb29uIGFzIHdlIGhlYXIgYmFjay4=");
-        $document->setName("doc1.txt");
-        $document->setFileExtension("txt"); 
-        $document->setDocumentId("1");
-        $envelope->setDocuments(array($document));  
-
-        // Send envelope
-        $envelopesAPI = new \DocuSign\eSign\Api\EnvelopesApi($apiClient);
-        $envelope = $envelopesAPI->createEnvelope($account_id, $envelope);
-        echo "Successfully sent envelope with envelopeId: " . $envelope->getEnvelopeId() . "\n";
-
+        $envelopeResponse = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath);
+        echo "Envelope ID: " . $envelopeResponse[0]->getEnvelopeId() . "\n";
 
     } catch (ApiException $e) {
         var_dump($e);
