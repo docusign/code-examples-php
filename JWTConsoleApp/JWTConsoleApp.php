@@ -1,13 +1,9 @@
 <?php
 
-namespace Example;
-
-use Services\SignatureClientService;
+use Example\Services\SignatureClientService;
 use Example\Services\Examples\eSignature\SigningViaEmailService;
-use DocuSign\eSign\Configuration;
-use DocuSign\eSign\Client\ApiClient;
-use DocuSign\eSign\Client\ApiException;
 
+use DocuSign\eSign\Client\ApiClient;
 
 require "vendor/autoload.php";
 require "ds_config_jwt_mini.php";
@@ -19,11 +15,9 @@ $scopes = "signature impersonation";
 
 
 
-$config = new Configuration();
-$apiClient = new ApiClient($config);
 $args = [];
 // Collect user information through prompts
-echo "Welcome to the JWT Code example!\n";
+echo "Welcome to the JWT Code example!\n\n";
 echo "Enter the signer's email address: \n";
 $args['envelope_args']['signer_email'] = trim(fgets(STDIN));
 
@@ -36,14 +30,14 @@ $args['envelope_args']['cc_email'] = trim(fgets(STDIN));
 echo "Enter the carbon copy's name: \n";
 $args['envelope_args']['cc_name'] = trim(fgets(STDIN)); 
 
+$args['envelope_args']['status'] = "sent";
 
-$clientService = new SignatureClientService($args);
-// get the information from the app.config file
-
-
-
+// these are extra arguments used for the html document in SigningViaEmailService
+$args['envelope_args']['item'] = "wafer biscuit";
+$args['envelope_args']['quantity'] = "60";
 
 try {
+    $apiClient = new ApiClient();
     $apiClient->getOAuth()->setOAuthBasePath("account-d.docusign.com");
     $response = $apiClient->requestJWTUserToken($integration_key, $impersonatedUserId, $rsaPrivateKey, $scopes, 60);
 
@@ -64,7 +58,7 @@ try {
         echo $authorizationURL;
 
 
-        exit();
+        exit;
     }
 }
 
@@ -75,19 +69,24 @@ if (isset($response)) {
     
     $info = $apiClient->getUserInfo($access_token);
     $account_id = $info[0]["accounts"][0]["account_id"];
+    $args['base_path'] = "https://demo.docusign.net/restapi";
+    $args['account_id'] = $account_id;
+    $args['ds_access_token'] = $access_token;
 
-    // Instantiate the API client again with the default header set to the access token
-    $config->setHost("https://demo.docusign.net/restapi");
-    $config->addDefaultHeader('Authorization', 'Bearer ' . $access_token);
-    $apiClient = new ApiClient($config);
+    
+
+
+    $clientService = new SignatureClientService($args);
+    $demoDocsPath =  $GLOBALS['DS_CONFIG']['demo_doc_path'];
 
     try {
-        
-        $envelopeResponse = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath);
-        echo "Envelope ID: " . $envelopeResponse[0]->getEnvelopeId() . "\n";
+        $callAPI = new SigningViaEmailService();
+        $result = $callAPI->signingViaEmail($args, $clientService, $demoDocsPath);
 
-    } catch (ApiException $e) {
-        var_dump($e);
+        echo "Envelope ID: " . $result['envelope_id'] . "\n";
+
+    } catch (\Throwable $th) {
+        var_dump($th);
         exit;
     }
 }
