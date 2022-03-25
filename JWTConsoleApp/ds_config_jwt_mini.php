@@ -12,6 +12,7 @@ $DS_CONFIG = [
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
     'doc_txt' =>  'Check_If_Approved.txt',
+    'app_url' => 'http://localhost:8080/public', // The url of the application.
 ];
 $GLOBALS['DS_CONFIG'] = $DS_CONFIG;
 $GLOBALS['JWT_CONFIG'] = $JWT_CONFIG;
