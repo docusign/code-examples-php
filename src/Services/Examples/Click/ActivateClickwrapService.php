@@ -28,7 +28,7 @@ class ActivateClickwrapService
             $response = $accounts_api -> updateClickwrapVersion(
                 $args['account_id'],
                 $args['clickwrap_id'],
-                '1',
+                $args['version_number'],
                 $clickwrap_request
             );
             # Step 4 End

@@ -33,7 +33,7 @@
         <select class="custom-select" id="clickwrap_id"
                 name="clickwrap_id">
             {% for clickwrap in args['clickwraps'] %}
-            <option value="{{ clickwrap['clickwrap_id'] }}">{{ clickwrap['clickwrap_name'] }}</option>
+            <option value="{{ clickwrap['clickwrap_id'] }}:{{ clickwrap['version_number'] }}">{{ clickwrap['clickwrap_name'] }}</option>
             {% endfor %}
         </select>
     </div>
