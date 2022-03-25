@@ -18,16 +18,16 @@ $scopes = "signature impersonation";
 $args = [];
 // Collect user information through prompts
 echo "Welcome to the JWT Code example!\n\n";
-echo "Enter the signer's email address: \n";
+echo "Enter the signer's email address: ";
 $args['envelope_args']['signer_email'] = trim(fgets(STDIN));
 
-echo "Enter the signer's name: \n";
+echo "Enter the signer's name: ";
 $args['envelope_args']['signer_name'] = trim(fgets(STDIN));
 
-echo "Enter the carbon copy's email address: \n";
+echo "Enter the carbon copy's email address: ";
 $args['envelope_args']['cc_email'] = trim(fgets(STDIN));
 
-echo "Enter the carbon copy's name: \n";
+echo "Enter the carbon copy's name: ";
 $args['envelope_args']['cc_name'] = trim(fgets(STDIN)); 
 
 $args['envelope_args']['status'] = "sent";
@@ -83,7 +83,7 @@ if (isset($response)) {
         $callAPI = new SigningViaEmailService();
         $result = $callAPI->signingViaEmail($args, $clientService, $demoDocsPath);
 
-        echo "Envelope ID: " . $result['envelope_id'] . "\n";
+        echo "Successfully sent envelope with envelope ID: " . $result['envelope_id'] . "\n";
 
     } catch (\Throwable $th) {
         var_dump($th);
