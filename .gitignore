@@ -41,3 +41,5 @@ ds_config.php
 private.key
 debug.log
 public/demo_documents/ExportedUserData.csv
+JWTConsoleApp/vendor/*
+JWTConsoleApp/ds_config_jwt_mini.php

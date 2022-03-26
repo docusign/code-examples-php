@@ -32,6 +32,10 @@ class SigningViaEmailService
         try {
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         } catch (ApiException $e) {
+            // if you modify this code and are using the the JWT Conole App, uncomment 
+            // the following line to debug issues for easier visibility in the console
+            // var_dump($e);
+            
             $clientService->showErrorTemplate($e);
             exit;
         }
