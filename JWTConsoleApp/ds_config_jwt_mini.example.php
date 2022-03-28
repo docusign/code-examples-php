@@ -4,7 +4,7 @@ $JWT_CONFIG = [
     'ds_client_id' => '{INTEGRATION_KEY_JWT}', // The app's DocuSign integration key
     'authorization_server' => 'account-d.docusign.com',
     "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  // the id of the user
-    "private_key_file" => "../private.key", // path to private key file
+    "private_key_file" => "private.key", // path to private key file
 ];
 
 $DS_CONFIG = [
