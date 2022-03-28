@@ -56,9 +56,7 @@ class EG002ActivateClickwrap extends ClickApiBaseController
     public function getTemplateArgs(): array
     {
         $clickwrap = $this->checkInputValues($_POST['clickwrap']);
-        $clickwrap_data = explode(":",$clickwrap);
-        $clickwrap_id = $clickwrap_data[0];
-        $version_number = "1";
+        list($clickwrap_id, $version_number) = explode(",",$clickwrap);
         return [
             'account_id' => $_SESSION['ds_account_id'],
             'ds_access_token' => $_SESSION['ds_access_token'],
