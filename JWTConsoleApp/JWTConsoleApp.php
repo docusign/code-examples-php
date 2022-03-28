@@ -62,7 +62,7 @@ try {
     if (strpos($th->getMessage(), "consent_required") !== false) {
         $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query([
             'scope'         => $scopes,
-            'redirect_uri'  => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
+            'redirect_uri'  => "https://developers.docusign.com/platform/auth/consent",
             'client_id'     => $integration_key,
             'response_type' => 'code'
         ]);
