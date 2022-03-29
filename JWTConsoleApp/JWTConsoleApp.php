@@ -16,17 +16,17 @@ $scopes = "signature impersonation";
 // Credit: https://github.com/florianv/open/blob/master/src/Open.php
 function open($path, $app = null)
 {
-    switch (php_uname('s')) {
+    switch (PHP_OS) {
         case 'Darwin':
             $command = null === $app ? 'open' : sprintf('open -a %s', escapeshellarg($app));
             break;
 
-        case 'Windows':
+        case 'WINNT':
             $command = null === $app ? 'start ""' : sprintf('start "" %s', escapeshellarg($app));
             break;
 
         default:
-            $command = null === $app ? __DIR__.'/Resources/bin/xdg-open' : $app;
+            $command = null === $app ? 'xdg-open' : $app;
             break;
     }
 
