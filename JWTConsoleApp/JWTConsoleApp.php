@@ -12,6 +12,26 @@ $integration_key = $GLOBALS['JWT_CONFIG']['ds_client_id'];
 $impersonatedUserId = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'];
 $scopes = "signature impersonation";
 
+
+// Credit: https://github.com/florianv/open/blob/master/src/Open.php
+function open($path, $app = null)
+{
+    switch (php_uname('s')) {
+        case 'Darwin':
+            $command = null === $app ? 'open' : sprintf('open -a %s', escapeshellarg($app));
+            break;
+
+        case 'Windows':
+            $command = null === $app ? 'start ""' : sprintf('start "" %s', escapeshellarg($app));
+            break;
+
+        default:
+            $command = null === $app ? __DIR__.'/Resources/bin/xdg-open' : $app;
+            break;
+    }
+
+}
+
 set_error_handler(
     function ($severity, $message, $file, $line) {
         throw new ErrorException($message, $severity, $severity, $file, $line);
@@ -67,8 +87,9 @@ try {
             'response_type' => 'code'
         ]);
 
-        echo "It appears that you are using this integration key for the first time.  Please visit the following link to grant consent authorization.\n\n";
-        echo $authorizationURL;
+        echo "It appears that you are using this integration key for the first time.  Opening the following link in a browser window:\n";
+        echo $authorizationURL . "\n\n";
+        open($authorizationURL);
         exit;
     }
 }
