@@ -13,24 +13,23 @@ $impersonatedUserId = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'];
 $scopes = "signature impersonation";
 
 
-// Credit: https://github.com/florianv/open/blob/master/src/Open.php
-function open($path, $app = null)
+// Credit: https://raw.githubusercontent.com/matt-allan/open/master/src/open.php
+function open($target)
 {
     switch (PHP_OS) {
         case 'Darwin':
-            $command = null === $app ? 'open' : sprintf('open -a %s', escapeshellarg($app));
+            $opener = 'open';
             break;
-
         case 'WINNT':
-            $command = null === $app ? 'start ""' : sprintf('start "" %s', escapeshellarg($app));
+            $opener = 'start ""';
             break;
-
         default:
-            $command = null === $app ? 'xdg-open' : $app;
-            break;
+            $opener = 'xdg-open';
     }
 
+    return exec(sprintf('%s %s', $opener, escapeshellcmd($target)));
 }
+
 
 set_error_handler(
     function ($severity, $message, $file, $line) {
