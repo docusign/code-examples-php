@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d3981385c5064804f311b0afa3f5672",
+    "content-hash": "ebe7e7a1ebe0086a4ffc10823168463e",
     "packages": [
         {
             "name": "docusign/admin-client",
@@ -112,20 +112,24 @@
                 "php",
                 "sdk"
             ],
+            "support": {
+                "issues": "https://github.com/docusign/docusign-click-php-client/issues",
+                "source": "https://github.com/docusign/docusign-click-php-client/tree/v1.1.0"
+            },
             "time": "2021-12-10T18:32:44+00:00"
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.7.0",
+            "version": "v6.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "03c2305eec66093094599c3404b2c6cdcf7d66b2"
+                "reference": "719a6d7fbd14a9f6d9b897e5945c069e5c1ae951"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/03c2305eec66093094599c3404b2c6cdcf7d66b2",
-                "reference": "03c2305eec66093094599c3404b2c6cdcf7d66b2",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/719a6d7fbd14a9f6d9b897e5945c069e5c1ae951",
+                "reference": "719a6d7fbd14a9f6d9b897e5945c069e5c1ae951",
                 "shasum": ""
             },
             "require": {
@@ -167,7 +171,11 @@
                 "php",
                 "sdk"
             ],
-            "time": "2022-02-10T23:53:51+00:00"
+            "support": {
+                "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.8.0"
+            },
+            "time": "2022-04-12T20:52:20+00:00"
         },
         {
             "name": "docusign/monitor-client",
@@ -434,6 +442,10 @@
                 "rest",
                 "web service"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/guzzle/issues",
+                "source": "https://github.com/guzzle/guzzle/tree/7.4.1"
+            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -705,6 +717,10 @@
                 "oauth2",
                 "single sign on"
             ],
+            "support": {
+                "issues": "https://github.com/thephpleague/oauth2-client/issues",
+                "source": "https://github.com/thephpleague/oauth2-client/tree/2.6.1"
+            },
             "time": "2021-12-22T16:42:49+00:00"
         },
         {
@@ -991,25 +1007,25 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v2.5.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8"
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/6f981ee24cf69ee7ce9736146d1c57c2780598a8",
-                "reference": "6f981ee24cf69ee7ce9736146d1c57c2780598a8",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=8.0.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.5-dev"
+                    "dev-main": "3.0-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -1037,6 +1053,9 @@
             ],
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1051,11 +1070,11 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-12T14:48:14+00:00"
+            "time": "2022-01-02T09:55:41+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.24.0",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -1116,6 +1135,9 @@
                 "polyfill",
                 "portable"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.25.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1134,7 +1156,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.24.0",
+            "version": "v1.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
@@ -1196,6 +1218,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.25.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1272,6 +1297,10 @@
             "keywords": [
                 "templating"
             ],
+            "support": {
+                "issues": "https://github.com/twigphp/Twig/issues",
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.8"
+            },
             "funding": [
                 {
                     "url": "https://github.com/fabpot",
@@ -1295,5 +1324,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

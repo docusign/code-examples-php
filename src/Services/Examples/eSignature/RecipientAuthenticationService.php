@@ -5,7 +5,6 @@ namespace Example\Services\Examples\eSignature;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
-use DocuSign\eSign\Model\RecipientSMSAuthentication;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
