@@ -61,7 +61,6 @@ class ResponsiveSigningService
                 'email' => $args['cc_email'],
                 'name' => $args['cc_name'],
                 'recipient_id' => "2",
-                'routing_order' => "1"
             ]
         );
 
