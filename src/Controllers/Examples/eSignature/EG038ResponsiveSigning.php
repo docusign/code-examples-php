@@ -64,7 +64,7 @@ class EG038ResponsiveSigning extends eSignBaseController
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
             'cc_email' => $this->checkEmailInputValue($_POST['cc_email']),
             'cc_name' => $this->checkInputValues($_POST['cc_name']),
-            'signer_client_id' => $this->signer_client_id,
+            'signer_client_id' => 1000,
             'ds_return_url' => $GLOBALS['app_url'] . 'index.php?page=ds_return'
         ];
         return [
