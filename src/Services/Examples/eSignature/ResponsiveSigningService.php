@@ -19,7 +19,9 @@ class ResponsiveSigningService
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
+            // Step 3 start
             $envelopeSummary = $envelopeApi->createEnvelope($args['account_id'], $envelopeDefinition);
+            // Step 3 end
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -43,6 +45,8 @@ class ResponsiveSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+
+    // Step 2 start 
     private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $signer = new Signer(
@@ -95,4 +99,5 @@ class ResponsiveSigningService
             ]
         );
     }
+    // Step 2 end
 }
