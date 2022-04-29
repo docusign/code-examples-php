@@ -13,15 +13,14 @@ use Example\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {
+    // Step 3 start
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): string
     {
         $envelopeDefinition = ResponsiveSigningService::make_envelope($args["envelope_args"], $demoPath);
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
-            // Step 3 start
             $envelopeSummary = $envelopeApi->createEnvelope($args['account_id'], $envelopeDefinition);
-            // Step 3 end
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -38,6 +37,7 @@ class ResponsiveSigningService
 
         return $viewUrl['url'];
     }
+    // Step 3 end
 
     /**
      *  Creates envelope definition
