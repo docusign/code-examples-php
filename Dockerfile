@@ -6,7 +6,7 @@ WORKDIR /var/www/html
 
 
 
-FROM php:7.4-fpm-alpine
+FROM php:8.1.6RC1-fpm-alpine3.15
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -38,6 +38,10 @@ RUN pecl install \
     imagick \
     xdebug
 
+# We currently can't natively pull iconv with PHP8, see: https://github.com/docker-library/php/issues/240#issuecomment-876464325
+RUN apk add gnu-libiconv=1.15-r3 --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ --allow-untrusted
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
+
 # Install and enable php extensions
 RUN docker-php-ext-enable \
     imagick \
@@ -45,15 +49,13 @@ RUN docker-php-ext-enable \
 RUN docker-php-ext-configure zip 
 RUN docker-php-ext-install \
     curl \
-    iconv \
     pdo \
     pdo_mysql \
     pcntl \
-    tokenizer \
     xml \
     gd \
     zip \
-    bcmath
+    bcmath 
 
 WORKDIR /var/www/html
 COPY src src/

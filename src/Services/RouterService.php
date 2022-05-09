@@ -232,7 +232,7 @@ class RouterService
     public function __construct()
     {
         // To ignore the Notice instead of Isset on missing POST vars
-        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+        error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 
         if (isset($_POST['auth_type'])) {
             $_SESSION['auth_service'] = $_POST['auth_type'];
@@ -284,7 +284,7 @@ class RouterService
             } elseif ($this->ds_token_ok() == false) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
             } else {
-                error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+                error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
                 new $controller($page);
                 exit();
@@ -347,13 +347,13 @@ class RouterService
             // handle eg001 being listed in project root
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
-            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
             $controller = '\Example\\' . $this->getController($page);
             new $controller($page);
             exit();
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
-            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
             $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
             new $controller($page);
             exit();
