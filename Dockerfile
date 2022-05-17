@@ -67,4 +67,4 @@ RUN composer install
 
 CMD ["php-fpm"]
 
-EXPOSE 8080
+EXPOSE 9000
