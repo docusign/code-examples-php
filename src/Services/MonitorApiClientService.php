@@ -30,7 +30,7 @@ class MonitorApiClientService
         # Exceptions will be caught by the calling function
         # step 2 start
         $config = new Configuration();
-        $accessToken = $args['ds_access_token'];
+        $accessToken = $_SESSION['ds_access_token'];
 
         $config->setAccessToken($accessToken);
         $config->setHost('https://lens-d.docusign.net');

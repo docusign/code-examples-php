@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ebe7e7a1ebe0086a4ffc10823168463e",
+    "content-hash": "c24a1ab953987c70fd4f12bdc069ea12",
     "packages": [
         {
             "name": "docusign/admin-client",
@@ -58,6 +58,10 @@
                 "php",
                 "sdk"
             ],
+            "support": {
+                "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
+                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.0.0"
+            },
             "time": "2021-09-17T17:53:52+00:00"
         },
         {
@@ -179,16 +183,16 @@
         },
         {
             "name": "docusign/monitor-client",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-monitor-php-client.git",
-                "reference": "f7229911cee171a2cc2ab994ec101b5bffa4c4b5"
+                "reference": "7ab478ab800658a14dd76e0be14edbeb16b9e892"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/f7229911cee171a2cc2ab994ec101b5bffa4c4b5",
-                "reference": "f7229911cee171a2cc2ab994ec101b5bffa4c4b5",
+                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/7ab478ab800658a14dd76e0be14edbeb16b9e892",
+                "reference": "7ab478ab800658a14dd76e0be14edbeb16b9e892",
                 "shasum": ""
             },
             "require": {
@@ -229,7 +233,11 @@
                 "php",
                 "sdk"
             ],
-            "time": "2021-06-24T23:32:14+00:00"
+            "support": {
+                "issues": "https://github.com/docusign/docusign-monitor-php-client/issues",
+                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.1.0"
+            },
+            "time": "2022-04-12T00:05:26+00:00"
         },
         {
             "name": "docusign/rooms-client",
@@ -283,6 +291,10 @@
                 "rooms",
                 "sdk"
             ],
+            "support": {
+                "issues": "https://github.com/docusign/docusign-rooms-php-client/issues",
+                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.0.0"
+            },
             "time": "2021-10-06T02:53:16+00:00"
         },
         {
@@ -336,6 +348,10 @@
                 "jwt",
                 "php"
             ],
+            "support": {
+                "issues": "https://github.com/firebase/php-jwt/issues",
+                "source": "https://github.com/firebase/php-jwt/tree/v5.5.1"
+            },
             "time": "2021-11-08T20:18:51+00:00"
         },
         {
@@ -526,6 +542,10 @@
             "keywords": [
                 "promise"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/promises/issues",
+                "source": "https://github.com/guzzle/promises/tree/1.5.1"
+            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -637,6 +657,10 @@
                 "uri",
                 "url"
             ],
+            "support": {
+                "issues": "https://github.com/guzzle/psr7/issues",
+                "source": "https://github.com/guzzle/psr7/tree/2.2.1"
+            },
             "funding": [
                 {
                     "url": "https://github.com/GrahamCampbell",
@@ -767,6 +791,11 @@
                 "https",
                 "rest"
             ],
+            "support": {
+                "email": "opensource@mashape.com",
+                "issues": "https://github.com/Mashape/unirest-php/issues",
+                "source": "https://github.com/Mashape/unirest-php/tree/master"
+            },
             "time": "2016-08-11T17:49:21+00:00"
         },
         {
@@ -812,6 +841,11 @@
                 "pseudorandom",
                 "random"
             ],
+            "support": {
+                "email": "info@paragonie.com",
+                "issues": "https://github.com/paragonie/random_compat/issues",
+                "source": "https://github.com/paragonie/random_compat"
+            },
             "time": "2020-10-15T08:29:30+00:00"
         },
         {
@@ -861,6 +895,9 @@
                 "psr",
                 "psr-18"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client/tree/master"
+            },
             "time": "2020-06-29T06:28:15+00:00"
         },
         {
@@ -913,6 +950,9 @@
                 "request",
                 "response"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-factory/tree/master"
+            },
             "time": "2019-04-30T12:38:16+00:00"
         },
         {
@@ -963,6 +1003,9 @@
                 "request",
                 "response"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/http-message/tree/master"
+            },
             "time": "2016-08-06T14:39:51+00:00"
         },
         {
@@ -1003,6 +1046,10 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
+            "support": {
+                "issues": "https://github.com/ralouphie/getallheaders/issues",
+                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+            },
             "time": "2019-03-08T08:55:37+00:00"
         },
         {
@@ -1324,5 +1371,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

@@ -10,7 +10,7 @@
         "docusign/click-client": "1.1.0",
         "docusign/esign-client": "6.8.0",
         "docusign/rooms-client": "2.0.0",
-        "docusign/monitor-client": "1.0.0",    
+        "docusign/monitor-client": "1.1.0",
         "twig/twig": "3.3.8",
         "league/oauth2-client": "2.6.1",
         "ext-json": "*",

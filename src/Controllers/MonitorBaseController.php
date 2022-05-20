@@ -83,8 +83,19 @@ abstract class MonitorBaseController extends BaseController
      */
 
     abstract function createController(): void;
-    
+
     /**
+     * Check input values using regular expressions
+     * @param $value
+     * @return string
+     */
+    protected function checkInputValues($value): string
+    {
+        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
+    }
+
+    /**
+     * Provides the default template arguments
      * @return array
      */
     protected function getDefaultTemplateArgs(): array
