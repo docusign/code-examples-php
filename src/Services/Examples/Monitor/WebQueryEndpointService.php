@@ -27,13 +27,14 @@ class WebQueryEndpointService
         $apiClient = $clientService->getApiClient();
 
         try {
+            // Step 4 start
             $datasetApi = new DataSetApi($apiClient);
-
             $webQueryResult = $datasetApi->postWebQuery(
                 'monitor',
                 '2.0',
                 self::preparePostWebQuery($accountId, $filterStartDate, $filterEndDate)
             );
+            // Step 4 end
 
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
@@ -43,7 +44,7 @@ class WebQueryEndpointService
         // Cleaning the data from unsupported symbols
         return str_replace("'", "", $webQueryResult->getResult());
     }
-
+    // Step 3 start
     public static function preparePostWebQuery(string $accountId, string $filterStartDate, string $filterEndDate): WebQuery
     {
         $webQueryOptions = new WebQuery();
@@ -72,4 +73,5 @@ class WebQueryEndpointService
 
         return $webQueryOptions;
     }
+    // Step 3 end
 }
