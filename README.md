@@ -101,7 +101,18 @@ For a list of code examples that use the Admin API, select the PHP tab under [Ex
    1. Add the launcher’s redirect URI. Under **Additional settings**, select **+ ADD URI**, and set a redirect URI of http://localhost:8080/public/index.php?page=ds_callback. Select **SAVE**.   
    1. Set a name and email address for the signer. In ds_config.php, save an email address as `signer_email` and a name as `signer_name`.  
 **Note:** Protect your personal information. Please make sure that ds_config.php will not be stored in your source code repository. 
-1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [XAMPP Apache web server instructions](#xampp-apache-web-server-instructions) below. 
+1. Configure your web server to serve the files in the /public folder. For a simple web server setup, see the [PHP web server instructions](#php-web-server-instructions) below. 
+1. Open a browser to http://localhost:8080/public.
+
+
+## PHP web server instructions
+
+PHP can be used with the command line to launch a built in web server.
+
+1. Extract the [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart/) ZIP file or download or clone the [code-examples-php](https://github.com/docusign/code-examples-php) repository.  
+1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
+1. To install dependencies, run: `composer install`
+1. To start a built-in PHP web server, run: `php -S localhost:8080`
 1. Open a browser to http://localhost:8080/public.
 
 
