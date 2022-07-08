@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<h4>9. Delete user product permission profiles using an email address</h4>
+<p>Demonstrates how to list and delete DocuSign Admin user product permission profiles.</p>
+
+
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+  API methods used:
+  <a target="_blank" rel='noopener noreferrer'
+     href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserproductpermissionprofilesbyemail/">MultiProductUserManagement:getUserProductPermissionProfilesByEmail</a>,
+  <a target="_blank" rel='noopener noreferrer'
+     href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/removeuserproductpermission/">MultiProductUserManagement:removeUserProductPermission</a>.
+</p>
+
+<p>
+  View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+</p>
+
+{% if args["email_address"] != null %}
+  <form class="eg" action="" method="post">
+    <p>Delete user product permission profile for the following email: <b>{{ args["email_address"] }}</b></p>
+
+    <div class="form-group">
+      <label>Choose which product permission profile you would like to delete</label>
+      <select name="ProductId" class="form-control">
+        {% for key, value in args['products'] %}
+        <option value="{{ key }}">{{ value }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% else %}
+  <p>
+    Problem: You do not have the user to change permissions for. Go to example#2 and create one:
+    <a href="{{ app_url ~ 'index.php?page=aeg002'}}">create active CLM/eSign User.</a> <br/>
+  </p>
+{% endif %}
+  
+{% endblock %}

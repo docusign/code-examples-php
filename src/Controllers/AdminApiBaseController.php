@@ -82,7 +82,7 @@ abstract class AdminApiBaseController extends BaseController
                     'args' => $args,
                     'permission_profiles' => $permission_profiles,
                     'export_id' => isset($_SESSION['export_id']),
-                    'import_id' => isset($_SESSION['import_id'])
+                    'import_id' => isset($_SESSION['import_id']),
                 ]);
             }
             else {
@@ -119,6 +119,16 @@ abstract class AdminApiBaseController extends BaseController
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token']
         ];
+    }
+
+    /**
+     * Check input values using regular expressions
+     * @param $value
+     * @return string
+     */
+    protected function checkInputValues($value): string
+    {
+        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
     }
 
     abstract function getTemplateArgs(): array;

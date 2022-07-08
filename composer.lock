@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3740325e1f92cb3345733497b40d7ac0",
+    "content-hash": "947bd3e293666ef1d7cab0502b0dc113",
     "packages": [
         {
             "name": "docusign/admin-client",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-admin-php-client.git",
-                "reference": "6c085f84badf7cf9eb19e733ab717fe00cda25ce"
+                "reference": "e3ffb515dfd16dadbc7da32513b418854b44b2da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/6c085f84badf7cf9eb19e733ab717fe00cda25ce",
-                "reference": "6c085f84badf7cf9eb19e733ab717fe00cda25ce",
+                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/e3ffb515dfd16dadbc7da32513b418854b44b2da",
+                "reference": "e3ffb515dfd16dadbc7da32513b418854b44b2da",
                 "shasum": ""
             },
             "require": {
@@ -60,9 +60,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
-                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.0.0"
+                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.1.0"
             },
-            "time": "2021-09-17T17:53:52+00:00"
+            "time": "2022-04-29T00:42:17+00:00"
         },
         {
             "name": "docusign/click-client",
