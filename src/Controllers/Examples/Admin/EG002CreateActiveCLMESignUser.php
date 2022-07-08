@@ -85,6 +85,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         );
 
         if ($addUsersResponse) {
+            $_SESSION['email_address'] = strval($addUsersResponse->getEmail());
+
             $addUsersResponse = json_decode((string)$addUsersResponse, true);
             $this->clientService->showDoneTemplate(
                 "Create a new active user for CLM and eSignature",

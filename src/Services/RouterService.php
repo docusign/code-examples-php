@@ -76,7 +76,12 @@ class RouterService
         'aeg003a' => 'Admin\EG003aCheckRequestStatus',
         'aeg004' => 'Admin\EG004BulkImportUserData',
         'aeg004a' => 'Admin\EG004aCheckImportRequestStatus',
-        'aeg005' => 'Admin\EG005AuditUsers'
+        'aeg005' => 'Admin\EG005AuditUsers',
+        'aeg006' => 'Admin\EG006RetrieveDocuSignProfileByEmailAddress',
+        'aeg007' => 'Admin\EG007RetrieveDocuSignProfileByUserID',
+        'aeg008' => 'Admin\EG008UpdateUserProductPermissionProfile',
+        'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile'
+
     ];
     /**
      * The list of templates with examples
@@ -149,7 +154,12 @@ class RouterService
         "aeg003a" => "admin/eg003a_check_request_status.html",
         "aeg004" => "admin/eg004_bulk_import_user_data.html",
         "aeg004a" => "admin/eg004a_check_import_request_status.html",
-        "aeg005" => "admin/eg005_audit_users.html"
+        "aeg005" => "admin/eg005_audit_users.html",
+        "aeg006" => "admin/eg006_retrieve_profile_by_email_address.html",
+        "aeg007" => "admin/eg007_retrieve_profile_by_user_id.html",
+        "aeg008" => "admin/eg008_update_user_product_permission_profile.html",
+        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html"
+
     ];
     /**
      * The list of titles for each example
@@ -219,7 +229,12 @@ class RouterService
         "aeg003a" => "Check request status",
         "aeg004" => "How to bulk-import user data",
         "aeg004a" => "Check the request status",
-        "aeg005" => "Audit users"
+        "aeg005" => "Audit users",
+        "aeg006" => "Get user profile data by email address",
+        "aeg007" => "Get user profile data by user ID",
+        "aeg008" => "Update user product permission profiles using an email address",
+        "aeg009" => "Delete user product permission profiles using an email address"
+
     ];
     /**
      * The list of controllers for each example

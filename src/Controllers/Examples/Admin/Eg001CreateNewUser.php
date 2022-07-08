@@ -92,13 +92,4 @@ class EG001CreateNewUser extends AdminApiBaseController
             'envelope_args' => $envelope_args
         ];
     }
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    private function checkInputValues($value): string
-    {
-        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
-    }
 }
