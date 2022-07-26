@@ -3,6 +3,7 @@
 namespace Example\Controllers;
 
 use Example\Services\RouterService;
+use QuickACG\RouterService as QuickRouterService;
 use Example\Services\SignatureClientService;
 
 abstract class eSignBaseController extends BaseController
@@ -36,7 +37,7 @@ abstract class eSignBaseController extends BaseController
         "vaultingMode" => "none"
     ];
     protected SignatureClientService $clientService;
-    protected RouterService $routerService;
+    protected mixed $routerService;
     protected array $args;
 
     # DCM-3905 The SDK helper method for setting the SigningUIVersion is temporarily unavailable at this time.
@@ -48,7 +49,7 @@ abstract class eSignBaseController extends BaseController
     {
         $this->args = $this->getTemplateArgs();
         $this->clientService = new SignatureClientService($this->args);
-        $this->routerService = new RouterService();
+        $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService(): new RouterService();
     }
 
     abstract function getTemplateArgs(): array;

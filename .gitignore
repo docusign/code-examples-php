@@ -27,6 +27,7 @@ Desktop.ini
 
 # ignore Composer downloads
 /vendor/*
+/Quick_ACG/vendor/*
 
 # keep some hiddens
 !.htaccess

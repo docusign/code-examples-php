@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ app_url ~ 'assets/favicon.ico' }}">
+    <title>{{ title }}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="{{ app_url ~ 'assets/css.css' }}" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand"  target="_blank" href="https://developers.docusign.com">DocuSign Developer</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto"></ul>
+
+        {% if session['ds_user_name'] %}
+          <span class="navbar-text">
+            Welcome {{ session['ds_user_name'] }}
+          </span>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <h4>Use embedded signing</h4>
+      <p>This example sends an envelope, and then uses embedded signing for the first signer.</p>
+      <p>Embedded signing provides a smoother user experience for the signer: the DocuSign signing is initiated from your website.</p>
+
+      <p>API methods used:
+        <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a> and
+        <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
+      </p>
+      <p>
+        View source file <a target="_blank" href="https://github.com/docusign/code-examples-php/blob/master/src/EG001EmbeddedSigning.php">{{ source_file }}</a> on GitHub.
+      </p>
+
+    <form class="eg" action="" method="post" data-busy="form">
+      <div class="form-group">
+        <label for="signer_email">Signer Email</label>
+        <input type="email" class="form-control" id="signer_email" name="signer_email"
+               aria-describedby="emailHelp" placeholder="pat@example.com" required
+               value="{{ signer_email }}">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+      </div>
+      <div class="form-group">
+        <label for="signer_name">Signer Name</label>
+        <input type="text" class="form-control" id="signer_name" placeholder="Pat Johnson" name="signer_name"
+              value="{{ signer_name }}" required>
+      </div>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+      <button type="submit" class="btn btn-docu">Submit</button>
+    </form>
+    </div>
+  </body>
+</html>

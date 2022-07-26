@@ -11,6 +11,7 @@ use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
+use QuickACG\RouterService as QuickRouterService;
 
 class SignatureClientService
 {
@@ -22,7 +23,7 @@ class SignatureClientService
     /**
      * Router Service
      */
-    public RouterService $routerService;
+    public mixed $routerService;
 
     /**
      * Create a new controller instance.
@@ -40,7 +41,7 @@ class SignatureClientService
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         # Step 2 end
-        $this->routerService = new RouterService();
+        $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService(): new RouterService();
     }
 
     /**

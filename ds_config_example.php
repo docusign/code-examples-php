@@ -4,6 +4,7 @@
 // DocuSign configuration settings
 $DS_CONFIG = [
     'quickstart' => '{QUICKSTART_VALUE}',
+    'quickACG' => '{QUICK_ACG_VALUE}',
     'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}',  // The app's DocuSign integration key
     'ds_client_secret' => '{SECRET_KEY}', // The app's DocuSign integration key's secret
     'signer_email' => '{SIGNER_EMAIL}',
