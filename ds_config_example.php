@@ -21,6 +21,7 @@ $DS_CONFIG = [
     'target_account_id' => false, // Set if you want a specific DocuSign AccountId, If false, the user's default account will be used.
     'demo_doc_path' => 'demo_documents',
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+    'doc_html' => 'doc_1.html',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
     'doc_txt' =>  'Check_If_Approved.txt',
     // Payment gateway information is optional

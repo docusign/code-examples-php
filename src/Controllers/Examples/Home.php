@@ -11,12 +11,13 @@ namespace Example\Controllers\Examples;
 use QuickACG\RouterService as QuickRouterService;
 use Example\Controllers\eSignBaseController;
 use Example\Services\RouterService;
+use Example\Services\IRouterService;
 
 class Home extends eSignBaseController
 {
     const FILE = __FILE__;
     /** RouterService */
-    protected mixed $routerService;
+    protected IRouterService $routerService;
     private string $eg;  # Reference (and URL) for this example
 
     /**

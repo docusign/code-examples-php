@@ -2,7 +2,7 @@
 
 namespace Example\Services;
 
-class RouterService
+class RouterService implements IRouterService
 {
 
     /**
@@ -54,6 +54,8 @@ class RouterService
         'eg036' => 'eSignature\EG036DelayedRouting',
         'eg037' => 'eSignature\EG037SMSDelivery',
         'eg038' => 'eSignature\EG038ResponsiveSigning',
+        'eg039' => 'eSignature\EG039InPersonSigning',
+        'eg040' => 'eSignature\EG040SetDocumentsVisibility',
         'reg001' => 'Rooms\EG001CreateRoomWithData',
         'reg002' => 'Rooms\EG002CreateRoomWithTemplate',
         'reg003' => 'Rooms\EG003ExportDataFromRoom',
@@ -81,7 +83,6 @@ class RouterService
         'aeg007' => 'Admin\EG007RetrieveDocuSignProfileByUserID',
         'aeg008' => 'Admin\EG008UpdateUserProductPermissionProfile',
         'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile'
-
     ];
     /**
      * The list of templates with examples
@@ -132,6 +133,8 @@ class RouterService
         "eg036" => "esignature/eg036_delayed_routing.html",
         "eg037" => "esignature/eg037_sms_delivery.html",
         "eg038" => "esignature/eg038_responsive_signing.html",
+        "eg039" => "esignature/eg039_in_person_signing.html",
+        "eg040" => "esignature/eg040_set_document_visibility.html",
         "reg001" => "rooms/eg001_create_room_with_data.html",
         "reg002" => "rooms/eg002_create_room_with_template.html",
         "reg003" => "rooms/eg003_export_data_from_room.html",
@@ -207,6 +210,8 @@ class RouterService
         "eg036" => "Send an envelope with delayed routing",
         "eg037" => "Send an email with SMS delivery",
         "eg038" => "Use responsive signing",
+        "eg039" => "In person signing",
+        "eg040" => "Set document visibility",
         "reg001" => "Create room with data",
         "reg002" => "Create room with template",
         "reg003" => "Export data from room",
@@ -234,7 +239,6 @@ class RouterService
         "aeg007" => "Get user profile data by user ID",
         "aeg008" => "Update user product permission profiles using an email address",
         "aeg009" => "Delete user product permission profiles using an email address"
-
     ];
     /**
      * The list of controllers for each example

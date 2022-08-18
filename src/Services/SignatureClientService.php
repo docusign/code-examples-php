@@ -12,6 +12,7 @@ use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 use QuickACG\RouterService as QuickRouterService;
+use Example\Services\IRouterService;
 
 class SignatureClientService
 {
@@ -23,7 +24,7 @@ class SignatureClientService
     /**
      * Router Service
      */
-    public mixed $routerService;
+    public IRouterService $routerService;
 
     /**
      * Create a new controller instance.
@@ -224,14 +225,16 @@ class SignatureClientService
      * @param ApiException $e
      * @return void
      */
-    public function showErrorTemplate(ApiException $e): void
+    public function showErrorTemplate(ApiException $e, string $fixingInstructions = null): void
     {
-        $body = $e->getResponseBody();
+        $body = $e->getResponseBody($fixingInstructions);
+        
         $GLOBALS['twig']->display(
             'error.html',
             [
                 'error_code' => $body->errorCode ?? unserialize($body)->errorCode ?? $e->getMessage(),
-                'error_message' => $body->message ?? unserialize($body)->message
+                'error_message' => $body->message ?? unserialize($body)->message,
+                'fixing_instructions' => $fixingInstructions
             ]
         );
     }
@@ -274,6 +277,37 @@ class SignatureClientService
         }
 
         return $brands['groups'];
+    }
+
+    /**
+     *  Get the email address of the authenticated user
+     *
+     * @param string $accessToken
+     * @return string $emailAdress
+     */
+    public function getAuthenticatedUserEmail(string $accessToken): string
+    {
+        $this->apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
+        $info = $this->apiClient->getUserInfo($accessToken);
+
+        return $info[0]['email'];
+
+    }
+
+    /**
+     *  Get the name of the authenticated user
+     *
+     * @param string $accessToken
+     * @return string $emailAdress
+     */
+    public function getAuthenticatedUserName(string $accessToken): string
+    {
+        $this->apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
+        $info = $this->apiClient->getUserInfo($accessToken);
+        
+        return $info[0]['accounts'][0]['account_name'];
+
+
     }
 
     /**

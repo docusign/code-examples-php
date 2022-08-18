@@ -5,6 +5,7 @@ namespace Example\Controllers;
 use Example\Services\RouterService;
 use QuickACG\RouterService as QuickRouterService;
 use Example\Services\SignatureClientService;
+use Example\Services\IRouterService;
 
 abstract class eSignBaseController extends BaseController
 {
@@ -37,7 +38,7 @@ abstract class eSignBaseController extends BaseController
         "vaultingMode" => "none"
     ];
     protected SignatureClientService $clientService;
-    protected mixed $routerService;
+    protected IRouterService $routerService;
     protected array $args;
 
     # DCM-3905 The SDK helper method for setting the SigningUIVersion is temporarily unavailable at this time.

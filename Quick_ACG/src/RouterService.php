@@ -3,8 +3,9 @@
 namespace QuickACG;
 
 use Example\Services\CodeGrantService;
+use Example\Services\IRouterService;
 
-class RouterService
+class RouterService implements IRouterService
 {
     private const CONTROLLER = [
         'eg001' => 'EG001EmbeddedSigning'
