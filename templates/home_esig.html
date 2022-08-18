@@ -32,19 +32,10 @@
 
 
 
-    <h2>Basic examples</h2>
+    <h2>Requesting a signature</h2>
 
-    <h4 id="example001">1. <a href="{{ app_url ~ 'index.php?page=eg001'}}">Request a signature through your app (embedded signing)</a></h4>
-    <p>Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
-    </p>
-    <p>API methods used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
-    </p>
 
-    <h4 id="example002">2. <a href="{{ app_url ~ 'index.php?page=eg002'}}">Request a signature by email (remote signing)</a></h4>
+    <h4 id="example002"><a href="{{ app_url ~ 'index.php?page=eg002'}}">Request a signature by email (remote signing)</a></h4>
     <p>The envelope includes three documents: one each in PDF, Word, and HTML format. 
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">Anchor text</a>
@@ -55,86 +46,24 @@
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
 
-    <h4 id="example003">3. <a href="{{ app_url ~ 'index.php?page=eg003'}}">List envelope status changes</a></h4>
-    <p>Lists the envelopes whose status has changed within a specified range of dates. The envelopes' current status is included.
+    <h4 id="example001"><a href="{{ app_url ~ 'index.php?page=eg001'}}">Request a signature through your app (embedded signing)</a></h4>
+    <p>Sends an envelope, then uses embedded signing for the first signer. With embedded signing, DocuSign signing is initiated from your website.
     </p>
-    <p>API method used:
-        <a target ='_blank' 
-         href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/">Envelopes::listStatusChanges</a>.
-    </p>
-
-    <h4 id="example004">4. <a href="{{ app_url ~ 'index.php?page=eg004'}}">Get envelope information</a></h4>
-    <p>Lists basic information about an envelope, including its overall status.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/">Envelopes::get</a>.
-    </p>
-
-    <h4 id="example005">5. <a href="{{ app_url ~ 'index.php?page=eg005'}}">List envelope recipients</a></h4>
-    <p>Lists the envelope's recipients, including their current status.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/list/">EnvelopeRecipients::list</a>.
-    </p>
-
-    <h4 id="example006">6. <a href="{{ app_url ~ 'index.php?page=eg006'}}">List envelope documents</a></h4>
-    <p>Lists the envelope's documents. A <em>Certificate of Completion</em> is included with every envelope.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/">EnvelopeDocuments::list</a>.
-    </p>
-
-    <h4 id="example007">7. <a href="{{ app_url ~ 'index.php?page=eg007'}}">Download envelope documents</a></h4>
-    <p>Downloads individual documents, the documents concatenated together, or a ZIP file of the documents.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/">EnvelopeDocuments::get</a>.
-    </p>
-
-    <h4 id="example008">8. <a href="{{ app_url ~ 'index.php?page=eg008'}}">Create a template</a></h4>
-    <p>Creates a template with two roles, <em>signer</em> and <em>cc</em> recipient.</p>
     <p>API methods used:
-        <a target='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/">Templates::list</a>, 
-        <a target='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/">Templates::create</a>.
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
     </p>
 
-    <h4 id="example009">9. <a href="{{ app_url ~ 'index.php?page=eg009'}}">Request a signature by email using a template</a></h4>
+    <h4 id="example009"><a href="{{ app_url ~ 'index.php?page=eg009'}}">Request a signature by email using a template</a></h4>
     <p>The envelope is defined by the template. The signer and cc recipient name and email are used to fill the template's <em>roles</em>.</p>
     <p>API method used:
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
 
-    <h4 id="example010">10. <a href="{{ app_url ~ 'index.php?page=eg010'}}">Attach documents using binary transfer</a></h4>
-    <p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than Base64 encoding.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-    </p>
-
-    <h4 id="example011">11. <a href="{{ app_url ~ 'index.php?page=eg011'}}">Send an envelope in your app (embedded sending)</a></h4>
-    <p>Embeds the DocuSign UI in your web app to finalize or update the envelope and documents before they are sent.</p>
-    <p>API methods used:
-        <a target='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
-        <a target='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender/">EnvelopeViews::createSender</a>.
-
-    <h4 id="example012">12. <a href="{{ app_url ~ 'index.php?page=eg012'}}">Embed the DocuSign UI in your app</a></h4>
-    <p>Use this API call to open the DocuSign UI with the user already logged in.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/">EnvelopeViews::createConsole</a>.
-    </p>
-
-    <h4 id="example013">13. <a href="{{ app_url ~ 'index.php?page=eg013'}}">Request a signature using a composite template</a></h4>
+    <h4 id="example013"><a href="{{ app_url ~ 'index.php?page=eg013'}}">Request a signature using a composite template</a></h4>
     <p>Sends an envelope based on a template. In addition to the template's document, this example adds an additional document to the envelope using the
         <a target='_blank' 
            href='https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/templates/composite/'>Composite templates</a> feature.</p>
@@ -145,145 +74,84 @@
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
     </p>
 
-    <h2>Payments</h2>
-    
-    <h4 id="example014">14. <a href="{{ app_url ~ 'index.php?page=eg014'}}">Send a request for payment</a></h4>
+    <h4 id="example037"><a href="{{ app_url ~ 'index.php?page=eg037'}}">Request a signature by SMS delivery</a></h4>
+    <p>Sends a signature request via an SMS message.
+    </p>
+    <p>
+        API method used:
+        <a target='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+
+    <h4 id="example014"><a href="{{ app_url ~ 'index.php?page=eg014'}}">Send a request for payment</a></h4>
     <p>Sends an order form with online payment by credit card.
     </p>
     <p>API method used:
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
-
-    <h2>Tabs</h2>
     
-    <h4 id="example015">15. <a href="{{ app_url ~ 'index.php?page=eg015'}}">Get envelope tab values</a></h4>
-    <p>Retrieves the tab (field) values for all of the envelope's recipients.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/">EnvelopeFormData::get</a>.
-    </p>
+    <h4 id="example039"><a href="{{ app_url ~ 'index.php?page=eg039'}}">Send an envelope to an In Person Signer</a></h4>
 
-    <h4 id="example016">16. <a href="{{ app_url ~ 'index.php?page=eg016'}}">Set envelope tab values</a></h4>
-    <p>Creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to read-only, 
-        others can be updated by the recipient. This example also stores metadata with the envelope.</p>
-    <p>
+    <p>Demonstrates how to host an In Person Signing session with embedded signing.</p>
+    <p> 
       API methods used:
+      <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
       <a target='_blank'
-        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
-      <a target='_blank'
-        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
+      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
     </p>
 
-    <h4 id="example017">17. <a href="{{ app_url ~ 'index.php?page=eg017'}}">Set tab values in a template</a></h4>
-    <p>Creates an envelope using a template and sets the initial values for its tabs (fields). This example also stores metadata with the envelope.</p>
-    <p>
-      API methods used:
-      <a target='_blank'
-        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
-      <a target='_blank'
-        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
-    </p>
-
-    <h4 id="example018">18. <a href="{{ app_url ~ 'index.php?page=eg018'}}">Get envelope custom tab values</a></h4>
-    <p>Retrieves the custom metadata (custom data fields) stored with the envelope.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/">EnvelopeCustomFields::list</a>.
-    </p>
-
-    <h2>Recipient authentication</h2>
     
-    <h4 id="example019">19. <a href="{{ app_url ~ 'index.php?page=eg019'}}">Require access code authentication for a recipient</a></h4>
-    <p>Sends an envelope that requires entering an access code for the purpose of multifactor authentication.</p>
+    <h2>Working with envelopes and templates</h2>
+
+
+    <h4 id="example004"><a href="{{ app_url ~ 'index.php?page=eg004'}}">Get envelope information</a></h4>
+    <p>Lists basic information about an envelope, including its overall status.
+    </p>
     <p>API method used:
         <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/get/">Envelopes::get</a>.
     </p>
 
-    <h4 id="example021">20. <a href="{{ app_url ~ 'index.php?page=eg020'}}">Require phone authentication for a recipient</a></h4>
-    <p>Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.</p>
+    <h4 id="example005"><a href="{{ app_url ~ 'index.php?page=eg005'}}">List envelope recipients</a></h4>
+    <p>Lists the envelope's recipients, including their current status.
+    </p>
     <p>API method used:
         <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/enveloperecipients/list/">EnvelopeRecipients::list</a>.
     </p>
 
-    <h4 id="example022">22. <a href="{{ app_url ~ 'index.php?page=eg022'}}">Require knowledge-based authentication (KBA) for a recipient</a></h4>
-    <p>Sends an envelope that requires passing a public records check to validate identity for the purpose of multifactor authentication.</p>
+    <h4 id="example003"><a href="{{ app_url ~ 'index.php?page=eg003'}}">List envelope status changes</a></h4>
+    <p>Lists the envelopes whose status has changed within a specified range of dates. The envelopes' current status is included.
+    </p>
     <p>API method used:
         <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+         href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/liststatuschanges/">Envelopes::listStatusChanges</a>.
     </p>
 
-    <h4 id="example023">23. <a href="{{ app_url ~ 'index.php?page=eg023'}}">Require ID verification (IDV) for a recipient</a></h4>
-    <p>Sends an envelope that requires the recipient to upload a government-issued ID for the purpose of multifactor authentication.</p>
+    <h4 id="example008"><a href="{{ app_url ~ 'index.php?page=eg008'}}">Create a template</a></h4>
+    <p>Creates a template with two roles, <em>signer</em> and <em>cc</em> recipient.</p>
     <p>API methods used:
-    <a target='_blank'
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/identityverifications/list/">Accounts::getAccountIdentityVerificationsList</a>, 
-    <a target='_blank'
-      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+        <a target='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/list/">Templates::list</a>, 
+        <a target='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/templates/templates/create/">Templates::create</a>.
     </p>
 
-    <h2>Permissions</h2>
-    
-    <h4 id="example024">24. <a href="{{ app_url ~ 'index.php?page=eg024'}}">Create a permission profile</a></h4>
-    <p>Creates a user group’s permission profile.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/">AccountPermissionProfiles::create</a>.
-    </p>
-    <h4 id="example025">25. <a href="{{ app_url ~ 'index.php?page=eg025'}}">Set a permission profile</a></h4>
-    <p>Sets a user group's permission profile. You must have already created a permission profile and a group of users.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/update/">Groups::update</a>.
-    </p>
-    <h4 id="example026">26. <a href="{{ app_url ~ 'index.php?page=eg026'}}">Update individual permission settings</a></h4>
-    <p>Edits individual permission settings on a permission profile.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/">AccountPermissionProfiles::update</a>.
-    </p>
-    <h4 id="example027">27. <a href="{{ app_url ~ 'index.php?page=eg027'}}">Delete a permission profile</a></h4>
-    <p>Lists all permission profiles and allows you to delete any without associated users. 
-        <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/">AccountPermissionProfiles::delete</a>.
-    </p>
-    
-    <h2>Brands</h2>
-    
-    <h4 id="example028">28. <a href="{{ app_url ~ 'index.php?page=eg028'}}">Create a brand</a></h4>
-    <p>Creates a brand profile for an account.</p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountbrands/create/">AccountBrands::create</a>.
-    </p>
-    <h4 id="example029">29. <a href="{{ app_url ~ 'index.php?page=eg029'}}">Apply a brand to an envelope</a></h4>
-    <p>Applies a brand you've created to an envelope.
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">Anchor text</a> 
-        is used to position the signing fields in the documents.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-    </p>
-    <h4 id="example030">30. <a href="{{ app_url ~ 'index.php?page=eg030'}}">Apply a brand and template to an envelope</a></h4>
-    <p>Creates an envelope from a template and applies your selected brand. You must have at least one created template and brand. 
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">Anchor text</a> 
-        is used to position the signing fields in the documents.
-    </p>
-    <p>API method used:
-        <a target ='_blank' 
-           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-    </p>
 
-    <h2>Bulk operations</h2>
-    
-    <h4 id="example031">31. <a href="{{ app_url ~ 'index.php?page=eg031'}}">Bulk send envelopes</a></h4>
+    <h4 id="example011"><a href="{{ app_url ~ 'index.php?page=eg011'}}">Send an envelope in your app (embedded sending)</a></h4>
+    <p>Embeds the DocuSign UI in your web app to finalize or update the envelope and documents before they are sent.</p>
+    <p>API methods used:
+        <a target='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
+        <a target='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createsender/">EnvelopeViews::createSender</a>.
+
+
+
+
+    <h4 id="example031"><a href="{{ app_url ~ 'index.php?page=eg031'}}">Bulk send envelopes</a></h4>
     <p>Sends envelopes in bulk to multiple recipients. First, this example creates a bulk send recipients list, then creates an envelope. 
         After that, it initiates bulk envelope sending.</p>
     <p>API methods used:
@@ -299,16 +167,15 @@
         href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
     </p>
 
-    <h2>Advanced recipient routing</h2>
-    
-    <h4 id="example032">32. <a href="{{ app_url ~ 'index.php?page=eg032'}}">Pause a signature workflow</a></h4>
+    <h2>Working with advanced recipient routing</h2>
+    <h4 id="example032"><a href="{{ app_url ~ 'index.php?page=eg032'}}">Pause a signature workflow</a></h4>
     <p>Creates an envelope where the workflow is paused before the envelope is sent to a second recipient.</p>
     <p>API method used:
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
     
-    <h4 id="example033">33. <a href="{{ app_url ~ 'index.php?page=eg033'}}">Unpause a signature workflow</a></h4>
+    <h4 id="example033"><a href="{{ app_url ~ 'index.php?page=eg033'}}">Unpause a signature workflow</a></h4>
     <p>Updates an envelope to resume the workflow that has been paused. 
         You must have created an envelope with a paused signature workflow to run this example.</p>
     <p>API method used:
@@ -316,14 +183,14 @@
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::update</a>.
     </p>
     
-    <h4 id="example034">34. <a href="{{ app_url ~ 'index.php?page=eg034'}}">Use conditional recipients</a></h4>
+    <h4 id="example034"><a href="{{ app_url ~ 'index.php?page=eg034'}}">Use conditional recipients</a></h4>
     <p>Creates an envelope where the workflow is routed to different recipients based on the value of a transaction.</p>
     <p>API method used:
         <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
 
-    <h4 id="example035">35. <a href="{{ app_url ~ 'index.php?page=eg035'}}">Schedule an envelope</a></h4>
+    <h4 id="example035"><a href="{{ app_url ~ 'index.php?page=eg035'}}">Schedule an envelope</a></h4>
     <p>Demonstrates how to schedule an envelope using the scheduled sending feature.
     </p>
     <p>
@@ -332,7 +199,7 @@
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
 
-    <h4 id="example036">36. <a href="{{ app_url ~ 'index.php?page=eg036'}}">Send an envelope with delayed routing</a></h4>
+    <h4 id="example036"><a href="{{ app_url ~ 'index.php?page=eg036'}}">Send an envelope with delayed routing</a></h4>
     <p>Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.
     </p>
     <p>
@@ -340,28 +207,195 @@
         <a target='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
-    <h2>Premium features</h2>
 
-    <h4 id="example037">37. <a href="{{ app_url ~ 'index.php?page=eg037'}}">Request a signature by SMS delivery</a></h4>
-    <p>Sends a signature request via an SMS message.
+    <h2>Working with documents</h2>
+
+    <h4 id="example006"><a href="{{ app_url ~ 'index.php?page=eg006'}}">List envelope documents</a></h4>
+    <p>Lists the envelope's documents. A <em>Certificate of Completion</em> is included with every envelope.
     </p>
-    <p>
-        API method used:
-        <a target='_blank' 
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/list/">EnvelopeDocuments::list</a>.
+    </p>
+
+    <h4 id="example007"><a href="{{ app_url ~ 'index.php?page=eg007'}}">Download envelope documents</a></h4>
+    <p>Downloads individual documents, the documents concatenated together, or a ZIP file of the documents.
+    </p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopedocuments/get/">EnvelopeDocuments::get</a>.
+    </p>
+
+    <h4 id="example010"><a href="{{ app_url ~ 'index.php?page=eg010'}}">Attach documents using binary transfer</a></h4>
+    <p>Multipart data transfer is used to send the documents in binary format to DocuSign. Binary transfer is 33% more efficient than Base64 encoding.
+    </p>
+    <p>API method used:
+        <a target ='_blank' 
            href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
     </p>
 
-    <h2>Responsive signing</h2>
+    <h4 id="example038"><a href="{{ app_url ~ 'index.php?page=eg038'}}">Create a signable HTML document</a></h4>
+    <p>
+      Demonstrates how to create an HTML document for responsive signing. 
+      </p>
+    <p>
+      API methods used:
+      <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
+      <a target='_blank'
+         href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
+    </p>
+  
+    <h4 id="example040"><a href="{{ app_url ~ 'index.php?page=eg040'}}">Set document visibility for envelope recipients</a></h4>
+    <p>
+      Demonstrates how to set document visibility for envelope recipients.
+    </p>
+    <p>
+        API method used:
+        <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
 
-  <h4 id="example038">38. <a href="{{ app_url ~ 'index.php?page=eg038'}}">Create a signable HTML document</a></h4>
-  <p>
-    Demonstrates how to create an HTML document for responsive signing.
-  <p>
-    API methods used:
-    <a target="_blank" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
+
+    
+    <h2>Working with tabs</h2>
+    
+    <h4 id="example015"><a href="{{ app_url ~ 'index.php?page=eg015'}}">Get envelope tab values</a></h4>
+    <p>Retrieves the tab (field) values for all of the envelope's recipients.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/">EnvelopeFormData::get</a>.
+    </p>
+
+    <h4 id="example016"><a href="{{ app_url ~ 'index.php?page=eg016'}}">Set envelope tab values</a></h4>
+    <p>Creates an envelope and sets the initial values for its tabs (fields). Some of the tabs are set to read-only, 
+        others can be updated by the recipient. This example also stores metadata with the envelope.</p>
+    <p>
+      API methods used:
+      <a target='_blank'
+        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
+      <a target='_blank'
+        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
+    </p>
+
+    <h4 id="example017"><a href="{{ app_url ~ 'index.php?page=eg017'}}">Set tab values in a template</a></h4>
+    <p>Creates an envelope using a template and sets the initial values for its tabs (fields). This example also stores metadata with the envelope.</p>
+    <p>
+      API methods used:
+      <a target='_blank'
+        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>, 
+      <a target='_blank'
+        href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
+    </p>
+
+    <h4 id="example018"><a href="{{ app_url ~ 'index.php?page=eg018'}}">Get envelope custom tab values</a></h4>
+    <p>Retrieves the custom metadata (custom data fields) stored with the envelope.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/">EnvelopeCustomFields::list</a>.
+    </p>
+
+
+    <h2>Working with brands</h2>
+    
+    <h4 id="example028"><a href="{{ app_url ~ 'index.php?page=eg028'}}">Create a brand</a></h4>
+    <p>Creates a brand profile for an account.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountbrands/create/">AccountBrands::create</a>.
+    </p>
+    <h4 id="example029"><a href="{{ app_url ~ 'index.php?page=eg029'}}">Apply a brand to an envelope</a></h4>
+    <p>Applies a brand you've created to an envelope.
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">Anchor text</a> 
+        is used to position the signing fields in the documents.
+    </p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+    <h4 id="example030"><a href="{{ app_url ~ 'index.php?page=eg030'}}">Apply a brand and template to an envelope</a></h4>
+    <p>Creates an envelope from a template and applies your selected brand. You must have at least one created template and brand. 
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">Anchor text</a> 
+        is used to position the signing fields in the documents.
+    </p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+    <h2>Working with permissions</h2>
+    
+    <h4 id="example024"><a href="{{ app_url ~ 'index.php?page=eg024'}}">Create a permission profile</a></h4>
+    <p>Creates a user group's permission profile.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/create/">AccountPermissionProfiles::create</a>.
+    </p>
+    <h4 id="example025"><a href="{{ app_url ~ 'index.php?page=eg025'}}">Set a permission profile</a></h4>
+    <p>Sets a user group's permission profile. You must have already created a permission profile and a group of users.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/update/">Groups::update</a>.
+    </p>
+    <h4 id="example026"><a href="{{ app_url ~ 'index.php?page=eg026'}}">Update individual permission settings</a></h4>
+    <p>Edits individual permission settings on a permission profile.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/update/">AccountPermissionProfiles::update</a>.
+    </p>
+    <h4 id="example027"><a href="{{ app_url ~ 'index.php?page=eg027'}}">Delete a permission profile</a></h4>
+    <p>Lists all permission profiles and allows you to delete any without associated users. 
+        <strong>Note:</strong> You cannot remove "Everyone" nor "Administrator" permission profiles.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/delete/">AccountPermissionProfiles::delete</a>.
+    </p>
+    
+
+
+    <h2>Implementing multi-factor recipient (signer) authentication</h2>
+    <h4 id="example023"><a href="{{ app_url ~ 'index.php?page=eg023'}}">Require ID verification (IDV) for a recipient</a></h4>
+    <p>Sends an envelope that requires the recipient to upload a government-issued ID for the purpose of multifactor authentication.</p>
+    <p>API methods used:
     <a target='_blank'
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/">EnvelopeViews::createRecipient</a>.
-  </p>
+      href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/identityverifications/list/">Accounts::getAccountIdentityVerificationsList</a>, 
+    <a target='_blank'
+      href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example022"><a href="{{ app_url ~ 'index.php?page=eg022'}}">Require knowledge-based authentication (KBA) for a recipient</a></h4>
+    <p>Sends an envelope that requires passing a public records check to validate identity for the purpose of multifactor authentication.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example021"><a href="{{ app_url ~ 'index.php?page=eg020'}}">Require phone authentication for a recipient</a></h4>
+    <p>Sends an envelope that requires entering a six-digit code from a text message or phone call for the purpose of multifactor authentication.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+    <h4 id="example019"><a href="{{ app_url ~ 'index.php?page=eg019'}}">Require access code authentication for a recipient</a></h4>
+    <p>Sends an envelope that requires entering an access code for the purpose of multifactor authentication.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
+    </p>
+
+    <h2>Embed the DocuSign UI in your app</h2>
+
+    <h4 id="example012"><a href="{{ app_url ~ 'index.php?page=eg012'}}">Embed the DocuSign UI in your app</a></h4>
+    <p>Use this API call to open the DocuSign UI with the user already logged in.</p>
+    <p>API method used:
+        <a target ='_blank' 
+           href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createconsole/">EnvelopeViews::createConsole</a>.
+    </p>
+
+
+
+
 </div>
 
 <!-- anchor-js is only for the index page -->

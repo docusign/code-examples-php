@@ -8,15 +8,16 @@
  */
 
 namespace Example\Controllers\Examples;
-
+use QuickACG\RouterService as QuickRouterService;
 use Example\Controllers\eSignBaseController;
 use Example\Services\RouterService;
+use Example\Services\IRouterService;
 
 class Home extends eSignBaseController
 {
     const FILE = __FILE__;
     /** RouterService */
-    protected RouterService $routerService;
+    protected IRouterService $routerService;
     private string $eg;  # Reference (and URL) for this example
 
     /**
@@ -46,7 +47,7 @@ class Home extends eSignBaseController
         }
 
         if (empty($this->routerService)) {
-            $this->routerService = new RouterService();
+            $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService(): new RouterService();
         }
         parent::controller($this->eg);
     }

@@ -4,8 +4,6 @@ RUN rm -rf /var/www && mkdir -p /var/www/html
 WORKDIR /var/www/html
 
 
-
-
 FROM php:8.1.6RC1-fpm-alpine3.15
 
 # Install dev dependencies

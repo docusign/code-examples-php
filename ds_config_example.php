@@ -4,6 +4,7 @@
 // DocuSign configuration settings
 $DS_CONFIG = [
     'quickstart' => '{QUICKSTART_VALUE}',
+    'quickACG' => '{QUICK_ACG_VALUE}',
     'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}',  // The app's DocuSign integration key
     'ds_client_secret' => '{SECRET_KEY}', // The app's DocuSign integration key's secret
     'signer_email' => '{SIGNER_EMAIL}',
@@ -20,6 +21,7 @@ $DS_CONFIG = [
     'target_account_id' => false, // Set if you want a specific DocuSign AccountId, If false, the user's default account will be used.
     'demo_doc_path' => 'demo_documents',
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+    'doc_html' => 'doc_1.html',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
     'doc_txt' =>  'Check_If_Approved.txt',
     // Payment gateway information is optional
