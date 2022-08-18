@@ -47,7 +47,8 @@ class EG006EnvelopeDocs extends eSignBaseController
                 # they can be used in example 7 (download a document)
                 $standard_doc_items = [
                     ['name' => 'Combined', 'type' => 'content', 'document_id' => 'combined'],
-                    ['name' => 'Zip archive', 'type' => 'zip', 'document_id' => 'archive']
+                    ['name' => 'Zip archive', 'type' => 'zip', 'document_id' => 'archive'],
+                    ['name' => 'PDF Portfolio', 'type' => 'content', 'document_id' => 'portfolio']
                 ];
                 # The certificate of completion is named "summary".
                 # We give it a better name below.
