@@ -16,40 +16,52 @@ class SetDocumentsVisibilityService
 {
     const CASE_FOR_INSTRUCTIONS = "ACCOUNT_LACKS_PERMISSIONS";
     const FIXING_INSTRUCTIONS_FOR_PERMISSIONS = "See " .
-		"<a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\">" .
-     	"How to set document visibility for envelope recipients</a> in the DocuSign Developer Center " .
-		"for instructions on how to enable document visibility in your developer account.";
+        "<a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\">" .
+        "How to set document visibility for envelope recipients</a> in the DocuSign Developer Center " .
+        "for instructions on how to enable document visibility in your developer account.";
 
-    public static function worker(string $signer1Email, string $signer1Name, 
-        string $signer2Email, string $signer2Name, string $ccEmail, string $ccName, 
-        string $docPdf, string $docDocx, string $docHTML, string $accountId,
-        SignatureClientService $clientService, string $demoPath
+    public static function worker(
+        string $signer1Email,
+        string $signer1Name,
+        string $signer2Email,
+        string $signer2Name,
+        string $ccEmail,
+        string $ccName,
+        string $docPdf,
+        string $docDocx,
+        string $docHTML,
+        string $accountId,
+        SignatureClientService $clientService,
+        string $demoPath
     ): string {
         $envelope_definition = SetDocumentsVisibilityService::make_envelope(
-            $signer1Email, 
-            $signer1Name, 
+            $signer1Email,
+            $signer1Name,
             $signer2Email,
-            $signer2Name, 
-            $ccEmail, 
-            $ccName, 
-            $docPdf, 
-            $docDocx, 
-            $docHTML, 
+            $signer2Name,
+            $ccEmail,
+            $ccName,
+            $docPdf,
+            $docDocx,
+            $docHTML,
             $demoPath
         );
         $envelope_api = $clientService->getEnvelopeApi();
 
         try {
+
+            # Step 4 start
             $envelopeSummary = $envelope_api->createEnvelope(
-                $accountId, 
+                $accountId,
                 $envelope_definition
             );
+            # Step 4 end
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
 
             if (strpos($error_code, self::CASE_FOR_INSTRUCTIONS) !== false) {
                 $clientService->showErrorTemplate(
-                    $e, 
+                    $e,
                     self::FIXING_INSTRUCTIONS_FOR_PERMISSIONS
                 );
                 exit;
@@ -61,10 +73,18 @@ class SetDocumentsVisibilityService
 
         return $envelopeSummary->getEnvelopeId();
     }
-
-    private static function make_envelope(string $signer1Email, string $signer1Name, 
-        string $signer2Email, string $signer2Name, string $ccEmail, string $ccName, 
-        string $docPdf, string $docDocx, string $docHTML, string $demoPath
+    # Step 3 start
+    private static function make_envelope(
+        string $signer1Email,
+        string $signer1Name,
+        string $signer2Email,
+        string $signer2Name,
+        string $ccEmail,
+        string $ccName,
+        string $docPdf,
+        string $docDocx,
+        string $docHTML,
+        string $demoPath
     ): EnvelopeDefinition {
         $carbonCopy = new CarbonCopy(
             [
@@ -79,17 +99,17 @@ class SetDocumentsVisibilityService
             [
                 'email_subject' => "Please sign this document set",
                 'documents' => SetDocumentsVisibilityService::_prepareDocuments(
-                    $docPdf, 
-                    $docDocx, 
-                    $docHTML, 
+                    $docPdf,
+                    $docDocx,
+                    $docHTML,
                     $demoPath
                 ),
                 'recipients' => new Recipients(
                     [
                         'signers' => SetDocumentsVisibilityService::_prepareSigners(
-                            $signer1Email, 
-                            $signer1Name, 
-                            $signer2Email, 
+                            $signer1Email,
+                            $signer1Name,
+                            $signer2Email,
                             $signer2Name
                         ),
                         'carbon_copies' => [$carbonCopy]
@@ -103,9 +123,9 @@ class SetDocumentsVisibilityService
     }
 
     private static function _prepareSigners(
-        string $signer1Email, 
-        string $signer1Name, 
-        string $signer2Email, 
+        string $signer1Email,
+        string $signer1Name,
+        string $signer2Email,
         string $signer2Name
     ): array {
         $signer1 = new Signer(
@@ -117,7 +137,7 @@ class SetDocumentsVisibilityService
                 'excluded_documents' => ["2", "3"],
                 'tabs' => new Tabs(
                     [
-                       'sign_here_tabs' =>  [
+                        'sign_here_tabs' =>  [
                             new SignHere(
                                 [
                                     'anchor_string' => '**signature_1**',
@@ -126,7 +146,7 @@ class SetDocumentsVisibilityService
                                     'anchor_x_offset' => '20'
                                 ]
                             )
-                       ]
+                        ]
                     ]
                 )
             ]
@@ -141,16 +161,16 @@ class SetDocumentsVisibilityService
                 'excluded_documents' => ["1"],
                 'tabs' => new Tabs(
                     [
-                       'sign_here_tabs' =>  [
-                        new SignHere(
-                            [
-                                'anchor_string' => '/sn1/',
-                                'anchor_units' => 'pixels',
-                                'anchor_y_offset' => '10',
-                                'anchor_x_offset' => '20'
-                            ]
-                        )
-                       ]
+                        'sign_here_tabs' =>  [
+                            new SignHere(
+                                [
+                                    'anchor_string' => '/sn1/',
+                                    'anchor_units' => 'pixels',
+                                    'anchor_y_offset' => '10',
+                                    'anchor_x_offset' => '20'
+                                ]
+                            )
+                        ]
                     ]
                 )
             ]
@@ -160,9 +180,9 @@ class SetDocumentsVisibilityService
     }
 
     private static function _prepareDocuments(
-        string $docPdf, 
-        string $docDocx, 
-        string $docHTML, 
+        string $docPdf,
+        string $docDocx,
+        string $docHTML,
         string $demoPath
     ): array {
         $contentBytesPdf = file_get_contents($demoPath . $docPdf);
@@ -198,4 +218,5 @@ class SetDocumentsVisibilityService
 
         return [$documentHTML, $documentDOCX, $documentPDF];
     }
+    # Step 3 end
 }

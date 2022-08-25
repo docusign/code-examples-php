@@ -22,11 +22,13 @@ class InPersonSigningService
      * @return string  
      */
     public static function worker(
-        string $accountId, 
-        string $hostName, 
-        SignatureClientService $clientService, 
+        string $accountId,
+        string $hostName,
+        SignatureClientService $clientService,
         string $demoPath
     ): string {
+
+        # Step 3 Start
         $envelopeDefinition = InPersonSigningService::_prepareEnvelope($hostName, $demoPath);
         $envelopeApi = $clientService->getEnvelopeApi();
 
@@ -37,8 +39,10 @@ class InPersonSigningService
             exit;
         }
 
+        # Step 3 end
+
         $authentication_method = 'None';
-        
+
         $envelopeArguments = [
             'signer_email' => $GLOBALS['DS_CONFIG']['signer_email'],
             'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
@@ -62,6 +66,8 @@ class InPersonSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+
+    # Step 2 start
     private static function _prepareEnvelope(string $hostName, string $demoPath): EnvelopeDefinition
     {
         $file_content_in_bytes = file_get_contents($demoPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
@@ -104,4 +110,6 @@ class InPersonSigningService
             ]
         );
     }
+
+    #Step 2 end
 }

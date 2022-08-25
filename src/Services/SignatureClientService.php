@@ -42,7 +42,7 @@ class SignatureClientService
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         # Step 2 end
-        $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService(): new RouterService();
+        $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService() : new RouterService();
     }
 
     /**
@@ -86,6 +86,8 @@ class SignatureClientService
      * @param $recipient_view_request RecipientViewRequest
      * @return \DocuSign\eSign\Model\ViewUrl - the list of Recipient Views
      */
+
+    # Step 4 Start (inPersonSigning) 
     public function getRecipientView(string $account_id, string $envelope_id, RecipientViewRequest $recipient_view_request): \DocuSign\eSign\Model\ViewUrl
     {
         try {
@@ -116,6 +118,8 @@ class SignatureClientService
 
         return $viewUrl;
     }
+
+    # Step 4 end
 
     /**
      * Getter for the EnvelopesApi
@@ -228,7 +232,7 @@ class SignatureClientService
     public function showErrorTemplate(ApiException $e, string $fixingInstructions = null): void
     {
         $body = $e->getResponseBody($fixingInstructions);
-        
+
         $GLOBALS['twig']->display(
             'error.html',
             [
@@ -291,7 +295,6 @@ class SignatureClientService
         $info = $this->apiClient->getUserInfo($accessToken);
 
         return $info[0]['email'];
-
     }
 
     /**
@@ -304,10 +307,8 @@ class SignatureClientService
     {
         $this->apiClient->getOAuth()->setOAuthBasePath($GLOBALS['JWT_CONFIG']['authorization_server']);
         $info = $this->apiClient->getUserInfo($accessToken);
-        
+
         return $info[0]['accounts'][0]['account_name'];
-
-
     }
 
     /**
