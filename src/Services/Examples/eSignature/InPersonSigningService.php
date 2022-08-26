@@ -38,9 +38,9 @@ class InPersonSigningService
             $clientService->showErrorTemplate($e);
             exit;
         }
-
         # Step 3 end
 
+        # Step 5 start        
         $authentication_method = 'None';
 
         $envelopeArguments = [
@@ -58,7 +58,8 @@ class InPersonSigningService
 
         return $viewUrl['url'];
     }
-
+        # Step 5 end
+    
     /**
      *  Creates envelope definition
      *  Parameters for the envelope: signer_email, signer_name, signer_client_id
@@ -110,6 +111,5 @@ class InPersonSigningService
             ]
         );
     }
-
     #Step 2 end
 }
