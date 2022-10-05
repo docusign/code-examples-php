@@ -8,7 +8,7 @@
  
     "require": {
         "docusign/esign-client": "6.8.0",
-        "twig/twig": "3.3.8",
+        "twig/twig": "3.4.3",
         "league/oauth2-client": "2.6.1",
         "ext-json": "*",
         "guzzlehttp/guzzle": "7.4.5",
