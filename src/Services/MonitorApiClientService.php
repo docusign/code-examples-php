@@ -6,6 +6,7 @@ use DocuSign\Monitor\Client\ApiClient;
 use DocuSign\Monitor\Client\ApiException;
 use DocuSign\Monitor\Configuration;
 
+
 class MonitorApiClientService
 {
     /**
@@ -56,6 +57,17 @@ class MonitorApiClientService
     public function showErrorTemplate(ApiException $e): void
     {
         $body = $e->getResponseBody();
+        if ($e->getCode()==403 && empty($body)) {
+            $GLOBALS['twig']->display(
+                'error.html',
+                [
+                    'error_code' => " ",
+                    'error_message' => "Please enable DocuSign Monitor in your account. See <a target=_BLANK href='https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/'>How to enable DocuSign Monitor for your organization</a> for details."
+                ]
+            );
+        }
+
+        else {
 
         $GLOBALS['twig']->display(
             'error.html',
@@ -66,6 +78,7 @@ class MonitorApiClientService
             ]
         );
     }
+}
 
      /**
      * Redirect user to results page
