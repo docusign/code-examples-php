@@ -24,11 +24,11 @@
 
 <form action="index.php?page=aeg004a" method="POST">
     <input type="submit" class="btn btn-link" style="padding:0" value="Check the request status">
-    <p><a href="{{ app_url }}">Continue</a></p>
+    <p><a href="{{ app_url }}">{{ common_texts["ContinueButton"] | raw }}</a></p>
 </form>
 
 {% else %}
-<p><a href="{{ app_url }}">Continue</a></p>
+<p><a href="{{ app_url }}">{{ common_texts["ContinueButton"] | raw }}</a></p>
 {% endif %}
 
 

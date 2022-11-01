@@ -35,10 +35,8 @@ class EG004GetClickwraps extends ClickApiBaseController
 
         if ($clickwrapResponse) {
             $clickwrapResponse = json_decode((string)$clickwrapResponse, true);
-            $this->clientService->showDoneTemplate(
-                "Get a list of clickwraps",
-                "Get a list of clickwraps",
-                "Results from the ClickWraps::getClickwraps method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($clickwrapResponse))
             );
         }

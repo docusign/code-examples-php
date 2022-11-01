@@ -7,6 +7,7 @@
 namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
+use Example\Services\ManifestService;
 use Example\Services\Examples\eSignature\CollectPaymentService;
 
 class EG014CollectPayment extends eSignBaseController
@@ -41,12 +42,11 @@ class EG014CollectPayment extends eSignBaseController
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
-                                                                # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!<br/>
-                    Envelope ID {$envelopeId["envelope_id"]}."
+                                                                   # which need an envelope_id
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeId["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

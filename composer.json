@@ -4,7 +4,14 @@
                   "DocuSign\\OAuth2\\Client\\Provider\\": "src/"
                  }
     },
- 
+    "scripts": {
+        "post-install-cmd": [
+            "@code-sniffer"
+        ],
+        "post-update-cmd": [
+            "@code-sniffer"
+        ]
+    },
     "require": {
         "docusign/admin-client": "1.1.0",
         "docusign/click-client": "1.1.0",
@@ -16,6 +23,7 @@
         "ext-json": "*",
         "guzzlehttp/guzzle": "7.4.5",
         "firebase/php-jwt": "5.5.1",
-        "mashape/unirest-php": "3.0.4"
+        "mashape/unirest-php": "3.0.4",
+        "squizlabs/php_codesniffer": "*"
     }
 }

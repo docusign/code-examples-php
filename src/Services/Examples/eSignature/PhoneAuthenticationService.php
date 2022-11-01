@@ -21,10 +21,15 @@ class PhoneAuthenticationService
      * @return array ['envelope_id']
      */
     # ***DS.snippet.0.start
-    public static function phone_authentication(array $args, $demoDocsPath, $clientService): array
+    public static function phone_authentication(array $args, $demoDocsPath, $clientService, string $fixingInstructions): array
     {
         # Create the envelope request object
-        $envelope_definition = PhoneAuthenticationService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
+        $envelope_definition = PhoneAuthenticationService::make_envelope(
+            $args["envelope_args"], 
+            $clientService, 
+            $demoDocsPath,
+            $fixingInstructions
+        );
 
         # call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -44,7 +49,7 @@ class PhoneAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, string $fixingInstructions): EnvelopeDefinition
     {
 
         # Retrieve the workflow ID
@@ -59,7 +64,7 @@ class PhoneAuthenticationService
         }
         # step 3 end
         if ($workflow_id == '') 
-          throw new ApiException('Please contact <a href="https://support.docusign.com">DocuSign Support</a> to enable Phone Auth in your account.');
+          throw new ApiException($fixingInstructions);
         
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         # step 4 start

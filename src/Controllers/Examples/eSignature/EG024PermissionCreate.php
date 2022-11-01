@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\PermissionCreateService;
+use Example\Services\ManifestService;
 
 class EG024PermissionCreate extends eSignBaseController
 {
@@ -44,11 +45,14 @@ class EG024PermissionCreate extends eSignBaseController
 
         if ($permissionProfile) {
             # That need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Create a permission profile",
-                "Create a permission profile",
-                "The permission profile has been created!<br/> 
-                Permission profile ID {$permissionProfile["permission_profile_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders(
+                    "{1}",
+                    $permissionProfile["permission_profile_name"],
+                    ManifestService::replacePlaceholders("{0}", $permissionProfile["permission_profile_id"], $this->codeExampleText["ResultsPageText"])
+                )
             );
         }
     }

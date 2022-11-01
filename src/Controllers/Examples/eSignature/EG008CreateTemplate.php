@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\CreateTemplateService;
+use Example\Services\ManifestService;
 
 class EG008CreateTemplate extends eSignBaseController
 {
@@ -47,11 +48,14 @@ class EG008CreateTemplate extends eSignBaseController
             $msg = $templateInformation['created_new_template'] ? "The template has been created!" :
                 "Done. The template already existed in your account.";
 
-            $this->clientService->showDoneTemplate(
-                "Template results",
-                "Template results",
-                "{$msg}<br/>Template name: {$templateInformation['template_name']}, 
-                            ID {$templateInformation['template_id']}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders(
+                    "{1}",
+                    $templateInformation['template_id'],
+                    ManifestService::replacePlaceholders("{0}", $templateInformation['template_name'], $this->codeExampleText["ResultsPageText"])
+                ),
             );
         }
     }

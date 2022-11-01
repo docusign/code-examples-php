@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\UseConditionalRecipientsService;
+use Example\Services\ManifestService;
 
 class EG034UseConditionalRecipients extends eSignBaseController
 {
@@ -41,11 +42,10 @@ class EG034UseConditionalRecipients extends eSignBaseController
 
         if ($envelope_id) {
             # That need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Use conditional recipients",
-                "Use conditional recipients",
-                "Envelope ID {$envelope_id} with the conditional
-                        routing criteria has been created and sent to the first recipient!"
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelope_id, $this->codeExampleText["ResultsPageText"])
             );
         }
     }

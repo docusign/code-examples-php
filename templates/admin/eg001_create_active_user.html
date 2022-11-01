@@ -1,48 +1,104 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Create a new active eSignature user</h4>
-<p>Demonstrates how to create a new eSignature user and activate their account automatically.</p>
+
+{% set formNumber = 0 %}
+{% set userNameInputNumber = 0 %}
+{% set firstNameInputNumber = 1 %}
+{% set secondNameInputNumber = 2 %}
+{% set emailInputNumber = 3 %}
+{% set eSignPermissionInputNumber = 4 %}
+{% set groupInputNumber = 5 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API methods used:
-  <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountpermissionprofiles/list/'>AccountPermissionProfiles:list</a>,
-  <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/esign-rest-api/reference/usergroups/groups/list/'>Groups:list</a>, 
-  <a target='_blank' rel='noopener noreferrer' 
-     href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/createuser/">eSignUserManagement:createUser</a>.
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
 
 <p>
-  View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+ {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
   <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-      <label for="Name">User name</label>
-      <input type="text" class="form-control" name="Name" id="User name" required>
+      <label for="Name">
+        {{ code_example_text['Forms'][formNumber]['Inputs'][userNameInputNumber]['InputName'] | raw }}
+      </label>
+
+      <input type="text" 
+        class="form-control" 
+        name="Name" 
+        id="User name" 
+        placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][userNameInputNumber]['InputPlaceholder']}}"
+        required>
     </div>
 
     <div class="form-group">
-        <label for="FirstName">First name</label>
-        <input type="text" class="form-control" name="FirstName" id="FirstName" required>
+        <label for="FirstName">
+          {{ code_example_text['Forms'][formNumber]['Inputs'][firstNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+          class="form-control" 
+          name="FirstName" 
+          id="FirstName" 
+          placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][firstNameInputNumber]['InputPlaceholder']}}"
+          required>
     </div>
 
     <div class="form-group">
-        <label for="LastName">Last name</label>
-        <input type="text" class="form-control" name="LastName" id="LastName" required>
+        <label for="LastName">
+          {{ code_example_text['Forms'][formNumber]['Inputs'][secondNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+          class="form-control" 
+          name="LastName"
+          placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][secondNameInputNumber]['InputPlaceholder']}}" 
+          id="LastName" 
+          required>
     </div>
 
     <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="text" class="form-control" name="Email" id="Email" required>
+        <label for="Email">
+          {{ code_example_text['Forms'][formNumber]['Inputs'][emailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+        class="form-control"
+          name="Email" 
+          id="Email" 
+          placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][emailInputNumber]['InputPlaceholder']}}"
+          required>
     </div>
 
       <div class="form-group">
-          <label for="permission_profile_id">eSignature permission profile</label>
+          <label for="permission_profile_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][eSignPermissionInputNumber]['InputName'] | raw }}
+          </label>
+
           <br>
           <select id="permission_profile_id" name="permission_profile_id" class="form-control">
               {% for profile in args['permission_profiles'] %}
@@ -52,7 +108,10 @@
       </div>
 
       <div class="form-group">
-        <label for="group_id">eSignature group</label>
+        <label for="group_id">
+          {{ code_example_text['Forms'][formNumber]['Inputs'][groupInputNumber]['InputName'] | raw }}
+        </label>
+
         <br>
         <select id="group_id" name="group_id" class="form-control">
             {% for group in args['groups'] %}
@@ -62,7 +121,7 @@
     </div>
 
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
   </form>
   
 {% endblock %}

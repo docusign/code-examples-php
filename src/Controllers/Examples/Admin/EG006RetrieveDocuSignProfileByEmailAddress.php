@@ -40,12 +40,11 @@ class EG006RetrieveDocuSignProfileByEmailAddress extends AdminApiBaseController
             $usersResponse = RetrieveDocuSignProfileByEmailAddress::getDocuSignProfileByEmailAddress(
                 $organizationId,
                 $this->args["email"],
-                $this->clientService);
+                $this->clientService
+            );
 
-            $this->clientService->showDoneTemplate(
-                "Retrieve the user's DocuSign profile using an email address",
-                "Retrieve the user's DocuSign profile using an email address",
-                "Results from MultiProductUserManagement:getUserDSProfilesByEmail method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($usersResponse))
             );
         } catch (ApiException $e) {

@@ -48,11 +48,11 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
                     "refreshPage"
                 );
             } else {
-                $this->clientService->showDoneTemplate(
-                    "Check import request status",
-                    "Add users via bulk import",
-                    "Results from UserImport:getBulkUserImportRequest method:",
-                    json_encode($results->__toString())
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
+                    json_encode($results->__toString()),
+                    null,
+                    $this->codeExampleText["AdditionalPage"][0]["ResultsPageText"]
                 );
             }
         }

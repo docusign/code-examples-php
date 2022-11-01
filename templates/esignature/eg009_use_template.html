@@ -1,64 +1,121 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>Send an envelope using a template</h4>
-<p>The envelope is defined by the template.
-    The signer and cc recipient name and email are used to fill in the template's <i>roles</i>.</p>
+{% set formNumber = 0 %}
+{% set signerEmailInputNumber = 0 %}
+{% set signerNameInputNumber = 1 %}
+{% set ccEmailInputNumber = 2 %}
+{% set ccNameInputNumber = 3 %}
+{% set redirectToEigthCodeExample = "href='" ~ app_url ~ "index.php?page=eg008'" %}
+{% set redirectNumber = 0 %}
 
-<p>This example demonstrates a common pattern for DocuSign integrations: envelopes will
-    be sent programmatically, based on a template. If the template definition needs to be
-    updated, the DocuSign web tool can be used to easily update the template, thus
-    avoiding the need to make software changes.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if template_ok %}
-<p>The template you created via example 8 will be used.</p>
+    <p>{{ code_example_text['Forms'][formNumber]['FormName'] | raw }}</p>
 
-<form class="eg" action="" method="post" data-busy="form">
-    <div class="form-group">
-        <label for="signer_email">Signer Email</label>
-        <input type="email" class="form-control" id="signer_email" name="signer_email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="{{ signer_email }}">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="signer_name">Signer Name</label>
-        <input type="text" class="form-control" id="signer_name" placeholder="Pat Johnson" name="signer_name"
-               value="{{ signer_name }}" required>
-    </div>
-    <div class="form-group">
-        <label for="cc_email">CC Email</label>
-        <input type="email" class="form-control" id="cc_email" name="cc_email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-        <small id="emailHelpCC" class="form-text text-muted">The email for the cc recipient must be different from the signer's email.</small>
-    </div>
-    <div class="form-group">
-        <label for="cc_name">CC Name</label>
-        <input type="text" class="form-control" id="cc_name" placeholder="Pat Johnson" name="cc_name"
-               required>
-    </div>
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Submit</button>
-</form>
+    <form class="eg" action="" method="post" data-busy="form">
+        <div class="form-group">
+            <label for="signer_email">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+            </label>
+
+            <input type="email"
+                class="form-control" 
+                id="signer_email" 
+                name="signer_email"
+                aria-describedby="emailHelp"
+                placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}"
+                required
+                value="{{ signer_email }}">
+
+            <small id="emailHelp" class="form-text text-muted">
+                {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="signer_name">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+            </label>
+
+            <input type="text"
+                class="form-control" 
+                id="signer_name" 
+                placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
+                name="signer_name"
+                value="{{ signer_name }}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="cc_email">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][ccEmailInputNumber]['InputName'] | raw }}
+            </label>
+            
+            <input type="email" 
+                class="form-control" 
+                id="cc_email" 
+                name="cc_email"
+                aria-describedby="emailHelp"
+                placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccEmailInputNumber]['InputPlaceholder']}}"
+                required/>
+
+            <small id="emailHelpCC" class="form-text text-muted">
+                {{ common_texts["HelpingTexts"]["CCEmailShouldDifferFromSigner"] | raw }}
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="cc_name">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][ccNameInputNumber]['InputName'] | raw }}
+            </label>
+
+            <input type="text"
+                class="form-control" 
+                id="cc_name" 
+                placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccNameInputNumber]['InputPlaceholder']}}"
+                name="cc_name"
+                required>
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+    </form>
 
 {% else %}
-<p>Problem: please first create the template using <a href="{{ app_url ~ 'index.php?page=' }}eg008">example 8.</a> <br/>
-    Thank you.</p>
-<form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
-    <input type="hidden" name="page" value="eg008"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
-</form>
+    <p>
+        {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectToEigthCodeExample }) | raw }}
+    </p>
+
+    <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+        <input type="hidden" name="page" value="eg008"/>
+        <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
+    </form>
 {% endif %}
 
 {% endblock %}

@@ -1,92 +1,168 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>{{ title }}</h4>
+{% set firstFormNumber = 0 %}
+{% set secondFormNumber = 1 %}
+{% set signerEmailInputNumber = 0 %}
+{% set signerNameInputNumber = 1 %}
+{% set ccEmailInputNumber = 2 %}
+{% set ccNameInputNumber = 3 %}
 
-<p>
-    Demonstrates how to send envelopes in bulk to multiple recipients. First, this example creates a bulk send recipients list, then creates an envelope. After that, it initiates bulk envelope sending.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>
-    API methods used:
-    <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendlist/">BulkSend::createBulkSendList</a>,
-  <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>,
-  <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/create/">EnvelopeCustomFields::create</a>,
-  <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/createbulksendrequest/">BulkSend::createBulkSendRequest</a>,
-  <a target="_blank"
-    href="https://developers.docusign.com/docs/esign-rest-api/reference/bulkenvelopes/bulksend/getbulksendbatchstatus/">BulkSend::getBulkSendBatchStatus</a>
-</p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="row">
         <div class="col-md-6">
-            <h5>Bulk copy #1</h5>
+            <h5>{{ code_example_text['Forms'][firstFormNumber]['FormName'] | raw }}</h5>
             <div class="form-group">
-                <label for="signer_email_1">Signer Email</label>
-                <input type="email" class="form-control" id="signer_email_1" name="signer_email_1"
-                       aria-describedby="emailHelp" placeholder="pat@example.com" required
-                       value="{{ signer_email }}">
+                <label for="signer_email_1">
+                    {{ code_example_text['Forms'][firstFormNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="email" 
+                    class="form-control"
+                    id="signer_email_1" 
+                    name="signer_email_1"
+                    aria-describedby="emailHelp" 
+                    placeholder="{{code_example_text['Forms'][firstFormNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}" 
+                    required
+                    value="{{ signer_email }}">
             </div>
 
             <div class="form-group">
-                <label for="signer_name_1">Signer Name</label>
-                <input type="text" class="form-control" id="signer_name_1" placeholder="Pat Johnson" name="signer_name_1"
-                       value="{{ signer_name }}" required>
+                <label for="signer_name_1">
+                    {{ code_example_text['Forms'][firstFormNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="text"
+                    class="form-control" 
+                    id="signer_name_1" 
+                    placeholder="{{code_example_text['Forms'][firstFormNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}" 
+                    name="signer_name_1"
+                    value="{{ signer_name }}" 
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="cc_email_1">CC Email</label>
-                <input type="email" class="form-control" id="cc_email_1" name="cc_email_1"
-                       aria-describedby="emailHelp" placeholder="pat@example.com" required>
+                <label for="cc_email_1">
+                    {{ code_example_text['Forms'][firstFormNumber]['Inputs'][ccEmailInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="email" 
+                    class="form-control" 
+                    id="cc_email_1"
+                    name="cc_email_1"
+                    aria-describedby="emailHelp"
+                    placeholder="{{code_example_text['Forms'][firstFormNumber]['Inputs'][ccEmailInputNumber]['InputPlaceholder']}}" 
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="cc_name_1">CC Name</label>
-                <input type="text" class="form-control" id="cc_name_1" placeholder="Pat Johnson" name="cc_name_1"
-                       required>
+                <label for="cc_name_1">
+                    {{ code_example_text['Forms'][firstFormNumber]['Inputs'][ccNameInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="text" 
+                    class="form-control"
+                    id="cc_name_1"
+                    placeholder="{{code_example_text['Forms'][firstFormNumber]['Inputs'][ccNameInputNumber]['InputPlaceholder']}}" 
+                    name="cc_name_1"
+                    required>
             </div>
         </div>
 
         <div class="col-md-6">
-            <h5>Bulk copy #2</h5>
+            <h5>
+                {{ code_example_text['Forms'][secondFormNumber]['FormName']| raw }}
+            </h5>
             <div class="form-group">
-                <label for="signer_email_2">Signer Email</label>
-                <input type="email" class="form-control" id="signer_email_2" name="signer_email_2"
-                       aria-describedby="emailHelp" placeholder="pat@example.com" required>
+                <label for="signer_email_2">
+                    {{ code_example_text['Forms'][secondFormNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="email" 
+                    class="form-control"
+                    id="signer_email_2" 
+                    name="signer_email_2"
+                    aria-describedby="emailHelp" 
+                    placeholder="{{code_example_text['Forms'][secondFormNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}" 
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="signer_name_2">Signer Name</label>
-                <input type="text" class="form-control" id="signer_name_2" placeholder="Pat Johnson" name="signer_name_2" required>
+                <label for="signer_name_2">
+                    {{ code_example_text['Forms'][secondFormNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="text" 
+                    class="form-control" 
+                    id="signer_name_2" 
+                    placeholder="{{code_example_text['Forms'][secondFormNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}" 
+                    name="signer_name_2" 
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="cc_email_2">CC Email</label>
-                <input type="email" class="form-control" id="cc_email_2" name="cc_email_2"
-                       aria-describedby="emailHelp" placeholder="pat@example.com" required>
+                <label for="cc_email_2">
+                    {{ code_example_text['Forms'][secondFormNumber]['Inputs'][ccEmailInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="email" 
+                    class="form-control"
+                    id="cc_email_2" 
+                    name="cc_email_2"
+                    aria-describedby="emailHelp" 
+                    placeholder="{{code_example_text['Forms'][secondFormNumber]['Inputs'][ccEmailInputNumber]['InputPlaceholder']}}" 
+                    required>
             </div>
 
             <div class="form-group">
-                <label for="cc_name_2">CC Name</label>
-                <input type="text" class="form-control" id="cc_name_2" placeholder="Pat Johnson" name="cc_name_2"
-                       required>
+                <label for="cc_name_2">
+                    {{ code_example_text['Forms'][secondFormNumber]['Inputs'][ccNameInputNumber]['InputName'] | raw }}
+                </label>
+
+                <input type="text"
+                    class="form-control"
+                    id="cc_name_2" 
+                    placeholder="{{code_example_text['Forms'][secondFormNumber]['Inputs'][ccNameInputNumber]['InputPlaceholder']}}" 
+                    name="cc_name_2"
+                    required>
             </div>
         </div>
     </div>
     <div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <button type="submit" class="btn btn-docu">Submit</button>
+        <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
     </div>
 </form>
 {% endblock %}

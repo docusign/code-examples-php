@@ -74,35 +74,6 @@ class AdminApiClientService
         return new ProductPermissionProfilesApi($this->apiClient);
     }
     
-
-    /** 
-     * Get the UserId
-     *
-     */
-// public function getAccountId(string $emailAddress): String
-
-// {
-
-   // $options = new GetUserProfilesOptions(); 
-   // $options->setEmail($emailAddress);
-   // $AdminAccounts = $this->getUsersApi();
-   // $results = $AdminAccounts->getUserProfiles($this->getOrgAdminId(), $options);
-
-   // if (empty($results->getUsers())){
-   //     throw new ApiException(" Could not get an account id from the request.");
-   // }
-
-   // $accountId = $results->getUsers();
-   // var_dump($accountId[0]["default_user_id"]);
-
-   // return $accountId[0]["default_user_id"];
-
-//     return $_SESSION['ds_account_id'];
-
-// }
-
-
-
     /**
     * Get Org Admin Id
     *
@@ -175,8 +146,35 @@ class AdminApiClientService
     {
         $GLOBALS['twig']->display('error.html', [
                 'error_code' => $e->getCode(),
-                'error_message' => $e->getMessage()]
+                'error_message' => $e->getMessage(),
+                'common_texts' => ManifestService::getCommonTexts()
+            ]
         );
+    }
+
+     /**
+     * Redirect user to results page
+     *
+     * @param $codeExampleText array
+     * @param null $results
+     * @param $message string
+     * @return void
+     */
+    public function showDoneTemplateFromManifest(array $codeExampleText, $results = null, string $import_id = null, string $message = null): void
+    {
+        if ($message == null) {
+            $message = $codeExampleText["ResultsPageText"];
+        }
+
+        $GLOBALS['twig']->display('example_done.html', [
+            'title' => $codeExampleText["ExampleName"],
+            'h1' => $codeExampleText["ExampleName"],
+            'message' => $message,
+            'json' => $results,
+            'import_id' => $import_id,
+            'common_texts' => ManifestService::getCommonTexts()
+        ]);
+        exit;
     }
 
     /**
@@ -195,7 +193,8 @@ class AdminApiClientService
             'h1' => $headline,
             'message' => $message,
             'json' => $results,
-            'import_id' => $import_id
+            'import_id' => $import_id,
+            'common_texts' => ManifestService::getCommonTexts()
         ]);
         exit;
     }

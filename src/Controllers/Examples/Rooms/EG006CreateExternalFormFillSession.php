@@ -77,6 +77,8 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                     'source_url' => $GLOBALS['DS_CONFIG']['github_example_url'] . basename($this::FILE),
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . $this::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
+                    'code_example_text' => $this->codeExampleText,
+                    'common_texts' => $this->getCommonText()
                 ]
             );
         } else {
@@ -87,10 +89,8 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
 
             if ($createExternalFormResponse) {
                 $createExternalFormResponse = json_decode((string)$createExternalFormResponse, true);
-                $this->clientService->showDoneTemplate(
-                    "Create an external form fill session",
-                    "Create an external form fill session",
-                    "Results of Rooms::createExternalFormFillSession",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($createExternalFormResponse))
                 );
             }

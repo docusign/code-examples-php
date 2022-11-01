@@ -1,21 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>How to bulk-export user data</h4>
-<p>
-    This example shows how to bulk-export user data
-</p>
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-  <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexports/'>UserExport:getUserListExports</a>.
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
   
 <form class="eg" action="" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <button type="submit" class="btn btn-docu">Continue</button>
+  <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 {% endblock %}

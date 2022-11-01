@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Rooms;
 
 use Example\Controllers\RoomsApiBaseController;
 use Example\Services\Examples\Rooms\CreateFormGroupService;
+use Example\Services\ManifestService;
 
 class EG007CreateFormGroup extends RoomsApiBaseController
 {
@@ -34,11 +35,10 @@ class EG007CreateFormGroup extends RoomsApiBaseController
         $formGroup = CreateFormGroupService::createFormGroup($this->args, $this->clientService);
         if ($formGroup) {
             $formGroup = json_decode((string)$formGroup, true);
-            $this->clientService->showDoneTemplate(
-                "Create a form group",
-                "Create a form group",
-                "Results of FormGroups::createFormGroup",
-                json_encode(json_encode($formGroup))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($formGroup)),
+                ManifestService::replacePlaceholders("{0}", $this->args["form_group_name"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

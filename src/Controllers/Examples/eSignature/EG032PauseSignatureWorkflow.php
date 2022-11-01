@@ -33,22 +33,17 @@ class EG032PauseSignatureWorkflow extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelope_id = PauseSignatureWorkflowService::pauseSignatureWorkflow(
+        $envelope = PauseSignatureWorkflowService::pauseSignatureWorkflow(
             $this->args,
             $this->clientService,
             $this::DEMO_DOCS_PATH
         );
 
-        if ($envelope_id) {
-            $_SESSION["pause_envelope_id"] = $envelope_id;
-            $nextExampleUrl = "/public/index.php?page=eg033";
-            $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!
-                         <br/>Envelope ID {$envelope_id}.<br/>
-                         <p>To resume a workflow after the first recipient signs
-                         the envelope use <a href={$nextExampleUrl}>example 33.</a><br/>"
+        if ($envelope) {
+            $_SESSION["pause_envelope_id"] = $envelope["envelope_id"];
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode($envelope->__toString())
             );
         }
     }

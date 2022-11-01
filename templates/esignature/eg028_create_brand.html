@@ -1,32 +1,61 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>{{ title }} </h4>
-<p>
-    Creates a brand profile for an account.
-</p>
+{% set formNumber = 0 %}
+{% set brandNameInputNumber = 0 %}
+{% set languageInputNumber = 1 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>
-    API method used:
-    <a href="https://developers.docusign.com/docs/esign-rest-api/reference/accounts/accountbrands/create/" target="_blank">AccountBrands::create</a>.
-</p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="brand_name">Brand name</label>
-        <input type="text" class="form-control" id="brand_name" placeholder="New Brand" name="brand_name"
-               required>
+        <label for="brand_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][brandNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+            class="form-control" 
+            id="brand_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][brandNameInputNumber]['InputPlaceholder']}}" 
+            name="brand_name"
+            required>
     </div>
 
     <div class="form-group">
-        <label for="default_language">Default Brand Language</label>
+        <label for="default_language">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][languageInputNumber]['InputName'] | raw }}
+        </label>
+
         <select id="default_language" name="default_language" class="form-control">
             {% for key, value in languages %}
             <option value="{{ value }}">{{ key }}</option>
@@ -36,7 +65,7 @@
 
     <div class="form-group">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <button type="submit" class="btn btn-docu">Submit</button>
+        <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
     </div>
 </form>
 

@@ -1,30 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4>Audit users</h4>
-<p>
-  Demonstrates how to audit the users in your account by retrieving the profiles of users that were modified after a specified date.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API methods used:
-  <a target="_blank" rel="noopener noreferrer" 
-      href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/users/getusers/">Users:getUsers</a>, 
-  <a target="_blank" rel="noopener noreferrer" 
-      href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/esignusermanagement/getuserprofiles/">eSignUserManagement:getUserProfiles</a>.
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
 
 <p>
-  View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+ {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 
 {% endblock %}

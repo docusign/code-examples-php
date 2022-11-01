@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Delete user product permission profiles using an email address</h4>
-<p>Demonstrates how to list and delete DocuSign Admin user product permission profiles.</p>
+
+{% set redirectToSecondCodeExample = "href='" ~ app_url ~ "index.php?page=aeg002'" %}
+{% set redirectNumber = 0 %}
+{% set formNumber = 0 %}
+{% set permissionInputNumber = 0 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 
 {% if show_doc %}
@@ -9,23 +16,38 @@
 {% endif %}
 
 <p>
-  API methods used:
-  <a target="_blank" rel='noopener noreferrer'
-     href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getuserproductpermissionprofilesbyemail/">MultiProductUserManagement:getUserProductPermissionProfilesByEmail</a>,
-  <a target="_blank" rel='noopener noreferrer'
-     href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/removeuserproductpermission/">MultiProductUserManagement:removeUserProductPermission</a>.
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
 
 <p>
-  View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+ {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if args["email_address"] != null %}
   <form class="eg" action="" method="post">
-    <p>Delete user product permission profile for the following email: <b>{{ args["email_address"] }}</b></p>
+    <p>{{ code_example_text['Forms'][formNumber]['FormName']|replace({ ("{0}"): args["email_address"] }) | raw }}</p>
 
     <div class="form-group">
-      <label>Choose which product permission profile you would like to delete</label>
+      <label>
+        {{ code_example_text['Forms'][formNumber]['Inputs'][permissionInputNumber]['InputName'] | raw }}
+      </label>
+
       <select name="ProductId" class="form-control">
         {% for key, value in args['products'] %}
         <option value="{{ key }}">{{ value }}</option>
@@ -34,12 +56,11 @@
     </div>
 
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">{{ common_texts["SubmitButton"] | raw }}</button>
   </form>
 {% else %}
   <p>
-    Problem: You do not have the user to change permissions for. Go to example#2 and create one:
-    <a href="{{ app_url ~ 'index.php?page=aeg002'}}">create active CLM/eSign User.</a> <br/>
+    {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectToSecondCodeExample }) | raw }}
   </p>
 {% endif %}
   

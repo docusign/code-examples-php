@@ -8,7 +8,7 @@
         <tr>
             <td>
                 <h1 class="display-4">PHP Launcher</h1>
-                <p class="Xlead">Welcome to the PHP code examples for DocuSign Monitor API with JWT Grant authentication</p>
+                <p class="Xlead">{{ common_texts["HomePageText"] | raw }}</p>
             </td>
             <td>
                 <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
@@ -19,27 +19,43 @@
 </div>
 
 <div class="container" style="margin-top: 40px" id="index-page">
+    {% for groups in launcher_texts %}
+        <h2>{{ groups["Name"] | raw }}</h2>
 
-    <h2>Monitor API Code examples</h2>
+        {% for example in groups["Examples"] %}
+            {% if (example["SkipForLanguages"] == null) or  ('php' not in (example["SkipForLanguages"]|lower)) %}
+                <h4 id="{{ 'example-c' ~ '%03d'|format(example['ExampleNumber']) }}">
+                <a href="{{ app_url ~ 'index.php?page=' ~ 'meg%03d'|format(example['ExampleNumber']) }}">
+                    {{ example["ExampleName"] | raw }}
+                </a>
+                </h4>
 
-    <h4 id="example-c001">
-        <a href="{{ app_url ~ 'index.php?page=meg001'}}">Get monitoring data</a>
-    </h4>
-    <p>
-        Demonstrates how to get and display all of your organization’s monitoring data.
-    </p>
-    <p>API method used: 
-        <a target='_blank' href="https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/getstreamfordataset/">DataSet:GetStream</a>.
-    </p>
+                <p>
+                {{ example["ExampleDescription"] | raw }}
+                </p>
 
-    <h4 id="example-c002"><a href="{{ app_url ~ 'index.php?page=meg002'}}">Query monitoring data with filters</a></h4>
-    <p>
-        Demonstrates how to query an organization's data based on specified filters and aggregations.
-    </p>
-    <p>
-        API method used:
-        <a target='_blank' href="https://developers.docusign.com/docs/monitor-api/reference/monitor/dataset/postwebquery/">DataSet:postWebQuery</a>.
-    </p>
+                <p>
+                {% if example["LinksToAPIMethod"] | length == 1 %}
+                    <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+                {% else %}
+                    <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+                {% endif %}
+
+                {% for i in 0..(example["LinksToAPIMethod"] | length - 1) %}
+                    <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+                    {{ example['LinksToAPIMethod'][i]['PathName'] | raw}}
+                    </a>
+
+                    {% if  i + 1 == example["LinksToAPIMethod"] | length - 1 %}
+                        <span>and</span>
+                    {% elseif i + 1 != example["LinksToAPIMethod"] | length %}
+                        <span>,</span>
+                    {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 </div>
 
 <!-- anchor-js is only for the index page -->

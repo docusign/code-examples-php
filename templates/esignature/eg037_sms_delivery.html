@@ -1,59 +1,143 @@
 {% extends "base.html" %}  {% block content %}
 
+{% set formNumber = 0 %}
+{% set countryCodeInputNumber = 0 %}
+{% set numberInputNumber = 1 %}
+{% set signerNameInputNumber = 2 %}
+{% set ccCountryCodeInputNumber = 3 %}
+{% set ccNumberInputNumber = 4 %}
+{% set ccSignerNameInputNumber = 5 %}
 
-<h4>Request a signature by SMS delivery</h4>
-<p>Sends a signature request via an SMS message.</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target='_blank' rel="noopener noreferrer" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
-
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
     <div class="form-group">
-        <label for="countryCode">Signer Country Code</label>
-        <input type="tel" class="form-control" id="countryCode" name="countryCode"
-              aria-describedby="accessHelp" placeholder="1" required />
-        <small id="accessHelp" class="form-text text-muted">The country code for the phone number below.</small>
+        <label for="countryCode">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][countryCodeInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="tel" 
+            class="form-control" 
+            id="countryCode" 
+            name="countryCode"
+            aria-describedby="accessHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][countryCodeInputNumber]['InputPlaceholder']}}" 
+            required />
+
+        <small id="accessHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["CountryCodeText"] | raw }}
+        </small>
       </div>  
     <div class="form-group">
-        <label for="phoneNumber">Signer Phone Number</label>
-        <input type="text" class="form-control" id="phoneNumber" placeholder="415-555-1212" name="phoneNumber"
-               value="" required />
-        <small id="emailHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <label for="phoneNumber">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][numberInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="phoneNumber" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][numberInputNumber]['InputPlaceholder']}}" 
+            name="phoneNumber"
+            value=""
+            required />
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["PhoneNumberWillBeNotified"] | raw }}
+            {{ common_texts["HelpingTexts"]["PhoneNumberWontBeShared"] | raw }}
+        </small>
     </div>
     <div class="form-group">
-        <label for="signerName">Signer Name</label>
-        <input type="text" class="form-control" id="signerName" placeholder="Pat Johnson" name="signerName"
-               value="{{ signer_name }}" required>
+        <label for="signerName">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="signerName" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}" 
+            name="signerName"
+            value="{{ signer_name }}"
+            required>
     </div>
     <div class="form-group">
-        <label for="ccCountryCode">CC Country Code</label>
-        <input type="tel" class="form-control" id="ccCountryCode" name="ccCountryCode"
-              aria-describedby="accessHelp" placeholder="1" required />
-        <small id="accessHelp" class="form-text text-muted">The country code for the phone number below.</small>
+        <label for="ccCountryCode">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][ccCountryCodeInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="tel" 
+            class="form-control" 
+            id="ccCountryCode" 
+            name="ccCountryCode"
+            aria-describedby="accessHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccCountryCodeInputNumber]['InputPlaceholder']}}" 
+            required />
+
+        <small id="accessHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["CountryCodeText"] | raw }}
+        </small>
     </div> 
     <div class="form-group">
-        <label for="ccPhoneNumber">CC Phone Number</label>
-        <input type="text" class="form-control" id="ccPhoneNumber" placeholder="415-555-1212" name="ccPhoneNumber"
-               value="" required>
-        <small id="emailHelp" class="form-text text-muted">This phone number will receive a notification. We'll never share your phone number.</small>
+        <label for="ccPhoneNumber">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][ccNumberInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="ccPhoneNumber" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccNumberInputNumber]['InputPlaceholder']}}" 
+            name="ccPhoneNumber"
+            value="" required>
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["PhoneNumberWillBeNotified"] | raw }}
+            {{ common_texts["HelpingTexts"]["PhoneNumberWontBeShared"] | raw }}
+        </small>
     </div>
     <div class="form-group">
-        <label for="ccName">CC Name</label>
-        <input type="text" class="form-control" id="ccName" placeholder="Pat Johnson" name="ccName"
-               required>
+        <label for="ccName">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][ccSignerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+            class="form-control" 
+            id="ccName" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccSignerNameInputNumber]['InputPlaceholder']}}" 
+            name="ccName"
+            required>
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
 </form>
 <br><br><br>
 

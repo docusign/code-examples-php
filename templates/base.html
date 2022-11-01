@@ -23,39 +23,34 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ app_url }}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ app_url }}">{{ common_texts["HomeButton"] | raw }} <span class="sr-only">(current)</span></a>
       </li>
 
       {% if session['ds_user_name'] %}
       <li>
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=ds_logout' }}" id="logout"
-           data-busy="href">Logout <span class="sr-only">(current)</span></a>
+           data-busy="href">{{ common_texts["LogoutButton"] | raw }} <span class="sr-only">(current)</span></a>
       </li>
       <li>
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=select_api' }}" id="selectApi"
-           data-busy="href">Change API Type <span class="sr-only">(current)</span></a>
+           data-busy="href">{{ common_texts["ChangeAPITypeButton"] | raw }}<span class="sr-only">(current)</span></a>
       </li>
       {% else %}
       <li>
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=must_authenticate' }}" id="login"
-           data-busy="href">Login <span class="sr-only">(current)</span></a>
+           data-busy="href">{{ common_texts["LoginButton"] | raw }}<span class="sr-only">(current)</span></a>
       </li>
       {% endif %}
     </ul>
 
     {% if session['ds_user_name'] %}
     <span class="navbar-text">
-            Welcome {{ session['ds_user_name'] }}
-          </span>
+      {{ common_texts["WelcomeText"]|replace({ ("{0}"): session['ds_user_name'], "{1}": session['ds_account_name'] }) }}
+    </span>
     {% endif %}
 
   </div>
 </nav>
-
-<!-- 
-  {% if session['ds_account_name'] %}
-  <p>DocuSign Account: {{ session['ds_account_name'] }}.</p>
-  {% endif %} -->
 
   <div class="col-md-12 feedback" id="feedback">
     <h3>Working...&nbsp;&nbsp;&nbsp;<span></span></h3>
@@ -70,7 +65,7 @@
   </div>
   </section>
 
-  <p id="download-continue" class="feedback"><a href="{{ app_url }}">Continue</a></p>
+  <p id="download-continue" class="feedback"><a href="{{ app_url }}">{{ common_texts["ContinueButton"] | raw }}</a></p>
 
 
   {% if session['ds_user_name'] %}

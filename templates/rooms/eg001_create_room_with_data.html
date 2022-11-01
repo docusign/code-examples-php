@@ -1,28 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Creating a room with data</h4>
-<p>This example demonstrates creating a DocuSign Room.</p>
 
+{% set formNumber = 0 %}
+{% set roomNameInputNumber = 0 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API methods used:
-   <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/CreateRoom">Rooms::CreateRoom</a> and
-   <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Roles/Roles/GetRoles">Roles::GetRoles</a>
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
 
 <p>
-  View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+ {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-      <label for="room_name">Room name</label>
-      <input type="text" class="form-control" id="room_name" name="room_name" required>
+      <label for="room_name">
+        {{ code_example_text['Forms'][formNumber]['Inputs'][roomNameInputNumber]['InputName'] | raw }}
+      </label>
+
+      <input type="text" 
+        class="form-control" 
+        id="room_name" 
+        name="room_name" 
+        placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][roomNameInputNumber]['InputPlaceholder']}}"
+        required>
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
   </form>
   
 {% endblock %}

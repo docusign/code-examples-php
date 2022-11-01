@@ -43,10 +43,8 @@ class EG004BulkImportUserData extends AdminApiBaseController
                 $GLOBALS["DS_CONFIG"]["signer_email"]
             );
             if ($bulkImport) {
-                $this->clientService->showDoneTemplate(
-                    "Add users via bulk import",
-                    "Add users via bulk import",
-                    "Results from UserImport:addBulkUserImport method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($bulkImport)),
                     $_SESSION['import_id']
                 );

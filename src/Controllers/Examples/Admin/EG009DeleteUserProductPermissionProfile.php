@@ -96,10 +96,8 @@ class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
             );
 
             if ($removeUserProductsResponse) {
-                $this->clientService->showDoneTemplate(
-                    "Delete user product permission profiles using an email address",
-                    "Delete user product permission profiles using an email address",
-                    "Results from MultiProductUserManagement:removeUserProductPermission method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode($removeUserProductsResponse->__toString())
                 );
             }

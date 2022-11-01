@@ -40,10 +40,8 @@ class EG003ListEnvelopes extends eSignBaseController
         if ($envelopesInformation) {
             # results is an object that implements ArrayAccess. Convert to a regular array:
             $envelopesInformation = json_decode((string)$envelopesInformation, true);
-            $this->clientService->showDoneTemplate(
-                "Envelope list",
-                "List envelopes results",
-                "Results from the Envelopes::listStatusChanges method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($envelopesInformation))
             );
         }

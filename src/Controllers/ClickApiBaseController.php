@@ -29,6 +29,8 @@ abstract class ClickApiBaseController extends BaseController
      */
     public function controller(array $args = null): void
     {
+        $this->codeExampleText = $this->getPageText(static::EG);
+        
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
             $this->getController($this->routerService, basename(static::FILE), $args);
@@ -57,12 +59,12 @@ abstract class ClickApiBaseController extends BaseController
                 static::EG . '.html',
                 [
                     'title' => $this->homePageTitle(static::EG),
-                    'show_doc' => false
+                    'show_doc' => false,
+                    'common_texts' => $this->getCommonText()
                 ]
             );
         } else {
-            if ($routerService->ds_token_ok()) {
-
+            if ($routerService->ds_token_ok()) {              
                 $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
                     'title' => $routerService->getTitle(static::EG),
                     'source_file' => $basename,
@@ -70,6 +72,8 @@ abstract class ClickApiBaseController extends BaseController
                     'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'args' => $args,
+                    'code_example_text' => $this->codeExampleText,
+                    'common_texts' => $this->getCommonText()
                 ]);
             }
             else {

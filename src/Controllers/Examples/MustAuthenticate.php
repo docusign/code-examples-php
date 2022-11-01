@@ -1,13 +1,8 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: larry.kluger
- * Date: 11/22/18
- * Time: 9:32 AM
- */
-
 namespace Example\Controllers\Examples;
+
+use Example\Services\ManifestService;
 
 class MustAuthenticate
 {
@@ -17,7 +12,8 @@ class MustAuthenticate
             'must_authenticate.html',
             [
                 'title' => 'Please authenticate with DocuSign',
-                'show_doc' => false
+                'show_doc' => false,
+                'common_texts' => ManifestService::getCommonTexts()
             ]
         );
     }

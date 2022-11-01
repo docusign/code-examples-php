@@ -81,9 +81,34 @@ class ClickApiClientService
             'error.html',
             [
                 'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message
+                'error_message' => $body->message ?? unserialize($body)->message,
+                'common_texts' => ManifestService::getCommonTexts()
             ]
         );
+    }
+
+     /**
+     * Redirect user to results page
+     *
+     * @param $codeExampleText array
+     * @param null $results
+     * @param $message string
+     * @return void
+     */
+    public function showDoneTemplateFromManifest(array $codeExampleText, $results = null, string $message = null): void
+    {
+        if ($message == null) {
+            $message = $codeExampleText["ResultsPageText"];
+        }
+
+        $GLOBALS['twig']->display('example_done.html', [
+            'title' => $codeExampleText["ExampleName"],
+            'h1' => $codeExampleText["ExampleName"],
+            'message' => $message,
+            'json' => $results,
+            'common_texts' => ManifestService::getCommonTexts()
+        ]);
+        exit;
     }
 
     /**
@@ -103,7 +128,8 @@ class ClickApiClientService
                 'title' => $title,
                 'h1' => $headline,
                 'message' => $message,
-                'json' => $results
+                'json' => $results,
+                'common_texts' => ManifestService::getCommonTexts()
             ]
         );
         exit;

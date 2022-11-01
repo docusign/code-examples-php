@@ -25,6 +25,7 @@ class AddFormsToRoomService
             $form_for_add = new FormForAdd($args);
             $response = $rooms_api->addFormToRoom($args['room_id'], $args["account_id"], $form_for_add);
         } catch (ApiException $e) {
+            if($e)
             error_log($e);
             $clientService->showErrorTemplate($e);
             exit;

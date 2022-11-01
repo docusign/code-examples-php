@@ -37,12 +37,13 @@ class EG007RetrieveDocuSignProfileByUserID extends AdminApiBaseController
         try {
             $organizationId = $this->clientService->getOrgAdminId();
             $usersResponse = RetrieveDocuSignProfileByUserId::getDocuSignProfileByUserId(
-                $organizationId, $this->args["user_id"], $this->clientService);
+                $organizationId, 
+                $this->args["user_id"], 
+                $this->clientService
+            );
 
-            $this->clientService->showDoneTemplate(
-                "Retrieve the user's DocuSign profile using a User ID",
-                "Retrieve the user's DocuSign profile using a User ID",
-                "Results from MultiProductUserManagement:getUserDSProfile method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($usersResponse))
             );
         } catch (ApiException $e) {

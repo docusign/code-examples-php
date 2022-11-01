@@ -1,48 +1,88 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>Require access code authentication for a recipient</h4>
-<p>Sends an envelope that requires entering an access code for the purpose of multifactor authentication.</p>
-<p>Anchor text
-    (<a href="https://developers.docusign.com/docs/esign-rest-api/esign101/concepts/tabs/auto-place/">AutoPlace</a>)
-    is used to position the SignHere tab on the document.
-</p>
+{% set formNumber = 0 %}
+{% set accessCodeInputNumber = 0 %}
+{% set signerEmailInputNumber = 1 %}
+{% set signerNameInputNumber = 2 %}
 
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
 <p>
-    <strong>Note:</strong> To see the access code feature, you have to specify a different email address than the developer account email address.
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
 </p>
+
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="acces_code">Access Code</label>
-        <input type="text" class="form-control" id="access_code" name="access_code"
-               aria-describedby="emailHelp" placeholder="NJ9@D1" required
-               >
+        <label for="acces_code">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][accessCodeInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="access_code" 
+            name="access_code"
+            aria-describedby="emailHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][accessCodeInputNumber]['InputPlaceholder']}}"
+            required>
     </div>
     <div class="form-group">
-        <label for="signer_email">Signer Email</label>
-        <input type="email" class="form-control" id="signer_email" name="signer_email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               >
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="signer_email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email"
+            class="form-control"
+            id="signer_email" 
+            name="signer_email"
+            aria-describedby="emailHelp" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}"
+            required>
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
     </div>
     <div class="form-group">
-        <label for="signer_name">Signer Name</label>
-        <input type="text" class="form-control" id="signer_name" placeholder="Pat Johnson" name="signer_name"
-                required>
+        <label for="signer_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+            class="form-control"
+            id="signer_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
+            name="signer_name"
+            required>
     </div>
+
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
 </form>
 
 {% endblock %}

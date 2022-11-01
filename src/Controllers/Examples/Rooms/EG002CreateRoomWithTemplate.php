@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Rooms;
 
 use Example\Controllers\RoomsApiBaseController;
 use Example\Services\Examples\Rooms\CreateRoomWithTemplatesService;
+use Example\Services\ManifestService;
 
 class EG002CreateRoomWithTemplate extends RoomsApiBaseController
 {
@@ -43,11 +44,14 @@ class EG002CreateRoomWithTemplate extends RoomsApiBaseController
             $room_name = $room['name'];
             $room_id = $room['room_id'];
             $room = json_decode((string)$room, true);
-            $this->clientService->showDoneTemplate(
-                "Creating a room with a template",
-                "Creating a room with a template",
-                "Room $room_name has been created!<BR>Room ID: $room_id",
-                json_encode(json_encode($room))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($room)),
+                ManifestService::replacePlaceholders(
+                    "{1}", 
+                    $room_id, 
+                    ManifestService::replacePlaceholders("{0}", $room_name, $this->codeExampleText["ResultsPageText"])
+                )
             );
         }
     }

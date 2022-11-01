@@ -42,10 +42,8 @@ class EG005AuditUsers extends AdminApiBaseController
             $auditedUsers = AuditUsersService::auditUsers($this->clientService, $this->args, $organizationId);
 
             if ($auditedUsers) {
-                $this->clientService->showDoneTemplate(
-                    "Audit users",
-                    "Audit users",
-                    "Results from eSignUserManagement:getUserProfiles method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($auditedUsers))
                 );
             }

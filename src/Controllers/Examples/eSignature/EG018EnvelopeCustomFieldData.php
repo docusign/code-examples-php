@@ -45,10 +45,8 @@ class EG018EnvelopeCustomFieldData extends eSignBaseController
             if ($customFieldEnvelope) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
                 $customFieldEnvelope = json_decode((string)$customFieldEnvelope, true);
-                $this->clientService->showDoneTemplate(
-                    "Envelope status results",
-                    "Envelope status results",
-                    "Results from the Envelopes::get method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($customFieldEnvelope))
                 );
             }

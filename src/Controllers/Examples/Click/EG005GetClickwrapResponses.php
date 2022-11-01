@@ -51,10 +51,8 @@ class EG005GetClickwrapResponses extends ClickApiBaseController
                     }
                 }
             );
-            $this->clientService->showDoneTemplate(
-                "Get clickwrap responses",
-                "Get clickwrap responses",
-                "Results from the ClickWraps::getClickwrapAgreements method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($clickwrapResponse))
             );
         }

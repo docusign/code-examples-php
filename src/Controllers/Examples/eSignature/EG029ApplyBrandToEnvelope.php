@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
+use Example\Services\ManifestService;
 
 class EG029ApplyBrandToEnvelope extends eSignBaseController
 {
@@ -43,10 +44,10 @@ class EG029ApplyBrandToEnvelope extends eSignBaseController
 
         if ($envelopeId) {
             # That need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Brand applying to envelope",
-                "Brand applying to envelope",
-                "The brand has been applied to the envelope!<br/> Envelope ID {$envelopeId["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeId["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
 

@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\KbAuthenticationService;
+use Example\Services\ManifestService;
 
 class EG022KbAuthentication extends eSignBaseController
 {
@@ -45,11 +46,10 @@ class EG022KbAuthentication extends eSignBaseController
         if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
             # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!<br/>
-                    Envelope ID {$envelopeAuthentification["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

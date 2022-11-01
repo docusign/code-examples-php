@@ -1,37 +1,52 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>{{ title }}</h4>
+{% set redirectTo32CodeExample = "href='" ~ app_url ~ "index.php?page=eg032'" %}
+{% set redirectNumber = 0 %}
 
-<p>This example demonstrates how to resume an envelope workflow that has been
-    paused.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target='_blank'
-       href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/update/">Envelopes::update</a>.
-</p>
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if pause_envelope_ok %}
-<p>The envelope you created in example 32 will be queried.</p>
-
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 {% else %}
-<p>Problem: please first create an envelope using <a href="{{ app_url ~ 'index.php?page=eg032'}}">example
-    32.</a> <br/>
-    Thank you.</p>
+<p>
+    {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectTo32CodeExample }) | raw }}
+</p>
 
-<a href="{{ app_url ~ 'index.php?page=eg032'}}" class="btn btn-docu">Continue</a>
+<a href="{{ app_url ~ 'index.php?page=eg032'}}" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</a>
 {% endif %}
 
 {% endblock %}

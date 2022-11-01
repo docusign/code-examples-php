@@ -41,10 +41,8 @@ class Eg001GetMonitoringData extends MonitorBaseController
             $monitoringData = GetMonitoringDataService::getMonitoringData($this->clientService);
 
             if ($monitoringData) {
-                $this->clientService->showDoneTemplate(
-                    "Monitoring data",
-                    "Monitoring data result",
-                    "Results from DataSet:GetStream method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($monitoringData))
                 );
             }

@@ -9,6 +9,7 @@
 
 namespace Example\Controllers\Examples;
 
+use Example\Services\ManifestService;
 class SelectAPI
 {
     public function controller()
@@ -25,7 +26,8 @@ class SelectAPI
             'select_api.html',
             [
                 'title' => 'Please select a DocuSign API',
-                'show_doc' => false
+                'show_doc' => false,
+                'common_texts' => ManifestService::getCommonTexts()
             ]
         );
     }

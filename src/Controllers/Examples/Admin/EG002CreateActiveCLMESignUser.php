@@ -47,6 +47,11 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             $dsgReq = $this->clientService->adminGroupsApi();
             $dsgRes = $dsgReq->getDSGroups($this->orgId, $this->args["account_id"]);
             $dsGroups = $dsgRes["ds_groups"];
+            if ($dsgRes["ds_groups"] == null) {
+                throw new ApiException(
+                    $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]
+                );
+            }
             // Step 4 end
 
             $preFill = [
@@ -88,10 +93,8 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             $_SESSION['email_address'] = strval($addUsersResponse->getEmail());
 
             $addUsersResponse = json_decode((string)$addUsersResponse, true);
-            $this->clientService->showDoneTemplate(
-                "Create a new active user for CLM and eSignature",
-                "Create a new active user for CLM and eSignature",
-                "Results from MultiProductUserManagement:addOrUpdateUser method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($addUsersResponse))
             );
         }
