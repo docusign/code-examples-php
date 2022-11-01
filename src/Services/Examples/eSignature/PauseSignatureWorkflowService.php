@@ -6,6 +6,7 @@ use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
+use DocuSign\eSign\Model\EnvelopeSummary;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\Workflow;
@@ -21,9 +22,9 @@ class PauseSignatureWorkflowService
      * @param  $args array
      * @param $clientService
      * @param $demoDocsPath
-     * @return string
+     * @return object
      */
-    public static function pauseSignatureWorkflow(array $args, $clientService, $demoDocsPath): string
+    public static function pauseSignatureWorkflow(array $args, $clientService, $demoDocsPath): EnvelopeSummary
     {
         # Step 3-1 Start
         $envelope_args = $args['envelope_args'];
@@ -35,7 +36,7 @@ class PauseSignatureWorkflowService
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         # Step 4 End
 
-        return $envelope["envelope_id"];
+        return $envelope;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Example\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Brand;
+use Example\Services\ManifestService;
 
 class CreateBrandService
 {
@@ -37,7 +38,10 @@ class CreateBrandService
             } else {
                 $GLOBALS['twig']->display('error.html', [
                         'error_code' => $error_code,
-                        'error_message' => $error_message]);
+                        'error_message' => $error_message,
+                        'common_texts' => ManifestService::getCommonTexts()
+                    ]
+                );
                 exit;
             }
         }

@@ -1,53 +1,110 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h4>{{ title }}</h4>
-<p>Demonstrates how to create a new DocuSign user (valid for both CLM and eSignature) and activate their account automatically.</p>
+{% set formNumber = 0 %}
+{% set userNameInputNumber = 0 %}
+{% set firstNameInputNumber = 1 %}
+{%  set secondNameInputNumber = 2 %}
+{% set emailInputNumber = 3 %}
+{% set eSignPermissionInputNumber = 4 %}
+{% set clmPermissionInputNumber = 5 %}
+{% set groupInputNumber = 6 %}
 
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>
-    API methods used:
-    <a target='_blank' rel='noopener noreferrer' 
-        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getproductpermissionprofiles/">MultiProductUserManagement:getProductPermissionProfiles</a>,  
-    <a target='_blank' rel='noopener noreferrer' 
-        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/getdsgroups/">MultiProductUserManagement:getDsGroups</a>,  
-    <a target='_blank' rel='noopener noreferrer' 
-        href="https://developers.docusign.com/docs/admin-api/reference/usermanagement/multiproductusermanagement/addorupdateuser/">MultiProductUserManagement:addOrUpdateUser</a>.
-</p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="userName">User Name</label>
-        <input type="text" class="form-control" id="userName" name="userName" required>
+        <label for="userName">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][userNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="userName" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][userNameInputNumber]['InputPlaceholder']}}"
+            name="userName"
+            required>
     </div>
     <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" name="firstName" required>
+        <label for="firstName">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][firstNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="firstName" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][firstNameInputNumber]['InputPlaceholder']}}"
+            name="firstName" 
+            required>
     </div>
     <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" name="lastName" required>
+        <label for="lastName">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][secondNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="lastName" 
+            name="lastName" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][secondNameInputNumber]['InputPlaceholder']}}"
+            required>
     </div>
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" name="email"
-            aria-describedby="emailHelp" required>
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][emailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="email" 
+            name="email"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][emailInputNumber]['InputPlaceholder']}}"
+            aria-describedby="emailHelp"
+            required>
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
     </div>
 
 
     {% if args['eSignPermissionProfiles'] and args['eSignPermissionProfiles']|length > 0  %}
         <div class="form-group">
-            <label for="eSignPermissionProfileId">eSignature Permission Profile</label>
+            <label for="eSignPermissionProfileId">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][eSignPermissionInputNumber]['InputName'] | raw }}
+            </label>
+
             <select id="eSignPermissionProfileId" name="eSignPermissionProfileId" class="form-control">
                 {% for profile in args['eSignPermissionProfiles']['permission_profiles'] %}
                     <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
@@ -61,7 +118,10 @@
 
     {% if args['clmPermissionProfiles'] and args['clmPermissionProfiles']|length > 0 %}
         <div class="form-group">
-            <label for="clmPermissionProfileId">CLM Permission Profile</label>
+            <label for="clmPermissionProfileId">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][clmPermissionInputNumber]['InputName'] | raw }}
+            </label>
+
             <select id="clmPermissionProfileId" name="clmPermissionProfileId" class="form-control">
                 {% for profile in args['clmPermissionProfiles']['permission_profiles'] %}
                     <option value="{{ profile['permission_profile_id'] }}"> {{ profile['permission_profile_name'] }} </option>
@@ -76,7 +136,10 @@
 
     {% if args['dsGroups'] and args['dsGroups']|length > 0  %}
         <div class="form-group">
-            <label for="dsGroupId">DocuSign Admin Group</label>
+            <label for="dsGroupId">
+                {{ code_example_text['Forms'][formNumber]['Inputs'][groupInputNumber]['InputName'] | raw }}
+            </label>
+
             <select id="dsGroupId" name="dsGroupId" class="form-control">
                 {% for group in args['dsGroups'] %}
                     <option value="{{ group['ds_group_id'] }}"> {{ group['group_name'] }} </option>
@@ -88,7 +151,7 @@
             </br>Thank you.</p>
     {% endif %}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
     <div class="form-group">
         <label for="clmProductId"></label>
         <input type="hidden" class="form-control" id="clmProductId" name="clmProductId" value="{{ args['clmProductId'] }}" >

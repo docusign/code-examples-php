@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Rooms;
 
 use Example\Controllers\RoomsApiBaseController;
 use Example\Services\Examples\Rooms\GrantOfficeAccessToFormGroupService;
+use Example\Services\ManifestService;
 
 class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
 {
@@ -52,11 +53,14 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
     {
         $this->checkDsToken();
         GrantOfficeAccessToFormGroupService::grantOfficeAccessToFormGroup($this->args, $this->clientService);
-        $this->clientService->showDoneTemplate(
-            "Grant office access to a form group",
-            "Grant office access to a form group",
-            "Results from the FormGroups::GrantOfficeAccessToFormGroup method" .
-            "<pre>Code: 204 <br /> Description: Office was successfully assigned to the form group</pre>"
+        $this->clientService->showDoneTemplateFromManifest(
+            $this->codeExampleText,
+            null,
+            ManifestService::replacePlaceholders(
+                "{1}", 
+                $this->args["form_group_id"], 
+                ManifestService::replacePlaceholders("{0}", $this->args["office_id"], $this->codeExampleText["ResultsPageText"])
+            ),
         );
     }
 

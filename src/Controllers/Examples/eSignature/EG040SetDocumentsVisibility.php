@@ -9,6 +9,7 @@ namespace Example\Controllers\Examples\eSignature;
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\SetDocumentsVisibilityService;
 use DocuSign\eSign\Client\ApiException;
+use Example\Services\ManifestService;
 
 class EG040SetDocumentsVisibility extends eSignBaseController
 {
@@ -50,14 +51,16 @@ class EG040SetDocumentsVisibility extends eSignBaseController
                 $GLOBALS['DS_CONFIG']['doc_html'],
                 $this->args['account_id'],
                 $this->clientService,
-                self::DEMO_DOCS_PATH
+                self::DEMO_DOCS_PATH,
+                $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessageCheck"],
+                $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]
             );
 
             if ($envelopeId) {
-                $this->clientService->showDoneTemplate(
-                    "Set document visibility for envelope recipients",
-                    "Set document visibility for envelope recipients",
-                    "The envelope has been created and sent!<br/> Envelope ID {$envelopeId}."
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
+                    null,
+                    ManifestService::replacePlaceholders("{0}", $envelopeId, $this->codeExampleText["ResultsPageText"])
                 );
             }
         } catch (ApiException $e) {

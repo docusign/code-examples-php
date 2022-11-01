@@ -32,6 +32,8 @@ abstract class AdminApiBaseController extends BaseController
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
+        $this->codeExampleText = $this->getPageText(static::EG);
+        
         if (!$this->routerService) {
             $this->routerService = new RouterService();
         }
@@ -67,7 +69,8 @@ abstract class AdminApiBaseController extends BaseController
         if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(static::EG . '.html', [
                 'title' => $this->homePageTitle(static::EG),
-                'show_doc' => false
+                'show_doc' => false,
+                'common_texts' => $this->getCommonText()
             ]);
         }
         else
@@ -83,6 +86,8 @@ abstract class AdminApiBaseController extends BaseController
                     'permission_profiles' => $permission_profiles,
                     'export_id' => isset($_SESSION['export_id']),
                     'import_id' => isset($_SESSION['import_id']),
+                    'code_example_text' => $this->codeExampleText,
+                    'common_texts' => $this->getCommonText()
                 ]);
             }
             else {

@@ -15,13 +15,13 @@ class WebQueryEndpointService
      * @param string $accountId
      * @param string $filterStartDate
      * @param string $filterEndDate
-     * @return array
+     * @return string
      */
     public static function postWebQueryMethod(
         MonitorApiClientService $clientService,
         string $accountId,
         string $filterStartDate,
-        string $filterEndDate): array
+        string $filterEndDate): string
     {
         // Create an ApiClient and construct API headers
         $apiClient = $clientService->getApiClient();
@@ -42,7 +42,7 @@ class WebQueryEndpointService
         }
 
         // Cleaning the data from unsupported symbols
-        return str_replace("'", "", $webQueryResult->getResult());
+        return str_replace("'", "", $webQueryResult);
     }
     // Step 3 start
     public static function preparePostWebQuery(string $accountId, string $filterStartDate, string $filterEndDate): WebQuery

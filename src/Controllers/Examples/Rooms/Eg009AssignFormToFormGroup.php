@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Rooms;
 
 use Example\Controllers\RoomsApiBaseController;
 use Example\Services\Examples\Rooms\AssignFormToFormGroupService;
+use Example\Services\ManifestService;
 
 class Eg009AssignFormToFormGroup extends RoomsApiBaseController
 {
@@ -54,10 +55,14 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
         AssignFormToFormGroupService::assignFormToFormGroup($this->args, $this->clientService);
         $group_id = $this->args['form_group_id'];
         $form_id = $this->args['form_id'];
-        $this->clientService->showDoneTemplate(
-            "Assign a form to a form group",
-            "Assign a form to a form group",
-            "Form $form_id has been assigned to Form Group ID $group_id"
+        $this->clientService->showDoneTemplateFromManifest(
+            $this->codeExampleText,
+            null,
+            ManifestService::replacePlaceholders(
+                "{0}",
+                $form_id,
+                ManifestService::replacePlaceholders("{1}", $this->args["form_group_id"], $this->codeExampleText["ResultsPageText"])
+            ),
         );
     }
 

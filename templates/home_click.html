@@ -9,8 +9,7 @@
         <tr>
             <td>
                 <h1 class="display-4">PHP Launcher</h1>
-                <p class="Xlead">Run and explore Click API code examples with 
-                    Authorization Code Grant or JWT Grant authentication</p>
+                <p class="Xlead">{{ common_texts["HomePageText"] | raw }}</p>
             </td>
             <td>
                 <img src="{{ app_url ~ 'assets/banner-code.png' }}"/>
@@ -29,59 +28,43 @@
         PHP application.</p>
     {% endif %}
 
-    <h4 id="example-c001">
-        <a href="{{ app_url ~ 'index.php?page=ceg001'}}">Create a clickwrap</a>
-    </h4>
-    <p>
-        Creates a clickwrap that you can embed in your website or app.
-    </p>
-    <p>API method used:
-        <a target='_blank'
-           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrap/">ClickWraps:createClickwrap</a>
-    </p>
+    {% for groups in launcher_texts %}
+        <h2>{{ groups["Name"] | raw }}</h2>
 
-    <h4 id="example-c002">
-        <a href="{{ app_url ~ 'index.php?page=ceg002'}}">Activate a clickwrap</a>
-    </h4>
-    <p>
-        Activates a new clickwrap that you have already created.
-    </p>
-    <p>API method used:
-        <a target='_blank'
-           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/updateclickwrapversion">ClickWraps:updateClickwrapVersion</a>
-    </p>
+        {% for example in groups["Examples"] %}
+            {% if (example["SkipForLanguages"] == null) or  ('php' not in (example["SkipForLanguages"]|lower)) %}
+                <h4 id="{{ 'example-c' ~ '%03d'|format(example['ExampleNumber']) }}">
+                <a href="{{ app_url ~ 'index.php?page=' ~ 'ceg%03d'|format(example['ExampleNumber']) }}">
+                    {{ example["ExampleName"] | raw }}
+                </a>
+                </h4>
 
-    <h4 id="example-c003">
-        <a href="{{ app_url ~ 'index.php?page=ceg003'}}">Create a new clickwrap version</a>
-    </h4>
-    <p>
-        Creates a new version of a clickwrap.
-    </p>
+                <p>
+                {{ example["ExampleDescription"] | raw }}
+                </p>
 
-    <p>API method used:
-        <a target='_blank' href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/createclickwrapversion">ClickWraps:createClickwrapVersion</a>
-    </p>
+                <p>
+                {% if example["LinksToAPIMethod"] | length == 1 %}
+                    <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+                {% else %}
+                    <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+                {% endif %}
 
-    <h4 id="example-c004"><a href="{{ app_url ~ 'index.php?page=ceg004'}}">Get a list of clickwraps</a></h4>
-    <p>
-        Gets a list of clickwraps associated with a specific DocuSign user.
-    </p>
-    <p>API method used:
-        <a target='_blank'
-           href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwraps/">ClickWraps:getClickwraps</a>
-    </p>
+                {% for i in 0..(example["LinksToAPIMethod"] | length - 1) %}
+                    <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+                    {{ example['LinksToAPIMethod'][i]['PathName'] | raw}}
+                    </a>
 
-    <h4 id="example-c005">
-        <a href="{{ app_url ~ 'index.php?page=ceg005'}}">Get clickwrap responses</a>
-    </h4>
-    <p>
-        Gets user responses to your clickwrap agreements.
-    </p>
-
-    <p>API method used:
-        <a target='_blank'
-            href="https://developers.docusign.com/docs/click-api/reference/accounts/clickwraps/getclickwrapagreements/">ClickWraps:getClickwrapAgreements</a>
-    </p>
+                    {% if  i + 1 == example["LinksToAPIMethod"] | length - 1 %}
+                        <span>and</span>
+                    {% elseif i + 1 != example["LinksToAPIMethod"] | length %}
+                        <span>,</span>
+                    {% endif %}
+                {% endfor %}
+                </p>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 </div>
 
 <!-- anchor-js is only for the index page -->

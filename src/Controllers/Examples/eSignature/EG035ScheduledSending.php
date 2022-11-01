@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\ScheduledSendingService;
+use Example\Services\ManifestService;
 
 class EG035ScheduledSending extends eSignBaseController
 {
@@ -43,10 +44,10 @@ class EG035ScheduledSending extends eSignBaseController
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Envelope scheduled",
-                "Envelope scheduled",
-                "The envelope has been created and scheduled!<br/> Envelope ID {$envelopeId["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeId["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

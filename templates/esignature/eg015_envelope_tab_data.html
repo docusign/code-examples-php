@@ -1,41 +1,58 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>Get the tab data from an envelope</h4>
-<p>Get the tab (field) values from an envelope for all of the envelope's recipients.</p>
+{% set formNumber = 0 %}
+{% set redirectToNinthCodeExample = "href='" ~ app_url ~ "index.php?page=eg009'" %}
+{% set redirectNumber = 0 %}
 
-<p>This method is used to read the updated tab values from
-    the envelope. The method can be used after the envelope is complete or while it is
-    still in progress.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeformdata/get/">EnvelopeFormData::get</a>.
-</p>
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if envelope_ok %}
-<p>The last envelope you created with this example launcher will be queried.
-    Recommendation:  use example 9, then this example, since example 9 includes many tabs of different types.</p>
+<p>T{{ code_example_text['Forms'][formNumber]['FormName'] | raw }}</p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 
 {% else %}
-<p>Problem: please first create an envelope using <a href="{{ app_url ~ 'index.php?page=' }}eg009">example 9.</a> <br/>
-    Thank you.</p>
+<p>
+    {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectToNinthCodeExample }) | raw }}
+</p>
 
 <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
     <input type="hidden" name="page" value="eg009"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 {% endif %}
 

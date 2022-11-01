@@ -1,43 +1,59 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>Get the custom field data for an envelope</h4>
-<p>Get the data values associated with the envelope itself. The custom data fields enable you to
-    add additional meta-data to the envelope. The custom data fields can be set by the <b>Sender</b>
-    via the DocuSign web tool, or can be set programmatically. The data can be included in the
-    envelope's certificate of completion.</p>
+{% set formNumber = 0 %}
+{% set redirectTo16CodeExample = "href='" ~ app_url ~ "index.php?page=eg016'" %}
+{% set redirectToCodeExample = app_url ~ "index.php?page=eg016" %}
+{% set redirectNumber = 0 %}
 
-<p>This method is used to read the custom field values from
-    an envelope.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target ='_blank' href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopecustomfields/list/">EnvelopeCustomFields::list</a>.
-</p>
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if envelope_ok %}
-<p>The last envelope you created with this example launcher will be queried.
-    Recommendation:  use example 16 or 17, then this example, since those examples set a custom data field for the envelope.</p>
+<p>{{ code_example_text['Forms'][formNumber]['FormName']|replace({ ("{0}"): redirectToCodeExample }) | raw }}</p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 
 {% else %}
-<p>Problem: please first create an envelope using <a href="{{ app_url ~ 'index.php?page=' }}eg016">example 16.</a> <br/>
-    Thank you.</p>
+<p>
+    {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectTo16CodeExample }) | raw }}
+</p>
 
 <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
     <input type="hidden" name="page" value="eg016"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 {% endif %}
 

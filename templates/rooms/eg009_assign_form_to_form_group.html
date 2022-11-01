@@ -1,31 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>Assign a form to a form group</h4>
-<p>
-    This example demonstrates how to assign a form to a form group. As a prerequisite, ensure that you have
-    <a href="{{ app_url ~ 'index.php?page=reg007'}}" target="_blank">created a form group</a>
-    and <a href="{{ app_url ~ 'index.php?page=reg008'}}" target="_blank">assigned an office ID to this form group</a>
-    before proceeding.
-</p>
+
+{% set formNumber = 0 %}
+{% set formGroupInputNumber = 0 %}
+{% set formInputNumber = 1 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API methods used:
-    <a href="https://developers.docusign.com/docs/rooms-api/reference/forms/formgroups/getformgroups" target="_blank">FormGroups:GetFormGroups</a>
-    and
-    <a target='_blank'
-       href="https://developers.docusign.com/docs/rooms-api/reference/forms/formlibraries/getformlibraries">FormLibraries::GetFormLibraryForms</a>.
-</p>
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="form_group_id">Form group</label>
+        <label for="form_group_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][formGroupInputNumber]['InputName'] | raw }}
+        </label>
+
         <select class="form-control" id="form_group_id" name="form_group_id">
             {% for form_group in form_groups %}
             <option value="{{ form_group.formGroupId }}">{{ form_group.name }}</option>
@@ -33,7 +50,10 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="form_id">Form</label>
+        <label for="form_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][formInputNumber]['InputName'] | raw }}
+        </label>
+
         <select class="form-control" id="form_id" name="form_id">
             {% for form in forms %}
             <option value="{{ form.libraryFormId }}">{{ form.name }}</option>
@@ -41,7 +61,7 @@
         </select>
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
 </form>
 
 {% endblock %}

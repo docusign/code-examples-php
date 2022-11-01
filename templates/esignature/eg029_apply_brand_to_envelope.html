@@ -1,45 +1,85 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>{{ title }}</h4>
-<p>
-    The envelope includes a pdf document.
-</p>
+{% set formNumber = 0 %}
+{% set signerNameInputNumber = 1 %}
+{% set signerEmailInputNumber = 0 %}
+{% set brandInputNumber = 2 %}
+{% set redirectTo28CodeExample = "href='" ~ app_url ~ "index.php?page=eg028'" %}
+{% set redirectNumber = 0 %}
 
-<p>
-    This code example demonstrates how to apply a brand to an envelope.
-</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
 <p>
-    Api method used:
-    <a href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/" target="_blank">Envelopes::Create</a>.
-</p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 {% if brands %}
 <form class="eg" action="" method="post" data-busy="form">
     <div class="form-group">
-        <label for="signer_email">Signer Email</label>
-        <input type="email" class="form-control" id="signer_email" name="signer_email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="{{ signer_email }}">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="signer_email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control" 
+            id="signer_email" 
+            name="signer_email"
+            aria-describedby="emailHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}" 
+            required
+            value="{{ signer_email }}">
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
     </div>
 
     <div class="form-group">
-        <label for="signer_name">Signer Name</label>
-        <input type="text" class="form-control" id="signer_name" placeholder="Pat Johnson" name="signer_name"
-               value="{{ signer_name }}" required>
+        <label for="signer_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+            class="form-control"
+            id="signer_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}" 
+            name="signer_name"
+            value="{{ signer_name }}"
+            required>
     </div>
 
     <div class="form-group">
-        <label for="brand_id">Brand</label>
+        <label for="brand_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][brandInputNumber]['InputName'] | raw }}
+        </label>
+
         <select id="brand_id" name="brand_id" class="form-control">
             {% for brand in brands %}
             <option value="{{ brand.brand_id }}">{{ brand.brand_name }}</option>
@@ -49,18 +89,17 @@
 
     <div>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <button type="submit" class="btn btn-docu">Submit</button>
+        <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
     </div>
 </form>
 {% elseif not brands %}
-<p>Problem: please first create the brand using <a href="{{ app_url ~ 'index.php?page=' }}eg024">example 24.</a>
-    <br />
-    Thank you.
+<p>
+    {{ code_example_text['RedirectsToOtherCodeExamples'][redirectNumber]['RedirectText']|replace({ ("{0}"): redirectTo28CodeExample }) | raw }}
 </p>
 
 <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
     <input type="hidden" name="page" value="eg024"/>
-    <button type="submit" class="btn btn-docu">Continue</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
 </form>
 {% endif %}
 {% endblock %}

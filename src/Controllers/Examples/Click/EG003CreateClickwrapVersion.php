@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Click;
 
 use Example\Controllers\ClickApiBaseController;
 use Example\Services\Examples\Click\CreateNewClickwrapVersionService;
+use Example\Services\ManifestService;
 
 class EG003CreateClickwrapVersion extends ClickApiBaseController
 {
@@ -59,11 +60,14 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
             $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
             $clickwrap_version = $clickwrapSummaryResponse['versionNumber'];
             
-            $this->clientService->showDoneTemplate(
-                "Create a new clickwrap version",
-                "Create a new clickwrap version",
-                "Version $clickwrap_version of clickwrap $clickwrap_name has been created.",
-                json_encode(json_encode($clickwrapSummaryResponse))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($clickwrapSummaryResponse)),
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $clickwrap_version,
+                    ManifestService::replacePlaceholders("{1}",$clickwrap_name,$this->codeExampleText["ResultsPageText"])
+                )
             );
         }
     }

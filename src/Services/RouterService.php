@@ -164,82 +164,7 @@ class RouterService implements IRouterService
         "aeg009" => "admin/eg009_delete_user_product_permission_profile.html"
 
     ];
-    /**
-     * The list of titles for each example
-     */
-    private const TITLES = [
-        "home_esig" => "Home--PHP eSignature Code Examples",
-        "home_rooms" => "Home--PHP Rooms Code Examples",
-        "home_monitor" => "Home--PHP Monitor Code Examples",
-        "home_admin" => "Home--PHP Admin Code Examples",
-        "home_click" => "Home--PHP Click Code Examples",
-        "eg001" => "Use embedded signing",
-        "eg002" => "Signing via email",
-        "eg003" => "List of changed envelopes",
-        "eg004" => "Envelope information",
-        "eg005" => "Envelope recipient information",
-        "eg006" => "Envelope documents",
-        "eg007" => "Envelope documents",
-        "eg008" => "Create a template",
-        "eg009" => "Use a template to send an envelope",
-        "eg010" => "Send binary documents",
-        "eg011" => "Use embedded sending",
-        "eg012" => "Embedded Console",
-        "eg013" => "Use Embedded Signing from template and extra doc",
-        "eg014" => "Order form with payment",
-        "eg015" => "Envelope field data",
-        "eg016" => "Set field values",
-        "eg017" => "Set template tab values",
-        "eg018" => "Envelope custom field data",
-        "eg019" => "Access code authentication",
-        "eg020" => "Require Phone Authentication for a Recipient",
-        "eg022" => "Knowledge Based Authentication",
-        "eg023" => "ID Verification Authentication",
-        "eg024" => "Create a permission profile",
-        "eg025" => "Permissions deleting",
-        "eg026" => "Permission change single setting",
-        "eg027" => "Permissions delete",
-        "eg028" => "Create a brand",
-        "eg029" => "Apply brand to envelope",
-        "eg030" => "Apply brand to template",
-        "eg031" => "Bulk sending envelopes to multiple recipients",
-        'eg032' => 'Pause a signature workflow',
-        'eg033' => 'Unpause a signature workflow',
-        'eg034' => 'Use conditional recipients',
-        "eg035" => "Schedule an envelope",
-        "eg036" => "Send an envelope with delayed routing",
-        "eg037" => "Send an email with SMS delivery",
-        "eg038" => "Use responsive signing",
-        "eg039" => "In person signing",
-        "eg040" => "Set document visibility",
-        "reg001" => "Create room with data",
-        "reg002" => "Create room with template",
-        "reg003" => "Export data from room",
-        "reg004" => "Add forms to room",
-        "reg005" => "Get rooms with filters",
-        "reg006" => "Create external form fill session",
-        "ceg001" => "Create a clickwrap",
-        "ceg002" => "Activate a clickwrap",
-        "ceg003" => "Create a new clickwrap version",
-        "ceg004" => "Get a list of clickwraps",
-        "ceg005" => "Get clickwrap responses",
-        "reg007" => "Create form group",
-        "reg008" => "Grant office access to a form group",
-        "reg009" => "Assign a form to a form group",
-        "meg001" => "Get monitoring data",
-        "meg002" => "Post web query",
-        "aeg001" => "Create a new user with active status",
-        "aeg002" => "Create a new active user for CLM and eSignature",
-        "aeg003" => "How to bulk-export user data",
-        "aeg003a" => "Check request status",
-        "aeg004" => "How to bulk-import user data",
-        "aeg004a" => "Check the request status",
-        "aeg005" => "Audit users",
-        "aeg006" => "Get user profile data by email address",
-        "aeg007" => "Get user profile data by user ID",
-        "aeg008" => "Update user product permission profiles using an email address",
-        "aeg009" => "Delete user product permission profiles using an email address"
-    ];
+    
     /**
      * The list of controllers for each example
      */
@@ -262,6 +187,7 @@ class RouterService implements IRouterService
 
         if (isset($_POST["api_type"])) {
             $_SESSION['api_type'] = $_POST['api_type'];
+            $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile($_SESSION['api_type']));
         }
 
         if ($_SESSION['auth_service'] == "code_grant") {
@@ -362,7 +288,8 @@ class RouterService implements IRouterService
                     'title' => 'Returned data',
                     'event' => $_GET['event'] ?? false,
                     'envelope_id' => $_GET['envelope_id'] ?? false,
-                    'state' => $_GET['state'] ?? false
+                    'state' => $_GET['state'] ?? false,
+                    'common_texts' => ManifestService::getCommonTexts()
                 ]
             );
             // this variable lets the program know we've already logged in via Quickstart the first time.
@@ -528,6 +455,6 @@ class RouterService implements IRouterService
      */
     public function getTitle($eg): string
     {
-        return self::TITLES[$eg];
+        return ManifestService::getPageText($eg)["ExampleName"];
     }
 }

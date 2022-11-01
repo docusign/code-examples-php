@@ -33,16 +33,13 @@ class EG033UnpauseSignatureWorkflow extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelope_id = UnpauseSignatureWorkflowService::unpauseSignatureWorkflow($this->args, $this->clientService);
+        $envelope = UnpauseSignatureWorkflowService::unpauseSignatureWorkflow($this->args, $this->clientService);
 
-        if ($envelope_id) {
+        if ($envelope) {
             $_SESSION['pause_envelope_id'] = false;
-            $this->clientService->showDoneTemplate(
-                "Envelope unpaused",
-                "Envelope unpaused",
-                "The envelope workflow has been resumed and the envelope
-                         has been sent to a second recipient!<br/>
-                         Envelope ID {$envelope_id}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode($envelope->__toString())
             );
         }
     }

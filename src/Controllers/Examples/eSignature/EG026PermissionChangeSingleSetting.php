@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\PermissionChangeSingleSettingService;
+use Example\Services\ManifestService;
 
 class EG026PermissionChangeSingleSetting extends eSignBaseController
 {
@@ -47,12 +48,10 @@ class EG026PermissionChangeSingleSetting extends eSignBaseController
         if ($permissionProfile) {
             # That need an envelope_id
             $permissionProfile = json_decode((string)$permissionProfile, true);
-            $this->clientService->showDoneTemplate(
-                "Changing setting in a permission profile",
-                "Changing setting in a permission profile",
-                "Setting of permission profile has been changed!<br/> 
-                Permission profile ID: {$permissionProfile["permissionProfileId"]}.<br> Changed settings:.",
-                json_encode(json_encode($permissionProfile))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($permissionProfile)),
+                ManifestService::replacePlaceholders("{0}", $permissionProfile["permissionProfileId"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

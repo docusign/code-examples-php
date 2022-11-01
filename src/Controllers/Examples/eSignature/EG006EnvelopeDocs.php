@@ -67,10 +67,8 @@ class EG006EnvelopeDocs extends eSignBaseController
                 $envelope_doc_items = array_map($map_documents, $envelopeDocumentsResult['envelopeDocuments']);
                 $documents = array_merge($standard_doc_items, $envelope_doc_items);
                 $_SESSION['envelope_documents'] = ['envelope_id' => $envelope_id, 'documents' => $documents]; # Save
-                $this->clientService->showDoneTemplate(
-                    "Envelope documents list",
-                    "List the envelope's documents",
-                    "Results from the EnvelopeDocuments::list method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($envelopeDocumentsResult))
                 );
             }

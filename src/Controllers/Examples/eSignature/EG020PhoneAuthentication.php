@@ -5,6 +5,7 @@ namespace Example\Controllers\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\PhoneAuthenticationService;
+use Example\Services\ManifestService;
 
 class EG020PhoneAuthentication extends eSignBaseController
 {
@@ -37,7 +38,8 @@ class EG020PhoneAuthentication extends eSignBaseController
             $envelopeAuthentification = PhoneAuthenticationService::phone_authentication(
                 $this->args,
                 $this::DEMO_DOCS_PATH,
-                $this->clientService
+                $this->clientService,
+                $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]
             );
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
@@ -45,11 +47,10 @@ class EG020PhoneAuthentication extends eSignBaseController
         if ($envelopeAuthentification) {
             $_SESSION["envelope_id"] = $envelopeAuthentification["envelope_id"]; # Save for use by other examples
             # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!<br/>
-                    Envelope ID {$envelopeAuthentification["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

@@ -15,8 +15,6 @@ class EG001CreateNewUser extends AdminApiBaseController
 
     private string $orgId;
 
-    //private $eg = "aeg001";  # reference (and url) for this example
-
     /**
      * Create a new controller instance.
      * @return void
@@ -62,10 +60,8 @@ class EG001CreateNewUser extends AdminApiBaseController
         );
 
         if ($newUserResponse) {
-            $this->clientService->showDoneTemplate(
-                "Create a new active eSignature user",
-                "Create a new active eSignature user",
-                "Results from eSignUserManagement:createUser method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(($newUserResponse->__toString()))
             );
         }

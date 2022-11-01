@@ -2,24 +2,22 @@
 {% block content %}
 
 <div style="margin:1% 5%;">
-    <h1 class="display-4">Please Authenticate with DocuSign</h1>
-
     <form method="post" data-busy="form" action="{{app_url ~ 'index.php?page=ds_login'}}">
-        <div class="form-group col-md-5">
-            <label for="auth_type">Please choose your authentication type</label>
-            <select class="form-control" id="auth_type" name="auth_type">
+        <div class="form-group">
+            {{ common_texts["LoginPage"]["LoginHeader"] | raw }}
+            <select class="form-control col-md-5" id="auth_type" name="auth_type">
                 <option value="code_grant">Authorization Code Grant</option>
                 <option value="jwt">JWT (JSON Web Token)</option>
             </select>
         </div>
 
-        <div class="form-group col-md-5" style="padding-top: .5rem;">
+        <div class="form-group col-md-5 chooseApiTypeStyle" style="padding-top: .5rem;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <button type="submit" class="btn btn-docu">Authenticate with DocuSign</button>
+            <button type="submit" class="btn btn-docu">{{ common_texts["LoginPage"]["LoginButton"] | raw }}</button>
         </div>
 
     </form>
     <hr class="my-4">
-    <p>You need to authenticate with DocuSign to continue your request.</p>
+    <p>{{ common_texts["LoginPage"]["LoginHelperText"] | raw }}</p>
 </div>
 {% endblock %}

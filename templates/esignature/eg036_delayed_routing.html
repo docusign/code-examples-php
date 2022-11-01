@@ -1,52 +1,119 @@
 {% extends "base.html" %}  {% block content %}
 
+{% set formNumber = 0 %}
+{% set signerEmailInputNumber = 0 %}
+{% set signerNameInputNumber = 1 %}
+{% set signerEmail2InputNumber = 2 %}
+{% set signerName2InputNumber = 3 %}
+{% set delayInputNumber = 4 %}
 
-<h4>Send an envelope with delayed routing</h4>
-<p>Demonstrates how to delay an envelope’s delivery between recipients using the delayed routing feature.</p>
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
 
 {% if show_doc %}
 <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-    <a target='_blank' rel="noopener noreferrer" href="https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopes/create/">Envelopes::create</a>.
-</p>
-
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
 <form class="eg" action="" method="post" data-busy="form">
 
     <div class="form-group">
-        <label for="signer1Email">Signer 1 Email</label>
-        <input type="email" class="form-control" id="signer1Email" name="signer1Email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required
-               value="{{ signer_email }}" />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="signer1Email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="signer1Email" 
+            name="signer1Email"
+            aria-describedby="emailHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}" 
+            required
+            value="{{ signer_email }}" />
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
     </div>
     <div class="form-group">
-        <label for="signer1Name">Signer 1 Name</label>
-        <input type="text" class="form-control" id="signer1Name" placeholder="Pat Johnson" name="signer1Name"
-               value="{{ signer_name }}" required />
+        <label for="signer1Name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="signer1Name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}" 
+            name="signer1Name"
+            value="{{ signer_name }}" 
+            required />
     </div>
     <div class="form-group">
-        <label for="signer1Email">Signer 2 Email</label>
-        <input type="email" class="form-control" id="signer2Email" name="signer2Email"
-               aria-describedby="emailHelp" placeholder="pat@example.com" required  />
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <label for="signer1Email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmail2InputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="signer2Email"
+            name="signer2Email"
+            aria-describedby="emailHelp"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmail2InputNumber]['InputPlaceholder']}}" 
+            required  />
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
     </div>
     <div class="form-group">
-        <label for="signer2Name">Signer 2 Name</label>
-        <input type="text" class="form-control" id="signer2Name" placeholder="Pat Johnson" name="signer2Name" required />
+        <label for="signer2Name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerName2InputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control"
+            id="signer2Name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerName2InputNumber]['InputPlaceholder']}}" 
+            name="signer2Name"
+            required />
     </div>
     <div class="form-group">
-        <label for="delay">Delay (in hours)</label>
-        <input type="number" class="form-control" id="delay" name="delay"
-               required />
+        <label for="delay">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][delayInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="number"
+            class="form-control"
+            id="delay" 
+            name="delay"
+            required />
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <button type="submit" class="btn btn-docu">Submit</button>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
 </form>
 <br><br><br>
 

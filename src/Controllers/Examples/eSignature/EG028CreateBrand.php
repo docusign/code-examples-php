@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\CreateBrandService;
+use Example\Services\ManifestService;
 
 class EG028CreateBrand extends eSignBaseController
 {
@@ -85,17 +86,18 @@ class EG028CreateBrand extends eSignBaseController
 
         if ($brandId["brand_id"] != null) {
             # Success if there's an envelope Id and the brand name isn't a duplicate
-            $this->clientService->showDoneTemplate(
-                "Create a brand",
-                "Create a brand",
-                "The Brand has been created!<br/> Brand ID {$brandId["brand_id"]}"
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $brandId["brand_id"], $this->codeExampleText["ResultsPageText"])
             );
         } # If the brand name is null the brand name is a duplicate.
         else {
             $GLOBALS['twig']->display(
                 'error_eg028.html',
                 [
-                    'title' => 'Duplicate Brand Name'
+                    'title' => 'Duplicate Brand Name',
+                    'common_texts' => $this->getCommonText()
                 ]
             );
         }

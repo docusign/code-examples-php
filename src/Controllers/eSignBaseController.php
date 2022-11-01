@@ -74,6 +74,7 @@ abstract class eSignBaseController extends BaseController
     ): void {
         if (empty($eg)) {
             $eg = static::EG;
+            $this->codeExampleText = $this->getPageText(static::EG);
         }
         $method = $_SERVER['REQUEST_METHOD'];
         if ($method == 'GET') {
@@ -116,7 +117,9 @@ abstract class eSignBaseController extends BaseController
                 $eg . '.html',
                 [
                     'title' => $this->homePageTitle($eg),
-                    'show_doc' => false
+                    'show_doc' => false,
+                    'launcher_texts' => $_SESSION['API_TEXT']['Groups'],
+                    'common_texts' => $this->getCommonText()
                 ]
             );
         } else {
@@ -154,7 +157,9 @@ abstract class eSignBaseController extends BaseController
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
                     'signer_email' => $GLOBALS['DS_CONFIG']['signer_email'],
-                    'pause_envelope_ok' => $pause_envelope_ok
+                    'pause_envelope_ok' => $pause_envelope_ok,
+                    'code_example_text' => $this->codeExampleText,
+                    'common_texts' => $this->getCommonText()
                 ];
 
                 $GLOBALS['twig']->display($this->routerService->getTemplate($eg), $displayOptions);

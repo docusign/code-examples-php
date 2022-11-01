@@ -3,6 +3,7 @@
 namespace QuickACG;
 
 use Example\Services\CodeGrantService;
+use Example\Services\ManifestService;
 use Example\Services\IRouterService;
 
 class RouterService implements IRouterService
@@ -13,10 +14,6 @@ class RouterService implements IRouterService
 
     private const TEMPLATES = [
         'eg001' => 'esignature/quickEmbeddedSigning.html'
-    ];
-
-    private const TITLES = [
-        'eg001' => 'Use embedded signing'
     ];
 
     private const SESSION_VALUES = [
@@ -70,6 +67,7 @@ class RouterService implements IRouterService
                 break;
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+                $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile('eSignature'));
                 $controller = '\Example\\' . $this->getController($page);
                 new $controller($page);
                 break;
@@ -177,6 +175,6 @@ class RouterService implements IRouterService
      */
     public function getTitle($eg): string
     {
-        return self::TITLES[$eg];
+        return ManifestService::getPageText($eg)["ExampleName"];
     }
 }

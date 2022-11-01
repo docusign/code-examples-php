@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Click;
 
 use Example\Controllers\ClickApiBaseController;
 use Example\Services\Examples\Click\CreateClickwrapService;
+use Example\Services\ManifestService;
 
 class EG001CreateClickwrap extends ClickApiBaseController
 {
@@ -40,11 +41,10 @@ class EG001CreateClickwrap extends ClickApiBaseController
         if ($clickwrapSummaryResponse) {
             $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
             $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
-            $this->clientService->showDoneTemplate(
-                "Create a clickwrap example",
-                "Create a clickwrap example",
-                "Clickwrap $clickwrap_name has been created.",
-                json_encode(json_encode($clickwrapSummaryResponse))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($clickwrapSummaryResponse)),
+                ManifestService::replacePlaceholders("{0}", $clickwrap_name, $this->codeExampleText["ResultsPageText"])
             );
         }
     }

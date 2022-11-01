@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\SMSDeliveryService;
+use Example\Services\ManifestService;
 
 class EG037SMSDelivery extends eSignBaseController
 {
@@ -43,10 +44,10 @@ class EG037SMSDelivery extends eSignBaseController
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Request a signature by SMS delivery",
-                "Request a signature by SMS delivery",
-                "The envelope has been created and sent!<br/> Envelope ID {$envelopeId["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders("{0}", $envelopeId["envelope_id"], $this->codeExampleText["ResultsPageText"])
             );
         }
     }

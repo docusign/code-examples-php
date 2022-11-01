@@ -5,6 +5,7 @@ namespace Example\Services\Examples\eSignature;
 use DocuSign\eSign\Api\EnvelopesApi\UpdateOptions;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Workflow;
+use DocuSign\eSign\Model\EnvelopeUpdateSummary;
 
 class UnpauseSignatureWorkflowService
 {
@@ -18,7 +19,7 @@ class UnpauseSignatureWorkflowService
      * @return string
      */
 
-    public static function unpauseSignatureWorkflow(array $args, $clientService): string
+    public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary 
     {
         # Step 3 Start
         $env = new EnvelopeDefinition([
@@ -28,7 +29,7 @@ class UnpauseSignatureWorkflowService
         $envelope_option = new UpdateOptions();
 
         # Update resend envelope parameter
-        $envelope_option -> setResendEnvelope('true');
+        $envelope_option->setResendEnvelope('true');
         # Step 3 End
 
         # Step 4 Start
@@ -41,6 +42,6 @@ class UnpauseSignatureWorkflowService
         );
         # Step 4 End
 
-        return $envelope['envelope_id'];
+        return $envelope;
     }
 }

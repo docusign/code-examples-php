@@ -145,3 +145,7 @@ pre.json-display {
 float:left;
 margin-left: 10px;
 }
+
+.chooseApiTypeStyle {
+  padding-left: 0;
+}

@@ -8,6 +8,7 @@ namespace Example\Controllers\Examples\eSignature;
 
 use Example\Controllers\eSignBaseController;
 use Example\Services\Examples\eSignature\SigningViaEmailService;
+use Example\Services\ManifestService;
 
 class EG002SigningViaEmail extends eSignBaseController
 {
@@ -52,10 +53,14 @@ class EG002SigningViaEmail extends eSignBaseController
         if ($envelopeResponse) {
             $_SESSION["envelope_id"] = $envelopeResponse["envelope_id"]; # Save for use by other examples
                                                                 # which need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Envelope sent",
-                "Envelope sent",
-                "The envelope has been created and sent!<br/> Envelope ID {$envelopeResponse["envelope_id"]}."
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                null,
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeResponse["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

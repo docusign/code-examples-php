@@ -44,10 +44,8 @@ class Eg002WebQueryEndpoint extends MonitorBaseController
             );
 
             if ($monitoringData) {
-                $this->clientService->showDoneTemplate(
-                    "Post web query",
-                    "Query monitoring data with filters",
-                    "Results from DataSet:postWebQuery method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode($monitoringData)
                 );
             }

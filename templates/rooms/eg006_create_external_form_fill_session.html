@@ -1,61 +1,103 @@
 {% extends "base.html" %}  {% block content %}
 
-<h4>Creating an external form fill session</h4>
-<p>This example demonstrates how to create an
-    <a href="https://developers.docusign.com/rooms-api/guides/forms" target="_blank">external form fill session</a>
-    using the Rooms API:<br/>
-    the result of this code example is the URL for the form fill session, which you can embed<br/>
-    in your integration or send to the user.</p>
+{% set redirectToForthCodeExample = "href='" ~ app_url ~ "index.php?page=reg004'" %}
+{% set redirect4Number = 0 %}
+{% set formNumber = 0 %}
+{% set documentsInputNumber = 0 %}
+{% set redirectToFirstCodeExample = "href='" ~ app_url ~ "index.php?page=reg001'" %}
+{% set redirect1Number = 1 %}
+{% set form2Number = 1 %}
+{% set documentsInputNumber = 0 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API methods used:
-    <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Rooms/Rooms/GetRooms">Rooms::GetRooms</a>,
-    <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraries">Forms::GetFormLibraries</a>,
-    <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/FormLibraries/GetFormLibraryForms">Forms::GetFormLibraryForms</a> and <br/>
-    <a target ='_blank' href="https://developers.docusign.com/rooms-api/reference/Forms/ExternalFormFillSessions/CreateExternalFormFillSession">Forms::CreateExternalFormFillSession</a>
-</p>
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
 
 <p>
-    View source file <a target="_blank" href="{{ source_url | raw }}">{{ source_file }}</a> on GitHub.
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
   </p>
 
     {% if rooms %}
         <form class="eg" action="" method="post" data-busy="form">
-            <div class="form-group">
-            <label for="room_id">Room</label>
-                <select class="form-control" id="room_id" name="room_id">
-                    {% for room in rooms %}
-                        <option value="{{ room.room_id }}">{{ room.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+                <p> 
+                    {{ code_example_text['Forms'][form2Number]['FormName'] | raw }}
+                </p>
+
+                <div class="form-group">
+                    <label for="room_id">
+                        {{ code_example_text['Forms'][form2Number]['Inputs'][documentsInputNumber]['InputName'] | raw }}
+                    </label>
+
+                    <select class="form-control" id="room_id" name="room_id">
+                        {% for room in rooms %}
+                            <option value="{{ room.room_id }}">{{ room.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <button type="submit" class="btn btn-docu">Get forms</button>
          </form>
     {% elseif room_name and forms %}
         <form class="eg" action="" method="post" data-busy="form">
-            <label for="room_name">Room name</label>
-            <input type="text" class="form-control" id="room_name" name="room_name" value="{{ room_name }}" readonly><br/>
+            <p> 
+                {{ code_example_text['Forms'][formNumber]['FormName'] | raw }}
+            </p>
+
+            <label for="room_name">
+                Room name
+            </label>
+            <input type="text" 
+                class="form-control" 
+                id="room_name" 
+                name="room_name" 
+                value="{{ room_name }}" 
+                readonly><br/>
             <input type="hidden" class="form-control" name="room_id" value="{{ room_id }}" readonly>
             <div class="form-group">
-                <label for="form_id">Form</label>
-                    <select class="form-control" id="form_id" name="form_id">
-                        {% for form in forms %}
-                            <option value="{{ form.docu_sign_form_id }}">{{ form.name }}</option>
-                        {% endfor %}
-                    </select>
+                <label for="form_id">
+                    {{ code_example_text['Forms'][formNumber]['Inputs'][documentsInputNumber]['InputName'] | raw }}
+                </label>
+
+                <select class="form-control" id="form_id" name="form_id">
+                    {% for form in forms %}
+                        <option value="{{ form.docu_sign_form_id }}">{{ form.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <button type="submit" class="btn btn-docu">Submit</button>
+            <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
         </form>
     {% elseif room_name and not forms %}
-        <p>Problem: please first add form to the room using <a href="reg004">example 4</a> <br/>
-            Thank you.</p>
+        <p>
+            {{ code_example_text['RedirectsToOtherCodeExamples'][redirect4Number]['RedirectText']|replace({ ("{0}"): redirectToForthCodeExample }) | raw }}
+        </p>
     {% else %}
-<p>Problem: please first create a room using <a href="reg001">example 1</a> or <a href="reg002">example 2</a> <br/>
-    Thank you.</p>
+        <p>
+            {{ code_example_text['RedirectsToOtherCodeExamples'][redirect1Number]['RedirectText']|replace({ ("{0}"): redirectToFirstCodeExample }) | raw }}
+        </p>
     {% endif %}
 {% endblock %}

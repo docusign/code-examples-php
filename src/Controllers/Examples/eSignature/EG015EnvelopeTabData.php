@@ -42,10 +42,8 @@ class EG015EnvelopeTabData extends eSignBaseController
             if ($envelopeFormData) {
                 # results is an object that implements ArrayAccess. Convert to a regular array:
                 $envelopeFormData = json_decode((string)$envelopeFormData, true);
-                $this->clientService->showDoneTemplate(
-                    "Envelope status results",
-                    "Envelope status results",
-                    "Results from the Envelopes::get method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode(json_encode($envelopeFormData))
                 );
             }

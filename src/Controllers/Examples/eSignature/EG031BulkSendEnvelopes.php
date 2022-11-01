@@ -43,10 +43,8 @@ class EG031BulkSendEnvelopes extends eSignBaseController
 
         if ($bulkSendBatchStatus) {
             # That need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Bulk send envelopes",
-                "Bulk send envelopes",
-                "Results from BulkSend:getBulkSendBatchStatus method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($bulkSendBatchStatus))
             );
         }

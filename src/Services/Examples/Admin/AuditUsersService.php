@@ -7,6 +7,7 @@ use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UsersDrilldownResponse;
 use Example\Services\AdminApiClientService;
+use Example\Services\ManifestService;
 
 class AuditUsersService
 {
@@ -62,7 +63,8 @@ class AuditUsersService
                 'error.html',
                 [
                     'error_code' => $e->getCode(),
-                    'error_message' => $e->getMessage()
+                    'error_message' => $e->getMessage(),
+                    'common_texts' => ManifestService::getCommonTexts()
                 ]
             );
             exit;

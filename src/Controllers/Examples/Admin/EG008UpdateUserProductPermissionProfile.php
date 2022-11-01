@@ -87,10 +87,8 @@ class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController
             );
 
             if ($productPermissionProfileResponse) {
-                $this->clientService->showDoneTemplate(
-                    "Update user product permission profiles using an email address",
-                    "Update user product permission profiles using an email address",
-                    "Results from MultiProductUserManagement:addUserProductPermissionProfilesByEmail method:",
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
                     json_encode($productPermissionProfileResponse->__toString())
                 );
             }

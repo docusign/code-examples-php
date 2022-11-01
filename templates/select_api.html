@@ -2,12 +2,10 @@
 {% block content %}
 
 <div style="margin:1% 5%;">
-    <h1 class="display-4">Please choose an API</h1>
-
     <form method="post" data-busy="form" action="{{app_url ~ 'index.php?page=must_authenticate'}}">
-        <div class="form-group col-md-5">
-            <label for="api_type">Please choose your API</label>
-            <select class="form-control" id="api_type" name="api_type">
+        <div class="form-group">
+            {{ common_texts["SelectAPIPage"]["SelectAPIHeader"] | raw }}
+            <select class="form-control col-md-5" id="api_type" name="api_type">
                 <option value="ESignature">eSignature API</option>
                 <option value="Admin">Admin API</option>
                 <option value="Click">Click API</option>
@@ -16,9 +14,9 @@
             </select>
         </div>
 
-        <div class="form-group col-md-5" style="padding-top: .5rem;">
+        <div class="form-group col-md-5 chooseApiTypeStyle" style="padding-top: .5rem;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <button type="submit" class="btn btn-docu">Choose your desired API</button>
+            <button type="submit" class="btn btn-docu">{{ common_texts["SelectAPIPage"]["SelectAPIButton"] | raw }}</button>
         </div>
 
     </form>

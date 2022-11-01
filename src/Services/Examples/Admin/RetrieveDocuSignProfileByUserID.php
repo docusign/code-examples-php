@@ -12,14 +12,14 @@ class RetrieveDocuSignProfileByUserId
      * @param string $organizationId
      * @param string $userId
      * @param AdminApiClientService $clientService
-     * @return mixed
+     * @return array
      * @throws ApiException
      */
     public static function getDocuSignProfileByUserId(
         string $organizationId,
         string $userId,
         AdminApiClientService $clientService
-    ): mixed {
+    ): array {
         $usersApi = $clientService->getUsersApi();
 
         $usersResponse = $usersApi->getUserDSProfile($organizationId, $userId);

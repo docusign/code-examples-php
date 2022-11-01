@@ -49,12 +49,8 @@ class EG025PermissionSetUserGroup extends eSignBaseController
 
         if ($updatedGroups) {
             # That need an envelope_id
-            $this->clientService->showDoneTemplate(
-                "Set a permission profile to a group of users",
-                "Set a permission profile to a group of users",
-                "The permission profile has been set!<br/>
-                Permission profile id: {$updatedGroups['groups'][0]['permissionProfileId']}<br/>
-                Group id: {$updatedGroups['groups'][0]['groupId']}"
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText
             );
         }
     }

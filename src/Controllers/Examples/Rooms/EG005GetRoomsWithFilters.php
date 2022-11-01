@@ -4,6 +4,7 @@ namespace Example\Controllers\Examples\Rooms;
 
 use Example\Controllers\RoomsApiBaseController;
 use Example\Services\Examples\Rooms\GetRoomsWithFiltersService;
+use Example\Services\ManifestService;
 
 class EG005GetRoomsWithFilters extends RoomsApiBaseController
 {
@@ -43,11 +44,14 @@ class EG005GetRoomsWithFilters extends RoomsApiBaseController
             $start_date = $this->args['start_date'];
             $end_date = $this->args['end_date'];
             $roomSummaryList = json_decode((string)$roomSummaryList, true);
-            $this->clientService->showDoneTemplate(
-                "Rooms filtered by date",
-                "Rooms that have had their field data, updated within the time period between $start_date and $end_date",
-                "Results from the Rooms::GetRooms methods",
-                json_encode(json_encode($roomSummaryList))
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
+                json_encode(json_encode($roomSummaryList)),
+                ManifestService::replacePlaceholders(
+                    "{1}", 
+                    $end_date, 
+                    ManifestService::replacePlaceholders("{0}", "$start_date", $this->codeExampleText["ExampleName"])
+                )
             );
         }
     }

@@ -52,10 +52,8 @@ class EG004AddFormsToRoom extends RoomsApiBaseController
 
         if ($roomsDocument) {
             $roomsDocument = json_decode((string)$roomsDocument, true);
-            $this->clientService->showDoneTemplate(
-                "Add a form to a room",
-                "The DocuSign Form was successfully added to the room",
-                "Results from the Rooms::AddFormToRoom method",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($roomsDocument))
             );
         }

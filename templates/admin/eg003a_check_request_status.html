@@ -1,26 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
-<h4>3a. Check request status</h4>
-<p>
-    Check the status of your pending request and, if complete, obtain a URL that you can call to download the CSV file containing the export data.
-</p>
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 {% if show_doc %}
   <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
 {% endif %}
 
-<p>API method used:
-  <a target='_blank' rel='noopener noreferrer'
-     href='https://developers.docusign.com/docs/admin-api/reference/bulkoperations/userexport/getuserlistexport/'>UserExport:getUserListExport</a>.
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
 </p>
 
 {% if export_id == 1 %}
-  <p>
-    Uses the export information that was recieved during previous step
-  </p>
   <form class="eg" action="" method="post">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">{{ common_texts["SubmitButton"] | raw }}</button>
   </form>
 {% else %}
   <p>

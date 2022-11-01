@@ -35,10 +35,8 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
         $results = $this->checkRequestStatus();
 
         if ($results) {
-            $this->clientService->showDoneTemplate(
-                "Check request status",
-                "Admin API data response output:",
-                "Results from UserExport:getUserListExport method:",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($results))
             );
         }

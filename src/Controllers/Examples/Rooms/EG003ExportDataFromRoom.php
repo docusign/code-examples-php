@@ -41,10 +41,8 @@ class EG003ExportDataFromRoom extends RoomsApiBaseController
 
         if ($fieldData) {
             $fieldData = json_decode((string)$fieldData, true);
-            $this->clientService->showDoneTemplate(
-                "Field data associated with a room",
-                "Field data associated with a room",
-                "Results from the Rooms::GetRoomFieldData method",
+            $this->clientService->showDoneTemplateFromManifest(
+                $this->codeExampleText,
                 json_encode(json_encode($fieldData))
             );
         }

@@ -5,6 +5,7 @@ namespace Example\Controllers\Examples\Admin;
 use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\Examples\Admin\BulkExportUserDataService;
+use Example\Services\ManifestService;
 
 class EG003BulkExportUserData extends AdminApiBaseController
 {
@@ -41,14 +42,14 @@ class EG003BulkExportUserData extends AdminApiBaseController
                 $organizationId
             );
             $filePath = realpath(
-                    $_SERVER["DOCUMENT_ROOT"]
-                ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
+                $_SERVER["DOCUMENT_ROOT"]
+            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
             if ($bulkExports) {
-                $this->clientService->showDoneTemplate(
-                    "Bulk export user data",
-                    "Bulk export user data",
-                    "User data exported to $filePath<br>from UserExport:getUserListExport method:",
-                    json_encode(json_encode($bulkExports))
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
+                    json_encode(json_encode($bulkExports)),
+                    null,
+                    ManifestService::replacePlaceholders("{0}", $filePath, $this->codeExampleText["ResultsPageText"])
                 );
             }
         } catch (ApiException $e) {
