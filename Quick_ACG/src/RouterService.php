@@ -6,14 +6,17 @@ use Example\Services\CodeGrantService;
 use Example\Services\ManifestService;
 use Example\Services\IRouterService;
 
+
 class RouterService implements IRouterService
 {
     private const CONTROLLER = [
-        'eg001' => 'EG001EmbeddedSigning'
+        'eg001' => 'EG001EmbeddedSigning',
+        'eg041' => 'eSignature\EG041CFREmbeddedSigning'
     ];
 
     private const TEMPLATES = [
-        'eg001' => 'esignature/quickEmbeddedSigning.html'
+        'eg001' => 'esignature/quickEmbeddedSigning.html',
+        'eg041' => 'esignature/eg041_cfr_embedded_signing.html',
     ];
 
     private const SESSION_VALUES = [
@@ -30,7 +33,8 @@ class RouterService implements IRouterService
         'envelope_documents',
         'template_id',
         'api_type',
-        'auth_service'
+        'auth_service',
+        'cfr_enabled'
     ];
 
     public $authService;
@@ -53,7 +57,12 @@ class RouterService implements IRouterService
      */
     public function router(): void
     {
-        $page = $_GET['page'] ?? 'eg001';
+
+        $embedSwitch = 'eg001';
+        if ($_SESSION['cfr_enabled'] == 'enabled'){
+            $embedSwitch = 'eg041';
+        }
+        $page = $_GET['page'] ?? $embedSwitch;
 
         switch ($page) {
             case 'select_api':
@@ -68,7 +77,9 @@ class RouterService implements IRouterService
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile('eSignature'));
-                $controller = '\Example\\' . $this->getController($page);
+                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+                // var_dump($controller);
+                // die;
                 new $controller($page);
                 break;
         }

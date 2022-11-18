@@ -49,7 +49,7 @@ class ManifestService
         if ($_SESSION['API_TEXT'] == null) {
             $_SESSION['API_TEXT'] = ManifestService::loadManifestData(
                 ManifestService::getLinkToManifestFile(
-                    $_SESSION["api_type"]
+                $_SESSION["api_type"]
                 )
             );
         }

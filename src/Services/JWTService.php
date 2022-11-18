@@ -2,10 +2,12 @@
 
 namespace Example\Services;
 
+use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
 use Example\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use Example\Services\utils;
 use Throwable;
 
 class JWTService
@@ -37,6 +39,7 @@ class JWTService
         }
     }
 
+
     /**
      * DocuSign login handler
      * @throws \DocuSign\eSign\Client\ApiException
@@ -49,6 +52,8 @@ class JWTService
         if (is_null(self::$account)) {
             self::$account = self::$apiClient->getUserInfo(self::$access_token->getAccessToken());
         }
+        $cfr = new utils();
+        $_SESSION['cfr_enabled'] = $cfr->isCFR(self::$access_token["access_token"], self::$account[0]["accounts"][0]["account_id"], self::$account[0]["accounts"][0]["base_uri"] . "/restapi");
 
         $redirectUrl = false;
         if (isset($_SESSION['eg'])) {

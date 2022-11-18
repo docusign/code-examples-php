@@ -2,10 +2,12 @@
 
 namespace Example\Controllers;
 
+use DocuSign\eSign\Client\ApiException;
 use Example\Services\RouterService;
 use QuickACG\RouterService as QuickRouterService;
 use Example\Services\SignatureClientService;
 use Example\Services\IRouterService;
+use Example\Services\ManifestService;
 
 abstract class eSignBaseController extends BaseController
 {
@@ -119,11 +121,35 @@ abstract class eSignBaseController extends BaseController
                     'title' => $this->homePageTitle($eg),
                     'show_doc' => false,
                     'launcher_texts' => $_SESSION['API_TEXT']['Groups'],
-                    'common_texts' => $this->getCommonText()
+                    'common_texts' => $this->getCommonText(),
+                    'cfr_enabled' =>  $_SESSION['cfr_enabled']
                 ]
             );
         } else {
             if ($this->routerService->ds_token_ok()) {
+
+                $cfrStatus = $this->getPageText($eg)['CFREnabled'];
+                // this example is not compatible with cfr
+
+                // var_dump($cfrStatus);
+                // var_dump($_SESSION['cfr_enabled']);
+            // die;
+                if($_SESSION['cfr_enabled'] == "enabled" && $cfrStatus == "NonCFR"){
+
+                    $GLOBALS['twig']->display("error_cfr.html",
+                    [
+                        'common_texts' => ManifestService::getCommonTexts()
+                    ]);
+                    exit;
+
+                } elseif (!isset($_SESSION['cfr_enabled'])  && $cfrStatus == "CFROnly") {
+                    $this->clientService->showErrorTemplate(new ApiException("This example requires a CFR Part 11 account"));
+                    exit;
+                }
+
+
+                
+
                 $pause_envelope_ok = $_SESSION["pause_envelope_id"] ?? false;
                 $envelope_id = $_SESSION['envelope_id'] ?? false;
                 $template_id = $_SESSION['template_id'] ?? false;
