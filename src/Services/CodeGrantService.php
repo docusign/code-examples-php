@@ -4,6 +4,8 @@ namespace Example\Services;
 
 use Example\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use Example\Services\utils;
+
 
 class CodeGrantService
 {
@@ -66,6 +68,8 @@ class CodeGrantService
         );
     }
 
+
+
     /**
      * DocuSign login handler
      * @param $redirectUrl
@@ -103,7 +107,11 @@ class CodeGrantService
                 $_SESSION['ds_user_email'] = $user->getEmail();
 
                 $account_info = $user->getAccountInfo();
+
                 $base_uri_suffix = '/restapi';
+
+                $cfr = new utils();
+                $_SESSION['cfr_enabled'] = $cfr->isCFR($_SESSION['ds_access_token'], $account_info["account_id"], $account_info["base_uri"] . $base_uri_suffix);
                 $_SESSION['ds_account_id'] = $account_info["account_id"];
                 $_SESSION['ds_account_name'] = $account_info["account_name"];
                 $_SESSION['ds_base_path'] = $account_info["base_uri"] . $base_uri_suffix;

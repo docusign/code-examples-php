@@ -56,6 +56,7 @@ class RouterService implements IRouterService
         'eg038' => 'eSignature\EG038ResponsiveSigning',
         'eg039' => 'eSignature\EG039InPersonSigning',
         'eg040' => 'eSignature\EG040SetDocumentsVisibility',
+        'eg041' => 'eSignature\EG041CFREmbeddedSigning',
         'reg001' => 'Rooms\EG001CreateRoomWithData',
         'reg002' => 'Rooms\EG002CreateRoomWithTemplate',
         'reg003' => 'Rooms\EG003ExportDataFromRoom',
@@ -135,6 +136,7 @@ class RouterService implements IRouterService
         "eg038" => "esignature/eg038_responsive_signing.html",
         "eg039" => "esignature/eg039_in_person_signing.html",
         "eg040" => "esignature/eg040_set_document_visibility.html",
+        'eg041' => 'esignature/eg041_cfr_embedded_signing.html',
         "reg001" => "rooms/eg001_create_room_with_data.html",
         "reg002" => "rooms/eg002_create_room_with_template.html",
         "reg003" => "rooms/eg003_export_data_from_room.html",
@@ -228,7 +230,22 @@ class RouterService implements IRouterService
             // We're not logged in and Quickstart is true:  Route to the 1st example.
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
                 $_SESSION['beenHere'] = "false";
-                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
+
+
+                if ($_SESSION['cfr_enabled'] == "enabled"){
+
+                    header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg041');
+
+                }
+
+                else {
+
+                    header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
+                }
+                
+
+
+
             } elseif ($this->ds_token_ok() == false) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
             } else {
@@ -319,6 +336,7 @@ class RouterService implements IRouterService
         return $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
     }
 
+    
     /**
      * Get Controller for the template example
      *

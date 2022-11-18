@@ -34,7 +34,10 @@
       <h2>{{ groups["Name"] | raw }}</h2>
 
       {% for example in groups["Examples"] %}
-        {% if (example["SkipForLanguages"] == null) or  ('php' not in (example["SkipForLanguages"]|lower)) %}
+        {% if ((example["SkipForLanguages"] == null) or  ('php' not in (example["SkipForLanguages"]|lower)))  %}
+        {% if ((cfr_enabled == "enabled" and example["CFREnabled"] == "CFROnly") or (cfr_enabled is null and example["CFREnabled"] == "NonCFR")) or (example["CFREnabled"] == "AllAccounts") %} 
+
+
           <h4 id="{{ 'example' ~ '%03d'|format(example['ExampleNumber']) }}">
             <a href="{{ app_url ~ 'index.php?page=' ~ 'eg%03d'|format(example['ExampleNumber']) }}">
               {{ example["ExampleName"] | raw }}
@@ -64,7 +67,11 @@
               {% endif %}
             {% endfor %}
           </p>
-        {% endif %}
+          {% endif %}
+
+          {% endif %}
+
+
       {% endfor %}
     {% endfor %}
 </div>
