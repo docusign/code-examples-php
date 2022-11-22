@@ -43,7 +43,7 @@ class CreateClickwrapService
         );
         # Read the PDF from the disk
         # The exception will be raised if the file doesn't exist
-        $doc_file = 'World_Wide_Corp_fields.pdf';
+        $doc_file = 'TermsOfService.pdf';
         $content_bytes = file_get_contents($demoDocsPath . $doc_file);
         $base64_file_content = base64_encode($content_bytes);
 

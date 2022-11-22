@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set redirectToFirstCodeExample = "href='" ~ app_url ~ "index.php?page=ceg001'" %}
+{% set redirectToSecondCodeExample = "href='" ~ app_url ~ "index.php?page=ceg002'" %}
+
+{% set formNumber = 0 %}
+{% set clickwrapInputNumber = 0 %}
+
+{% set fullNameInputNumber = 1 %}
+{% set emailAddressInputNumber = 2 %}
+{% set companyInputNumber = 3 %}
+{% set jobTitleInputNumber = 4 %}
+{% set dateInputNumber = 5 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+  </p>
+
+  {% if args['clickwraps'] is empty and args['inactives'] is empty %}
+  <p class="">
+      {{ code_example_text['RedirectsToOtherCodeExamples'][0]['RedirectText']|replace({ ("{0}"): redirectToFirstCodeExample }) | raw }}
+  </p>
+  {% elseif args['inactives'] is not empty and args['clickwraps'] is empty %}
+  <p class="">
+      {{ code_example_text['RedirectsToOtherCodeExamples'][1]['RedirectText']|replace({ ("{0}"): redirectToSecondCodeExample }) | raw }}
+  </p>
+  {% else %}
+  <p>{{ code_example_text['Forms'][formNumber]['FormName'] | raw }}</p>
+  
+
+<form class="eg" action="" method="post" data-busy="form-download">
+    <div class="form-group">
+        <label for="clickwrap_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][clickwrapInputNumber]['InputName'] | raw }}
+        </label>
+
+        <select class="custom-select" id="clickwrap_id"
+                name="clickwrap_id">
+            {% for clickwrap in args['clickwraps'] %}
+            <option value="{{ clickwrap['clickwrap_id'] }}">{{ clickwrap['clickwrap_name'] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <p>{{ common_texts["HelpingTexts"]["DynamicContentValue"] | raw  }}</p>
+<p>{{ common_texts["HelpingTexts"]["DynamicContentNote"] | raw  }}</p>
+
+
+<div class="form-group">
+    <input type="text" 
+            class="form-control" 
+            id="fullName" 
+            name="fullName"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][fullNameInputNumber]['InputName']}}"
+            required />
+        </div>
+        <div class="form-group">
+            <input type="email" 
+                    class="form-control" 
+                    id="emailAddress" 
+                    name="emailAddress"
+                    placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][emailAddressInputNumber]['InputName']}}"
+                    required />
+                </div>
+                <div class="form-group">
+                    <input type="text" 
+                            class="form-control" 
+                            id="company" 
+                            name="company"
+                            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][companyInputNumber]['InputName']}}"
+                            required />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" 
+                                    class="form-control" 
+                                    id="jobTitle" 
+                                    name="jobTitle"
+                                    placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][jobTitleInputNumber]['InputName']}}"
+                                    required />
+                                </div>
+
+                        <div class="form-group">
+                            <input type="date" 
+                                    class="form-control" 
+                                    id="date" 
+                                    name="date"
+                                    placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][dateInputNumber]['InputName']}}"
+                                    required />
+                                </div>
+
+                                                                                                    
+
+
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+  </form>
+  
+</div>
+
+{% endif %}
+
+{% endblock %}

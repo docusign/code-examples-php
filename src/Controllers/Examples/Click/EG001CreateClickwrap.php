@@ -39,7 +39,7 @@ class EG001CreateClickwrap extends ClickApiBaseController
         );
 
         if ($clickwrapSummaryResponse) {
-            $clickwrap_name = $clickwrapSummaryResponse['clickwrapName'];
+            $clickwrap_name = $clickwrapSummaryResponse['clickwrap_name'];
             $clickwrapSummaryResponse = json_decode((string)$clickwrapSummaryResponse, true);
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
