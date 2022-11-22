@@ -32,8 +32,19 @@ class SelectAPI
         }
     }
 
+    
     private function getController()
     {
+        /* 
+        we don't know if the api_type has been set, 
+        if it has never been set, this will trigger an 
+        error in the manifest, therefore, we'll set it 
+        to ESignature for the Manifest service to work. 
+        */
+        if(!isset($_SESSION['api_type'])){
+            $_SESSION['api_type'] = "ESignature";
+        }
+
         $GLOBALS['twig']->display(
             'select_api.html',
             [
