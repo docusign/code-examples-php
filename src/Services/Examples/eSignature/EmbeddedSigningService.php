@@ -64,7 +64,7 @@ class EmbeddedSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
+    public static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
         #
@@ -111,7 +111,7 @@ class EmbeddedSigningService
         # The Tabs object wants arrays of the different field/tab types
         $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
 
-        # Next, create the top level envelope definition and populate it.
+        // Next, create the top level envelope definition and populate it.
         $envelope_definition = new EnvelopeDefinition(
             [
                 'email_subject' => "Please sign this document sent from the PHP SDK",
