@@ -4,6 +4,11 @@
                   "DocuSign\\OAuth2\\Client\\Provider\\": "src/"
                  }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Example\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
             "@code-sniffer"
@@ -24,6 +29,7 @@
         "guzzlehttp/guzzle": "7.4.5",
         "firebase/php-jwt": "5.5.1",
         "mashape/unirest-php": "3.0.4",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^9.5"
     }
 }
