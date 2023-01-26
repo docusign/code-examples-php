@@ -97,7 +97,9 @@ class DocuSign extends AbstractProvider
      * Get the default scopes used by this provider.
      *
      * This should not be a complete list of all scopes, but the minimum
-     * required for the provider user interface!
+     * required for the provider user interface! Note that the signature scope
+     * is necessary to check against cfrPt11 compatibility and may not be
+     * required if your making non eSignature API calls
      *
      * @return array
      */
@@ -106,7 +108,7 @@ public function getDefaultScopes(): array
 {
     if($_SESSION['api_type'] == 'Rooms'){
         return [
-            "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
+            "signature room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
             . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
         ];
     } elseif($_SESSION['api_type'] == 'Click'){
