@@ -25,6 +25,9 @@ tmtags
 Thumbs.db
 Desktop.ini
 
+# add exception for workflow folder
+!.github
+
 # ignore Composer downloads
 /vendor/*
 /Quick_ACG/vendor/*

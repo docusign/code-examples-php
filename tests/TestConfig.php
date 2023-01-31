@@ -2,7 +2,12 @@
 
 namespace Example\Tests;
 
-require_once __DIR__ . '/../ds_config.php';
+$configFile = __DIR__ . '/../ds_config.php';
+
+if (file_exists($configFile)) {
+    include_once $configFile;
+}
+
 
 final class TestConfig
 {
@@ -107,12 +112,21 @@ final class TestConfig
         $this->host = "https://demo.docusign.net/restapi";
         $this->oauthBasePath = "account-d.docusign.com";
         $this->privateKey = $this->pathToDocuments . "private.key";
-
-        $this->impersonatedUserId = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'];
-        $this->clientId = $GLOBALS['JWT_CONFIG']['ds_client_id'];
-        $this->signerName = $GLOBALS['DS_CONFIG']['signer_name'];
-        $this->signerEmail = $GLOBALS['DS_CONFIG']['signer_email'];
         $this->basePath = "https://demo.docusign.net";
+
+        if (file_exists(__DIR__ . '/../ds_config.php')) {
+            $this->impersonatedUserId = $GLOBALS['JWT_CONFIG']['ds_impersonated_user_id'];
+            $this->clientId = $GLOBALS['JWT_CONFIG']['ds_client_id'];
+            $this->signerName = $GLOBALS['DS_CONFIG']['signer_name'];
+            $this->signerEmail = $GLOBALS['DS_CONFIG']['signer_email'];
+            $this->privateKey = file_get_contents($GLOBALS['JWT_CONFIG']['private_key_file']);
+        } else {
+            $this->impersonatedUserId = getenv("IMPERSONATED_USER_ID");
+            $this->clientId = getenv("CLIENT_ID");
+            $this->signerName = getenv("SIGNER_NAME");
+            $this->signerEmail = getenv("SIGNER_EMAIL");
+            $this->privateKey = getenv("PRIVATE_KEY");
+        }
     }
 
     /**

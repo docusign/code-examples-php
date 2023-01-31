@@ -1,0 +1,39 @@
+name: PHP Composer
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Run tests
+      env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          IMPERSONATED_USER_ID: ${{ secrets.IMPERSONATED_USER_ID }}
+          PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          SIGNER_EMAIL: ${{ secrets.SIGNER_EMAIL }}
+          SIGNER_NAME: ${{ secrets.SIGNER_NAME }}
+      run: composer run-script test

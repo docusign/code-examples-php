@@ -21,10 +21,10 @@ class SigningViaEmailService
      * @return array ['redirect_url']
      */
     # ***DS.snippet.0.start
-    public static function signingViaEmail(array $args, $clientService, $demoDocsPath): array
+    public static function signingViaEmail(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = SigningViaEmailService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
+        $envelope_definition = SigningViaEmailService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docxFile, $pdfFile);
         $envelope_api = $clientService->getEnvelopeApi();
 
         # 2. call Envelopes::create API method
@@ -58,7 +58,7 @@ class SigningViaEmailService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): EnvelopeDefinition
     {
         # document 1 (html) has sign here anchor tag **signature_1**
         # document 2 (docx) has sign here anchor tag /sn1/
@@ -77,9 +77,9 @@ class SigningViaEmailService
         $doc1_b64 = base64_encode($clientService->createDocumentForEnvelope($args));
         # read files 2 and 3 from a local directory
         # The reads could raise an exception if the file is not available!
-        $content_bytes = file_get_contents($demoDocsPath . $GLOBALS['DS_CONFIG']['doc_docx']);
+        $content_bytes = file_get_contents($demoDocsPath . $docxFile);
         $doc2_b64 = base64_encode($content_bytes);
-        $content_bytes = file_get_contents($demoDocsPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
+        $content_bytes = file_get_contents($demoDocsPath . $pdfFile);
         $doc3_b64 = base64_encode($content_bytes);
 
         # Create the document models

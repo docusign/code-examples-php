@@ -40,10 +40,12 @@ class EG001EmbeddedSigning extends eSignBaseController
         # 1. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
+        $pdfDoc = $GLOBALS['DS_CONFIG']['doc_pdf'];
         $envelopeIdAndReturnUrl = EmbeddedSigningService::worker(
             $this->args,
             $this->clientService,
-            self::DEMO_DOCS_PATH
+            self::DEMO_DOCS_PATH,
+            $pdfDoc
         );
 
         if ($envelopeIdAndReturnUrl) {

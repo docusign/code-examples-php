@@ -1,11 +1,7 @@
 <?php
-
 namespace Example\Tests;
-
 use Example\Services\ApiTypes;
 use DocuSign\eSign\Client\ApiClient;
-
-require_once __DIR__ . '/../ds_config.php';
 
 final class JWTLoginMethod
 {
@@ -14,7 +10,6 @@ final class JWTLoginMethod
     const REDIRECT_URL = "https://developers.docusign.com/platform/auth/consent";
     const RESPONSE_TYPE = 'code';
     const EXPIRES_IN = 3600;
-
     function open($target)
     {
         switch (PHP_OS) {
@@ -27,14 +22,11 @@ final class JWTLoginMethod
             default:
                 $opener = 'xdg-open';
         }
-
         exec(sprintf('%s %s', $opener, escapeshellcmd($target)));
     }
-
     public static function jwtAuthenticationMethod(string $apiType): void
     {
         $testConfig = TestConfig::getInstance();
-        $rsaPrivateKey = file_get_contents($GLOBALS['JWT_CONFIG']['private_key_file']);
 
         if ($apiType == ApiTypes::Rooms) {
             $scopes = "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
@@ -47,23 +39,20 @@ final class JWTLoginMethod
         } else {
             $scopes = "signature";
         }
-
         try {
             $apiClient = new ApiClient();
             $apiClient->getOAuth()->setOAuthBasePath(self::OAUTH_BASEPATH);
             $response = $apiClient->requestJWTUserToken(
                 $testConfig->getClientId(),
                 $testConfig->getImpersonatedUserId(),
-                $rsaPrivateKey,
+                $testConfig->getPrivateKey(),
                 $scopes,
                 self::EXPIRES_IN
             );
-
             if (isset($response)) {
                 $access_token = $response[0]['access_token'];
                 // retrieve our API account Id
                 $info = $apiClient->getUserInfo($access_token);
-
                 $account_id = $info[0]["accounts"][0]["account_id"];
                 $testConfig->setBasePath(self::BASEPATH);
                 $testConfig->setAccountId($account_id);
@@ -79,7 +68,6 @@ final class JWTLoginMethod
                         'client_id' => $testConfig->getClientId(),
                         'response_type' => self::RESPONSE_TYPE
                     ]);
-
                 echo "It appears that you are using this integration key for the first time." .
                     "Opening the following link in a browser window:\n";
                 echo $authorizationURL . "\n\n";

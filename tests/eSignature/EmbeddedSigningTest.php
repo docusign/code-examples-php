@@ -26,7 +26,7 @@ final class EmbeddedSigningTest extends TestCase
         // Arrange
         $testConfig = TestConfig::getInstance();
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
-
+        $documentName = 'World_Wide_Corp_lorem.pdf';
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),
@@ -45,7 +45,8 @@ final class EmbeddedSigningTest extends TestCase
         $envelopeIdAndReturnUrl = EmbeddedSigningService::worker(
             $requestArguments,
             $clientService,
-            $this::DEMO_DOCS_PATH
+            $this::DEMO_DOCS_PATH,
+            $documentName
         );
 
         // Assert
@@ -121,7 +122,8 @@ final class EmbeddedSigningTest extends TestCase
         // Act
         $envelope = EmbeddedSigningService::make_envelope(
             $requestArguments,
-            $this::DEMO_DOCS_PATH
+            $this::DEMO_DOCS_PATH,
+            $documentName
         );
 
         // Assert
