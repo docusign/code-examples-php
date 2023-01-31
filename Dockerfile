@@ -60,7 +60,7 @@ COPY src src/
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 COPY composer.json /var/www/html/
 # This are production settings, I'm running with 'no-dev', adjust accordingly 
-# if you need it
+# if you need it  
 RUN composer install
 
 CMD ["php-fpm"]

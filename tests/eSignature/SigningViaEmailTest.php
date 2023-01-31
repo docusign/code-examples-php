@@ -39,6 +39,8 @@ final class SigningViaEmailTest extends TestCase
                 'status' => $status
             ]
         ];
+        $docxDoc = 'World_Wide_Corp_Battle_Plan_Trafalgar.docx';
+        $pdfDoc = 'World_Wide_Corp_lorem.pdf';
 
         $clientService = new SignatureClientService($requestArguments);
 
@@ -46,7 +48,9 @@ final class SigningViaEmailTest extends TestCase
         $envelopeIdAndReturnUrl = SigningViaEmailService::signingViaEmail(
             $requestArguments,
             $clientService,
-            $this::DEMO_DOCS_PATH
+            $this::DEMO_DOCS_PATH,
+            $docxDoc,
+            $pdfDoc
         );
 
         // Assert
@@ -67,6 +71,8 @@ final class SigningViaEmailTest extends TestCase
         $defaultIdThree = '3';
         $anchorUnits = 'pixels';
         $emailSubject = 'Please sign this document set';
+        $docxDoc = 'World_Wide_Corp_Battle_Plan_Trafalgar.docx';
+        $pdfDoc = 'World_Wide_Corp_lorem.pdf';
 
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),
@@ -83,10 +89,10 @@ final class SigningViaEmailTest extends TestCase
         $documentOneBase64 = base64_encode(
             $clientService->createDocumentForEnvelope($requestArguments));
         $contentBytes = file_get_contents(
-            $this::DEMO_DOCS_PATH . $GLOBALS['DS_CONFIG']['doc_docx']);
+            $this::DEMO_DOCS_PATH . $docxDoc);
         $documentTwoBase64 = base64_encode($contentBytes);
         $contentBytes = file_get_contents(
-            $this::DEMO_DOCS_PATH . $GLOBALS['DS_CONFIG']['doc_pdf']);
+            $this::DEMO_DOCS_PATH . $pdfDoc);
         $documentThreeBase64 = base64_encode($contentBytes);
 
         $document1 = new Document([
@@ -137,7 +143,9 @@ final class SigningViaEmailTest extends TestCase
         $envelope = SigningViaEmailService::make_envelope(
             $requestArguments,
             $clientService,
-            $this::DEMO_DOCS_PATH
+            $this::DEMO_DOCS_PATH,
+            $docxDoc,
+            $pdfDoc
         );
 
         // Assert

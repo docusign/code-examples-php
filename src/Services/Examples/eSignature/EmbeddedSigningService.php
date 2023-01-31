@@ -25,10 +25,10 @@ class EmbeddedSigningService
      * @return array ['redirect_url']
      */
     # ***DS.snippet.0.start
-    public static function worker(array $args, SignatureClientService $clientService, string $demoPath): array
+    public static function worker(array $args, SignatureClientService $clientService, string $demoPath, string $pdfFile): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = EmbeddedSigningService::make_envelope($args["envelope_args"], $demoPath);
+        $envelope_definition = EmbeddedSigningService::make_envelope($args["envelope_args"], $demoPath, $pdfFile);
         $envelope_api = $clientService->getEnvelopeApi();
 
         # 2. call Envelopes::create API method
@@ -64,7 +64,7 @@ class EmbeddedSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
+    public static function make_envelope(array $args, string $demoPath, string $pdfFile): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
         #
@@ -72,7 +72,7 @@ class EmbeddedSigningService
         # recipient 1 - signer
         #
         # Read the file
-        $content_bytes = file_get_contents($demoPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
+        $content_bytes = file_get_contents($demoPath . $pdfFile);
         $base64_file_content = base64_encode($content_bytes);
 
         # Create the document model

@@ -21,6 +21,8 @@ final class AddDocToTemplateTest extends TestCase
 {
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
+    private string $redirectUrl = "https://developers.docusign.com/platform/auth/consent";
+
     public function testAddDocToTemplate_CorrectInputValues_ReturnEnvelopeId()
     {
         // Arrange
@@ -49,7 +51,7 @@ final class AddDocToTemplateTest extends TestCase
                 'item' => $itemName,
                 'quantity' => $itemQuantity,
                 'template_id' => $testConfig->getTemplateId(),
-                'ds_return_url' => $this::DEMO_DOCS_PATH
+                'ds_return_url' => $this->redirectUrl
             ]
         ];
 

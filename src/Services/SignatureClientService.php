@@ -42,7 +42,7 @@ class SignatureClientService
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         # Step 2 end
-        $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService() : new RouterService();
+        $this->routerService = isset($GLOBALS['DS_CONFIG']) && $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService() : new RouterService();
     }
 
     /**
