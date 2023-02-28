@@ -74,6 +74,13 @@ class RouterService implements IRouterService
             case 'ds_return':
                 header('Location: ' . '/public', true);
                 break;
+
+            case 'eg001':
+                $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile('eSignature'));
+                $controller = '\Example\\' . $this->getController($page);
+                new $controller($page);
+                break;
+
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile('eSignature'));
