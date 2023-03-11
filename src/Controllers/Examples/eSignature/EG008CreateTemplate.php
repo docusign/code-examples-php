@@ -14,7 +14,7 @@ class EG008CreateTemplate extends eSignBaseController
 {
     const EG = 'eg008'; # reference (and URL) for this example
     const FILE = __FILE__;
-    private string $template_name = 'Example Signer and CC template';
+    private string $template_name = 'Example Signer and CC template v2';
 
     /**
      * Create a new controller instance.

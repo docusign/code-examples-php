@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block content %}
 
+
 <h2>{{ h1 }}</h2>
 <p>{{ message | raw }}</p>
 
@@ -9,9 +10,15 @@
 <p>
 <pre class="json-display"><code id="json-display"></code></pre>
 </p>
+
 {% endif %}
 
 
+
+{% if url %}
+<iframe width="1000" height="800" src="{{ url }}"></iframe> 
+
+{% endif %}
 
 
 {% if import_id == "refreshPage" %}
