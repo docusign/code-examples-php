@@ -8,7 +8,7 @@ use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeTemplate;
 use DocuSign\eSign\Model\ModelList;
-use DocuSign\eSign\Model\Number;
+use DocuSign\eSign\Model\Numerical;
 use DocuSign\eSign\Model\Radio;
 use DocuSign\eSign\Model\RadioGroup;
 use DocuSign\eSign\Model\Recipients;
@@ -138,15 +138,16 @@ class CreateTemplateService
 
         $list1 = CreateTemplateService::createListOfButtonOptions();
 
-        $number1 = new Number(
+        $numerical = new Numerical(
             [
                 'document_id' => "1",
+                'validation_type' => "Currency",
                 'page_number' => "1",
                 'x_position' => "163",
                 'y_position' => "260",
                 'font' => "helvetica",
                 'font_size' => "size14",
-                'tab_label' => "numbersOnly",
+                'tab_label' => "numericalCurrency",
                 'width' => "84",
                 'required' => "false"
             ]
@@ -185,7 +186,7 @@ class CreateTemplateService
         # The Tabs object wants arrays of the different field/tab types
         $signer->setTabs(new Tabs(['sign_here_tabs' => [$sign_here],
             'checkbox_tabs' => [$check1, $check2, $check3, $check4], 'list_tabs' => [$list1],
-            'number_tabs' => [$number1], 'radio_group_tabs' => [$radio_group], 'text_tabs' => [$text]
+            'numerical_tabs' => [$numerical], 'radio_group_tabs' => [$radio_group], 'text_tabs' => [$text]
         ]));
 
         # Template object:

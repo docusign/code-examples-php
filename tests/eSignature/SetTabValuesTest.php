@@ -11,6 +11,8 @@ use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\Text;
 use DocuSign\eSign\Model\TextCustomField;
+use DocuSign\eSign\Model\Numerical;
+use DocuSign\eSign\Model\LocalePolicyTab;
 use PHPUnit\Framework\TestCase;
 use Example\Services\ApiTypes;
 use Example\Services\Examples\eSignature\SetTabValuesService;
@@ -69,6 +71,18 @@ final class SetTabValuesTest extends TestCase
         ];
 
         $salary = 123000;
+
+                
+        $locale_policy_tab = new LocalePolicyTab([
+            "culture_name" => "en-US",
+            "currency_code" => "usd",
+            "currency_positive_format" => "csym_1_comma_234_comma_567_period_89",
+            "currency_negative_format" => "minus_csym_1_comma_234_comma_567_period_89",
+            "use_long_currency_format" => "true"
+        ]);
+        
+
+        
         $documentName = 'World_Wide_Corp_salary.docx';
         $documentNaming = 'Salary action';
         $fileExtension = 'docx';
@@ -103,7 +117,7 @@ final class SetTabValuesTest extends TestCase
         ]);
         $textLegal = new Text([
            'anchor_string' => '/legal/', 'anchor_units' => $anchorUnits,
-           'anchor_y_offset' => '-9', 'anchor_x_offset' => '5',
+           'anchor_y_offset' => '-6', 'anchor_x_offset' => '5',
            'font' => $font, 'font_size' => $fontSize,
            'bold' => $trueString, 'value' => $requestArguments['signer_name'],
            'locked' => $falseString, 'tab_id' => 'legal_name',
@@ -111,32 +125,41 @@ final class SetTabValuesTest extends TestCase
 
         $textFamiliar = new Text([
           'anchor_string' => '/familiar/', 'anchor_units' => $anchorUnits,
-          'anchor_y_offset' => '-9', 'anchor_x_offset' => '5',
+          'anchor_y_offset' => '-6', 'anchor_x_offset' => '5',
           'font' => $font, 'font_size' => $fontSize,
           'bold' => $trueString, 'value' => $requestArguments['signer_name'],
           'locked' => $falseString, 'tab_id' => 'familiar_name',
           'tab_label' => 'Familiar name']);
 
-        $salaryReadable = '$' . number_format($salary);
-        $textSalary = new Text([
-            'anchor_string' => '/salary/', 'anchor_units' => $anchorUnits,
-            'anchor_y_offset' => '-9', 'anchor_x_offset' => '5',
+          $numerical_salary = new Numerical([
+            'page_number' => '1',
+            'document_id' => '1',
+            'x_position' => '210',
+            'y_position' => '233',
+            'height' => "20",
+            'width' => "70",
+            'min_numerical_value' => "0",
+            'max_numerical_value' => "1000000",
+            'validation_type' => 'Currency',
+            'tab_id' => 'salary', 'tab_label' => 'Salary',
             'font' => $font, 'font_size' => $fontSize,
-            'bold' => $trueString, 'value' => $salaryReadable,
-            'locked' => $trueString,
-            'tab_id' => 'salary', 'tab_label' => 'Salary'
+            'bold' => $trueString,
+            'numerical_value' => strval($salary),
+            'locale_policy' => $locale_policy_tab
         ]);
+
 
         $signer->settabs(new Tabs([
             'sign_here_tabs' => [$signHere],
-             'text_tabs' => [$textLegal, $textFamiliar, $textSalary]
+             'text_tabs' => [$textLegal, $textFamiliar],
+             'numerical_tabs' => [$numerical_salary]
         ]));
 
         $salaryCustomField = new TextCustomField([
            'name' => 'salary',
            'required' => $falseString,
            'show' => $trueString,
-           'value' => $salary]);
+           'value' => strval($salary)]);
         $customFields = new CustomFields(['text_custom_fields' => [$salaryCustomField]]);
 
         $expectedEnvelopeDefinition = new EnvelopeDefinition([

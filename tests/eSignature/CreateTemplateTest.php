@@ -8,6 +8,7 @@ use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeTemplate;
 use DocuSign\eSign\Model\ModelList;
 use DocuSign\eSign\Model\Number;
+use DocuSign\eSign\Model\Numerical;
 use DocuSign\eSign\Model\Radio;
 use DocuSign\eSign\Model\RadioGroup;
 use DocuSign\eSign\Model\Recipients;
@@ -125,14 +126,15 @@ final class CreateTemplateTest extends TestCase
 
         $listOfButtonOptions = CreateTemplateService::createListOfButtonOptions();
 
-        $number = new Number([
+        $numerical = new Numerical([
             'document_id' => $defaultIdOne,
             'page_number' => $defaultIdOne,
+            'validation_type' => "Currency",
             'x_position' => "163",
             'y_position' => "260",
             'font' => "helvetica",
             'font_size' => "size14",
-            'tab_label' => "numbersOnly",
+            'tab_label' => "numericalCurrency",
             'width' => "84",
             'required' => $falseString
         ]);
@@ -171,7 +173,7 @@ final class CreateTemplateTest extends TestCase
             'sign_here_tabs' => [$signHere],
             'checkbox_tabs' => [$check1, $check2, $check3, $check4],
             'list_tabs' => [$listOfButtonOptions],
-            'number_tabs' => [$number],
+            'numerical_tabs' => [$numerical],
             'radio_group_tabs' => [$radioGroup],
             'text_tabs' => [$text]
         ]));
