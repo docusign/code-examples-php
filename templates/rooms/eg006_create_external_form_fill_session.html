@@ -43,10 +43,6 @@
 
     {% if rooms %}
         <form class="eg" action="" method="post" data-busy="form">
-                <p> 
-                    {{ code_example_text['Forms'][form2Number]['FormName'] | raw }}
-                </p>
-
                 <div class="form-group">
                     <label for="room_id">
                         {{ code_example_text['Forms'][form2Number]['Inputs'][documentsInputNumber]['InputName'] | raw }}
@@ -63,13 +59,10 @@
          </form>
     {% elseif room_name and forms %}
         <form class="eg" action="" method="post" data-busy="form">
-            <p> 
-                {{ code_example_text['Forms'][formNumber]['FormName'] | raw }}
-            </p>
+        
+            <label for="room_name">{{ code_example_text['Forms'][formNumber]['FormName'] | raw }}</label>
 
-            <label for="room_name">
-                Room name
-            </label>
+      
             <input type="text" 
                 class="form-control" 
                 id="room_name" 

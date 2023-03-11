@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "72685cd6e1d4cb1488e39e05de0e6d0d",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -311,16 +310,16 @@
         },
         {
             "name": "docusign/rooms-client",
-            "version": "v2.0.0",
+            "version": "v2.1.0-rc",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-rooms-php-client.git",
-                "reference": "e529875e3762f15e68e8e064a101182e247b90d1"
+                "reference": "c1509a4f02be6d99ef22c3a645b4e4c0d91aa68d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/e529875e3762f15e68e8e064a101182e247b90d1",
-                "reference": "e529875e3762f15e68e8e064a101182e247b90d1",
+                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/c1509a4f02be6d99ef22c3a645b4e4c0d91aa68d",
+                "reference": "c1509a4f02be6d99ef22c3a645b4e4c0d91aa68d",
                 "shasum": ""
             },
             "require": {
@@ -363,9 +362,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-rooms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.0.0"
+                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.1.0-rc"
             },
-            "time": "2021-10-06T02:53:16+00:00"
+            "time": "2023-02-10T19:19:39+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -2795,6 +2794,7 @@
         },
         {
             "name": "symfony/deprecation-contracts",
+
             "version": "v3.2.1",
             "source": {
                 "type": "git",
@@ -2805,6 +2805,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/e2d1534420bd723d0ef5aec58a22c5fe60ce6f5e",
                 "reference": "e2d1534420bd723d0ef5aec58a22c5fe60ce6f5e",
+
                 "shasum": ""
             },
             "require": {
@@ -2859,6 +2860,7 @@
                 }
             ],
             "time": "2023-03-01T10:25:55+00:00"
+
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3156,7 +3158,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "docusign/esign-client": 5
+        "docusign/esign-client": 5,
+        "docusign/rooms-client": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,

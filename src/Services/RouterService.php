@@ -182,6 +182,11 @@ class RouterService implements IRouterService
      */
     public function __construct()
     {
+        if(!isset($_SESSION['api_type'])){
+            // first time loading server and session is null causes problems for manifestService 
+            $_SESSION['api_type'] = "eSign";
+        }
+        
         // To ignore the Notice instead of Isset on missing POST vars
         error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
 
