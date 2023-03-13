@@ -18,12 +18,12 @@ class EmbeddedSendingService
      * @return array ['redirect_url']
      */
     # ***DS.snippet.0.start
-    public static function embeddedSending(array $args, $clientService, $demoDocsPath): array
+    public static function embeddedSending(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): array
     {
         # 1. Create the envelope as a draft using eg002's worker
         # Exceptions will be caught by the calling function
         $args['envelope_args']['status'] = 'created';
-        $demoDocsPath = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath);
+        $demoDocsPath = SigningViaEmailService::signingViaEmail($args, $clientService, $demoDocsPath, $docxFile, $pdfFile);
         $envelope_id = $demoDocsPath['envelope_id'];
 
         # 2. Create sender view
