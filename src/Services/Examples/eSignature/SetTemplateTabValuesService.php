@@ -37,25 +37,28 @@ class SetTemplateTabValuesService
 
     public static function sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition): array
     {
-        # 2. call Envelopes::create API method
+        # Step 4 start
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $envelopeResponse->getEnvelopeId();
+        # Step 4 end
 
-        # 3. Create the Recipient View request object
-        $authentication_method = 'None'; # How is this application authenticating
-        # the signer? See the `authentication_method' definition
-        # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
-        $recipient_view_request = $clientService->getRecipientViewRequest(
-            $authentication_method,
-            $args["envelope_args"]
-        );
+        # Step 5 start
+        # Create the Recipient View request object
+$authentication_method = 'None'; # How is this application authenticating
+# the signer? See the `authentication_method' definition
+# https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
+$recipient_view_request = $clientService->getRecipientViewRequest(
+    $authentication_method,
+    $args["envelope_args"]
+);
 
-        # 4. Obtain the recipient_view_url for the embedded signing
-        # Exceptions will be caught by the calling function
-        $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
-
+# Obtain the recipient_view_url for the embedded signing
+# Exceptions will be caught by the calling function
+$recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        # Step 5 end
         return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
     }
 
