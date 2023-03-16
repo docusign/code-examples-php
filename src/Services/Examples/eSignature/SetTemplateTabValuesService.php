@@ -47,17 +47,17 @@ class SetTemplateTabValuesService
 
         # Step 5 start
         # Create the Recipient View request object
-$authentication_method = 'None'; # How is this application authenticating
-# the signer? See the `authentication_method' definition
-# https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
-$recipient_view_request = $clientService->getRecipientViewRequest(
-    $authentication_method,
-    $args["envelope_args"]
-);
+        $authentication_method = 'None'; # How is this application authenticating
+        # the signer? See the `authentication_method' definition
+        # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
+        $recipient_view_request = $clientService->getRecipientViewRequest(
+            $authentication_method,
+            $args["envelope_args"]
+        );
 
-# Obtain the recipient_view_url for the embedded signing
-# Exceptions will be caught by the calling function
-$recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        # Obtain the recipient_view_url for the embedded signing
+        # Exceptions will be caught by the calling function
+        $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
         # Step 5 end
         return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
     }
