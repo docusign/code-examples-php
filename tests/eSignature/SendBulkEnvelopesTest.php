@@ -58,7 +58,8 @@ final class SendBulkEnvelopesTest extends TestCase
         $bulkSendBatchStatus = BulkSendEnvelopesService::bulkSendEnvelopes(
             $requestArguments,
             $clientService,
-            self::DEMO_DOCS_PATH
+            self::DEMO_DOCS_PATH,
+            "World_Wide_Corp_lorem.pdf"
         );
 
         // Assert
@@ -210,7 +211,8 @@ final class SendBulkEnvelopesTest extends TestCase
 
         // Act
         $envelopeDefinition = BulkSendEnvelopesService::make_envelope(
-            self::DEMO_DOCS_PATH
+            self::DEMO_DOCS_PATH,
+            "World_Wide_Corp_lorem.pdf"
         );
 
         // Assert
