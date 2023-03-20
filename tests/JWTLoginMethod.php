@@ -24,10 +24,8 @@ final class JWTLoginMethod
         }
         exec(sprintf('%s %s', $opener, escapeshellcmd($target)));
     }
-    public static function jwtAuthenticationMethod(string $apiType): void
+    public static function jwtAuthenticationMethod(string $apiType, TestConfig $testConfig): void
     {
-        $testConfig = TestConfig::getInstance();
-
         if ($apiType == ApiTypes::Rooms) {
             $scopes = "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write";
@@ -59,7 +57,6 @@ final class JWTLoginMethod
                 $testConfig->setAccessToken($access_token);
             }
         } catch (\Throwable $th) {
-            var_dump($th);
             if (str_contains($th->getMessage(), "consent_required")) {
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' .
                     http_build_query([

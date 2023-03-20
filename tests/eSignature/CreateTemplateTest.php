@@ -7,7 +7,6 @@ use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeTemplate;
 use DocuSign\eSign\Model\ModelList;
-use DocuSign\eSign\Model\Number;
 use DocuSign\eSign\Model\Numerical;
 use DocuSign\eSign\Model\Radio;
 use DocuSign\eSign\Model\RadioGroup;
@@ -27,16 +26,23 @@ final class CreateTemplateTest extends TestCase
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
+    protected $testConfig;
+
+    public function __construct(TestConfig $testConfig = null)
+    {
+        parent::__construct();
+        $this->testConfig = $testConfig ?? new TestConfig();
+    }
+
     public function testCreateTemplate_CorrectInputValues_ReturnArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $this->testConfig);
 
         $requestArguments = [
-            'account_id' => $testConfig->getAccountId(),
-            'base_path' => $testConfig->getBasePath(),
-            'ds_access_token' => $testConfig->getAccessToken()
+            'account_id' => $this->testConfig->getAccountId(),
+            'base_path' => $this->testConfig->getBasePath(),
+            'ds_access_token' => $this->testConfig->getAccessToken()
         ];
 
         $clientService = new SignatureClientService($requestArguments);
@@ -48,7 +54,7 @@ final class CreateTemplateTest extends TestCase
             $this::DEMO_DOCS_PATH,
             $clientService
         );
-        $testConfig->setTemplateId($templateInformation["template_id"]);
+        $this->testConfig->setTemplateId($templateInformation["template_id"]);
 
         // Assert
         $this->assertNotEmpty($templateInformation);

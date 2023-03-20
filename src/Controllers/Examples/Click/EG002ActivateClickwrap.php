@@ -20,12 +20,17 @@ class EG002ActivateClickwrap extends ClickApiBaseController
     {
         parent::__construct();
         # Step 1. Get available inactive clickwraps
-        $inactiveClickwraps = ActivateClickwrapService::getInactiveClickwraps(
-            $this->routerService,
-            $this->clientService,
-            $this->args,
-            $this::EG
-        );
+        $minimum_buffer_min = 3;
+        if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
+            $inactiveClickwraps = ActivateClickwrapService::getInactiveClickwraps(
+                $this->routerService,
+                $this->clientService,
+                $this->args,
+                $this::EG
+            );
+        } else {
+            $this->clientService->needToReAuth($this::EG);
+        }
         parent::controller(['clickwraps' => $inactiveClickwraps]);
     }
 

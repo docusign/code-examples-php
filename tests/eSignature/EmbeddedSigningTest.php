@@ -24,8 +24,8 @@ final class EmbeddedSigningTest extends TestCase
     public function testWorkerMethod_CorrectInputValues_ReturnsArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
         $documentName = 'World_Wide_Corp_lorem.pdf';
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -58,7 +58,7 @@ final class EmbeddedSigningTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnsEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
 
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),

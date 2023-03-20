@@ -29,8 +29,8 @@ final class SetTabValuesTest extends TestCase
     public function testSetTabValues_CorrectInputValues_ReturnsArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
 
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -61,7 +61,7 @@ final class SetTabValuesTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnsEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
 
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),
