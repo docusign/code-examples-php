@@ -37,15 +37,15 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $clientService = new SignatureClientService($requestArguments);
 
         // Act
-        $envelopeDefinition = ApplyBrandToEnvelopeService::applyBrandToEnvelope(
+        $envelopeID = ApplyBrandToEnvelopeService::applyBrandToEnvelope(
             $requestArguments,
             static::DEMO_DOCS_PATH,
             $clientService
         );
 
         // Assert
-        $this->assertNotEmpty($envelopeDefinition);
-        $this->assertNotNull($envelopeDefinition);
+        $this->assertNotEmpty($envelopeID);
+        $this->assertNotNull($envelopeID);
     }
 
     public function testMakeEnvelope_CorrectInputValues_ReturnEnvelopeDefinition()
