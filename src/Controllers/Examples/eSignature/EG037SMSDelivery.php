@@ -39,7 +39,12 @@ class EG037SMSDelivery extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeId = SMSDeliveryService::smsDelivery($this->args, $this->clientService, $this::DEMO_DOCS_PATH);
+        $envelopeId = SMSDeliveryService::smsDelivery(
+            $this->args,
+            $this->clientService,
+            $this::DEMO_DOCS_PATH,
+            $GLOBALS['DS_CONFIG']['doc_docx'],
+            $GLOBALS['DS_CONFIG']['doc_pdf']);
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples

@@ -40,7 +40,9 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $envelopeID = ApplyBrandToEnvelopeService::applyBrandToEnvelope(
             $requestArguments,
             static::DEMO_DOCS_PATH,
-            $clientService
+            $clientService,
+            'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+            'World_Wide_Corp_lorem.pdf'
         );
 
         // Assert
@@ -75,7 +77,9 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $expectedEnvelopeDefinition = CreateAnEnvelopeFunctionService::make_envelope(
             $requestArguments,
             $clientService,
-            static::DEMO_DOCS_PATH
+            static::DEMO_DOCS_PATH,
+            'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+            'World_Wide_Corp_lorem.pdf'
         );
 
         $expectedEnvelopeDefinition->setStatus($status);
