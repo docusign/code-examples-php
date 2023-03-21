@@ -20,7 +20,7 @@ use Example\Services\SignatureClientService;
 
 final class SetTabValuesTest extends TestCase
 {
-    private int $signer_client_id = 1000;
+    private int $signerClientId = 1000;
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
@@ -39,7 +39,7 @@ final class SetTabValuesTest extends TestCase
             'envelope_args' => [
                 'signer_email' => $testConfig->getSignerEmail(),
                 'signer_name' => $testConfig->getSignerName(),
-                'signer_client_id' => $this->signer_client_id,
+                'signer_client_id' => $this->signerClientId,
                 'ds_return_url' => $this->redirectUrl
             ]
         ];
@@ -66,23 +66,21 @@ final class SetTabValuesTest extends TestCase
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),
             'signer_name' => $testConfig->getSignerName(),
-            'signer_client_id' => $this->signer_client_id,
+            'signer_client_id' => $this->signerClientId,
             'ds_return_url' => $this->redirectUrl
         ];
 
         $salary = 123000;
 
                 
-        $locale_policy_tab = new LocalePolicyTab([
+        $localePolicyTab = new LocalePolicyTab([
             "culture_name" => "en-US",
             "currency_code" => "usd",
             "currency_positive_format" => "csym_1_comma_234_comma_567_period_89",
             "currency_negative_format" => "minus_csym_1_comma_234_comma_567_period_89",
             "use_long_currency_format" => "true"
         ]);
-        
 
-        
         $documentName = 'World_Wide_Corp_salary.docx';
         $documentNaming = 'Salary action';
         $fileExtension = 'docx';
@@ -131,7 +129,7 @@ final class SetTabValuesTest extends TestCase
           'locked' => $falseString, 'tab_id' => 'familiar_name',
           'tab_label' => 'Familiar name']);
 
-          $numerical_salary = new Numerical([
+          $numerical = new Numerical([
             'page_number' => '1',
             'document_id' => '1',
             'x_position' => '210',
@@ -145,14 +143,14 @@ final class SetTabValuesTest extends TestCase
             'font' => $font, 'font_size' => $fontSize,
             'bold' => $trueString,
             'numerical_value' => strval($salary),
-            'locale_policy' => $locale_policy_tab
+            'locale_policy' => $localePolicyTab
         ]);
 
 
         $signer->settabs(new Tabs([
             'sign_here_tabs' => [$signHere],
              'text_tabs' => [$textLegal, $textFamiliar],
-             'numerical_tabs' => [$numerical_salary]
+             'numerical_tabs' => [$numerical]
         ]));
 
         $salaryCustomField = new TextCustomField([

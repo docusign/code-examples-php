@@ -38,9 +38,9 @@ class GrantOfficeAccessToFormGroupService
      */
     public static function getOffices($routerService, $clientService, $args, $eg): array
     {
-        $minimum_buffer_min = 3;
+        $minimumBufferMin = 3;
         $offices = [];
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             $offices = $clientService->getOffices($args['account_id']);
         } else {
             $clientService->needToReAuth($eg);
@@ -59,9 +59,9 @@ class GrantOfficeAccessToFormGroupService
      */
     public static function getFormGroups($routerService, $clientService, $args, $eg): array
     {
-        $minimum_buffer_min = 3;
+        $minimumBufferMin = 3;
         $formGroups = [];
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             $formGroups = $clientService->getFormGroups($args['account_id']);
         } else {
             $clientService->needToReAuth($eg);

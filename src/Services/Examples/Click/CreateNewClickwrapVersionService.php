@@ -81,8 +81,8 @@ class CreateNewClickwrapVersionService
         ClickApiClientService $clientService,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

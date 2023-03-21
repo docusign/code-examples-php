@@ -33,8 +33,8 @@ class CreateExternalFormFillSessionService
      */
     public static function getRooms($clientService, $routerService, $args, $eg): array
     {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             return $clientService->getRooms($args);
         } else {
             $clientService->needToReAuth($eg);
@@ -53,8 +53,8 @@ class CreateExternalFormFillSessionService
      */
     public static function getRoom($room_id, $routerService, $clientService, $args, $eg): Room
     {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             return $clientService->getRoom($room_id, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);
@@ -73,8 +73,8 @@ class CreateExternalFormFillSessionService
      */
     public static function getDocuments($room_id, $routerService, $clientService, $args, $eg): array
     {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             return $clientService->getDocuments($room_id, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);

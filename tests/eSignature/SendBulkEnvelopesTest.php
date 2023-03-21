@@ -95,10 +95,10 @@ final class SendBulkEnvelopesTest extends TestCase
             ]
         ];
 
-        $bulk_copies = [];
+        $copies = [];
 
         foreach ($signers as $signer) {
-            $recipient_1 = new BulkSendingCopyRecipient(
+            $recipient = new BulkSendingCopyRecipient(
                 [
                     "role_name" => $signerRole,
                     "tabs" => [],
@@ -107,7 +107,7 @@ final class SendBulkEnvelopesTest extends TestCase
                 ]
             );
 
-            $recipient_2 = new BulkSendingCopyRecipient(
+            $recipient2 = new BulkSendingCopyRecipient(
                 [
                     "role_name" => $ccRole,
                     "tabs" => [],
@@ -116,18 +116,18 @@ final class SendBulkEnvelopesTest extends TestCase
                 ]
             );
 
-            $bulk_copy = new BulkSendingCopy(
+            $bulkCopy = new BulkSendingCopy(
                 [
-                    "recipients" => [$recipient_1, $recipient_2],
+                    "recipients" => [$recipient, $recipient2],
                     "custom_fields" => []
                 ]
             );
 
-            array_push($bulk_copies, $bulk_copy);
+            array_push($copies, $bulkCopy);
         }
 
         $expectedBulkSendingList = new BulkSendingList(["name" => $bulkSendingListName]);
-        $expectedBulkSendingList->setBulkCopies($bulk_copies);
+        $expectedBulkSendingList->setBulkCopies($copies);
 
         // Act
         $bulkSendingList = BulkSendEnvelopesService::createBulkSendingList(
@@ -142,8 +142,8 @@ final class SendBulkEnvelopesTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnEnvelopeDefinition()
     {
         // Arrange
-        $content_bytes = file_get_contents(self::DEMO_DOCS_PATH . "World_Wide_Corp_lorem.pdf");
-        $base64_file_content = base64_encode($content_bytes);
+        $contentBytes = file_get_contents(self::DEMO_DOCS_PATH . "World_Wide_Corp_lorem.pdf");
+        $base64 = base64_encode($contentBytes);
 
         $defaultId = 1;
         $defaultIdString = "1";
@@ -155,7 +155,7 @@ final class SendBulkEnvelopesTest extends TestCase
 
         $document = new Document(
             [
-                'document_base64' => $base64_file_content,
+                'document_base64' => $base64,
                 'name' => 'Example document',
                 'file_extension' => 'pdf',
                 'document_id' => $defaultId
@@ -188,7 +188,7 @@ final class SendBulkEnvelopesTest extends TestCase
             ]
         );
 
-        $sign_here = new SignHere(
+        $signHere = new SignHere(
             [
                 'tab_label' => "signHere1",
                 'anchor_string' => '/sn1/',
@@ -198,7 +198,7 @@ final class SendBulkEnvelopesTest extends TestCase
             ]
         );
 
-        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
+        $signer->settabs(new Tabs(['sign_here_tabs' => [$signHere]]));
 
         $expectedEnvelopeDefinition = new EnvelopeDefinition(
             [

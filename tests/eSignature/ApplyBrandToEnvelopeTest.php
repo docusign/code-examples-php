@@ -37,10 +37,10 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $clientService = new SignatureClientService($requestArguments);
 
         // Act
-        $envelopeDefinition = ApplyBrandToEnvelopeService::make_envelope(
-            $requestArguments['envelope_args'],
-            $clientService,
-            static::DEMO_DOCS_PATH
+        $envelopeDefinition = ApplyBrandToEnvelopeService::applyBrandToEnvelope(
+            $requestArguments,
+            static::DEMO_DOCS_PATH,
+            $clientService
         );
 
         // Assert

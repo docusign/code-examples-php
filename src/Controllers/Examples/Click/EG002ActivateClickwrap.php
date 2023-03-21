@@ -20,8 +20,8 @@ class EG002ActivateClickwrap extends ClickApiBaseController
     {
         parent::__construct();
         # Step 1. Get available inactive clickwraps
-        $minimum_buffer_min = 3;
-        if ($this->routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($this->routerService->ds_token_ok($minimumBufferMin)) {
             $inactiveClickwraps = ActivateClickwrapService::getInactiveClickwraps(
                 $this->routerService,
                 $this->clientService,

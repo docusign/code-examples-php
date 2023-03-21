@@ -22,7 +22,7 @@ use Example\Services\SignatureClientService;
 
 final class CreateTemplateTest extends TestCase
 {
-    private string $template_name = 'Example Signer and CC template';
+    private string $templateName = 'Example Signer and CC template';
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
@@ -50,7 +50,7 @@ final class CreateTemplateTest extends TestCase
         // Act
         $templateInformation = CreateTemplateService::createTemplate(
             $requestArguments,
-            $this->template_name,
+            $this->templateName,
             $this::DEMO_DOCS_PATH,
             $clientService
         );
@@ -186,7 +186,7 @@ final class CreateTemplateTest extends TestCase
 
         $expectedTemplate =  new EnvelopeTemplate([
                 'description' => $description,
-                'name' => $this->template_name,
+                'name' => $this->templateName,
                 'shared' => $falseString,
                 'documents' => [$document],
                 'email_subject' => $emailSubject,
@@ -201,7 +201,7 @@ final class CreateTemplateTest extends TestCase
 
         // Act
         $template = CreateTemplateService::make_template_req(
-            $this->template_name,
+            $this->templateName,
             $this::DEMO_DOCS_PATH
         );
 

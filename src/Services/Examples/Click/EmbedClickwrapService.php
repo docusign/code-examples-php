@@ -68,8 +68,8 @@ class EmbedClickwrapService
         array $args,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        $minimumBufferMin = 3;
+        if ($routerService->ds_token_ok($minimumBufferMin)) {
             try {
                 $anyClickwraps = [];
                 $apiClient = $clientService->accountsApi();
