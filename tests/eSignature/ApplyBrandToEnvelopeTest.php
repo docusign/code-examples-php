@@ -110,7 +110,9 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $envelopeDefinition = ApplyBrandToEnvelopeService::make_envelope(
             $requestArguments,
             $clientService,
-            ApplyBrandToEnvelopeTest::DEMO_DOCS_PATH
+            ApplyBrandToEnvelopeTest::DEMO_DOCS_PATH,
+            'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+            'World_Wide_Corp_lorem.pdf'
         );
 
         // Assert
