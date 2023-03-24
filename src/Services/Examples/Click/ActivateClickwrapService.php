@@ -41,18 +41,19 @@ class ActivateClickwrapService
         return $response;
     }
 
-    public static function getInactiveClickwraps(
+    public static function getClickwrapsByStatus(
         RouterService $routerService,
         ClickApiClientService $clientService,
         array $args,
-        string $eg
+        string $eg,
+        string $status
     ): array {
         $minimum_buffer_min = 3;
         if ($routerService->ds_token_ok($minimum_buffer_min)) {
             try {
                 $apiClient = $clientService->accountsApi();
                 $options = new GetClickwrapsOptions();
-                $options -> setStatus('inactive');
+                $options -> setStatus($status);
                 return $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
             } catch (ApiException $e) {
                 error_log($e);
