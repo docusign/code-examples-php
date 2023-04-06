@@ -82,7 +82,7 @@ class EmbedClickwrapService
                 }
 
 
-                    return [ $activeClickwraps, $anyClickwraps];
+                return [ $activeClickwraps, $anyClickwraps];
             } catch (ApiException $e) {
                 error_log($e);
                 return [];

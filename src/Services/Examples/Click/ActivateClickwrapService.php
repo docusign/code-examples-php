@@ -41,18 +41,28 @@ class ActivateClickwrapService
         return $response;
     }
 
-    public static function getInactiveClickwraps(
+
+    public static function getClickwrapsByStatus(
+        RouterService $routerService,
         ClickApiClientService $clientService,
-        array $args
+        array $args,
+        string $eg,
+        string $status
     ): array {
-        try {
-            $apiClient = $clientService->accountsApi();
-            $options = new GetClickwrapsOptions();
-            $options -> setStatus('draft');
-            return $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
-        } catch (ApiException $e) {
-            error_log($e);
-            return [];
+        $minimum_buffer_min = 3;
+        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+            try {
+                $apiClient = $clientService->accountsApi();
+                $options = new GetClickwrapsOptions();
+                $options -> setStatus($status);
+                return $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
+            } catch (ApiException $e) {
+                error_log($e);
+                return [];
+            }
+        } else {
+            $clientService->needToReAuth($eg);
+
         }
     }
 }
