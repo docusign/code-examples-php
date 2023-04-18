@@ -38,8 +38,7 @@ class ExportDataFromRoomService
      */
     public static function getRooms($routerService, $clientService, $args, $eg): array
     {
-        $minimumBufferMin = 3;
-        if ($routerService->ds_token_ok($minimumBufferMin)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getRooms($args);
         } else {
             $clientService->needToReAuth($eg);

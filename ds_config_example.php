@@ -30,6 +30,7 @@ $DS_CONFIG = [
     'gateway_display_name' => "Stripe",
     'github_example_url' => 'https://github.com/docusign/code-examples-php/tree/master/src/Controllers/Examples',
     'documentation' => false,
+    'minimum_buffer_min' => 3,
     // Manifest files
     "ESignatureManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/eSignatureManifest.json",
     "ClickManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/ClickManifest.json",

@@ -37,10 +37,8 @@ class ActivateClickwrapService
             exit;
         }
 
-
         return $response;
     }
-
 
     public static function getClickwrapsByStatus(
         RouterService $routerService,
@@ -62,7 +60,6 @@ class ActivateClickwrapService
             }
         } else {
             $clientService->needToReAuth($eg);
-
         }
     }
 }

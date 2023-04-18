@@ -20,7 +20,7 @@ use Example\Services\SignatureClientService;
 
 final class SetTabValuesTest extends TestCase
 {
-    private int $signerClientId = 1000;
+    private const SIGNER_CLIENT_ID = 1000;
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
@@ -39,7 +39,7 @@ final class SetTabValuesTest extends TestCase
             'envelope_args' => [
                 'signer_email' => $testConfig->getSignerEmail(),
                 'signer_name' => $testConfig->getSignerName(),
-                'signer_client_id' => $this->signerClientId,
+                'signer_client_id' => $this::SIGNER_CLIENT_ID,
                 'ds_return_url' => $this->redirectUrl
             ]
         ];
@@ -66,13 +66,12 @@ final class SetTabValuesTest extends TestCase
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),
             'signer_name' => $testConfig->getSignerName(),
-            'signer_client_id' => $this->signerClientId,
+            'signer_client_id' => $this::SIGNER_CLIENT_ID,
             'ds_return_url' => $this->redirectUrl
         ];
 
         $salary = 123000;
-
-                
+   
         $localePolicyTab = new LocalePolicyTab([
             "culture_name" => "en-US",
             "currency_code" => "usd",
@@ -129,7 +128,7 @@ final class SetTabValuesTest extends TestCase
           'locked' => $falseString, 'tab_id' => 'familiar_name',
           'tab_label' => 'Familiar name']);
 
-          $numerical = new Numerical([
+        $numerical = new Numerical([
             'page_number' => '1',
             'document_id' => '1',
             'x_position' => '210',
@@ -145,7 +144,6 @@ final class SetTabValuesTest extends TestCase
             'numerical_value' => strval($salary),
             'locale_policy' => $localePolicyTab
         ]);
-
 
         $signer->settabs(new Tabs([
             'sign_here_tabs' => [$signHere],

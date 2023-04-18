@@ -76,8 +76,7 @@ class CreateRoomWithTemplatesService
     public static function getRoomTemplates($clientService, $args, $routerService, $eg): array
     {
         $templates_api = $clientService->getRoomTemplatesApi();
-        $minimumBufferMin = 3;
-        if ($routerService->ds_token_ok($minimumBufferMin)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $templates = $templates_api->getRoomTemplates($args['account_id']);
             } catch (ApiException $e) {
