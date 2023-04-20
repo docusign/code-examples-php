@@ -4,6 +4,8 @@ namespace Example\Controllers;
 
 use Example\Services\RoomsApiClientService;
 use Example\Services\RouterService;
+use Example\Services\ApiTypes;
+use Example\Services\ManifestService;
 
 abstract class RoomsApiBaseController extends BaseController
 {
@@ -17,6 +19,9 @@ abstract class RoomsApiBaseController extends BaseController
         $this->args = $this->getTemplateArgs();
         $this->clientService = new RoomsApiClientService($this->args);
         $this->routerService = new RouterService();
+        if (defined("static::EG")) {
+            $this->checkDsToken();
+        }
     }
 
     abstract function getTemplateArgs(): array;
@@ -77,8 +82,9 @@ abstract class RoomsApiBaseController extends BaseController
             ]);
        
          } else {
+            $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-            if ($this->routerService->ds_token_ok()) {
+            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
                     'title' => $this->routerService->getTitle(static::EG),
                     'templates' => $templates,
@@ -93,14 +99,12 @@ abstract class RoomsApiBaseController extends BaseController
                     'code_example_text' => $this->codeExampleText,
                     'common_texts' => $this->getCommonText()
                 ]);
-            } 
-            else {
-
-            
-            # Save the current operation so it will be resumed after authentication
-            $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-            header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
-            exit;
+            } else {
+                $_SESSION['prefered_api_type'] = ApiTypes::Rooms;
+                # Save the current operation so it will be resumed after authentication
+                $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
+                exit;
             }
         }
     }
@@ -137,7 +141,10 @@ abstract class RoomsApiBaseController extends BaseController
      */
     protected function checkDsToken(): void
     {
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+        $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::Rooms;
             $this->clientService->needToReAuth(static::EG);
         }
     }

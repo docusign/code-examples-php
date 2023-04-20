@@ -4,6 +4,8 @@ namespace Example\Controllers;
 
 use Example\Services\MonitorApiClientService;
 use Example\Services\RouterService;
+use Example\Services\ApiTypes;
+use Example\Services\ManifestService;
 
 abstract class MonitorBaseController extends BaseController
 {
@@ -62,7 +64,9 @@ abstract class MonitorBaseController extends BaseController
                 ]
             );
         } else {
-            if ($routerService->ds_token_ok()) {
+            $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+            if ($routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
                     'title' => $routerService->getTitle(static::EG),
                     'source_file' => $basename,
@@ -73,11 +77,11 @@ abstract class MonitorBaseController extends BaseController
                     'code_example_text' => $this->codeExampleText,
                     'common_texts' => $this->getCommonText()
                 ]);
-            }
-            else {
+            } else {
                 # Save the current operation so it will be resumed after authentication
+                $_SESSION['prefered_api_type'] = ApiTypes::Monitor;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
             }
         }

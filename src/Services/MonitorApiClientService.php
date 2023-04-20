@@ -5,7 +5,7 @@ namespace Example\Services;
 use DocuSign\Monitor\Client\ApiClient;
 use DocuSign\Monitor\Client\ApiException;
 use DocuSign\Monitor\Configuration;
-
+use Example\Controllers\BaseController;
 
 class MonitorApiClientService
 {
@@ -143,7 +143,7 @@ class MonitorApiClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . BaseController::LOGIN_REDIRECT);
         exit;
     }
 }

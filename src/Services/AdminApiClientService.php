@@ -11,6 +11,7 @@ use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
+use Example\Controllers\BaseController;
 use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
 
 use Stringable;
@@ -132,7 +133,7 @@ class AdminApiClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . BaseController::LOGIN_REDIRECT);
         exit;
     }
 
