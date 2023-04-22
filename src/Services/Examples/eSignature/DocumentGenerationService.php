@@ -22,32 +22,47 @@ class DocumentGenerationService
 {
     public static function worker(array $args, $clientService, $documentPath): string
     {
+
+        // Step 2a start
         $templatesApi = $clientService->getTemplatesApi();
 
         $envelopeTemplate = DocumentGenerationService::makeTemplate();
         $templatesListResponse = $templatesApi->createTemplate($args['account_id'], $envelopeTemplate);
         $templateId = $templatesListResponse['template_id'];
+        // Step 2a end
 
+        // Step 3a start
         $templatesApi->updateDocument($args['account_id'], "1", $templateId, self::addDocumentTemplate($documentPath));
-        $templatesApi->createTabs($args['account_id'], "1", $templateId, self::prepareTabs());
+        // Step 3a end
 
+        // Step 4a start
+        $templatesApi->createTabs($args['account_id'], "1", $templateId, self::prepareTabs());
+        // Step 4a end
+
+        // Step 5a start
         $envelopeApi = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelopeApi->createEnvelope(
             $args['account_id'],
             DocumentGenerationService::makeEnvelope($args["form_data"], $templateId)
         );
         $envelopeId = $envelopeResponse["envelope_id"];
+        // Step 5a end
 
+        // Step 6 start
         $documents = $envelopeApi->getEnvelopeDocGenFormFields($args['account_id'], $envelopeId);
         $documentId = $documents["doc_gen_form_fields"][0]["document_id"];
-
+        // Step 6 end
+        
+        // Step 7a start
         $formFields = DocumentGenerationService::formFields($args["form_data"], $documentId);
         $envelopeApi->updateEnvelopeDocGenFormFields(
             $args['account_id'],
             $envelopeId,
             $formFields
         );
+        // Step 7a end
 
+        // Step 8 start
         $envelopeResponse = $envelopeApi->update(
             $args['account_id'],
             $envelopeId,
@@ -55,10 +70,11 @@ class DocumentGenerationService
                 'status' => 'sent'
             ])
         );
+        // Step 8 end
 
         return $envelopeResponse->getEnvelopeId();
     }
-
+    // Step 2b start
     public static function makeTemplate(): EnvelopeTemplate
     {
         $signer = new Signer([
@@ -80,7 +96,10 @@ class DocumentGenerationService
             ]
         );
     }
+    // Step 2b end
 
+
+    // Step 4b start
     public static function prepareTabs(): TemplateTabs
     {
         $signHere = new SignHere([
@@ -102,7 +121,9 @@ class DocumentGenerationService
              'date_signed_tabs' => [$dateSigned],
         ]);
     }
+    // Step4b end
 
+    // Step 3b start
     public static function addDocumentTemplate(string $documentPath): EnvelopeDefinition
     {
         $documentFile = $GLOBALS['DS_CONFIG']['offer_doc_docx'];
@@ -122,7 +143,9 @@ class DocumentGenerationService
                 'documents' => [$document],
         ]);
     }
-
+    // Step 3b end
+    
+    // Step 5b start
     public static function makeEnvelope(array $args, $templateId): EnvelopeDefinition
     {
         $signer = new TemplateRole([
@@ -139,7 +162,8 @@ class DocumentGenerationService
             ]
         );
     }
-
+    // Step 5b end
+    // Step 7b start
     public static function formFields(array $args, $documentId): DocGenFormFieldRequest
     {
         return new DocGenFormFieldRequest(
@@ -174,4 +198,5 @@ class DocumentGenerationService
             ]
         );
     }
+    // Step 7b end
 }
