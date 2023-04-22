@@ -1,0 +1,132 @@
+{% extends "base.html" %}  {% block content %}
+
+{% set formNumber = 0 %}
+{% set candidateEmailIndex = 0 %}
+{% set candidateNameIndex = 1 %}
+{% set managerNameIndex = 2 %}
+{% set jobTitleIndex = 3 %}
+{% set salaryIndex = 4 %}
+{% set startDateIndex = 5 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+  
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <p>
+        {{ code_example_text['Forms'][formNumber]['FormName']| raw }}
+    </p>
+    <div class="form-group">
+        <label for="candidate_email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][candidateEmailIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="candidate_email"
+            name="candidate_email"
+            aria-describedby="emailHelp" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][candidateEmailIndex]['InputPlaceholder']}}"
+            required>
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="candidate_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][candidateNameIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="candidate_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][candidateNameIndex]['InputPlaceholder']}}"
+            name="candidate_name"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="manager_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][managerNameIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="manager_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][managerNameIndex]['InputPlaceholder']}}"
+            name="manager_name"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="job_title">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][jobTitleIndex]['InputName'] | raw }}
+        </label>
+
+        <select class="form-control" id="job_title" name="job_title">
+            <option value="Software Engineer">Software Engineer</option>
+            <option value="Product Manager">Product Manager</option>
+            <option value="Sales Representative">Sales Representative</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="salary">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][salaryIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="tel" 
+            class="form-control" 
+            id="salary" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][salaryIndex]['InputPlaceholder']}}"
+            name="salary"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="start_date">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][startDateIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="date" 
+            class="form-control" 
+            id="start_date" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][startDateIndex]['InputPlaceholder']}}"
+            name="start_date"
+            required>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+
+{% endblock %}

@@ -22,7 +22,7 @@
     "require": {
         "docusign/admin-client": "^1.1.0",
         "docusign/click-client": "^1.2.2",
-        "docusign/esign-client": "^6.13.0-rc",
+        "docusign/esign-client": "^6.14.0-rc",
         "docusign/rooms-client": "^2.1.0-rc",
         "docusign/monitor-client": "^1.1.0",
         "twig/twig": "^3.4.3",
