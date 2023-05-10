@@ -28,10 +28,10 @@ class ApplyBrandToEnvelopeService
 
 
         # Step 4. Call the eSignature REST API
-        //ds-snippet-start:eSign29Step4
+        #ds-snippet-start:eSign29Step4
         $envelope_api = $clientService->getEnvelopeApi();
         $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-        //ds-snippet-end:eSign29Step4
+        #ds-snippet-end:eSign29Step4
 
         return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
     }
@@ -45,7 +45,7 @@ class ApplyBrandToEnvelopeService
     public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
     {
 
-        //ds-snippet-start:eSign29Step3
+        #ds-snippet-start:eSign29Step3
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
         $envelope_definition->setStatus('sent');
 
@@ -82,6 +82,6 @@ class ApplyBrandToEnvelopeService
         return $envelope_definition;
 
     }
-    //ds-snippet-end:eSign29Step3
+    #ds-snippet-end:eSign29Step3
 
 }
