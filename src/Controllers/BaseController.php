@@ -7,9 +7,9 @@ use Example\Services\ManifestService;
 abstract class BaseController
 {
 
-    protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
-    
+    protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';    
     protected array $codeExampleText;
+    public const LOGIN_REDIRECT = 'must_authenticate';
 
     /**
      * Save the current operation so it will be resumed after authentication
@@ -40,7 +40,7 @@ abstract class BaseController
 
     protected function isHomePage(string $eg): bool
     {
-        return in_array($eg, ["home_esig", "home_rooms", "home_click", "home_monitor", "home_admin"]);
+        return $eg === "home_esig";
     }
 
     protected function getPageText(string $eg): array

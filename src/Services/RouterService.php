@@ -2,6 +2,8 @@
 
 namespace Example\Services;
 
+use Example\Controllers\BaseController;
+
 class RouterService implements IRouterService
 {
 
@@ -10,13 +12,8 @@ class RouterService implements IRouterService
      */
     private const CONTROLLER = [
         'home_esig' => 'Home',
-        'home_rooms' => 'Home',
-        'home_click' => 'Home',
-        'home_monitor' => 'Home',
-        'home_admin' => 'Home',
         'ds_return' => 'DsReturn',
-        'must_authenticate' => 'MustAuthenticate',
-        'select_api' => 'SelectAPI',
+        BaseController::LOGIN_REDIRECT => 'MustAuthenticate',
         'eg001' => 'EG001EmbeddedSigning',
         'eg002' => 'eSignature\EG002SigningViaEmail',
         'eg003' => 'eSignature\EG003ListEnvelopes',
@@ -57,6 +54,7 @@ class RouterService implements IRouterService
         'eg039' => 'eSignature\EG039InPersonSigning',
         'eg040' => 'eSignature\EG040SetDocumentsVisibility',
         'eg041' => 'eSignature\EG041CFREmbeddedSigning',
+        'eg042' => 'eSignature\EG042DocumentGeneration',
         'reg001' => 'Rooms\EG001CreateRoomWithData',
         'reg002' => 'Rooms\EG002CreateRoomWithTemplate',
         'reg003' => 'Rooms\EG003ExportDataFromRoom',
@@ -90,14 +88,9 @@ class RouterService implements IRouterService
      * The list of templates with examples
      */
     private const TEMPLATES = [
-        "must_authenticate" => "must_authenticate.html",
-        "select_api" => "select_api.html",
+        BaseController::LOGIN_REDIRECT => "must_authenticate.html",
         "ds_return" => "ds_return.html",
         "home_esig" => "home_esig.html",
-        "home_rooms" => "home_rooms.html",
-        "home_monitor" => "home_monitor.html",
-        "home_click" => "home_click.html",
-        "home_admin" => "home_admin.html",
         "eg001" => "esignature/eg001_embedded_signing.html",
         "eg002" => "esignature/eg002_signing_via_email.html",
         "eg003" => "esignature/eg003_list_envelopes.html",
@@ -138,6 +131,7 @@ class RouterService implements IRouterService
         "eg039" => "esignature/eg039_in_person_signing.html",
         "eg040" => "esignature/eg040_set_document_visibility.html",
         'eg041' => 'esignature/eg041_cfr_embedded_signing.html',
+        'eg042' => 'esignature/eg042_document_generation.html',
         "reg001" => "rooms/eg001_create_room_with_data.html",
         "reg002" => "rooms/eg002_create_room_with_template.html",
         "reg003" => "rooms/eg003_export_data_from_room.html",
@@ -196,7 +190,7 @@ class RouterService implements IRouterService
 
         if (isset($_POST["api_type"])) {
             $_SESSION['api_type'] = $_POST['api_type'];
-            $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile($_SESSION['api_type']));
+            $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
         }
 
         if ($_SESSION['auth_service'] == "code_grant") {
@@ -212,24 +206,7 @@ class RouterService implements IRouterService
      */
     public function router(): void
     {
-        switch ($_SESSION['api_type']):
-
-            case "Admin":
-                $homeRoute = 'home_admin';
-                break;
-            case "Click":
-                $homeRoute = 'home_click';
-                break;
-            case "Monitor":
-                $homeRoute = 'home_monitor';
-                break;
-            case  "Rooms":
-                $homeRoute = 'home_rooms';
-                break;
-            default:
-                $homeRoute = 'home_esig';
-                break;
-        endswitch;
+        $homeRoute = 'home_esig';
 
         $page = $_GET['page'] ?? $homeRoute;
 
@@ -237,24 +214,15 @@ class RouterService implements IRouterService
             // We're not logged in and Quickstart is true:  Route to the 1st example.
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
                 $_SESSION['beenHere'] = "false";
+                $_SESSION['api_type'] = ApiTypes::eSignature;
 
-
-                if ($_SESSION['cfr_enabled'] == "enabled"){
-
+                if ($_SESSION['cfr_enabled'] == "enabled") {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg041');
-
-                }
-
-                else {
-
+                } else {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
                 }
-                
-
-
-
             } elseif ($this->ds_token_ok() == false) {
-                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=select_api');
+                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=' . BaseController::LOGIN_REDIRECT);
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
@@ -263,23 +231,12 @@ class RouterService implements IRouterService
             }
         }
 
-        if ($page == 'select_api') {
-            $this->ds_logout_internal();
-            //is it quickstart have they signed in already?
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
-                // we should default to ESignature for the first runthrough
-                $_SESSION['beenHere'] = "true";
-                $_SESSION["api_type"] = "ESignature";
-                $this->authService = new CodeGrantService();
-                $this->ds_login();
-                exit();
+        if ($page == BaseController::LOGIN_REDIRECT) {
+            if ($_SESSION['prefered_api_type'] === null) {
+                $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
             }
-            $controller = 'Example\Controllers\Examples\\' . $this->getController($page);
-            $c = new $controller();
-            $c->controller();
-            exit();
-        } elseif ($page == 'must_authenticate') {
-            if ($_SESSION['api_type'] == 'Monitor') {
+
+            if ($_SESSION['prefered_api_type'] == 'Monitor') {
                 //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
                 $this->authService = new JWTService();
@@ -289,6 +246,9 @@ class RouterService implements IRouterService
             //is it quickstart have they signed in already?
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
                 //Let's just shortcut to login immediately
+                // we should default to ESignature for the first runthrough
+                $_SESSION['beenHere'] = "true";
+                $this->authService = new CodeGrantService();
                 $this->ds_login();
                 exit();
             }
@@ -409,6 +369,7 @@ class RouterService implements IRouterService
      */
     function ds_login(): void
     {
+        $_SESSION['api_type'] = $_SESSION['prefered_api_type'];
         $this->authService->login();
     }
 

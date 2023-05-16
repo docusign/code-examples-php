@@ -2,6 +2,8 @@
 
 namespace Example\Controllers;
 
+use Example\Services\ApiTypes;
+use Example\Services\ManifestService;
 use Example\Services\ClickApiClientService;
 use Example\Services\RouterService;
 
@@ -17,6 +19,9 @@ abstract class ClickApiBaseController extends BaseController
         $this->args = $this->getTemplateArgs();
         $this->clientService = new ClickApiClientService($this->args);
         $this->routerService = new RouterService();
+        if (defined("static::EG")) {
+            $this->checkDsToken();
+        }
     }
 
     abstract function getTemplateArgs(): array;
@@ -64,7 +69,9 @@ abstract class ClickApiBaseController extends BaseController
                 ]
             );
         } else {
-            if ($routerService->ds_token_ok()) {              
+            $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+            if ($routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
                     'title' => $routerService->getTitle(static::EG),
                     'source_file' => $basename,
@@ -75,11 +82,11 @@ abstract class ClickApiBaseController extends BaseController
                     'code_example_text' => $this->codeExampleText,
                     'common_texts' => $this->getCommonText()
                 ]);
-            }
-            else {
+            } else {
                 # Save the current operation so it will be resumed after authentication
+                $_SESSION['prefered_api_type'] = ApiTypes::Click;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
             }
         }
@@ -107,7 +114,10 @@ abstract class ClickApiBaseController extends BaseController
      */
     protected function checkDsToken(): void
     {
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+        $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::Click;
             $this->clientService->needToReAuth(static::EG);
         }
     }

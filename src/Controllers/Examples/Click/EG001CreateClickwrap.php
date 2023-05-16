@@ -44,7 +44,11 @@ class EG001CreateClickwrap extends ClickApiBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 json_encode(json_encode($clickwrapSummaryResponse)),
-                ManifestService::replacePlaceholders("{0}", $clickwrap_name, $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $clickwrap_name,
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

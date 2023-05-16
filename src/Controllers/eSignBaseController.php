@@ -7,7 +7,9 @@ use Example\Services\RouterService;
 use QuickACG\RouterService as QuickRouterService;
 use Example\Services\SignatureClientService;
 use Example\Services\IRouterService;
+use Example\Services\ApiTypes;
 use Example\Services\ManifestService;
+use Example\Services\utils;
 
 abstract class eSignBaseController extends BaseController
 {
@@ -53,6 +55,9 @@ abstract class eSignBaseController extends BaseController
         $this->args = $this->getTemplateArgs();
         $this->clientService = new SignatureClientService($this->args);
         $this->routerService = $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService(): new RouterService();
+        if (defined("static::EG")) {
+            $this->checkDsToken();
+        }
     }
 
     abstract function getTemplateArgs(): array;
@@ -115,40 +120,38 @@ abstract class eSignBaseController extends BaseController
         array $groups = null
     ): void {
         if ($this->isHomePage($eg)) {
+            $cfr = new utils();
+            $_SESSION['cfr_enabled'] = $cfr->isCFR($_SESSION['ds_access_token'], $_SESSION['ds_account_id'], $_SESSION['ds_base_path']);
+
             $GLOBALS['twig']->display(
                 $eg . '.html',
                 [
                     'title' => $this->homePageTitle($eg),
                     'show_doc' => false,
-                    'launcher_texts' => $_SESSION['API_TEXT']['Groups'],
+                    'launcher_texts' => $_SESSION['API_TEXT']['APIs'],
+                    'api_texts' => $_SESSION['API_TEXT'],
                     'common_texts' => $this->getCommonText(),
                     'cfr_enabled' =>  $_SESSION['cfr_enabled']
                 ]
             );
         } else {
-            if ($this->routerService->ds_token_ok()) {
+            $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
 
                 $cfrStatus = $this->getPageText($eg)['CFREnabled'];
                 // this example is not compatible with cfr
 
-                // var_dump($cfrStatus);
-                // var_dump($_SESSION['cfr_enabled']);
-            // die;
-                if($_SESSION['cfr_enabled'] == "enabled" && $cfrStatus == "NonCFR"){
-
+                if ($_SESSION['cfr_enabled'] == "enabled" && $cfrStatus == "NonCFR") {
                     $GLOBALS['twig']->display("error_cfr.html",
                     [
                         'common_texts' => ManifestService::getCommonTexts()
                     ]);
                     exit;
-
                 } elseif (!isset($_SESSION['cfr_enabled'])  && $cfrStatus == "CFROnly") {
                     $this->clientService->showErrorTemplate(new ApiException("This example requires a CFR Part 11 account"));
                     exit;
                 }
-
-
-                
 
                 $pause_envelope_ok = $_SESSION["pause_envelope_id"] ?? false;
                 $envelope_id = $_SESSION['envelope_id'] ?? false;
@@ -190,8 +193,9 @@ abstract class eSignBaseController extends BaseController
 
                 $GLOBALS['twig']->display($this->routerService->getTemplate($eg), $displayOptions);
             } else {
+                $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
                 $this->saveCurrentUrlToSession($eg);
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
             }
         }
@@ -247,7 +251,10 @@ abstract class eSignBaseController extends BaseController
      */
     protected function checkDsToken(): void
     {
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+        $currentAPI = ManifestService::getAPIByLink(static::EG);
+        
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
             $this->clientService->needToReAuth(static::EG);
         }
     }

@@ -22,21 +22,26 @@ class ManifestService
     {
         if ($_SESSION['API_TEXT'] == null) {
             $_SESSION['API_TEXT'] = ManifestService::loadManifestData(
-                ManifestService::getLinkToManifestFile(
-                    $_SESSION["api_type"]
-                )
+                $GLOBALS['DS_CONFIG']['CodeExamplesManifest']
             );
         }
 
-        $groups = $_SESSION['API_TEXT']['Groups'];
+        $apiType = ManifestService::getAPIByLink(preg_replace('/[0-9]+/', '', $eg));
+        $apis = $_SESSION['API_TEXT']['APIs'];
         $result = [];
         $CodeExampleNumber = (int) filter_var($eg, FILTER_SANITIZE_NUMBER_INT);
 
-        foreach ($groups as $group) {
-            foreach ($group["Examples"] as $example) {
-                if ($example["ExampleNumber"] === $CodeExampleNumber) {
-                    $result = $example;
-                    break;
+        foreach ($apis as $api) {
+            if ($api["Name"] === $apiType) {
+                $groups = $api["Groups"];
+
+                foreach ($groups as $group) {
+                    foreach ($group["Examples"] as $example) {
+                        if ($example["ExampleNumber"] === $CodeExampleNumber) {
+                            $result = $example;
+                            break;
+                        }
+                    }
                 }
             }
         }
@@ -48,9 +53,7 @@ class ManifestService
     {
         if ($_SESSION['API_TEXT'] == null) {
             $_SESSION['API_TEXT'] = ManifestService::loadManifestData(
-                ManifestService::getLinkToManifestFile(
-                $_SESSION["api_type"]
-                )
+                $GLOBALS['DS_CONFIG']['CodeExamplesManifest']
             );
         }
 
@@ -59,26 +62,28 @@ class ManifestService
         return $commonText;
     }
 
-    public static function getLinkToManifestFile(string $apiType): string
+    public static function getAPIByLink(string $link): string
     {
-        switch ($apiType) :
-            case "Admin":
-                $manifestFile = $GLOBALS['DS_CONFIG']['AdminManifest'];
+        $link = preg_replace('/\d/', '', $link);
+
+        switch ($link) :
+            case "aeg":
+                $currentAPI = ApiTypes::Admin;
                 break;
-            case "Click":
-                $manifestFile = $GLOBALS['DS_CONFIG']['ClickManifest'];
+            case "ceg":
+                $currentAPI = ApiTypes::Click;
                 break;
-            case "Monitor":
-                $manifestFile= $GLOBALS['DS_CONFIG']['MonitorManifest'];
+            case "meg":
+                $currentAPI= ApiTypes::Monitor;
                 break;
-            case "Rooms":
-                $manifestFile = $GLOBALS['DS_CONFIG']['RoomsManifest'];
+            case "reg":
+                $currentAPI = ApiTypes::Rooms;
                 break;
             default:
-                $manifestFile = $GLOBALS['DS_CONFIG']['ESignatureManifest'];
+                $currentAPI = ApiTypes::eSignature;
                 break;
         endswitch;
         
-        return $manifestFile;
+        return $currentAPI;
     }
 }

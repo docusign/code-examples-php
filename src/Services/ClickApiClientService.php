@@ -6,6 +6,7 @@ use DocuSign\Click\Api\AccountsApi;
 use DocuSign\Click\Client\ApiClient;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Configuration;
+use Example\Controllers\BaseController;
 
 class ClickApiClientService
 {
@@ -63,7 +64,7 @@ class ClickApiClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . BaseController::LOGIN_REDIRECT);
         exit;
     }
 

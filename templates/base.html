@@ -8,6 +8,7 @@
   <link rel="icon" href="{{ app_url ~ 'assets/favicon.ico' }}">
   <title>{{ title }}</title>
   <!-- Bootstrap core CSS -->
+  <script src="https://kit.fontawesome.com/a2fb399780.js" crossorigin="anonymous"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <!-- Custom styles for this template -->
   <link href="{{ app_url ~ 'assets/css.css' }}" rel="stylesheet">
@@ -30,10 +31,6 @@
       <li>
         <a class="nav-link" href="{{ app_url ~ 'index.php?page=ds_logout' }}" id="logout"
            data-busy="href">{{ common_texts["LogoutButton"] | raw }} <span class="sr-only">(current)</span></a>
-      </li>
-      <li>
-        <a class="nav-link" href="{{ app_url ~ 'index.php?page=select_api' }}" id="selectApi"
-           data-busy="href">{{ common_texts["ChangeAPITypeButton"] | raw }}<span class="sr-only">(current)</span></a>
       </li>
       {% else %}
       <li>
@@ -91,12 +88,16 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" integrity="sha256-/ijcOLwFf26xEYAjW75FizKVo5tnTYiQddPZoLUHHZ8=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.core.min.js" integrity="sha256-yEkk5ZYVs/fZgvxWU+sCb8bHTk9jScxIaZQD+CZ4vcg=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/core.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
 <script src="{{ app_url ~ 'assets/notify.min.js' }}"></script> <!-- see https://notifyjs.jpillora.com/ -->
 <script src="{{ app_url ~ 'assets/eg_03.js' }}"></script>
 <script src="{{ app_url ~ 'assets/site.js' }}"></script>
+<script src="{{ app_url ~ 'assets/search.js' }}"></script>
 
 <!-- Data from the server -->
 <!-- Goal: flash messages are sent as

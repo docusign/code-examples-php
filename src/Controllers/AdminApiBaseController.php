@@ -4,6 +4,8 @@ namespace Example\Controllers;
 
 use Example\Services\AdminApiClientService;
 use Example\Services\RouterService;
+use Example\Services\ApiTypes;
+use Example\Services\ManifestService;
 
 abstract class AdminApiBaseController extends BaseController
 {
@@ -18,6 +20,9 @@ abstract class AdminApiBaseController extends BaseController
         $this->args = $this->getTemplateArgs();
         $this->clientService = new AdminApiClientService($this->args);
         $this->routerService = new RouterService();
+        if (defined("static::EG")) {
+            $this->checkDsToken();
+        }
     }
     /**
      * Base controller
@@ -75,7 +80,9 @@ abstract class AdminApiBaseController extends BaseController
         }
         else
         {
-            if ($this->routerService->ds_token_ok()) {
+            $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
                     'title' => $this->routerService->getTitle(static::EG),
                     'source_file' => basename(static::FILE),
@@ -92,8 +99,9 @@ abstract class AdminApiBaseController extends BaseController
             }
             else {
                 # Save the current operation so it will be resumed after authentication
+                $_SESSION['prefered_api_type'] = ApiTypes::Admin;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
             }
         }
@@ -104,7 +112,10 @@ abstract class AdminApiBaseController extends BaseController
      */
     protected function checkDsToken(): void
     {
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN)) {
+        $currentAPI = ManifestService::getAPIByLink(static::EG);
+
+        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::Admin;
             $this->clientService->needToReAuth(static::EG);
         }
     }

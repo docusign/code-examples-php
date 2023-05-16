@@ -21,6 +21,7 @@ $DS_CONFIG = [
     'target_account_id' => false, // Set if you want a specific DocuSign AccountId, If false, the user's default account will be used.
     'demo_doc_path' => 'demo_documents',
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
+    'offer_doc_docx' => 'Offer_Letter_Demo.docx',
     'doc_html' => 'doc_1.html',
     'doc_pdf' =>  'World_Wide_Corp_lorem.pdf',
     'doc_txt' =>  'Check_If_Approved.txt',
@@ -32,11 +33,7 @@ $DS_CONFIG = [
     'documentation' => false,
     'minimum_buffer_min' => 3,
     // Manifest files
-    "ESignatureManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/eSignatureManifest.json",
-    "ClickManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/ClickManifest.json",
-    "RoomsManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/RoomsManifest.json",
-    "MonitorManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/MonitorManifest.json",
-    "AdminManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/AdminManifest.json"
+    "CodeExamplesManifest" => "https://raw.githubusercontent.com/docusign/code-examples-csharp/master/manifest/CodeExamplesManifest.json"
 ];
 
 $JWT_CONFIG = [

@@ -9,6 +9,7 @@
 
 namespace Example\Controllers\Auth;
 
+use Example\Services\ApiTypes;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -103,28 +104,28 @@ class DocuSign extends AbstractProvider
      *
      * @return array
      */
-
-public function getDefaultScopes(): array
-{
-    if($_SESSION['api_type'] == 'Rooms'){
-        return [
-            "signature room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
-            . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
-        ];
-    } elseif($_SESSION['api_type'] == 'Click'){
-        return [
-            "signature click.manage click.send"
-        ];
-    } elseif($_SESSION['api_type'] == 'Admin') {
-        return [
-            "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
-        ];
-    } else {
-        return [
-            "signature"
-        ];
+    public function getDefaultScopes(): array
+    {
+        if ($_SESSION['api_type'] == ApiTypes::Rooms) {
+            return [
+                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
+                . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
+            ];
+        } elseif ($_SESSION['api_type'] == ApiTypes::Click) {
+            return [
+                "signature click.manage click.send"
+            ];
+        } elseif ($_SESSION['api_type'] == ApiTypes::Admin) {
+            return [
+                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read"
+            ];
+        } else {
+            return [
+                "signature"
+            ];
+        }
     }
-}
+
     /**
      * Check a provider response for errors.
      *

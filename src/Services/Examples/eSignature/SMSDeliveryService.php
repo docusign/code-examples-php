@@ -72,7 +72,8 @@ class SMSDeliveryService
         # Create the signer recipient model
         $signer1 = new Signer([
             'name' => $args['signer_name'], 'phone_number' => $signerPhone,
-            'recipient_id' => "1", 'routing_order' => "1"
+            'recipient_id' => "1", 'routing_order' => "1",
+            'delivery_method' => 'sms'
             ]);
         # routingOrder (lower means earlier) determines the order of deliveries
         # to the recipients. Parallel routing order is supported by using the
@@ -86,7 +87,8 @@ class SMSDeliveryService
         # Create a CC recipient to receive a copy of the documents
         $CC = new CarbonCopy([
             'name' => $args['cc_name'], 'phone_number' => $CCsignerPhone,
-            'recipient_id' => "2", 'routing_order' => "2"
+            'recipient_id' => "2", 'routing_order' => "2",
+            'delivery_method' => 'sms'
             ]);
 
         return SMSDeliveryService::addSignersToTheDelivery($signer1, $CC, $envelope_definition, $args);

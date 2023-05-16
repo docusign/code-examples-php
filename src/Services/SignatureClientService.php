@@ -13,6 +13,7 @@ use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 use QuickACG\RouterService as QuickRouterService;
 use Example\Services\IRouterService;
+use Example\Controllers\BaseController;
 
 class SignatureClientService
 {
@@ -194,7 +195,7 @@ class SignatureClientService
         # we'll make the user re-enter the form data after
         # authentication.
         $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . $eg;
-        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=select_api');
+        header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . BaseController::LOGIN_REDIRECT);
         exit;
     }
 
