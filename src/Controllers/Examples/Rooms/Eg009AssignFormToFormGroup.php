@@ -22,16 +22,16 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
     {
         parent::__construct();
 
-        # Step 3 Start
+        #ds-snippet-start:Rooms9Step3
         $forms = AssignFormToFormGroupService::getForms(
             $this->routerService,
             $this->clientService,
             $this->args,
             $this::EG
         );
-        # Step 3 End
+        #ds-snippet-end:Rooms9Step3
 
-        # Step 4 Start
+        #ds-snippet-start:Rooms9Step4
         $formGroups = AssignFormToFormGroupService::getFormGroups(
             $this->routerService,
             $this->clientService,
@@ -39,7 +39,7 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
             $this::EG
         );
         parent::controller(null, null, $forms, null, $formGroups);
-        # Step 4 End
+        #ds-snippet-end:Rooms9Step4
     }
 
     /**

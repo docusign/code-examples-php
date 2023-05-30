@@ -17,15 +17,15 @@ class AssignFormToFormGroupService
      */
     public static function assignFormToFormGroup(array $args, $clientService): FormGroupFormToAssign
     {
-        # Step 5 Start
+        #ds-snippet-start:Rooms9Step5
         $form_group_form_to_assign = new FormGroupFormToAssign(['form_id' => $args['form_id']]);
-        # Step 5 End
+        #ds-snippet-end:Rooms9Step5
 
         try {
-            # Step 6 Start
+            #ds-snippet-start:Rooms9Step6
             $form_api = $clientService->getFromGroupsApi();
             $formGroupResult = $form_api->assignFormGroupForm($args['form_group_id'], $args["account_id"], $form_group_form_to_assign);
-            # Step 6 End
+            #ds-snippet-end:Rooms9Step6
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
@@ -34,6 +34,8 @@ class AssignFormToFormGroupService
 
         return $formGroupResult;
     }
+
+    #ds-snippet-start:Rooms9Step3
 
     /**
      * Get available forms
@@ -66,26 +68,6 @@ class AssignFormToFormGroupService
     }
 
     /**
-     * Get available form groups
-     *
-     * @param $routerService
-     * @param $clientService
-     * @param $args
-     * @param $eg
-     * @return array
-     */
-    public static function getFormGroups($routerService, $clientService, $args, $eg): array
-    {
-        $formGroups = [];
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
-            $formGroups = $clientService->getFormGroups($args['account_id']);
-        } else {
-            $clientService->needToReAuth($eg);
-        }
-        return $formGroups;
-    }
-
-    /**
      * Get Form Libraries
      *
      * @param $routerService
@@ -96,7 +78,8 @@ class AssignFormToFormGroupService
      */
     public static function getFormLibraries($routerService, $clientService, $args, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        $minimum_buffer_min = 3;
+        if ($routerService->ds_token_ok($minimum_buffer_min)) {
             return $clientService->getFormLibraries($args);
         } else {
             $clientService->needToReAuth($eg);
@@ -115,10 +98,35 @@ class AssignFormToFormGroupService
      */
     public static function getFormLibraryForms(string $libraryID, $routerService, $clientService, $args, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        $minimum_buffer_min = 3;
+        if ($routerService->ds_token_ok($minimum_buffer_min)) {
             return $clientService->getFormLibraryForms($libraryID, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);
         }
     }
+    #ds-snippet-end:Rooms9Step3
+
+    #ds-snippet-start:Rooms9Step4
+    /**
+     * Get available form groups
+     *
+     * @param $routerService
+     * @param $clientService
+     * @param $args
+     * @param $eg
+     * @return array
+     */
+    public static function getFormGroups($routerService, $clientService, $args, $eg): array
+    {
+        $minimum_buffer_min = 3;
+        $formGroups = [];
+        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+            $formGroups = $clientService->getFormGroups($args['account_id']);
+        } else {
+            $clientService->needToReAuth($eg);
+        }
+        return $formGroups;
+    }
+    #ds-snippet-end:Rooms9Step4
 }
