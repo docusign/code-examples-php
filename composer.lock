@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff3f73e4ff97e0c9a0fb87e83edf402e",
+    "content-hash": "44de23a86616c6faa8cbd6d1276a4359",
+
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -78,16 +79,16 @@
         },
         {
             "name": "docusign/admin-client",
-            "version": "v1.1.0",
+            "version": "v1.3.0-rc",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-admin-php-client.git",
-                "reference": "e3ffb515dfd16dadbc7da32513b418854b44b2da"
+                "reference": "127b4d61bd3d621e4ec0ff5979c2e16118959293"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/e3ffb515dfd16dadbc7da32513b418854b44b2da",
-                "reference": "e3ffb515dfd16dadbc7da32513b418854b44b2da",
+                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/127b4d61bd3d621e4ec0ff5979c2e16118959293",
+                "reference": "127b4d61bd3d621e4ec0ff5979c2e16118959293",
                 "shasum": ""
             },
             "require": {
@@ -130,9 +131,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
-                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.1.0"
+                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.3.0-rc"
             },
-            "time": "2022-04-29T00:42:17+00:00"
+            "time": "2023-05-30T17:30:24+00:00"
         },
         {
             "name": "docusign/click-client",
@@ -554,16 +555,16 @@
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.2",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "b94b2807d85443f9719887892882d0329d1e2598"
+                "reference": "67ab6e18aaa14d753cc148911d273f6e6cb6721e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/b94b2807d85443f9719887892882d0329d1e2598",
-                "reference": "b94b2807d85443f9719887892882d0329d1e2598",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/67ab6e18aaa14d753cc148911d273f6e6cb6721e",
+                "reference": "67ab6e18aaa14d753cc148911d273f6e6cb6721e",
                 "shasum": ""
             },
             "require": {
@@ -573,11 +574,6 @@
                 "symfony/phpunit-bridge": "^4.4 || ^5.1"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "src/functions_include.php"
@@ -618,7 +614,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.2"
+                "source": "https://github.com/guzzle/promises/tree/1.5.3"
             },
             "funding": [
                 {
@@ -634,7 +630,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-08-28T14:55:35+00:00"
+            "time": "2023-05-21T12:31:43+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -934,16 +930,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.4",
+            "version": "v4.15.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290"
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
-                "reference": "6bb5176bc4af8bcb7d926f88718db9b96a2d4290",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/11e2663a5bc9db5d714eedb4277ee300403b4a9e",
+                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e",
                 "shasum": ""
             },
             "require": {
@@ -984,9 +980,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.4"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.5"
             },
-            "time": "2023-03-05T19:49:14+00:00"
+            "time": "2023-05-19T20:20:00+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -3153,6 +3149,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "docusign/admin-client": 5,
         "docusign/click-client": 5,
         "docusign/esign-client": 5
     },

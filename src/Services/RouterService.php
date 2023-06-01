@@ -85,7 +85,9 @@ class RouterService implements IRouterService
         'aeg006' => 'Admin\EG006RetrieveDocuSignProfileByEmailAddress',
         'aeg007' => 'Admin\EG007RetrieveDocuSignProfileByUserID',
         'aeg008' => 'Admin\EG008UpdateUserProductPermissionProfile',
-        'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile'
+        'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile',
+        'aeg010' => 'Admin\EG010DeleteUserDataFromOrganization',
+        'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
     ];
     /**
      * The list of templates with examples
@@ -163,7 +165,10 @@ class RouterService implements IRouterService
         "aeg006" => "admin/eg006_retrieve_profile_by_email_address.html",
         "aeg007" => "admin/eg007_retrieve_profile_by_user_id.html",
         "aeg008" => "admin/eg008_update_user_product_permission_profile.html",
-        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html"
+        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html",
+        "aeg010" => "admin/eg010_delete_user_data_from_organization.html",
+        "aeg011" => "admin/eg011_delete_user_data_from_account.html",
+
     ];
     
     /**
