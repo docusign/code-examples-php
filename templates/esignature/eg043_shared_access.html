@@ -1,0 +1,90 @@
+{% extends "base.html" %}  {% block content %}
+
+{% set formNumber = 0 %}
+{% set newAgentEmailInputNumber = 0 %}
+{% set newAgentNameInputNumber = 1 %}
+{% set activationCodeInputNumber = 2 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+  
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="agent_email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][newAgentEmailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="agent_email"
+            name="agent_email"
+            aria-describedby="emailHelp" 
+            value="{{ signer_email }}"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][newAgentEmailInputNumber]['InputPlaceholder']}}"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="agent_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][newAgentNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="agent_name" 
+            value="{{ signer_name }}"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][newAgentNameInputNumber]['InputPlaceholder']}}"
+            name="agent_name"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="activation_code">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][activationCodeInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="activation_code" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][activationCodeInputNumber]['InputPlaceholder']}}"
+            name="activation_code"
+            required>
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["SaveAgentActivationCode"] | raw }}
+        </small>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+
+{% endblock %}

@@ -66,7 +66,9 @@ let DS_EG = (function(){
           flash_msg_json.flash.info)
       ;
     _.forEach(flash_msg_info, function (msg){
-      $.notify(msg, notify_info_t);
+      if ($("." + notify_info_t.className).length) {
+        $.notify(msg, notify_info_t);
+      }
     })
   }
 
