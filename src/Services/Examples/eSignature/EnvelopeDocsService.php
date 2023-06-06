@@ -9,17 +9,18 @@ class EnvelopeDocsService
 {
     /**
      * Do the work of the example
-     * 1. Call the envelope documents list method
+     * Call the envelope documents list method
      *
      * @param  $args array
      * @param $clientService
      * @return EnvelopeDocumentsResult
      */
-    # ***DS.snippet.0.start
+
     public static function envelopeDocs(array $args, $clientService): EnvelopeDocumentsResult
     {
-        # 1. call API method
+        # Call API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign6Step3
         $envelope_api = $clientService->getEnvelopeApi();
         try {
             $listDocuments = $envelope_api->listDocuments($args['account_id'], $args['envelope_id']);
@@ -27,8 +28,7 @@ class EnvelopeDocsService
             $clientService->showErrorTemplate($e);
             exit;
         }
-
+        #ds-snippet-end:eSign6Step3
         return $listDocuments;
     }
-    # ***DS.snippet.0.end
 }
