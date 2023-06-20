@@ -33,7 +33,7 @@ final class JWTLoginMethod
             $scopes = "signature click.manage click.send";
         } elseif ($apiType == ApiTypes::Admin) {
             $scopes = "signature user_write group_read organization_read permission_read user_read "
-            . "account_read domain_read identity_provider_read";
+            . "account_read domain_read identity_provider_read user_data_redact";
         } else {
             $scopes = "signature";
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 001: Use embedded signing
+ * Example 042: Document Generation
  */
 
 namespace Example\Controllers\Examples\eSignature;

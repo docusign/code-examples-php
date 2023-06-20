@@ -55,6 +55,9 @@ class RouterService implements IRouterService
         'eg040' => 'eSignature\EG040SetDocumentsVisibility',
         'eg041' => 'eSignature\EG041CFREmbeddedSigning',
         'eg042' => 'eSignature\EG042DocumentGeneration',
+        'eg043' => 'eSignature\EG043SharedAccess',
+        'eg043/AuthRequest' => 'eSignature\EG043AuthRequest',
+        'eg043/EnvelopesListStatus' => 'eSignature\EG043EnvelopesListStatus',
         'reg001' => 'Rooms\EG001CreateRoomWithData',
         'reg002' => 'Rooms\EG002CreateRoomWithTemplate',
         'reg003' => 'Rooms\EG003ExportDataFromRoom',
@@ -82,7 +85,9 @@ class RouterService implements IRouterService
         'aeg006' => 'Admin\EG006RetrieveDocuSignProfileByEmailAddress',
         'aeg007' => 'Admin\EG007RetrieveDocuSignProfileByUserID',
         'aeg008' => 'Admin\EG008UpdateUserProductPermissionProfile',
-        'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile'
+        'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile',
+        'aeg010' => 'Admin\EG010DeleteUserDataFromOrganization',
+        'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
     ];
     /**
      * The list of templates with examples
@@ -132,6 +137,7 @@ class RouterService implements IRouterService
         "eg040" => "esignature/eg040_set_document_visibility.html",
         'eg041' => 'esignature/eg041_cfr_embedded_signing.html',
         'eg042' => 'esignature/eg042_document_generation.html',
+        'eg043' => 'esignature/eg043_shared_access.html',
         "reg001" => "rooms/eg001_create_room_with_data.html",
         "reg002" => "rooms/eg002_create_room_with_template.html",
         "reg003" => "rooms/eg003_export_data_from_room.html",
@@ -159,7 +165,9 @@ class RouterService implements IRouterService
         "aeg006" => "admin/eg006_retrieve_profile_by_email_address.html",
         "aeg007" => "admin/eg007_retrieve_profile_by_user_id.html",
         "aeg008" => "admin/eg008_update_user_product_permission_profile.html",
-        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html"
+        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html",
+        "aeg010" => "admin/eg010_delete_user_data_from_organization.html",
+        "aeg011" => "admin/eg011_delete_user_data_from_account.html",
 
     ];
     
@@ -176,8 +184,8 @@ class RouterService implements IRouterService
      */
     public function __construct()
     {
-        if(!isset($_SESSION['api_type'])){
-            // first time loading server and session is null causes problems for manifestService 
+        if (!isset($_SESSION['api_type'])) {
+            // first time loading server and session is null causes problems for manifestService
             $_SESSION['api_type'] = "eSign";
         }
         
@@ -209,7 +217,6 @@ class RouterService implements IRouterService
         $homeRoute = 'home_esig';
 
         $page = $_GET['page'] ?? $homeRoute;
-
         if ($page == $homeRoute) {
             // We're not logged in and Quickstart is true:  Route to the 1st example.
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
@@ -223,6 +230,16 @@ class RouterService implements IRouterService
                 }
             } elseif ($this->ds_token_ok() == false) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=' . BaseController::LOGIN_REDIRECT);
+            } elseif (isset($_SESSION['userflow_example_43'])) {
+                unset($_SESSION['userflow_example_43']);
+                $page = "eg043/EnvelopesListStatus";
+                $_GET['page'] = $page;
+                
+                // To ignore the Notice instead of Isset on missing POST vars
+                error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
+                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+                new $controller($page);
+                exit();
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
@@ -378,12 +395,12 @@ class RouterService implements IRouterService
      */
     function ds_callback(): void
     {
-        # Save the redirect eg if present
+        // Save the redirect eg if present
         $redirectUrl = false;
         if (isset($_SESSION['eg'])) {
             $redirectUrl = $_SESSION['eg'];
         }
-        # reset the session
+        // reset the session
         $tempAPIType = $_SESSION["api_type"];
         $tempGrant = $_SESSION["auth_service"];
         $this->ds_logout_internal();
@@ -407,6 +424,7 @@ class RouterService implements IRouterService
 
     /**
      * Set flash for the current user session
+     *
      * @param $msg string
      */
     public function flash(string $msg): void

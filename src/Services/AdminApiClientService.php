@@ -2,6 +2,7 @@
 
 namespace Example\Services;
 
+use DocuSign\Admin\Api\OrganizationsApi;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Api\AccountsApi;
 use DocuSign\Admin\Api\BulkExportsApi;
@@ -12,9 +13,6 @@ use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
 use Example\Controllers\BaseController;
-use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
-
-use Stringable;
 
 class AdminApiClientService
 {
@@ -65,6 +63,14 @@ class AdminApiClientService
     public function getUsersApi(): UsersApi
     {
         return new UsersApi($this->apiClient);
+    }
+
+    /**
+     * Getter for the OrganizationsApi
+     */
+    public function getOrganizationsApi(): OrganizationsApi
+    {
+        return new OrganizationsApi($this->apiClient);
     }
     
     /**

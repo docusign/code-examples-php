@@ -24,8 +24,9 @@ class ApplyBrandToEnvelopeService
     public static function applyBrandToEnvelope(array $args, $demoDocsPath, $clientService, $docDocx, $docPDF): array
     {
         # Step 3. Construct the request body
+        #ds-snippet-start:eSign29Step3
         $envelope_definition = ApplyBrandToEnvelopeService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
-
+        #ds-snippet-end:eSign29Step3
 
         # Step 4. Call the eSignature REST API
         #ds-snippet-start:eSign29Step4

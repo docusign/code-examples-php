@@ -7,12 +7,12 @@ use DocuSign\eSign\Api\BulkEnvelopesApi;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Api\GroupsApi;
 use DocuSign\eSign\Api\TemplatesApi;
+use DocuSign\eSign\Api\UsersApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 use QuickACG\RouterService as QuickRouterService;
-use Example\Services\IRouterService;
 use Example\Controllers\BaseController;
 
 class SignatureClientService
@@ -52,6 +52,14 @@ class SignatureClientService
     public function getTemplatesApi(): TemplatesApi
     {
         return new TemplatesApi($this->apiClient);
+    }
+
+    /**
+     * Getter for the UsersApi
+     */
+    public function getUsersApi(): UsersApi
+    {
+        return new UsersApi($this->apiClient);
     }
 
     /**
@@ -165,7 +173,7 @@ class SignatureClientService
      * @param $results
      * @return void
      */
-    public function showDoneTemplate(string $title, string $headline, string $message, $results = null): void
+    public function showDoneTemplate(string $title, string $headline, string $message, $results = null, $redirect = null): void
     {
         $GLOBALS['twig']->display(
             'example_done.html',
@@ -174,7 +182,8 @@ class SignatureClientService
                 'h1' => $headline,
                 'message' => $message,
                 'json' => $results,
-                'common_texts' => ManifestService::getCommonTexts()
+                'common_texts' => ManifestService::getCommonTexts(),
+                'redirect' => $redirect
             ]
         );
         exit;

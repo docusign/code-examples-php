@@ -14,24 +14,24 @@ use Example\Services\SignatureClientService;
 class EmbeddedSigningService
 {
     /**
-     * Do the work of the example
-     * 1. Create the envelope request object
-     * 2. Send the envelope
-     * 3. Create the Recipient View request object
-     * 4. Obtain the recipient_view_url for the embedded signing
+     * Do the work of the example:
+     * Create the envelope request object
+     * Send the envelope
+     * Create the Recipient View request object
+     * Obtain the recipient_view_url for the embedded signing
      *
      * @param  $args array
      * @param SignatureClientService $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath, string $pdfFile): array
     {
-        # 1. Create the envelope request object
+        # Create the envelope request object
+        #ds-snippet-start:eSign1Step3
         $envelope_definition = EmbeddedSigningService::make_envelope($args["envelope_args"], $demoPath, $pdfFile);
         $envelope_api = $clientService->getEnvelopeApi();
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
             $envelopeSummary = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
@@ -40,8 +40,10 @@ class EmbeddedSigningService
             exit;
         }
         $envelope_id = $envelopeSummary->getEnvelopeId();
+        #ds-snippet-end
 
-        # 3. Create the Recipient View request object
+        # Create the Recipient View request object
+        #ds-snippet-start:eSign1Step4
         $authentication_method = 'None'; # How is this application authenticating
         # the signer? See the `authentication_method' definition
         # https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/
@@ -49,12 +51,15 @@ class EmbeddedSigningService
             $authentication_method,
             $args["envelope_args"]
         );
+        #ds-snippet-end
 
-        # 4. Obtain the recipient_view_url for the embedded signing
+        # Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign1Step5
         $viewUrl = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 
         return ['envelope_id' => $envelope_id, 'redirect_url' => $viewUrl['url']];
+        #ds-snippet-end
     }
 
     /**
@@ -64,6 +69,7 @@ class EmbeddedSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    #ds-snippet-start:eSign1Step2
     public static function make_envelope(array $args, string $demoPath, string $pdfFile): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
@@ -124,5 +130,5 @@ class EmbeddedSigningService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end
 }
