@@ -18,10 +18,10 @@ class GetClickwrapResponseService
     {
 
         try {
-            # Step 3 Start
+            #ds-snippet-start:Click5Step3
             $accounts_api = $clientService->accountsApi();
             $response = $accounts_api->getClickwrapAgreements($args['account_id'], $args['clickwrap_id']);
-            # Step 3 End
+            #ds-snippet-end:Click5Step3
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
