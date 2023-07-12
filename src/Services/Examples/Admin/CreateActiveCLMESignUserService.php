@@ -26,7 +26,7 @@ class CreateActiveCLMESignUserService
         array $arguments,
         string $organizationId
     ): AddUserResponse {
-        # Step 5 Start
+        #ds-snippet-start:Admin2Step5
         $userAPI = $clientService->getUsersApi();
 
         $eSignProfile = new ProductPermissionProfileRequest(
@@ -61,11 +61,11 @@ class CreateActiveCLMESignUserService
         $request->setProductPermissionProfiles([$clmProfile, $eSignProfile]);
         $request->setEmail($arguments["email"]);
         $request->setDsGroups([$dsGroups]);
-        # Step 5 end
+        #ds-snippet-end:Admin2Step5
         try {
-            # Step 6 start
+            #ds-snippet-start:Admin2Step6
             $addUserResponse = $userAPI->addOrUpdateUser($organizationId, $arguments["account_id"], $request);
-            # Step 6 end
+            #ds-snippet-end:Admin2Step6
 
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
