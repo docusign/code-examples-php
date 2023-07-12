@@ -18,12 +18,12 @@ class ActivateClickwrapService
      */
     public static function activateClickwrap(array $args, ClickApiClientService $clientService): ClickwrapVersionSummaryResponse
     {
-        //ds-snippet-start:Click2Step3
+        #ds-snippet-start:Click2Step3
         $clickwrap_request = new ClickwrapRequest(['status' => 'active']);
-        //ds-snippet-end:Click2Step3
+        #ds-snippet-end:Click2Step3
 
         try {
-            //ds-snippet-start:Click2Step4
+            #ds-snippet-start:Click2Step4
             $accounts_api = $clientService->accountsApi();
             $response = $accounts_api -> updateClickwrapVersion(
                 $args['account_id'],
@@ -31,7 +31,7 @@ class ActivateClickwrapService
                 $args['version_number'],
                 $clickwrap_request
             );
-            //ds-snippet-end:Click2Step4
+            #ds-snippet-end:Click2Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
