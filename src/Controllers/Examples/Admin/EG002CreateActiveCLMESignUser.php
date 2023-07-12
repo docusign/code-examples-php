@@ -26,7 +26,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
         $this->checkDsToken();
 
         try {
-            // Step 3 start       
+            #ds-snippet-start:Admin2Step3
             $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
             $this->orgId = $this->clientService->getOrgAdminId($this->args);
             $ppReq = $this->clientService->permProfilesApi();
@@ -41,9 +41,9 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
                     $eSignProductId = $item["product_id"];
                 }
             }
-            // Step 3 end
+            #ds-snippet-end:Admin2Step3
 
-            // Step 4 start
+            #ds-snippet-start:Admin2Step4
             $dsgReq = $this->clientService->adminGroupsApi();
             $dsgRes = $dsgReq->getDSGroups($this->orgId, $this->args["account_id"]);
             $dsGroups = $dsgRes["ds_groups"];
@@ -52,7 +52,7 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
                     $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]
                 );
             }
-            // Step 4 end
+            #ds-snippet-end:Admin2Step4
 
             $preFill = [
                 'clmPermissionProfiles' => $clmPermissionProfiles,
