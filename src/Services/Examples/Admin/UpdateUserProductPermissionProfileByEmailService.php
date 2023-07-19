@@ -30,6 +30,7 @@ class UpdateUserProductPermissionProfileByEmailService
         string $productId,
         string $permissionProfileId
     ): UserProductPermissionProfilesResponse {
+        #ds-snippet-start:Admin8Step3
         $userProductPermissionProfilesRequest = new UserProductPermissionProfilesRequest([
             'email' => $emailAddress,
             'product_permission_profiles' => [new ProductPermissionProfileRequest([
@@ -37,11 +38,14 @@ class UpdateUserProductPermissionProfileByEmailService
                 'permission_profile_id' => $permissionProfileId,
             ])],
         ]);
+        #ds-snippet-end:Admin8Step3
 
+        #ds-snippet-start:Admin8Step4
         return $productPermissionProfilesApi->addUserProductPermissionProfilesByEmail(
             $organizationId,
             $accountId,
             $userProductPermissionProfilesRequest
         );
+        #ds-snippet-end:Admin8Step4
     }
 }
