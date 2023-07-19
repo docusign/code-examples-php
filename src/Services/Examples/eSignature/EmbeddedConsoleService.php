@@ -17,11 +17,11 @@ class EmbeddedConsoleService
      * @param $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function embeddedConsole(array $args, $clientService): array
     {
         # Step 1. Create the NDSE view request object
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign12Step2
         $view_request = new ConsoleViewRequest(['return_url' => $args['ds_return_url']]);
         if ($args['starting_view'] == "envelope" && $args['envelope_id']) {
             $view_request->setEnvelopeId($args['envelope_id']);
@@ -31,8 +31,8 @@ class EmbeddedConsoleService
         $envelope_api = $clientService->getEnvelopeApi();
         $consoleView = $envelope_api->createConsoleView($args['account_id'], $view_request);
         $url = $consoleView['url'];
+        #ds-snippet-end:eSign12Step2
 
         return ['redirect_url' =>  $url];
     }
-    # ***DS.snippet.0.end
 }
