@@ -19,13 +19,19 @@ class GetRoomsWithFiltersService
      */
     public static function getRoomsWithFilter(array $args, $clientService): RoomSummaryList
     {
+        #ds-snippet-start:Rooms5Step4
         $rooms_api = $clientService->getRoomsApi();
+        #ds-snippet-end:Rooms5Step4
 
         try {
+            #ds-snippet-start:Rooms5Step3
             $options = new GetRoomsOptions();
             $options->setFieldDataChangedStartDate($args['start_date']);
             $options->setFieldDataChangedEndDate($args['end_date']);
+            #ds-snippet-end:Rooms5Step3
+            #ds-snippet-start:Rooms5Step4
             $rooms = $rooms_api->getRooms($args['account_id'], $options);
+            #ds-snippet-end:Rooms5Step4
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
