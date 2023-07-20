@@ -21,13 +21,14 @@ class RetrieveDocuSignProfileByEmailAddress
         string $email,
         AdminApiClientService $clientService
     ): array {
+        #ds-snippet-start:Admin6Step3
         $usersApi = $clientService->getUsersApi();
 
         $userOptions = new GetUserDSProfilesByEmailOptions();
         $userOptions->setEmail($email);
 
         $usersResponse = $usersApi->getUserDSProfilesByEmail($organizationId, $userOptions);
-
+        #ds-snippet-end:Admin6Step3
         return json_decode((string) $usersResponse, true);
     }
 }

@@ -34,7 +34,7 @@ class EG043AuthRequest extends eSignBaseController
 
             $userId = SharedAccessService::getCurrentUserInfo($basePath, $accessToken)[0]['sub'];
 
-            SharedAccessService::сreateUserAuthorization(
+            SharedAccessService::createUserAuthorization(
                 $basePath,
                 $accessToken,
                 $accountId,
