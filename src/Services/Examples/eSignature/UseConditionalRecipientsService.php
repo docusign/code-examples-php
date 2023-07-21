@@ -31,19 +31,18 @@ class UseConditionalRecipientsService
      * @param $demoDocsPath
      * @return string
      */
-    # ***DS.snippet.0.start
     public static function useConditionalRecipients(array $args, $clientService, $demoDocsPath): string
     {
         $envelope_args = $args['envelope_args'];
         $envelope_api = $clientService->getEnvelopeApi();
 
-        # Step 3 Start
+        #ds-snippet-start:eSign34Step3
         $envelope_definition = UseConditionalRecipientsService::make_envelope($envelope_args, $demoDocsPath);
-        # Step 3 End
+        #ds-snippet-end:eSign34Step3
 
-        # Step 4 Start
+        #ds-snippet-start:eSign34Step4
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
-        # Step 4 End
+        #ds-snippet-end:eSign34Step4
 
         return $envelope["envelope_id"];
     }
@@ -56,6 +55,7 @@ class UseConditionalRecipientsService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    #ds-snippet-start:eSign34Step3
     public static function make_envelope($envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
@@ -248,5 +248,5 @@ class UseConditionalRecipientsService
         $envelope_definition->setStatus($envelope_args['status']);
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign34Step3
 }
