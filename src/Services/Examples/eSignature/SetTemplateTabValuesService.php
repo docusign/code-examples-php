@@ -26,7 +26,7 @@ class SetTemplateTabValuesService
      * @param $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
+
     public static function setTemplateTabValues(array $args, $clientService): array
     {
         # 1. Create the envelope request object
@@ -37,15 +37,15 @@ class SetTemplateTabValuesService
 
     public static function sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition): array
     {
-        # Step 4 start
+        #ds-snippet-start:eSign17Step5
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
         $envelope_id = $envelopeResponse->getEnvelopeId();
-        # Step 4 end
+        #ds-snippet-end:eSign17Step5
 
-        # Step 5 start
+        #ds-snippet-start:eSign17Step6
         # Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating
         # the signer? See the `authentication_method' definition
@@ -58,8 +58,9 @@ class SetTemplateTabValuesService
         # Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
         $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
-        # Step 5 end
+        
         return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
+        #ds-snippet-end:eSign17Step6
     }
 
     /**
@@ -73,11 +74,14 @@ class SetTemplateTabValuesService
     public static function make_envelope(array $args): EnvelopeDefinition
     {
         # create the envelope definition with the template_id
+        #ds-snippet-start:eSign17Step4
         $envelope_definition = new EnvelopeDefinition([
             'status' => 'sent', 'template_id' => $args['template_id']
         ]);
+        #ds-snippet-end:eSign17Step4
 
         # Set the values for the fields in the template
+        #ds-snippet-start:eSign17Step3
         $check1 = new Checkbox([
             'tab_label' => 'ckAuthorization', 'selected' => "true"]);
         $check3 = new Checkbox([
@@ -135,6 +139,7 @@ class SetTemplateTabValuesService
         $envelope_definition->setCustomFields($custom_fields);
 
         return $envelope_definition;
+        #ds-snippet-end:eSign17Step3
+
     }
-    # ***DS.snippet.0.end
 }

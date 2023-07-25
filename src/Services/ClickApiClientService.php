@@ -31,12 +31,12 @@ class ClickApiClientService
         # Construct your API headers
         # Exceptions will be caught by the calling function
 
-        # Step 2 Start
+        #ds-snippet-start:ClickPHPStep2
         $config = new Configuration();
         $config->setHost('https://demo.docusign.net/clickapi');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
-        # Step 2 End
+        #ds-snippet-end:ClickPHPStep2
 
         $this->routerService = new RouterService();
     }

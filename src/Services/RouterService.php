@@ -74,7 +74,6 @@ class RouterService implements IRouterService
         'reg008' => 'Rooms\EG008GrantOfficeAccessToFormGroup',
         'reg009' => 'Rooms\Eg009AssignFormToFormGroup',
         'meg001' => 'Monitor\Eg001GetMonitoringData',
-        'meg002' => 'Monitor\Eg002WebQueryEndpoint',
         'aeg001' => 'Admin\EG001CreateNewUser',
         'aeg002' => 'Admin\EG002CreateActiveCLMESignUser',
         'aeg003' => 'Admin\EG003BulkExportUserData',
@@ -154,7 +153,6 @@ class RouterService implements IRouterService
         "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
         "reg009" => "rooms/eg009_assign_form_to_form_group.html",
         "meg001" => "monitor/eg001_get_monitoring_data.html",
-        "meg002" => "monitor/eg002_web_query_endpoint.html",
         "aeg001" => "admin/eg001_create_active_user.html",
         "aeg002" => "admin/eg002_create_new_esignature_clm_user.html",
         "aeg003" => "admin/eg003_bulk_export_user_data.html",
@@ -215,7 +213,7 @@ class RouterService implements IRouterService
     public function router(): void
     {
         $homeRoute = 'home_esig';
-
+        
         $page = $_GET['page'] ?? $homeRoute;
         if ($page == $homeRoute) {
             // We're not logged in and Quickstart is true:  Route to the 1st example.
@@ -348,6 +346,9 @@ class RouterService implements IRouterService
         }
         if (isset($_SESSION['ds_user_name'])) {
             unset($_SESSION['ds_user_name']);
+        }
+        if (isset($_SESSION['prefered_api_type'])) {
+            unset($_SESSION['prefered_api_type']);
         }
         if (isset($_SESSION['ds_expiration'])) {
             unset($_SESSION['ds_expiration']);

@@ -24,20 +24,19 @@ class BulkExportUserDataService
         array $arguments,
         string $organizationId
     ) {
-        # Step 3 start
+        #ds-snippet-start:Admin3Step3
         $bulkExportsApi = $clientService->bulkExportsAPI();
         $request = new OrganizationExportResponse();
         $request->setType("organization_memberships_export");
         $bulkList = $bulkExportsApi->createUserListExport($organizationId, $request);
-        # Step 3 end
+        #ds-snippet-end:Admin3Step3
 
         sleep(30);
 
-        # Step 4 start
+        #ds-snippet-start:Admin3Step4
         $organizationExportResponse = $bulkExportsApi->getUserListExport($organizationId, $bulkList["id"]);
-        # Step 4 end
+        #ds-snippet-end:Admin3Step4
 
-        # Step 5 start
         try {
             if ($organizationExportResponse["percent_completed"] < 100) {
                 sleep(25);
@@ -49,6 +48,7 @@ class BulkExportUserDataService
                 }
             }
 
+            #ds-snippet-start:Admin3Step5
             $csvUri = $organizationExportResponse->getResults()[0]->getUrl();
 
             $client = new Client();
@@ -64,7 +64,7 @@ class BulkExportUserDataService
                     'save_to' => "./demo_documents/ExportedUserData.csv"
                 ]
             );
-            # Step 5 end
+            #ds-snippet-end:Admin3Step5
 
             if ($organizationExportResponse->getResults() !== null) {
                 $_SESSION['export_id'] = strval($organizationExportResponse->getResults()[0]->getId());

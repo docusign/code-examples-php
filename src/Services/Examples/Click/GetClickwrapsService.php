@@ -18,11 +18,11 @@ class GetClickwrapsService
     public static function getClickwraps(array $args, ClickApiClientService $clientService): ClickwrapVersionsResponse
     {
         try {
-            # Step 3 Start
+            #ds-snippet-start:Click4Step3
             $accountsApi = $clientService->accountsApi();
             $options = new GetClickwrapsOptions();
             $clickwrapVersionsResponse = $accountsApi->getClickwraps($args['account_id'], $options);
-            # Step 3 End
+            #ds-snippet-end:Click4Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;

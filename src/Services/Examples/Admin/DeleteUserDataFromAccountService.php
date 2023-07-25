@@ -23,9 +23,13 @@ class DeleteUserDataFromAccountService
         string $accountId,
         string $userId
     ): IndividualUserDataRedactionResponse {
+        #ds-snippet-start:Admin10Step3
         $membershipDataRedaction = new IndividualMembershipDataRedactionRequest();
         $membershipDataRedaction->setUserId($userId);
+        #ds-snippet-end:Admin10Step3
 
+        #ds-snippet-start:Admin10Step4
         return $accountsApi->redactIndividualMembershipData($accountId, $membershipDataRedaction);
+        #ds-snippet-end:Admin10Step4
     }
 }
