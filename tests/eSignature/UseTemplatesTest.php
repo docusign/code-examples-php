@@ -16,9 +16,9 @@ final class UseTemplatesTest extends TestCase
     public function testUseTemplate_CorrectInputValues_ReturnsArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
-        (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccEmail = "CC@gmail.com";
         $ccName = "CC";
@@ -48,7 +48,9 @@ final class UseTemplatesTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnsEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccMail = "CC@gmail.com";
         $ccName = "CC";

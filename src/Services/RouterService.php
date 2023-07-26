@@ -213,7 +213,7 @@ class RouterService implements IRouterService
     public function router(): void
     {
         $homeRoute = 'home_esig';
-
+        
         $page = $_GET['page'] ?? $homeRoute;
         if ($page == $homeRoute) {
             // We're not logged in and Quickstart is true:  Route to the 1st example.
@@ -346,6 +346,9 @@ class RouterService implements IRouterService
         }
         if (isset($_SESSION['ds_user_name'])) {
             unset($_SESSION['ds_user_name']);
+        }
+        if (isset($_SESSION['prefered_api_type'])) {
+            unset($_SESSION['prefered_api_type']);
         }
         if (isset($_SESSION['ds_expiration'])) {
             unset($_SESSION['ds_expiration']);

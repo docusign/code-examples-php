@@ -9,6 +9,7 @@ use DocuSign\eSign\Api\GroupsApi;
 use DocuSign\eSign\Api\TemplatesApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
+use Example\Services\ApiTypes;
 use PHPUnit\Framework\TestCase;
 use Example\Services\SignatureClientService;
 
@@ -19,7 +20,9 @@ final class SignatureClientTest extends TestCase
     public function testGetTemplatesApiMethod_CorrectInputValues_ReturnsTemplatesApi()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),
@@ -43,7 +46,9 @@ final class SignatureClientTest extends TestCase
     public function testGetBulkEnvelopesApiMethod_CorrectInputValues_ReturnsBulkEnvelopesApi()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),
@@ -67,7 +72,9 @@ final class SignatureClientTest extends TestCase
     public function testGetEnvelopeApiMethod_CorrectInputValues_ReturnsEnvelopeApi()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),
@@ -91,7 +98,9 @@ final class SignatureClientTest extends TestCase
     public function testGetAccountsApiMethod_CorrectInputValues_ReturnsAccountsApi()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),
@@ -115,7 +124,9 @@ final class SignatureClientTest extends TestCase
     public function testGetGroupsApiMethod_CorrectInputValues_ReturnsGroupsApi()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
             'base_path' => $testConfig->getBasePath(),

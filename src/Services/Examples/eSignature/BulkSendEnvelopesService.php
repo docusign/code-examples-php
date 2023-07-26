@@ -35,7 +35,8 @@ class BulkSendEnvelopesService
     public static function bulkSendEnvelopes(
         array $args,
         SignatureClientService $clientService,
-        string $demoDocsPath
+        string $demoDocsPath,
+        string $docPDF
     ): string {
         $bulk_envelopes_api = $clientService->getBulkEnvelopesApi();
         $envelope_api = $clientService->getEnvelopeApi();
@@ -47,7 +48,7 @@ class BulkSendEnvelopesService
         # Step 3 end
 
         # Step 4.1 start
-        $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath);
+        $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath, $docPDF);
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
         # Step 4.1 end
@@ -156,7 +157,7 @@ class BulkSendEnvelopesService
      * @param string $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(string $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(string $demoDocsPath, string $docPDF): EnvelopeDefinition
     {
         # Document 1 (PDF) has tag /sn1/
         #
@@ -164,7 +165,7 @@ class BulkSendEnvelopesService
         # recipient 1 - signer
         #
         # Read the file
-        $content_bytes = file_get_contents($demoDocsPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
+        $content_bytes = file_get_contents($demoDocsPath . $docPDF);
         $base64_file_content = base64_encode($content_bytes);
 
         # Create the document model

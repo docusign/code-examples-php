@@ -21,8 +21,8 @@ final class SigningViaEmailTest extends TestCase
     public function testSigningViaEmail_CorrectInputValues_ReturnsArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
 
         $ccEmail = 'cc@gmail.com';
         $ccName = 'CC';
@@ -61,7 +61,7 @@ final class SigningViaEmailTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnsEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
 
         $ccEmail = 'cc@gmail.com';
         $ccName = 'CC';

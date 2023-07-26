@@ -37,7 +37,7 @@ class EG031BulkSendEnvelopes extends eSignBaseController
         # More data validation would be a good idea here
         # Strip anything other than characters listed
         $bulkSendBatchStatus = json_decode(
-            BulkSendEnvelopesService::bulkSendEnvelopes($this->args, $this->clientService, self::DEMO_DOCS_PATH),
+            BulkSendEnvelopesService::bulkSendEnvelopes($this->args, $this->clientService, self::DEMO_DOCS_PATH, $GLOBALS['DS_CONFIG']['doc_pdf']),
             true
         );
 

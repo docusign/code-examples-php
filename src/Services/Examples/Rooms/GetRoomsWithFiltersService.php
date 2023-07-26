@@ -51,8 +51,7 @@ class GetRoomsWithFiltersService
      */
     public static function getRooms($routerService, $args, $clientService, $eg): array
     {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getRooms($args);
         } else {
             $clientService->needToReAuth($eg);
