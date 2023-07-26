@@ -26,9 +26,9 @@ final class AddDocToTemplateTest extends TestCase
     public function testAddDocToTemplate_CorrectInputValues_ReturnEnvelopeId()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
-        (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $signerClientId = 1000;
         $ccEmail = 'cc@gmail.com';
@@ -72,8 +72,8 @@ final class AddDocToTemplateTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $testConfig = new TestConfig();
+        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $status = "sent";
         $ccEmail = 'cc@gmail.com';
@@ -134,7 +134,8 @@ final class AddDocToTemplateTest extends TestCase
             'inline_templates' => [
                 new InlineTemplate([
                     'sequence' => $secondDefaultId,
-                    'recipients' => $recipients])
+                    'recipients' => $recipients
+               ])
             ]
         ]);
 

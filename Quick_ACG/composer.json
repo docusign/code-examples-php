@@ -11,7 +11,7 @@
         "twig/twig": "^3.5.1",
         "league/oauth2-client": "^2.6.1",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "7.5.0",
+        "guzzlehttp/guzzle": "7.7.0",
         "mashape/unirest-php": "3.0.4"
     }
 }

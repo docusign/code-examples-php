@@ -37,8 +37,7 @@ class GetClickwrapResponseService
         array $args,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

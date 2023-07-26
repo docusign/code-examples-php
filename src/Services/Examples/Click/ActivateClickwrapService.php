@@ -37,7 +37,6 @@ class ActivateClickwrapService
             exit;
         }
 
-
         return $response;
     }
 
