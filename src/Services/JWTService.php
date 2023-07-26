@@ -48,7 +48,6 @@ class JWTService
     {
         self::$access_token = $this->configureJwtAuthorizationFlowByKey();
         self::$expiresInTimestamp = time() + self::$expires_in;
-
         if (is_null(self::$account)) {
             self::$account = self::$apiClient->getUserInfo(self::$access_token->getAccessToken());
         }
@@ -89,13 +88,11 @@ class JWTService
         } catch (Throwable $th) {
             // we found consent_required in the response body meaning first time consent is needed
             if (strpos($th->getMessage(), "consent_required") !== false) {
-                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' . http_build_query(
+                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?prompt=login&response_type=code&' . http_build_query(
                     [
                         'scope' => "impersonation+" . $jwt_scope,
-                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback',
                         'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                        'state' => $_SESSION['oauth2state'],
-                        'response_type' => 'code'
+                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback'
                     ]
                 );
                 header('Location: ' . $authorizationURL);

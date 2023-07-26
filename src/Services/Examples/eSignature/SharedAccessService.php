@@ -25,6 +25,7 @@ class SharedAccessService
         string $basePath,
         string $accessToken
     ): array {
+        #ds-snippet-start:eSign43Step2
         $config = new Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
@@ -33,6 +34,7 @@ class SharedAccessService
         $oauth->setOAuthBasePath(self::BASEPATH);
 
         $apiClient = new ApiClient($config, $oauth);
+        #ds-snippet-end:eSign43Step2
 
         return $apiClient->getUserInfo($accessToken);
     }
@@ -77,6 +79,7 @@ class SharedAccessService
         string $agentName,
         string $activationCode
     ): NewUsersSummary {
+        #ds-snippet-start:eSign43Step3
         $newUser = new NewUsersDefinition();
         $newUser->setNewUsers([
             new UserInformation([
@@ -86,9 +89,11 @@ class SharedAccessService
         ]);
 
         return $usersApi->create($accountId, $newUser);
+        #ds-snippet-end:eSign43Step3
     }
 
-    public static function сreateUserAuthorization(
+    #ds-snippet-start:eSign43Step4
+    public static function createUserAuthorization(
         string $basePath,
         string $accessToken,
         string $accountId,
@@ -122,9 +127,10 @@ class SharedAccessService
             $accountsApi->createUserAuthorization($accountId, $userId, $authRequest);
         }
     }
-
+    #ds-snippet-end:eSign43Step4
     public static function listEnvelopes(ApiClient $apiClient, string $accountId, string $userId): ?EnvelopesInformation
     {
+        #ds-snippet-start:eSign43Step5
         $apiClient->getConfig()->addDefaultHeader("X-DocuSign-Act-On-Behalf", $userId);
         $envelopeApi = new EnvelopesApi($apiClient);
 
@@ -139,5 +145,6 @@ class SharedAccessService
         }
 
         return $statusChanges;
+        #ds-snippet-end:eSign43Step5
     }
 }

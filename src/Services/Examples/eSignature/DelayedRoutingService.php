@@ -29,10 +29,10 @@ class DelayedRoutingService
      * @return array ['redirect_url']
      */
 
-    public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath): array
+    public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Create the envelope definition
-        $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
+        $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
         $envelope_api = $clientService->getEnvelopeApi();
 
 
@@ -66,9 +66,9 @@ class DelayedRoutingService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
+        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
 
         #ds-snippet-start:eSign36Step2
         # Create the signer recipient models

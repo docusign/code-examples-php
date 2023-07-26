@@ -37,12 +37,12 @@ class SignatureClientService
     {
         # Construct your API headers
         # Exceptions will be caught by the calling function
-        # Step 2 start
+        #ds-snippet-start:eSignPHPStep2
         $config = new Configuration();
         $config->setHost($args['base_path']);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
-        # Step 2 end
+        #ds-snippet-end:eSignPHPStep2
         $this->routerService = isset($GLOBALS['DS_CONFIG']) && $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService() : new RouterService();
     }
 

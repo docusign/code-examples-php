@@ -15,7 +15,7 @@ use Example\Services\SignatureClientService;
 
 final class EmbeddedSigningTest extends TestCase
 {
-    private int $signer_client_id = 1000;
+    private int $signerClientId = 1000;
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
@@ -24,8 +24,8 @@ final class EmbeddedSigningTest extends TestCase
     public function testWorkerMethod_CorrectInputValues_ReturnsArray()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature);
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
         $documentName = 'World_Wide_Corp_lorem.pdf';
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -34,7 +34,7 @@ final class EmbeddedSigningTest extends TestCase
             'envelope_args' => [
                 'signer_email' => $testConfig->getSignerEmail(),
                 'signer_name' => $testConfig->getSignerName(),
-                'signer_client_id' => $this->signer_client_id,
+                'signer_client_id' => $this->signerClientId,
                 'ds_return_url' => $this->redirectUrl
             ]
         ];
@@ -58,12 +58,12 @@ final class EmbeddedSigningTest extends TestCase
     public function testMakeEnvelope_CorrectInputValues_ReturnsEnvelopeDefinition()
     {
         // Arrange
-        $testConfig = TestConfig::getInstance();
+        $testConfig = new TestConfig();
 
         $requestArguments = [
             'signer_email' => $testConfig->getSignerEmail(),
             'signer_name' => $testConfig->getSignerName(),
-            'signer_client_id' => $this->signer_client_id,
+            'signer_client_id' => $this->signerClientId,
             'ds_return_url' => $this->redirectUrl
         ];
 
@@ -95,7 +95,7 @@ final class EmbeddedSigningTest extends TestCase
                 'name' => $testConfig->getSignerName(),
                 'recipient_id' => $defaultId,
                 'routing_order' => $defaultId,
-                'client_user_id' => $this->signer_client_id,
+                'client_user_id' => $this->signerClientId,
             ]
         );
 

@@ -39,7 +39,9 @@ class EG029ApplyBrandToEnvelope extends eSignBaseController
         $envelopeId = ApplyBrandToEnvelopeService::applyBrandToEnvelope(
             $this->args,
             $this::DEMO_DOCS_PATH,
-            $this->clientService
+            $this->clientService,
+            $GLOBALS['DS_CONFIG']['doc_docx'],
+            $GLOBALS['DS_CONFIG']['doc_pdf']
         );
 
         if ($envelopeId) {

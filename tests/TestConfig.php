@@ -8,7 +8,6 @@ if (file_exists($configFile)) {
     include_once $configFile;
 }
 
-
 final class TestConfig
 {
     /**
@@ -89,22 +88,32 @@ final class TestConfig
     protected string $templateId;
 
     /**
+     * $clickwrapId
+     *
+     * @var string
+     */
+    protected string $clickwrapId;
+
+    /**
+     * $brandId
+     *
+     * @var string
+     */
+    protected string $brandId;
+
+    /**
+     * $clickwrapVersionNumber
+     *
+     * @var string
+     */
+    protected string $clickwrapVersionNumber;
+
+    /**
      * $pathToDocuments
      *
      * @var string
      */
     protected string $pathToDocuments;
-
-    private static $instance = null;
-
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new TestConfig();
-        }
-
-        return self::$instance;
-    }
 
     public function __construct()
     {
@@ -148,6 +157,7 @@ final class TestConfig
     public function setClientId($clientId)
     {
         $this->clientId = $clientId;
+
         return $this;
     }
 
@@ -170,6 +180,7 @@ final class TestConfig
     public function setHost($host)
     {
         $this->host = $host;
+
         return $this;
     }
 
@@ -192,6 +203,76 @@ final class TestConfig
     public function setAccountId($accountId)
     {
         $this->accountId = $accountId;
+
+        return $this;
+    }
+
+    /**
+     * Gets brandId
+     *
+     * @return string
+     */
+    public function getBrandId()
+    {
+        return $this->brandId;
+    }
+
+    /**
+     * Sets brandId
+     *
+     * @param string $brandId
+     * @return $this
+     */
+    public function setBrandId($brandId)
+    {
+        $this->brandId = $brandId;
+
+        return $this;
+    }
+
+    /**
+     * Gets clickwrapId
+     *
+     * @return string
+     */
+    public function getClickwrapId()
+    {
+        return $this->clickwrapId;
+    }
+
+    /**
+     * Sets clickwrapId
+     *
+     * @param string $clickwrapId
+     * @return $this
+     */
+    public function setClickwrapId($clickwrapId)
+    {
+        $this->clickwrapId = $clickwrapId;
+
+        return $this;
+    }
+
+    /**
+     * Gets clickwrapVersionNumber
+     *
+     * @return string
+     */
+    public function getClickwrapVersionNumber()
+    {
+        return $this->clickwrapVersionNumber;
+    }
+
+    /**
+     * Sets clickwrapVersionNumber
+     *
+     * @param string $clickwrapVersionNumber
+     * @return $this
+     */
+    public function setClickwrapVersionNumber($clickwrapVersionNumber)
+    {
+        $this->clickwrapVersionNumber = $clickwrapVersionNumber;
+
         return $this;
     }
 
@@ -214,6 +295,7 @@ final class TestConfig
     public function setSignerEmail($signerEmail)
     {
         $this->signerEmail = $signerEmail;
+
         return $this;
     }
 
@@ -236,6 +318,7 @@ final class TestConfig
     public function setSignerName($signerName)
     {
         $this->signerName = $signerName;
+
         return $this;
     }
 
@@ -258,6 +341,7 @@ final class TestConfig
     public function setImpersonatedUserId($impersonatedUserId)
     {
         $this->impersonatedUserId = $impersonatedUserId;
+
         return $this;
     }
 
@@ -280,6 +364,7 @@ final class TestConfig
     public function setTemplateId($templateId)
     {
         $this->templateId = $templateId;
+
         return $this;
     }
 
@@ -302,6 +387,7 @@ final class TestConfig
     public function setOAuthBasePath($oauthBasePath)
     {
         $this->oauthBasePath = $oauthBasePath;
+
         return $this;
     }
 
@@ -324,6 +410,7 @@ final class TestConfig
     public function setPrivateKey($privateKey)
     {
         $this->privateKey = $privateKey;
+
         return $this;
     }
 
@@ -346,6 +433,7 @@ final class TestConfig
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
+
         return $this;
     }
 
@@ -368,6 +456,7 @@ final class TestConfig
     public function setBasePath($basePath)
     {
         $this->basePath = $basePath;
+
         return $this;
     }
 
@@ -390,6 +479,7 @@ final class TestConfig
     public function setPathToDocuments($pathToDocuments)
     {
         $this->pathToDocuments = $pathToDocuments;
+
         return $this;
     }
 }
