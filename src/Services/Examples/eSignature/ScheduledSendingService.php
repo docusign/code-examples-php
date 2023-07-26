@@ -31,7 +31,6 @@ class ScheduledSendingService
     public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Step 2. Create the envelope definition
-        #ds-snippet-start:eSign35Step2
         $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
         $envelope_api = $clientService->getEnvelopeApi();
 
@@ -42,7 +41,7 @@ class ScheduledSendingService
             # Step 3. Create and send the envelope
             #ds-snippet-start:eSign35Step3
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-            #ds-snippet-end:eSign35Step
+            #ds-snippet-end:eSign35Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -68,6 +67,7 @@ class ScheduledSendingService
      */
     public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
+        #ds-snippet-start:eSign35Step2
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
 
         # Create the signer recipient model
