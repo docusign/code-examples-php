@@ -20,9 +20,11 @@ class RetrieveDocuSignProfileByUserId
         string $userId,
         AdminApiClientService $clientService
     ): array {
+        #ds-snippet-start:Admin7Step3
         $usersApi = $clientService->getUsersApi();
 
         $usersResponse = $usersApi->getUserDSProfile($organizationId, $userId);
+        #ds-snippet-end:Admin7Step3
 
         return json_decode((string) $usersResponse, true);
     }
