@@ -29,7 +29,7 @@ class MonitorApiClientService
     {
         # Construct your API headers
         # Exceptions will be caught by the calling function
-        # step 2 start
+        #ds-snippet-start:MonitorPHPStep2
         $config = new Configuration();
         $accessToken = $_SESSION['ds_access_token'];
 
@@ -38,7 +38,7 @@ class MonitorApiClientService
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
         $config->addDefaultHeader("Content-Type", "application/json");
         $this->apiClient = new ApiClient($config);
-        # step 2 end
+        #ds-snippet-end:MonitorPHPStep2
 
         $this->routerService = new RouterService();
     }

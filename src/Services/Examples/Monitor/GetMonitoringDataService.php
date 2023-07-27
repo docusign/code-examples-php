@@ -19,7 +19,7 @@ class GetMonitoringDataService
         // Create an ApiClient and construct API headers
         $apiClient = $clientService->getApiClient();
 
-        # step 3 start
+        #ds-snippet-start:Monitor1Step3
         try {
             // Get monitoring data
             $datasetApi = new DataSetApi($apiClient);
@@ -54,7 +54,7 @@ class GetMonitoringDataService
             $clientService->showErrorTemplate($e);
             exit;
         }
-        # step 3 end
+        #ds-snippet-end:Monitor1Step3
 
         // Cleaning the data from wrong symbols
         $monitoringLogs = json_encode($monitoringLogs);
