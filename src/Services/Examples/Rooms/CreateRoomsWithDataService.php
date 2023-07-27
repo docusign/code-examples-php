@@ -27,6 +27,7 @@ class CreateRoomsWithDataService
         }));
         $role_id = $admin_roles[0]['role_id'];
         # Step 2. Create RoomForCreate object
+        #ds-snippet-start:Rooms1Step3
         $room = new RoomForCreate(
             [
                 'name'                => $args["room_name"],
@@ -46,8 +47,11 @@ class CreateRoomsWithDataService
                 )
             ]
         );
+        #ds-snippet-end:Rooms1Step3
 
         # Step 3. Post new room using SDK
+        #ds-snippet-start:Rooms1Step4
         return $clientService->createRoom($args, $room);
+        #ds-snippet-end:Rooms1Step4
     }
 }
