@@ -18,10 +18,10 @@ class GetClickwrapResponseService
     {
 
         try {
-            # Step 3 Start
+            #ds-snippet-start:Click5Step3
             $accounts_api = $clientService->accountsApi();
             $response = $accounts_api->getClickwrapAgreements($args['account_id'], $args['clickwrap_id']);
-            # Step 3 End
+            #ds-snippet-end:Click5Step3
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
@@ -37,8 +37,7 @@ class GetClickwrapResponseService
         array $args,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

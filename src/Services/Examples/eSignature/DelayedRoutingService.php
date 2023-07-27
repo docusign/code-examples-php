@@ -29,20 +29,20 @@ class DelayedRoutingService
      * @return array ['redirect_url']
      */
 
-    public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath): array
+    public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Create the envelope definition
-        $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
+        $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
         $envelope_api = $clientService->getEnvelopeApi();
 
 
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            # Step 3. Create and send the envelope
-            # Step 3 start
+            # Create and send the envelope
+            #ds-snippet-start:eSign36Step3
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-            # Step 3 end
+            #ds-snippet-end:eSign36Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -66,11 +66,11 @@ class DelayedRoutingService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
+        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
 
-        # Step 2 start
+        #ds-snippet-start:eSign36Step2
         # Create the signer recipient models
         $signer1 = new Signer([
             'email' => $args['signer1_email'], 'name' => $args['signer1_name'],
@@ -146,7 +146,7 @@ class DelayedRoutingService
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
-        # Step 2 end
+        #ds-snippet-end:eSign36Step2
 
         return $envelope_definition;
     }

@@ -50,12 +50,12 @@ class SetDocumentsVisibilityService
 
         try {
 
-            # Step 4 start
+            #ds-snippet-start:eSign40Step4
             $envelopeSummary = $envelope_api->createEnvelope(
                 $accountId,
                 $envelope_definition
             );
-            # Step 4 end
+            #ds-snippet-end:eSign40Step4
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
 
@@ -73,7 +73,7 @@ class SetDocumentsVisibilityService
 
         return $envelopeSummary->getEnvelopeId();
     }
-    # Step 3 start
+    #ds-snippet-start:eSign40Step3
     private static function make_envelope(
         string $signer1Email,
         string $signer1Name,
@@ -218,5 +218,5 @@ class SetDocumentsVisibilityService
 
         return [$documentHTML, $documentDOCX, $documentPDF];
     }
-    # Step 3 end
+    #ds-snippet-end:eSign40Step3
 }

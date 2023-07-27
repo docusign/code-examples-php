@@ -25,7 +25,7 @@ class EmbedClickwrapService
         array $args,
         ClickApiClientService $clientService
     ): string {
-        # Step 3 Start
+        #ds-snippet-start:Click6Step3
         $accountsApi = $clientService->accountsApi();
         $documentData = new UserAgreementRequest();
         $documentData->setClientUserId($args["email_address"]);
@@ -37,16 +37,17 @@ class EmbedClickwrapService
             'date' => $args['date']
         ];
         $documentData->setDocumentData($rawData);
+        #ds-snippet-end:Click6Step3
 
         try {
+            #ds-snippet-start:Click6Step4
             $response =  $accountsApi->createHasAgreed($args['account_id'], $args['clickwrap_id'], $documentData);
             if ($response->getStatus() == "created") {
                 return $response->getAgreementUrl();
             } else {
                 return "Already Agreed";
             }
-
-            # Step 3 End
+            #ds-snippet-end:Click6Step4
         } catch (ApiException $e) {
             // the clickwrap id is not active, therefore we route them to example 2 to activate it
             $clientService->showErrorTemplate($e);
@@ -68,8 +69,7 @@ class EmbedClickwrapService
         array $args,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $anyClickwraps = [];
                 $apiClient = $clientService->accountsApi();

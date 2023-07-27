@@ -68,13 +68,13 @@ class EG004ACheckImportRequestStatus extends AdminApiBaseController
         // create a bulk exports api instance
         $bulkImport = $this->clientService->bulkImportsApi();
 
-        # Step 4 start
+        #ds-snippet-start:Admin4Step4
         $importId = $_SESSION['import_id'];
         return $bulkImport->getBulkUserImportRequest(
             $this->clientService->getOrgAdminId($this->args),
             $importId
         );
-        # Step 4 end
+        #ds-snippet-end:Admin4Step4
     }
 
 

@@ -7,7 +7,7 @@ use DocuSign\eSign\Model\EnvelopeDefinition;
 
 class CreateAnEnvelopeFunctionService
 {
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
         $envelope_definition = new EnvelopeDefinition([
             'email_subject' => 'Please sign this document set'
@@ -15,9 +15,9 @@ class CreateAnEnvelopeFunctionService
         $doc1_b64 = base64_encode($clientService->createDocumentForEnvelope($args));
         # read files 2 and 3 from a local directory
         # The reads could raise an exception if the file is not available!
-        $content_bytes = file_get_contents($demoDocsPath . $GLOBALS['DS_CONFIG']['doc_docx']);
+        $content_bytes = file_get_contents($demoDocsPath . $docDocx);
         $doc2_b64 = base64_encode($content_bytes);
-        $content_bytes = file_get_contents($demoDocsPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
+        $content_bytes = file_get_contents($demoDocsPath . $docPDF);
         $doc3_b64 = base64_encode($content_bytes);
 
         # Create the document models

@@ -26,7 +26,7 @@ class CreateClickwrapService
         string $demoDocsPath,
         ClickApiClientService $clientService
     ): ClickwrapVersionSummaryResponse {
-        # Step 3 Start
+        #ds-snippet-start:Click1Step3
         $accountsApi = $clientService->accountsApi();
         # Build the display settings
         $displaySettings = new DisplaySettings(
@@ -66,12 +66,12 @@ class CreateClickwrapService
                 'require_reacceptance' => true
             ]
         );
-        # Step 3 End
+        #ds-snippet-end:Click1Step3
 
         try {
-            # Step 4 Start
+            #ds-snippet-start:Click1Step4
             $response =  $accountsApi->createClickwrap($args['account_id'], $clickwrap);
-            # Step 4 End
+            #ds-snippet-end:Click1Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;

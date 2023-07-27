@@ -17,12 +17,12 @@ class CreateFormGroupService
      */
     public static function createFormGroup(array $args, $clientService): FormGroup
     {
-        # Step 3 Start
+        #ds-snippet-start:Rooms7Step3
         $form_group = new FormGroupForCreate(['name' => $args['form_group_name']]);
-        # Step 3 End
+        #ds-snippet-end:Rooms7Step3
 
-        # Step 4 Start
+        #ds-snippet-start:Rooms7Step4
         return $clientService->createFormGroup($args["account_id"], $form_group);
-        # Step 4 End
+        #ds-snippet-end:Rooms7Step4
     }
 }

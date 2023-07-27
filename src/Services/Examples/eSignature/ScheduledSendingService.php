@@ -27,12 +27,11 @@ class ScheduledSendingService
      * @param $demoDocsPath
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
-    public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath): array
+
+    public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Step 2. Create the envelope definition
-        # Step 2 start
-        $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath);
+        $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
         $envelope_api = $clientService->getEnvelopeApi();
 
 
@@ -40,9 +39,9 @@ class ScheduledSendingService
         # Exceptions will be caught by the calling function
         try {
             # Step 3. Create and send the envelope
-            # Step 3 start
+            #ds-snippet-start:eSign35Step3
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-            # Step 3 end
+            #ds-snippet-end:eSign35Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -66,9 +65,10 @@ class ScheduledSendingService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath): EnvelopeDefinition
+    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath);
+        #ds-snippet-start:eSign35Step2
+        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
 
         # Create the signer recipient model
         $signer = new Signer([
@@ -124,9 +124,8 @@ class ScheduledSendingService
         # Request that the envelope be sent by setting |status| to "sent".
         # To request that the envelope be created as a draft, set to "created"
         $envelope_definition->setStatus($args["status"]);
-        # Step 2 end
+        #ds-snippet-end:eSign35Step2
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
 }

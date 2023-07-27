@@ -38,14 +38,14 @@ class AdminApiClientService
         # Exceptions will be caught by the calling function
         $accessToken = $args['ds_access_token'];
 
-        # step 2 start
+        #ds-snippet-start:AdminPHPStep2
         $config = new Configuration();
         $config->setAccessToken($accessToken);
         $config->setHost('https://api-d.docusign.net/management');
-        $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);  
+        $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
         $this->apiClient = new ApiClient($config);
-        # step 2 end 
-        
+        #ds-snippet-end:AdminPHPStep2
+
         $this->routerService = new RouterService();
     }
 
@@ -72,7 +72,7 @@ class AdminApiClientService
     {
         return new OrganizationsApi($this->apiClient);
     }
-    
+
     /**
     * Get product permission profiles
     */
@@ -80,14 +80,14 @@ class AdminApiClientService
     {
         return new ProductPermissionProfilesApi($this->apiClient);
     }
-    
+
     /**
     * Get Org Admin Id
     *
     */
     public function getOrgAdminId(): String
-    { 
-       // It is possible for an account to belong to multiple organizations 
+    {
+       // It is possible for an account to belong to multiple organizations
        // We are returning the first Organization Id found
        $AccountsApi = new AccountsApi($this->apiClient);
        $orgs = $AccountsApi->getOrganizations();
@@ -95,9 +95,9 @@ class AdminApiClientService
          throw new ApiException ("You must create an organization for this account to use the DocuSign Admin API. For details, see <a target='_blank' href='https://support.docusign.com/guides/org-admin-guide'> this support article.</a>", 1);
        else
          return $orgs["organizations"][0]["id"];
-        
+
     }
-    
+
     /**
     * Get product Admin Groups
     */
@@ -105,7 +105,7 @@ class AdminApiClientService
     {
         return new DSGroupsApi($this->apiClient);
     }
-    
+
     /**
      * Get Bulk Exports API
      */
@@ -114,7 +114,7 @@ class AdminApiClientService
     {
         return new BulkExportsApi($this->apiClient);
     }
-     
+
     /**
      * Get Bulk Imports API
      */

@@ -27,9 +27,9 @@ class EG001EmbeddedSigning extends eSignBaseController
     }
 
     /**
-     * 1. Check the token
-     * 2. Call the worker method
-     * 3. Redirect the user to the signing
+     * Check the token
+     * Call the worker method
+     * Redirect the user to the signing
      *
      * @return void
      */
@@ -37,7 +37,7 @@ class EG001EmbeddedSigning extends eSignBaseController
     {
         $this->checkDsToken();
 
-        # 1. Call the worker method
+        # Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
         $pdfDoc = $GLOBALS['DS_CONFIG']['doc_pdf'];

@@ -21,7 +21,7 @@ class CreateNewClickwrapVersionService
     public static function createNewClickwrapVersion(array $args, string $demoDocsPath, ClickApiClientService $clientService): ClickwrapVersionSummaryResponse
     {
 
-        # Step 3 Start
+        #ds-snippet-start:Click3Step3
         $accountsApi = $clientService->accountsApi();
 
         # Build display settings
@@ -61,12 +61,12 @@ class CreateNewClickwrapVersionService
                 'status' => 'inactive',
             ]
         );
-        # Step 3 End
+        #ds-snippet-end:Click3Step3
 
         try {
-            # Step 4 Start
+            #ds-snippet-start:Click3Step4
             $response = $accountsApi->createClickwrapVersion($args['account_id'], $args['clickwrap_id'], $clickwrap);
-            # Step 4 End
+            #ds-snippet-end:Click3Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -81,8 +81,7 @@ class CreateNewClickwrapVersionService
         ClickApiClientService $clientService,
         string $eg
     ): array {
-        $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

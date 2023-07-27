@@ -29,13 +29,13 @@ class BulkImportUserDataService
 
         file_put_contents($csvFile, $str);
 
-        # Step 3 start
+        #ds-snippet-start:Admin4Step3
         $bulkImport = $clientService->bulkImportsApi();
         $organizationImportResponse = $bulkImport->createBulkImportAddUsersRequest(
             $organizationId,
             new SplFileObject($csvFile)
         );
-        # Step 3 end
+        #ds-snippet-end:Admin4Step3
 
         $str = str_replace($accountId, "<accountId>", $str);
         file_put_contents($csvFile, $str);
