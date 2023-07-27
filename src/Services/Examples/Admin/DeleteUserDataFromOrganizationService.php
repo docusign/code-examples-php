@@ -34,6 +34,7 @@ class DeleteUserDataFromOrganizationService
         $profiles = $usersApi->getUserDSProfilesByEmail($organizationId, $getProfilesOptions);
         $user = $profiles->getUsers()[0];
 
+        #ds-snippet-start:Admin10Step3
         $userRedactionRequest = new IndividualUserDataRedactionRequest();
         $userRedactionRequest->setUserId($user->getId());
         $userRedactionRequest->setMemberships([
@@ -41,7 +42,10 @@ class DeleteUserDataFromOrganizationService
                 "account_id" => $user->getMemberships()[0]->getAccountId()
             ])
         ]);
+        #ds-snippet-end:Admin10Step3
 
+        #ds-snippet-start:Admin10Step4
         return $organizationsApi->redactIndividualUserData($organizationId, $userRedactionRequest);
+        #ds-snippet-end:Admin10Step4
     }
 }
