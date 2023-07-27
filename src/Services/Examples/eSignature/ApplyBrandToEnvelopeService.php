@@ -81,6 +81,5 @@ class ApplyBrandToEnvelopeService
         return $envelope_definition;
 
     }
-    #ds-snippet-end:eSign29Step3
 
 }
