@@ -20,7 +20,6 @@ class PhoneAuthenticationService
      * @param $clientService
      * @return array ['envelope_id']
      */
-    # ***DS.snippet.0.start
     public static function phone_authentication(array $args, $demoDocsPath, $clientService, string $fixingInstructions): array
     {
         # Create the envelope request object
@@ -33,10 +32,10 @@ class PhoneAuthenticationService
 
         # call Envelopes::create API method
         # Exceptions will be caught by the calling function
-        # Step 5 start
+        #ds-snippet-start:eSign20Step5
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-        # Step 5 end
+        #ds-snippet-end:eSign20Step5
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
     }
@@ -53,7 +52,7 @@ class PhoneAuthenticationService
     {
 
         # Retrieve the workflow ID
-        # Step 3 start
+        #ds-snippet-start:eSign20Step3
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $workflows_data = $accounts_response->getIdentityVerification();
@@ -62,12 +61,12 @@ class PhoneAuthenticationService
             if ($workflow['default_name'] == 'Phone Authentication')
                 $workflow_id = $workflow['workflow_id'];  
         }
-        # step 3 end
+        #ds-snippet-end:eSign20Step3
         if ($workflow_id == '') 
           throw new ApiException($fixingInstructions);
         
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
-        # step 4 start
+        #ds-snippet-start:eSign20Step4
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
@@ -100,9 +99,8 @@ class PhoneAuthenticationService
         $recipients->setSigners(array($signer1));
 
         $envelope_definition->setRecipients($recipients);
-        # Step 4 end
+        #ds-snippet-end:eSign20Step4
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
 }
