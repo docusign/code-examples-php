@@ -2,6 +2,7 @@
 
 namespace QuickACG;
 
+use Example\Services\ApiTypes;
 use Example\Services\CodeGrantService;
 use Example\Services\ManifestService;
 use Example\Services\IRouterService;
@@ -70,16 +71,17 @@ class RouterService implements IRouterService
             case 'ds_callback':
                 $this->ds_callback(); // See below in oauth section
                 break;
+            case 'must_authenticate':
+                $this->ds_login();
+                break;
             case 'ds_return':
                 header('Location: ' . '/public', true);
                 break;
-
             case 'eg001':
-                $_SESSION['API_TEXT'] = ManifestService::loadManifestData(ManifestService::getLinkToManifestFile('eSignature'));
+                $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
                 $controller = '\Example\\' . $this->getController($page);
                 new $controller($page);
                 break;
-
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
@@ -128,6 +130,7 @@ class RouterService implements IRouterService
      */
     function ds_login(): void
     {
+        $_SESSION['api_type'] = ApiTypes::eSignature;
         $this->authService->login();
     }
 
