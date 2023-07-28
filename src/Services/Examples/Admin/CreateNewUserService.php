@@ -25,16 +25,19 @@ class CreateNewUserService
         array $userData,
         AdminApiClientService $clientService
     ): NewUserResponse {
-        # Step 3 start
         $usersApi = $clientService->getUsersApi();
         $accountId = $_SESSION['ds_account_id'];
+        #ds-snippet-start:Admin1Step3
         $permissionProfile = new PermissionProfileRequest([
             'id' => $userData['permission_profile_id']
         ]);
+        #ds-snippet-end:Admin1Step3
 
+        #ds-snippet-start:Admin1Step4
         $group = new GroupRequest([
             'id' => (int) $userData['group_id']
         ]);
+        #ds-snippet-end:Admin1Step4
 
         $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
@@ -42,6 +45,7 @@ class CreateNewUserService
             'groups' => [ $group ]
         ]);
 
+        #ds-snippet-start:Admin1Step5
         $request = new GlobalNewUserRequest([
             'user_name' => $userData['Name'],
             'first_name' => $userData['FirstName'],
@@ -51,10 +55,10 @@ class CreateNewUserService
             'accounts' => array($accountInfo),
             'auto_activate_memberships' => true
         ]);
-        # Step 3 end
+        #ds-snippet-end:Admin1Step5
 
-        # Step 4 start
+        #ds-snippet-start:Admin1Step6
         return $usersApi->createUser($organizationId, $request);
-        # Step 4 end
+        #ds-snippet-end:Admin1Step6
     }
 }
