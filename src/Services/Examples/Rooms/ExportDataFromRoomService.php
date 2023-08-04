@@ -16,6 +16,7 @@ class ExportDataFromRoomService
      */
     public static function exportDataFromRoom(array $args, $clientService): FieldData
     {
+        #ds-snippet-start:Rooms3Step3
         $rooms_api = $clientService->getRoomsApi();
         try {
             $room_details = $rooms_api->getRoomFieldData($args['room_id'], $args["account_id"]);
@@ -24,6 +25,7 @@ class ExportDataFromRoomService
             $clientService->showErrorTemplate($e);
             exit;
         }
+        #ds-snippet-end:Rooms3Step3
         return $room_details;
     }
 
