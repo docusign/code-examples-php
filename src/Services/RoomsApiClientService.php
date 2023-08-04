@@ -244,6 +244,7 @@ class RoomsApiClientService
      */
     public function getFormLibraries($args): array
     {
+        #ds-snippet-start:Rooms4Step3
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
             $form_libraries = $form_libraries_api->getFormLibraries($args['account_id']);
@@ -251,16 +252,19 @@ class RoomsApiClientService
             $this->showErrorTemplate($e);
             exit;
         }
+        #ds-snippet-end:Rooms4Step3
         return $form_libraries['forms_library_summaries'];
     }
 
     /**
      * Getter for the FormLibrariesApi
      */
+    #ds-snippet-start:Rooms4Step3
     public function getFormLibrariesApi(): FormLibrariesApi
     {
         return new FormLibrariesApi($this->apiClient);
     }
+    #ds-snippet-end:Rooms4Step3
 
     /**
      * Get available forms in specific form library
@@ -271,6 +275,7 @@ class RoomsApiClientService
      */
     public function getFormLibraryForms($forms_library_id, $account_id): array
     {
+        #ds-snippet-start:Rooms4Step3
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
             $forms = $form_libraries_api->getFormLibraryForms($forms_library_id, $account_id);
@@ -278,6 +283,7 @@ class RoomsApiClientService
             $this->showErrorTemplate($e);
             exit;
         }
+        #ds-snippet-end:Rooms4Step3
         return $forms['forms'];
     }
 

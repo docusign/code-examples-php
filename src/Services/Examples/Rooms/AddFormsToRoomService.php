@@ -22,8 +22,10 @@ class AddFormsToRoomService
         $rooms_api = $clientService->getRoomsApi();
 
         try {
+            #ds-snippet-start:Rooms4Step4
             $form_for_add = new FormForAdd($args);
             $response = $rooms_api->addFormToRoom($args['room_id'], $args["account_id"], $form_for_add);
+            #ds-snippet-end:Rooms4Step4
         } catch (ApiException $e) {
             if($e)
             error_log($e);
