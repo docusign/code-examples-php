@@ -36,6 +36,7 @@ class CreateRoomWithTemplatesService
         $role_id = $roles['roles'][0]['role_id'];
 
         # Step 3. Create RoomForCreate object
+        #ds-snippet-start:Rooms2Step4
         $room = new RoomForCreate(
             [
                 'name'        => $args["room_name"],
@@ -53,14 +54,17 @@ class CreateRoomWithTemplatesService
                 )
             ]
         );
+        #ds-snippet-end:Rooms2Step4
 
         # Step 4. Post the room using SDK
+        #ds-snippet-start:Rooms2Step5
         try {
             $response = $rooms_api->createRoom($args['account_id'], $room);
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
+        #ds-snippet-end:Rooms2Step5
         return $response;
     }
 
@@ -75,6 +79,7 @@ class CreateRoomWithTemplatesService
      */
     public static function getRoomTemplates($clientService, $args, $routerService, $eg): array
     {
+        #ds-snippet-start:Rooms2Step3
         $templates_api = $clientService->getRoomTemplatesApi();
         if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
@@ -86,5 +91,6 @@ class CreateRoomWithTemplatesService
         } else {
             $clientService->needToReAuth($eg);
         }
+        #ds-snippet-end:Rooms2Step3
     }
 }
