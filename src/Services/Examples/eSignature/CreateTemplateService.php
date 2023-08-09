@@ -47,7 +47,9 @@ class CreateTemplateService
             # Template not found -- so create it
             # Step 2 create the template
             $template_req_object = CreateTemplateService::make_template_req($template_name, $demoDocsPath);
+            #ds-snippet-start:eSign8Step3
             $templatesListResponse = $templates_api->createTemplate($args['account_id'], $template_req_object);
+            #ds-snippet-end:eSign8Step3
             $template_id = $templatesListResponse['template_id'];
             $results_template_name = $templatesListResponse['name'];
         }
@@ -63,6 +65,8 @@ class CreateTemplateService
      * Create a template request object
      * @return mixed
      */
+
+    #ds-snippet-start:eSign8Step2
     public static function make_template_req($template_name, $demoDocsPath): EnvelopeTemplate
     {
         # document 1 is a pdf
@@ -207,6 +211,7 @@ class CreateTemplateService
             ]
         );
     }
+    #ds-snippet-end:eSign8Step2
 
     public static function createListOfButtonOptions(): ModelList
     {
@@ -231,5 +236,4 @@ class CreateTemplateService
             ]
         );
     }
-    # ***DS.snippet.0.end
 }
