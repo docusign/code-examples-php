@@ -51,7 +51,8 @@ class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
                     );
                     exit;
                 }
-               
+
+                #ds-snippet-start:Admin9Step3
                 $permissionProfilesApi = $this->clientService->permProfilesApi();
 
                 $getUserProductPermissionProfilesByEmailOptions = new GetUserProductPermissionProfilesByEmailOptions();
@@ -62,6 +63,7 @@ class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
                     $this->args["account_id"],
                     $getUserProductPermissionProfilesByEmailOptions
                 );
+                #ds-snippet-end:Admin9Step3
 
                 parent::controller(
                     $this->preparePageProperties($userProductPermissionProfilesResponse)

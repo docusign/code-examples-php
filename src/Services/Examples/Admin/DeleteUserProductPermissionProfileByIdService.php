@@ -27,15 +27,19 @@ class DeleteUserProductPermissionProfileByIdService
         string $emailAddress,
         string $productId
     ): RemoveUserProductsResponse {
+        #ds-snippet-start:Admin9Step4
         $userProductProfileDeleteRequest = new UserProductProfileDeleteRequest([
             'user_email' => $emailAddress,
             'product_ids' => [$productId],
         ]);
+        #ds-snippet-end:Admin9Step4
 
+        #ds-snippet-start:Admin9Step5
         return $productPermissionProfilesApi->removeUserProductPermission(
             $organizationId,
             $accountId,
             $userProductProfileDeleteRequest
         );
+        #ds-snippet-end:Admin9Step5
     }
 }
