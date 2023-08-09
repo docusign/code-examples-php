@@ -17,19 +17,22 @@ class CreateBrandService
      * @param $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function createBrand(array $args, $clientService): array
     {
         # Step 3. Construct the request body
+        #ds-snippet-start:eSign28Step3
         $accounts_api = $clientService->getAccountsApi();
         $brand = new Brand([
             'brand_name' => $args['brand_args']['brand_name'],
             'default_brand_language' => $args['brand_args']['default_language']
         ]);
+        #ds-snippet-end:eSign28Step3
 
         try {
             # Step 4 Call the eSignature REST API
+            #ds-snippet-start:eSign28Step4
             $createdBrand = $accounts_api->createBrand($args['account_id'], $brand);
+            #ds-snippet-end:eSign28Step4
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
@@ -48,5 +51,4 @@ class CreateBrandService
 
         return ['brand_id' => $createdBrand->getBrands()[0]->getBrandId()];
     }
-    # ***DS.snippet.0.end
 }
