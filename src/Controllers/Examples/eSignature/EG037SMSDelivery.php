@@ -71,6 +71,7 @@ class EG037SMSDelivery extends eSignBaseController
             'cc_name' => $this->checkInputValues($_POST['ccName']),
             'cc_country_code' => $this->checkInputValues($_POST['ccCountryCode']),
             'cc_phone_number' => $this->checkInputValues($_POST['ccPhoneNumber']),
+            'deliveryMethod' => $this->checkInputValues($_POST['deliveryMethod']),
             'status' => 'sent'
         ];
         return [

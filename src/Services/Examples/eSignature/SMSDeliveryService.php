@@ -5,7 +5,6 @@ namespace Example\Services\Examples\eSignature;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\EnvelopeDefinition;
-use DocuSign\eSign\Model\RecipientAdditionalNotification;
 use DocuSign\eSign\Model\RecipientPhoneNumber;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
@@ -73,7 +72,7 @@ class SMSDeliveryService
         $signer1 = new Signer([
             'name' => $args['signer_name'], 'phone_number' => $signerPhone,
             'recipient_id' => "1", 'routing_order' => "1",
-            'delivery_method' => 'sms'
+            'delivery_method' => $args['deliveryMethod']
             ]);
         # routingOrder (lower means earlier) determines the order of deliveries
         # to the recipients. Parallel routing order is supported by using the
@@ -88,7 +87,7 @@ class SMSDeliveryService
         $CC = new CarbonCopy([
             'name' => $args['cc_name'], 'phone_number' => $CCsignerPhone,
             'recipient_id' => "2", 'routing_order' => "2",
-            'delivery_method' => 'sms'
+            'delivery_method' => $args['deliveryMethod']
             ]);
 
         return SMSDeliveryService::addSignersToTheDelivery($signer1, $CC, $envelope_definition, $args);

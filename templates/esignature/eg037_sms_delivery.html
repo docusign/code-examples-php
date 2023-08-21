@@ -7,6 +7,9 @@
 {% set ccCountryCodeInputNumber = 3 %}
 {% set ccNumberInputNumber = 4 %}
 {% set ccSignerNameInputNumber = 5 %}
+{% set deliveryMethodInputNumber = 6 %}
+{% set deliveryMethodSMSInputNumber = 7 %}
+{% set deliveryMethodWhatsAppInputNumber = 8 %}
 
 <h4>{{ code_example_text['ExampleName'] | raw }}</h4>
 
@@ -42,6 +45,13 @@
 
 <form class="eg" action="" method="post" data-busy="form">
 
+    <div class="form-group">
+        <label>{{ code_example_text['Forms'][formNumber]['Inputs'][deliveryMethodInputNumber]['InputName'] | raw }}</label></br>
+          <label>{{ code_example_text['Forms'][formNumber]['Inputs'][deliveryMethodSMSInputNumber]['InputName'] | raw }}</label>
+          <input type="radio" name="deliveryMethod" value="SMS" checked /> 
+          <label>{{ code_example_text['Forms'][formNumber]['Inputs'][deliveryMethodWhatsAppInputNumber]['InputName'] | raw }}</label>
+          <input type="radio" name="deliveryMethod" value="WhatsApp" /> 
+      </div>
     <div class="form-group">
         <label for="countryCode">
             {{ code_example_text['Forms'][formNumber]['Inputs'][countryCodeInputNumber]['InputName'] | raw }}
