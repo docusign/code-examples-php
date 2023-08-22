@@ -23,7 +23,6 @@ class SMSDeliveryService
      * @param $demoDocsPath
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function smsDelivery(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Step 2. Create the envelope definition
@@ -35,7 +34,9 @@ class SMSDeliveryService
         # Exceptions will be caught by the calling function
         try {
             # Step 3. Create and send the envelope
+            #ds-snippet-start:eSign37Step3
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            #ds-snippet-end:eSign37Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -59,6 +60,7 @@ class SMSDeliveryService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    #ds-snippet-start:eSign37Step2
     public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
         $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
@@ -124,6 +126,6 @@ class SMSDeliveryService
         $envelope_definition->setStatus($args["status"]);
 
         return $envelope_definition;
+    #ds-snippet-end:eSign37Step2
     }
-    # ***DS.snippet.0.end
 }
