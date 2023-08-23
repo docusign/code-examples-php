@@ -107,10 +107,11 @@ if (isset($response)) {
 
     $clientService = new SignatureClientService($args);
     $demoDocsPath =  $GLOBALS['DS_CONFIG']['demo_doc_path'];
-
+    $pdfDoc = $GLOBALS['DS_CONFIG']['doc_pdf'];
+    $docxDoc = $GLOBALS['DS_CONFIG']['doc_docx'];
     try {
         $callAPI = new SigningViaEmailService();
-        $result = $callAPI->signingViaEmail($args, $clientService, $demoDocsPath);
+        $result = $callAPI->signingViaEmail($args, $clientService, $demoDocsPath, $docxDoc, $pdfDoc);
 
         echo "Successfully sent envelope with envelope ID: " . $result['envelope_id'] . "\n";
     } catch (\Throwable $th) {
