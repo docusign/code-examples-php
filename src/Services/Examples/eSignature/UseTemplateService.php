@@ -9,25 +9,26 @@ class UseTemplateService
 {
     /**
      * Do the work of the example
-     * 1. Create the envelope request object
-     * 2. Send the envelope
+     * Create the envelope request object
+     * Send the envelope
      *
      * @param  $args array
      * @param $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function useTemplate(array $args, $clientService): array
     {
-        # 1. Create the envelope request object
+        #ds-snippet-start:eSign9Step3
+        # Create the envelope request object
         $envelope_definition = UseTemplateService::make_envelope($args["envelope_args"]);
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        #ds-snippet-end:eSign9Step3
     }
 
     /**
@@ -37,7 +38,9 @@ class UseTemplateService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+
+    #ds-snippet-start:eSign9Step2
+     public static function make_envelope(array $args): EnvelopeDefinition
     {
         # create the envelope definition with the template_id
         $envelope_definition = new EnvelopeDefinition([
@@ -60,5 +63,5 @@ class UseTemplateService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign9Step2
 }
