@@ -23,11 +23,12 @@ class SigningViaEmailService
     # ***DS.snippet.0.start
     public static function signingViaEmail(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): array
     {
-        # 1. Create the envelope request object
+        #ds-snippet-start:eSign2Step3
+        # Create the envelope request object
         $envelope_definition = SigningViaEmailService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docxFile, $pdfFile);
         $envelope_api = $clientService->getEnvelopeApi();
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
             $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
@@ -41,6 +42,7 @@ class SigningViaEmailService
         }
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        #ds-snippet-end:eSign2Step3
     }
 
     /**
@@ -58,7 +60,9 @@ class SigningViaEmailService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): EnvelopeDefinition
+
+    #ds-snippet-start:eSign2Step2
+     public static function make_envelope(array $args, $clientService, $demoDocsPath, $docxFile, $pdfFile): EnvelopeDefinition
     {
         # document 1 (html) has sign here anchor tag **signature_1**
         # document 2 (docx) has sign here anchor tag /sn1/
@@ -119,5 +123,5 @@ class SigningViaEmailService
 
         return SMSDeliveryService::addSignersToTheDelivery($signer1, $cc1, $envelope_definition, $args);
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign2Step2
 }
