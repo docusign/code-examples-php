@@ -44,7 +44,7 @@ class EG006EmbedClickwrap extends ClickApiBaseController
     {
         $this->checkDsToken();
         $clickwrapResponse = EmbedClickwrapService::createAgreeementUrl($this->args, $this->clientService);
-        $htmlString = "<p id='agreementStatus'>NOT AGREED</p><div id='ds-terms-of-service'></div><script src='https://stage.docusign.net/clickapi/sdk/latest/docusign-click.js'></script><script>docuSignClick.Clickwrap.render({agreementUrl: '" . $clickwrapResponse . "',onAgreed: function () {document.getElementById('agreementStatus').innerHTML = 'AGREED';}}, '#ds-terms-of-service');</script>";
+        $htmlString = "<p id='agreementStatus'>NOT AGREED</p><div id='ds-terms-of-service'></div><script src='https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js'></script><script>docuSignClick.Clickwrap.render({agreementUrl: '" . $clickwrapResponse . "',onAgreed: function () {document.getElementById('agreementStatus').innerHTML = 'AGREED';}}, '#ds-terms-of-service');</script>";
         if ($clickwrapResponse) {
 
             if($clickwrapResponse === 'Already Agreed'){
