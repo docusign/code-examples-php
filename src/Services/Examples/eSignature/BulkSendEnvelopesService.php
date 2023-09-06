@@ -22,8 +22,8 @@ class BulkSendEnvelopesService
 {
     /**
      * Do the work of the example
-     * 1. Create the envelope request object
-     * 2. Send the envelope
+     * Create the envelope request object
+     * Send the envelope
      *
      * @param  $args array
      * @param SignatureClientService $clientService
@@ -31,7 +31,6 @@ class BulkSendEnvelopesService
      * @return string
      * @throws ApiException
      */
-    # ***DS.snippet.0.start
     public static function bulkSendEnvelopes(
         array $args,
         SignatureClientService $clientService,
@@ -41,19 +40,19 @@ class BulkSendEnvelopesService
         $bulk_envelopes_api = $clientService->getBulkEnvelopesApi();
         $envelope_api = $clientService->getEnvelopeApi();
 
-        # Step 3 start
+        #ds-snippet-start:eSign31Step3
         $bulk_sending_list = BulkSendEnvelopesService::createBulkSendingList($args["signers"]);
         $bulk_list = $bulk_envelopes_api->createBulkSendList($args["account_id"], $bulk_sending_list);
         $bulk_list_id = $bulk_list["list_id"];
-        # Step 3 end
+        #ds-snippet-end:eSign31Step3
 
-        # Step 4.1 start
+        #ds-snippet-start:eSign31Step4
         $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath, $docPDF);
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
-        # Step 4.1 end
+        #ds-snippet-end:eSign31Step4
 
-        # Step 5 start
+        #ds-snippet-start:eSign31Step5
         $text_custom_fields = new TextCustomField(
             [
                 "name" => "mailingListId",
@@ -71,9 +70,9 @@ class BulkSendEnvelopesService
         );
 
         $envelope_api->createCustomFields($args["account_id"], $envelope_id, $custom_fields);
-        # Step 5 end
+        #ds-snippet-end:eSign31Step5
 
-        # Step 6 start
+        #ds-snippet-start:eSign31Step6
         $bulk_send_request = new BulkSendRequest(['envelope_or_template_id' => $envelope_id]);
 
         $batch = $bulk_envelopes_api->createBulkSendRequest(
@@ -81,10 +80,10 @@ class BulkSendEnvelopesService
             $bulk_list_id,
             $bulk_send_request
         );
-        # step 6 end
+        #ds-snippet-end:eSign31Step6
 
-        # Step 7 start
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign31Step7
         try {
             $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatus(
                 $args['account_id'],
@@ -94,9 +93,9 @@ class BulkSendEnvelopesService
             $clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 7 end
 
         return $bulkSendBatchStatus;
+        #ds-snippet-end:eSign31Step7
     }
 
     /**
@@ -149,7 +148,6 @@ class BulkSendEnvelopesService
         return $bulk_sending_list;
     }
 
-    # Step 4.2 start
     /**
      *  Creates envelope definition
      *  Parameters for the envelope: signer_email, signer_name, signer_client_id
@@ -235,6 +233,4 @@ class BulkSendEnvelopesService
         return $envelope_definition;
     }
     # Step 4.2 end
-
-    # ***DS.snippet.0.end
 }
