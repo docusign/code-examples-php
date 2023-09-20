@@ -30,6 +30,8 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Run linter
+      run: composer install --prefer-dist --no-progress
+      run: composer global require "squizlabs/php_codesniffer=*"
       run: phpcs .
 
     - name: Run tests
