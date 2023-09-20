@@ -29,6 +29,9 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
+    - name: Run linter
+      run: phpcs .
+
     - name: Run tests
       env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
