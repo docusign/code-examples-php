@@ -28,7 +28,7 @@ class EG004GetClickwraps extends ClickApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapResponse = GetClickwrapsService::getClickwraps($this->args, $this->clientService);

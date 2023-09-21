@@ -9,9 +9,9 @@ use Example\Services\SignatureClientService;
 use Example\Services\IRouterService;
 use Example\Services\ApiTypes;
 use Example\Services\ManifestService;
-use Example\Services\utils;
+use Example\Services\Utils;
 
-abstract class eSignBaseController extends BaseController
+abstract class ESignBaseController extends BaseController
 {
     private const MINIMUM_BUFFER_MIN = 3;
     private const SETTINGS = [
@@ -60,7 +60,7 @@ abstract class eSignBaseController extends BaseController
         }
     }
 
-    abstract function getTemplateArgs(): array;
+    abstract protected function getTemplateArgs(): array;
 
     /**
      * Base controller
@@ -95,7 +95,7 @@ abstract class eSignBaseController extends BaseController
             );
         }
         if ($method == 'POST') {
-            $this->routerService->check_csrf();
+            $this->routerService->checkCsrf();
             $this->createController();
         }
     }
@@ -111,7 +111,7 @@ abstract class eSignBaseController extends BaseController
      * @param $groups array|null
      * @return void
      */
-    function getController(
+    protected function getController(
         $eg,
         ?string $basename,
         array $brand_languages = null,
@@ -120,8 +120,12 @@ abstract class eSignBaseController extends BaseController
         array $groups = null
     ): void {
         if ($this->isHomePage($eg)) {
-            $cfr = new utils();
-            $_SESSION['cfr_enabled'] = $cfr->isCFR($_SESSION['ds_access_token'], $_SESSION['ds_account_id'], $_SESSION['ds_base_path']);
+            $cfr = new Utils();
+            $_SESSION['cfr_enabled'] = $cfr->isCFR(
+                $_SESSION['ds_access_token'],
+                $_SESSION['ds_account_id'],
+                $_SESSION['ds_base_path']
+            );
 
             $GLOBALS['twig']->display(
                 $eg . '.html',
@@ -136,17 +140,17 @@ abstract class eSignBaseController extends BaseController
             );
         } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
-
-            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
-
+            if ($this->routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $cfrStatus = $this->getPageText($eg)['CFREnabled'];
                 // this example is not compatible with cfr
 
                 if ($_SESSION['cfr_enabled'] == "enabled" && $cfrStatus == "NonCFR") {
-                    $GLOBALS['twig']->display("error_cfr.html",
-                    [
-                        'common_texts' => ManifestService::getCommonTexts()
-                    ]);
+                    $GLOBALS['twig']->display(
+                        "error_cfr.html",
+                        [
+                            'common_texts' => ManifestService::getCommonTexts()
+                        ]
+                    );
                     exit;
                 } elseif (!isset($_SESSION['cfr_enabled'])  && $cfrStatus == "CFROnly") {
                     $this->clientService->showErrorTemplate(new ApiException("This example requires a CFR Part 11 account"));
@@ -193,7 +197,7 @@ abstract class eSignBaseController extends BaseController
 
                 $GLOBALS['twig']->display($this->routerService->getTemplate($eg), $displayOptions);
             } else {
-                $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
+                $_SESSION['prefered_api_type'] = ApiTypes::ESIGNATURE;
                 $this->saveCurrentUrlToSession($eg);
                 header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
@@ -204,7 +208,7 @@ abstract class eSignBaseController extends BaseController
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-    abstract function createController(): void;
+    abstract protected function createController(): void;
 
     /**
      * Get static Profile settings
@@ -253,8 +257,8 @@ abstract class eSignBaseController extends BaseController
     {
         $currentAPI = ManifestService::getAPIByLink(static::EG);
         
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
-            $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
+        if (!$this->routerService->dsTokenOk(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::ESIGNATURE;
             $this->clientService->needToReAuth(static::EG);
         }
     }

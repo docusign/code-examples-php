@@ -37,7 +37,7 @@ class UseConditionalRecipientsService
         $envelope_api = $clientService->getEnvelopeApi();
 
         #ds-snippet-start:eSign34Step3
-        $envelope_definition = UseConditionalRecipientsService::make_envelope($envelope_args, $demoDocsPath);
+        $envelope_definition = UseConditionalRecipientsService::makeEnvelope($envelope_args, $demoDocsPath);
         #ds-snippet-end:eSign34Step3
 
         #ds-snippet-start:eSign34Step4
@@ -56,7 +56,7 @@ class UseConditionalRecipientsService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign34Step3
-    public static function make_envelope($envelope_args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope($envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
         # Recipient 1 - signer1

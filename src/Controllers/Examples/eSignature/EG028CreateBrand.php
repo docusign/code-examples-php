@@ -91,8 +91,8 @@ class EG028CreateBrand extends eSignBaseController
                 null,
                 ManifestService::replacePlaceholders("{0}", $brandId["brand_id"], $this->codeExampleText["ResultsPageText"])
             );
-        } # If the brand name is null the brand name is a duplicate.
-        else {
+        } else {
+            # If the brand name is null the brand name is a duplicate.
             $GLOBALS['twig']->display(
                 'error_eg028.html',
                 [

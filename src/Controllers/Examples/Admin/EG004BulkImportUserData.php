@@ -6,7 +6,6 @@ use DocuSign\Admin\Client\ApiException;
 use Example\Controllers\AdminApiBaseController;
 use Example\Services\Examples\Admin\BulkImportUserDataService;
 
-
 class EG004BulkImportUserData extends AdminApiBaseController
 {
     const EG = 'aeg004'; # reference (and url) for this example

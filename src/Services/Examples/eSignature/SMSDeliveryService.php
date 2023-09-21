@@ -26,7 +26,13 @@ class SMSDeliveryService
     public static function smsDelivery(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Step 2. Create the envelope definition
-        $envelope_definition = SMSDeliveryService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = SMSDeliveryService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
         $envelope_api = $clientService->getEnvelopeApi();
 
 
@@ -61,9 +67,20 @@ class SMSDeliveryService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign37Step2
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
-    {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
+    public static function makeEnvelope(
+        array $args,
+        $clientService,
+        $demoDocsPath,
+        $docDocx,
+        $docPDF
+    ): EnvelopeDefinition {
+        $envelope_definition = CreateAnEnvelopeFunctionService::makeEnvelope(
+            $args,
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
 
         $signerPhone = new RecipientPhoneNumber([
             'country_code' => $args['signer_country_code'],

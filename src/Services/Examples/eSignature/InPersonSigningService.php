@@ -19,7 +19,7 @@ class InPersonSigningService
      * 2. Send the envelope
      * 3. Create the Recipient View request object
      * 4. Obtain the recipient_view_url for the embedded signing
-     * @return string  
+     * @return string
      */
     public static function worker(
         string $accountId,
@@ -40,7 +40,7 @@ class InPersonSigningService
         }
         # Step 3 end
 
-        # Step 5 start        
+        # Step 5 start
         $authentication_method = 'None';
 
         $envelopeArguments = [

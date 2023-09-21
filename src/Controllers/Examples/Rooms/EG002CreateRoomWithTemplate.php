@@ -35,7 +35,7 @@ class EG002CreateRoomWithTemplate extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $room = CreateRoomWithTemplatesService::createRoomWithTemplates($this->args, $this->clientService);
@@ -48,8 +48,8 @@ class EG002CreateRoomWithTemplate extends RoomsApiBaseController
                 $this->codeExampleText,
                 json_encode(json_encode($room)),
                 ManifestService::replacePlaceholders(
-                    "{1}", 
-                    $room_id, 
+                    "{1}",
+                    $room_id,
                     ManifestService::replacePlaceholders("{0}", $room_name, $this->codeExampleText["ResultsPageText"])
                 )
             );

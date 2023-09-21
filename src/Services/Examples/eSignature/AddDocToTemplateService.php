@@ -33,7 +33,7 @@ class AddDocToTemplateService
     {
         $envelope_args = $args["envelope_args"];
         # 1. Create the envelope request object
-        $envelope_definition = AddDocToTemplateService::make_envelope($envelope_args, $clientService);
+        $envelope_definition = AddDocToTemplateService::makeEnvelope($envelope_args, $clientService);
 
         return SetTemplateTabValuesService::sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition);
     }
@@ -51,7 +51,7 @@ class AddDocToTemplateService
      * @param $clientService
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService): EnvelopeDefinition
     {
         # 1. Create Recipients for server template. Note that Recipients object
         #    is used, not TemplateRole

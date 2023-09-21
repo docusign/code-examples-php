@@ -27,13 +27,12 @@ class CheckImportRequestStatusService
             $importId
         );
 
-        if ($response->getStatus()== "queued"){
+        if ($response->getStatus()== "queued") {
             return "Please refresh the page";
-        }
-        else {
+        } else {
             unset($_SESSION['import_id']);
             return $response->__toString();
-        }       
+        }
         
         # Step 4 end
     }

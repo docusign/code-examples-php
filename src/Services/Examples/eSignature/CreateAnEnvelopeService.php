@@ -26,7 +26,7 @@ class CreateAnEnvelopeService
     {
 
         # 1. Create the envelope request object
-        $envelope_definition = CreateAnEnvelopeService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = CreateAnEnvelopeService::makeEnvelope($args["envelope_args"], $demoDocsPath);
         $envelope_api = $clientService->getEnvelopeApi();
 
         # 2. call Envelopes::create API method
@@ -63,7 +63,7 @@ class CreateAnEnvelopeService
      * @param string $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, string $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, string $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = ApplyBrandToTemplateService::defineAnEnvelopeAndSigner($args, $demoDocsPath);
         $document = $envelopeAndSigner["document"];

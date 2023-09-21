@@ -32,7 +32,7 @@ class SetTabValuesService
     public static function setTabValues(array $args, $demoDocsPath, $clientService): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = SetTabValuesService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = SetTabValuesService::makeEnvelope($args["envelope_args"], $demoDocsPath);
 
         return SetTemplateTabValuesService::sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition);
     }
@@ -47,7 +47,7 @@ class SetTabValuesService
      */
 
      # Step 4 start
-    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         # document 1 (pdf) has tags
         # /sn1/ - signature field

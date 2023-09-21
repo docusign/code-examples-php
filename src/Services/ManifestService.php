@@ -68,19 +68,19 @@ class ManifestService
 
         switch ($link) :
             case "aeg":
-                $currentAPI = ApiTypes::Admin;
+                $currentAPI = ApiTypes::ADMIN;
                 break;
             case "ceg":
-                $currentAPI = ApiTypes::Click;
+                $currentAPI = ApiTypes::CLICK;
                 break;
             case "meg":
-                $currentAPI= ApiTypes::Monitor;
+                $currentAPI= ApiTypes::MONITOR;
                 break;
             case "reg":
-                $currentAPI = ApiTypes::Rooms;
+                $currentAPI = ApiTypes::ROOMS;
                 break;
             default:
-                $currentAPI = ApiTypes::eSignature;
+                $currentAPI = ApiTypes::ESIGNATURE;
                 break;
         endswitch;
         

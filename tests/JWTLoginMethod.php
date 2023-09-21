@@ -26,12 +26,12 @@ final class JWTLoginMethod
     }
     public static function jwtAuthenticationMethod(string $apiType, TestConfig $testConfig): void
     {
-        if ($apiType == ApiTypes::Rooms) {
+        if ($apiType == ApiTypes::ROOMS) {
             $scopes = "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write";
-        } elseif ($apiType == ApiTypes::Click) {
+        } elseif ($apiType == ApiTypes::CLICK) {
             $scopes = "signature click.manage click.send";
-        } elseif ($apiType == ApiTypes::Admin) {
+        } elseif ($apiType == ApiTypes::ADMIN) {
             $scopes = "signature user_write group_read organization_read permission_read user_read "
             . "account_read domain_read identity_provider_read user_data_redact";
         } else {

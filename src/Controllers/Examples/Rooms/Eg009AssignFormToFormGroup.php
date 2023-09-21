@@ -49,7 +49,7 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         AssignFormToFormGroupService::assignFormToFormGroup($this->args, $this->clientService);
@@ -61,7 +61,11 @@ class Eg009AssignFormToFormGroup extends RoomsApiBaseController
             ManifestService::replacePlaceholders(
                 "{0}",
                 $form_id,
-                ManifestService::replacePlaceholders("{1}", $this->args["form_group_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{1}",
+                    $this->args["form_group_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             ),
         );
     }

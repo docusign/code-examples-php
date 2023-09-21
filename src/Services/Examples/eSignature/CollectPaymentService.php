@@ -30,7 +30,7 @@ class CollectPaymentService
     public static function collectPayment(array $args, $demoDocsPath, $clientService): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = CollectPaymentService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = CollectPaymentService::makeEnvelope($args["envelope_args"], $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -71,7 +71,7 @@ class CollectPaymentService
      * @param $demoDocsPath
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         # Order form constants
         $l1_name = "Harmonica";

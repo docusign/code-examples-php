@@ -42,7 +42,7 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
             $this->clientService
         );
 
-        if($envelopeId) {
+        if ($envelopeId) {
             # That need an envelope_id
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,

@@ -49,7 +49,11 @@ class EG022KbAuthentication extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeAuthentification["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

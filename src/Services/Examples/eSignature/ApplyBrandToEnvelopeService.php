@@ -25,7 +25,13 @@ class ApplyBrandToEnvelopeService
     {
         # Step 3. Construct the request body
         #ds-snippet-start:eSign29Step3
-        $envelope_definition = ApplyBrandToEnvelopeService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = ApplyBrandToEnvelopeService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
         #ds-snippet-end:eSign29Step3
 
         # Step 4. Call the eSignature REST API
@@ -39,13 +45,19 @@ class ApplyBrandToEnvelopeService
 
     /**
      *  Creates envelope definition
-     *  Parameters for the envelope: signer_email, signer_name, brand_id  
+     *  Parameters for the envelope: signer_email, signer_name, brand_id
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = CreateAnEnvelopeFunctionService::makeEnvelope(
+            $args,
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
         $envelope_definition->setStatus('sent');
 
         $signer = new Signer([
@@ -79,7 +91,5 @@ class ApplyBrandToEnvelopeService
 
 
         return $envelope_definition;
-
     }
-
 }

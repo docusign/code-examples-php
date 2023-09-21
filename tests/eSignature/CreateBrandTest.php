@@ -20,7 +20,7 @@ final class CreateBrandTest extends TestCase
     public function testCreateBrand_CorrectInputValues_ReturnArray()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $this->testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $this->testConfig);
 
         $defaultLanguage = "en";
         $requestArguments = [

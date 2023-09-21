@@ -22,7 +22,7 @@ final class CreateClickwrapTest extends TestCase
     public function testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::Click, $this->testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $this->testConfig);
         (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $clickwrapName = "Clickwrap";

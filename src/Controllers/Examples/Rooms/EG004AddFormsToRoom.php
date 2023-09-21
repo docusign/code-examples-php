@@ -45,7 +45,7 @@ class EG004AddFormsToRoom extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $roomsDocument = AddFormsToRoomService::addFormsToRoom($this->args, $this->clientService);

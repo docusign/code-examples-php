@@ -30,7 +30,7 @@ final class SetTabValuesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -167,7 +167,7 @@ final class SetTabValuesTest extends TestCase
         ]);
 
         // Act
-        $envelope = SetTabValuesService::make_envelope(
+        $envelope = SetTabValuesService::makeEnvelope(
             $requestArguments,
             $this::DEMO_DOCS_PATH
         );

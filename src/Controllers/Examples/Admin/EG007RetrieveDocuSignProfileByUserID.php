@@ -37,8 +37,8 @@ class EG007RetrieveDocuSignProfileByUserID extends AdminApiBaseController
         try {
             $organizationId = $this->clientService->getOrgAdminId();
             $usersResponse = RetrieveDocuSignProfileByUserId::getDocuSignProfileByUserId(
-                $organizationId, 
-                $this->args["user_id"], 
+                $organizationId,
+                $this->args["user_id"],
                 $this->clientService
             );
 

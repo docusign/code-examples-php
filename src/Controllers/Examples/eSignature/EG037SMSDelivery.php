@@ -44,7 +44,8 @@ class EG037SMSDelivery extends eSignBaseController
             $this->clientService,
             $this::DEMO_DOCS_PATH,
             $GLOBALS['DS_CONFIG']['doc_docx'],
-            $GLOBALS['DS_CONFIG']['doc_pdf']);
+            $GLOBALS['DS_CONFIG']['doc_pdf']
+        );
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples

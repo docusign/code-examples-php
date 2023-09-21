@@ -43,7 +43,8 @@ class EG003BulkExportUserData extends AdminApiBaseController
             );
             $filePath = realpath(
                 $_SERVER["DOCUMENT_ROOT"]
-            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
+            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents"
+                . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
             if ($bulkExports) {
                 $this->clientService->showDoneTemplateFromManifest(
                     $this->codeExampleText,

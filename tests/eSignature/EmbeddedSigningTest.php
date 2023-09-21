@@ -25,7 +25,7 @@ final class EmbeddedSigningTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         $documentName = 'World_Wide_Corp_lorem.pdf';
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -120,7 +120,7 @@ final class EmbeddedSigningTest extends TestCase
         );
 
         // Act
-        $envelope = EmbeddedSigningService::make_envelope(
+        $envelope = EmbeddedSigningService::makeEnvelope(
             $requestArguments,
             $this::DEMO_DOCS_PATH,
             $documentName

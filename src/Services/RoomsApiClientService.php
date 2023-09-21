@@ -87,10 +87,12 @@ class RoomsApiClientService
      * @param $message string
      * @return void
      */
-    public function showDoneTemplateFromManifest(array $codeExampleText, $results = null, string $message = null, $url = null): void
-    {
-
-
+    public function showDoneTemplateFromManifest(
+        array $codeExampleText,
+        $results = null,
+        string $message = null,
+        $url = null
+    ): void {
         if ($message == null) {
             $message = $codeExampleText["ResultsPageText"];
         }

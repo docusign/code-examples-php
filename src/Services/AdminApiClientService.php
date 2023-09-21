@@ -89,13 +89,15 @@ class AdminApiClientService
     {
        // It is possible for an account to belong to multiple organizations
        // We are returning the first Organization Id found
-       $AccountsApi = new AccountsApi($this->apiClient);
-       $orgs = $AccountsApi->getOrganizations();
-       if ($orgs["organizations"] == null)
-         throw new ApiException ("You must create an organization for this account to use the DocuSign Admin API. For details, see <a target='_blank' href='https://support.docusign.com/guides/org-admin-guide'> this support article.</a>", 1);
-       else
-         return $orgs["organizations"][0]["id"];
-
+        $AccountsApi = new AccountsApi($this->apiClient);
+        $orgs = $AccountsApi->getOrganizations();
+        if ($orgs["organizations"] == null) {
+            throw new ApiException("You must create an organization for this account to use"
+                . " the DocuSign Admin API. For details, see <a target='_blank' href='"
+                . "https://support.docusign.com/guides/org-admin-guide'> this support article.</a>", 1);
+        } else {
+            return $orgs["organizations"][0]["id"];
+        }
     }
 
     /**
@@ -155,8 +157,7 @@ class AdminApiClientService
                 'error_code' => $e->getCode(),
                 'error_message' => $e->getMessage(),
                 'common_texts' => ManifestService::getCommonTexts()
-            ]
-        );
+            ]);
     }
 
      /**
@@ -167,8 +168,12 @@ class AdminApiClientService
      * @param $message string
      * @return void
      */
-    public function showDoneTemplateFromManifest(array $codeExampleText, $results = null, string $import_id = null, string $message = null): void
-    {
+    public function showDoneTemplateFromManifest(
+        array $codeExampleText,
+        $results = null,
+        string $import_id = null,
+        string $message = null
+    ): void {
         if ($message == null) {
             $message = $codeExampleText["ResultsPageText"];
         }
@@ -193,8 +198,13 @@ class AdminApiClientService
      * @param null $results
      * @return void
      */
-    public function showDoneTemplate(string $title, string $headline, string $message, $results = null, string $import_id = null): void
-    {
+    public function showDoneTemplate(
+        string $title,
+        string $headline,
+        string $message,
+        $results = null,
+        string $import_id = null
+    ): void {
         $GLOBALS['twig']->display('example_done.html', [
             'title' => $title,
             'h1' => $headline,

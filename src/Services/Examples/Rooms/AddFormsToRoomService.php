@@ -27,8 +27,9 @@ class AddFormsToRoomService
             $response = $rooms_api->addFormToRoom($args['room_id'], $args["account_id"], $form_for_add);
             #ds-snippet-end:Rooms4Step4
         } catch (ApiException $e) {
-            if($e)
-            error_log($e);
+            if ($e) {
+                error_log($e);
+            }
             $clientService->showErrorTemplate($e);
             exit;
         }
@@ -46,7 +47,7 @@ class AddFormsToRoomService
      */
     public static function getRooms($clientService, $eg, $args, $routerService): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $rooms = $clientService->getRooms($args);
             } catch (ApiException $e) {
@@ -69,7 +70,7 @@ class AddFormsToRoomService
      */
     public static function getFormLibraries($args, $routerService, $clientService, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getFormLibraries($args);
         } else {
             $clientService->needToReAuth($eg);
@@ -88,7 +89,7 @@ class AddFormsToRoomService
      */
     public static function getForms($libraryID, $routerService, $clientService, $args, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getFormLibraryForms($libraryID, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);

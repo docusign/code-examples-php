@@ -29,7 +29,7 @@ class PauseSignatureWorkflowService
         # Step 3-1 Start
         $envelope_args = $args['envelope_args'];
         $envelope_api = $clientService->getEnvelopeApi();
-        $envelope_definition = PauseSignatureWorkflowService::make_envelope($envelope_args, $demoDocsPath);
+        $envelope_definition = PauseSignatureWorkflowService::makeEnvelope($envelope_args, $demoDocsPath);
         # Step 3-1 End
 
         # Step 4 Start
@@ -48,7 +48,7 @@ class PauseSignatureWorkflowService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     # Step 3-2 start
-    public static function make_envelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
         # Recipient 1 - signer1

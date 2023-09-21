@@ -27,7 +27,7 @@ final class AddDocToTemplateTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $signerClientId = 1000;
@@ -196,7 +196,7 @@ final class AddDocToTemplateTest extends TestCase
         );
 
         // Act
-        $envelopeDefinition = AddDocToTemplateService::make_envelope(
+        $envelopeDefinition = AddDocToTemplateService::makeEnvelope(
             $requestArguments,
             $clientService
         );

@@ -6,7 +6,6 @@ use Example\Controllers\BaseController;
 
 class RouterService implements IRouterService
 {
-
     /**
      * The list of controllers for each example
      */
@@ -174,7 +173,6 @@ class RouterService implements IRouterService
      */
     public $authService;
 
-
     /**
      * Create a new controller instance.
      *
@@ -219,14 +217,14 @@ class RouterService implements IRouterService
             // We're not logged in and Quickstart is true:  Route to the 1st example.
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
                 $_SESSION['beenHere'] = "false";
-                $_SESSION['api_type'] = ApiTypes::eSignature;
+                $_SESSION['api_type'] = ApiTypes::ESIGNATURE;
 
                 if ($_SESSION['cfr_enabled'] == "enabled") {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg041');
                 } else {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
                 }
-            } elseif ($this->ds_token_ok() == false) {
+            } elseif ($this->dsTokenOk() == false) {
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=' . BaseController::LOGIN_REDIRECT);
             } elseif (isset($_SESSION['userflow_example_43'])) {
                 unset($_SESSION['userflow_example_43']);
@@ -248,14 +246,14 @@ class RouterService implements IRouterService
 
         if ($page == BaseController::LOGIN_REDIRECT) {
             if ($_SESSION['prefered_api_type'] === null) {
-                $_SESSION['prefered_api_type'] = ApiTypes::eSignature;
+                $_SESSION['prefered_api_type'] = ApiTypes::ESIGNATURE;
             }
 
             if ($_SESSION['prefered_api_type'] == 'Monitor') {
                 //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
                 $this->authService = new JWTService();
-                $this->ds_login();
+                $this->dsLogin();
                 exit();
             }
             //is it quickstart have they signed in already?
@@ -264,7 +262,7 @@ class RouterService implements IRouterService
                 // we should default to ESignature for the first runthrough
                 $_SESSION['beenHere'] = "true";
                 $this->authService = new CodeGrantService();
-                $this->ds_login();
+                $this->dsLogin();
                 exit();
             }
             $controller = 'Example\Controllers\Examples\\' . $this->getController($page);
@@ -272,13 +270,13 @@ class RouterService implements IRouterService
             $c->controller();
             exit();
         } elseif ($page == 'ds_login') {
-            $this->ds_login(); // See below in oauth section
+            $this->dsLogin(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_callback') {
-            $this->ds_callback(); // See below in oauth section
+            $this->dsCallback(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_logout') {
-            $this->ds_logout(); // See below in oauth section
+            $this->dsLogout(); // See below in oauth section
             exit();
         } elseif ($page == 'ds_return') {
             $GLOBALS['twig']->display(
@@ -312,7 +310,7 @@ class RouterService implements IRouterService
      * @param int $buffer_min buffer time needed in minutes
      * @return boolean $ok true iff the user has an access token that will be good for another buffer min
      */
-    function ds_token_ok(int $buffer_min = 10): bool
+    public function dsTokenOk(int $buffer_min = 10): bool
     {
         $ok = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
         return $ok && (($_SESSION['ds_expiration'] - ($buffer_min * 60)) > time());
@@ -333,7 +331,7 @@ class RouterService implements IRouterService
     /**
      * Unset all items from the session
      */
-    function ds_logout_internal(): void
+    public function dsLogoutInternal(): void
     {
         if (isset($_SESSION['ds_access_token'])) {
             unset($_SESSION['ds_access_token']);
@@ -385,7 +383,7 @@ class RouterService implements IRouterService
     /**
      * DocuSign login handler
      */
-    function ds_login(): void
+    public function dsLogin(): void
     {
         $_SESSION['api_type'] = $_SESSION['prefered_api_type'];
         $this->authService->login();
@@ -394,7 +392,7 @@ class RouterService implements IRouterService
     /**
      * Called via a redirect from DocuSign authentication service
      */
-    function ds_callback(): void
+    public function dsCallback(): void
     {
         // Save the redirect eg if present
         $redirectUrl = false;
@@ -404,7 +402,7 @@ class RouterService implements IRouterService
         // reset the session
         $tempAPIType = $_SESSION["api_type"];
         $tempGrant = $_SESSION["auth_service"];
-        $this->ds_logout_internal();
+        $this->dsLogoutInternal();
 
         // Workaround for ACG apiTypePicker
         $_SESSION["api_type"] = $tempAPIType;
@@ -415,9 +413,9 @@ class RouterService implements IRouterService
     /**
      * DocuSign logout handler
      */
-    function ds_logout(): void
+    public function dsLogout(): void
     {
-        $this->ds_logout_internal();
+        $this->dsLogoutInternal();
         $this->flash('You have logged out from DocuSign.');
         header('Location: ' . $GLOBALS['app_url']);
         exit;
@@ -436,7 +434,7 @@ class RouterService implements IRouterService
     /**
      * Checker for the CSRF token
      */
-    function check_csrf(): void
+    public function checkCsrf(): void
     {
         $this->authService->checkToken();
     }

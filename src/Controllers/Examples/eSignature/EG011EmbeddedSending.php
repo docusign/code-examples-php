@@ -36,7 +36,7 @@ class EG011EmbeddedSending extends eSignBaseController
         $this->checkDsToken();
         # 2. Call the worker method
         # More data validation would be a good idea here
-        # Strip anything other than characters listed            
+        # Strip anything other than characters listed
         
         $pdfDoc = $GLOBALS['DS_CONFIG']['doc_pdf'];
         $docxDoc = $GLOBALS['DS_CONFIG']['doc_docx'];
@@ -47,8 +47,6 @@ class EG011EmbeddedSending extends eSignBaseController
             $this::DEMO_DOCS_PATH,
             $docxDoc,
             $pdfDoc,
-            
-
         );
 
         if ($envelopeIdAndRedirectUrl) {

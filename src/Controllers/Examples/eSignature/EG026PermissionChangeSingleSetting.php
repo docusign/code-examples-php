@@ -51,7 +51,11 @@ class EG026PermissionChangeSingleSetting extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 json_encode(json_encode($permissionProfile)),
-                ManifestService::replacePlaceholders("{0}", $permissionProfile["permissionProfileId"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $permissionProfile["permissionProfileId"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

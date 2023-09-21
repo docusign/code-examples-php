@@ -24,7 +24,7 @@ abstract class RoomsApiBaseController extends BaseController
         }
     }
 
-    abstract function getTemplateArgs(): array;
+    abstract protected function getTemplateArgs(): array;
 
     /**
      * Base controller
@@ -49,7 +49,7 @@ abstract class RoomsApiBaseController extends BaseController
             $this->getController(basename(static::FILE), $templates, $rooms, $forms, $offices, $formGroups);
         }
         if ($method == 'POST') {
-            $this->routerService->check_csrf();
+            $this->routerService->checkCsrf();
             $this->createController();
         }
     }
@@ -72,19 +72,17 @@ abstract class RoomsApiBaseController extends BaseController
         array $forms = null,
         $offices = null,
         $formGroups = null
-    ): void
-    {
-        if ($this->isHomePage(static::EG)){
+    ): void {
+        if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(static::EG . '.html', [
                 'title' => $this->homePageTitle(static::EG),
                 'show_doc' => false,
                 'common_texts' => $this->getCommonText()
             ]);
-       
-         } else {
+        } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
+            if ($this->routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
                     'title' => $this->routerService->getTitle(static::EG),
                     'templates' => $templates,
@@ -100,7 +98,7 @@ abstract class RoomsApiBaseController extends BaseController
                     'common_texts' => $this->getCommonText()
                 ]);
             } else {
-                $_SESSION['prefered_api_type'] = ApiTypes::Rooms;
+                $_SESSION['prefered_api_type'] = ApiTypes::ROOMS;
                 # Save the current operation so it will be resumed after authentication
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
                 header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
@@ -112,7 +110,7 @@ abstract class RoomsApiBaseController extends BaseController
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-    abstract function createController(): void;
+    abstract protected function createController(): void;
 
     /**
      * @return array
@@ -143,8 +141,8 @@ abstract class RoomsApiBaseController extends BaseController
     {
         $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
-            $_SESSION['prefered_api_type'] = ApiTypes::Rooms;
+        if (!$this->routerService->dsTokenOk(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::ROOMS;
             $this->clientService->needToReAuth(static::EG);
         }
     }

@@ -29,7 +29,7 @@ class EG007CreateFormGroup extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $formGroup = CreateFormGroupService::createFormGroup($this->args, $this->clientService);
@@ -38,7 +38,11 @@ class EG007CreateFormGroup extends RoomsApiBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 json_encode(json_encode($formGroup)),
-                ManifestService::replacePlaceholders("{0}", $this->args["form_group_name"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $this->args["form_group_name"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

@@ -81,7 +81,7 @@ class CreateRoomWithTemplatesService
     {
         #ds-snippet-start:Rooms2Step3
         $templates_api = $clientService->getRoomTemplatesApi();
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $templates = $templates_api->getRoomTemplates($args['account_id']);
             } catch (ApiException $e) {

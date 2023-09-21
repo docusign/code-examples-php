@@ -20,7 +20,7 @@ class KbAuthenticationService
     public static function kbAuthentification(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = KbAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = KbAuthenticationService::makeEnvelope($args["envelope_args"], $demoDocsPath);
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -38,7 +38,7 @@ class KbAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];

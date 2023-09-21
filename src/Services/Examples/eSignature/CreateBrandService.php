@@ -43,8 +43,7 @@ class CreateBrandService
                         'error_code' => $error_code,
                         'error_message' => $error_message,
                         'common_texts' => ManifestService::getCommonTexts()
-                    ]
-                );
+                    ]);
                 exit;
             }
         }

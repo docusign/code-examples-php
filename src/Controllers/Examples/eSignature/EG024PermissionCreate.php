@@ -51,7 +51,11 @@ class EG024PermissionCreate extends eSignBaseController
                 ManifestService::replacePlaceholders(
                     "{1}",
                     $permissionProfile["permission_profile_name"],
-                    ManifestService::replacePlaceholders("{0}", $permissionProfile["permission_profile_id"], $this->codeExampleText["ResultsPageText"])
+                    ManifestService::replacePlaceholders(
+                        "{0}",
+                        $permissionProfile["permission_profile_id"],
+                        $this->codeExampleText["ResultsPageText"]
+                    )
                 )
             );
         }

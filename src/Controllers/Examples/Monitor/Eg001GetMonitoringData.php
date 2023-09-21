@@ -30,8 +30,7 @@ class Eg001GetMonitoringData extends MonitorBaseController
     {
         $accessToken = $_SESSION['ds_access_token'];
         $tokenExpirationTime = $_SESSION['ds_expiration'];
-        if (
-            is_null($accessToken) ||
+        if (is_null($accessToken) ||
             (time() + JWTService::TOKEN_REPLACEMENT_IN_SECONDS) > $tokenExpirationTime
         ) {
             $auth = new JWTService();

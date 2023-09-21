@@ -2,7 +2,6 @@
 
 namespace Example\Services\Examples\Admin;
 
-
 use DocuSign\Admin\Client\ApiException as ApiExceptionAlias;
 use Example\Services\AdminApiClientService;
 use Exception;
@@ -23,7 +22,7 @@ class BulkImportUserDataService
         $accountId = $_SESSION["ds_account_id"];
         $csvFile = dirname(__DIR__, 4) . "/public/demo_documents/bulkimport.csv";
         $str = file_get_contents($csvFile);
-        $str = str_replace("<accountId>", $accountId , $str);
+        $str = str_replace("<accountId>", $accountId, $str);
 
 
 

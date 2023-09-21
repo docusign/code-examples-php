@@ -34,7 +34,7 @@ class EG003ExportDataFromRoom extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $fieldData = ExportDataFromRoomService::exportDataFromRoom($this->args, $this->clientService);

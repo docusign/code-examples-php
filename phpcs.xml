@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="igmaDev">
+<ruleset name="DocuSign">
     <file>src/Controllers</file>
     <file>src/Services</file>
     <file>src/EG001EmbeddedSigning.php</file>
@@ -9,38 +9,21 @@
     <exclude-pattern>*/public/assets/*</exclude-pattern>
     <exclude-pattern>*/public/demo_documents/*</exclude-pattern>
     <arg name="extensions" value="php" />
-    <rule ref="PEAR">
-        <exclude name="PEAR.Commenting.FunctionCallSignature.CloseBracketLine" />
-        <exclude name="PEAR.Files.IncludingFile.UseInclude" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
-        <exclude name="PEAR.Functions.FunctionCallSignature.Indent" />
-        <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
-        <exclude name="PEAR.WhiteSpace.ObjectOperatorIndent.Incorrect" />
-    </rule>
-    <rule ref="PSR2">
-        <exclude name="PSR2.Methods.FunctionCallSignature.CloseBracketLine" />
-        <exclude name="PSR2.Methods.FunctionCallSignature.ContentAfterOpenBracket" />
-        <exclude name="PSR2.Methods.FunctionCallSignature.Indent" />
-    </rule>
-    <rule ref="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter" />
+    <!-- Include basic PHP coding standards -->
+    <rule ref="PSR1"/>
+    <rule ref="PSR2"/>
+
+    <!-- Exclude comment-related rules -->
+    <exclude name="Squiz.Commenting.ClassComment"/>
+    <exclude name="Squiz.Commenting.FunctionComment"/>
+    <exclude name="Squiz.Commenting.VariableComment"/>
+    <exclude name="Generic.Commenting.DocComment"/>
+
+    <!-- Define other rules and configurations here -->
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="90"/>
             <property name="absoluteLineLimit" value="130"/>
         </properties>
     </rule>
-    <rule ref="Generic.Commenting.DocComment.MissingShort">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Generic.Commenting.DocComment.TagValueIndent">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Generic.Commenting.DocComment.ContentAfterOpen">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Generic.Commenting.DocComment.ContentBeforeClose">
-        <severity>0</severity>
-    </rule>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
 </ruleset>

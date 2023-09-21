@@ -19,7 +19,7 @@ class UnpauseSignatureWorkflowService
      * @return string
      */
 
-    public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary 
+    public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary
     {
         # Step 3 Start
         $env = new EnvelopeDefinition([

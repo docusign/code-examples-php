@@ -17,7 +17,7 @@ final class UseTemplatesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccEmail = "CC@gmail.com";
@@ -49,7 +49,7 @@ final class UseTemplatesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccMail = "CC@gmail.com";
@@ -84,7 +84,7 @@ final class UseTemplatesTest extends TestCase
         $expectedEnvelopeDefinition->setTemplateRoles([$signer, $cc]);
 
         // Act
-        $envelopeDefinition = UseTemplateService::make_envelope($requestArguments);
+        $envelopeDefinition = UseTemplateService::makeEnvelope($requestArguments);
 
         // Assert
         $this->assertNotNull($envelopeDefinition);

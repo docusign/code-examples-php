@@ -48,7 +48,7 @@ class ActivateClickwrapService
         string $status
     ): array {
         $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->dsTokenOk($minimum_buffer_min)) {
             try {
                 $apiClient = $clientService->accountsApi();
                 $options = new GetClickwrapsOptions();

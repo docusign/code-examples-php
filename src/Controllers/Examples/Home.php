@@ -8,6 +8,7 @@
  */
 
 namespace Example\Controllers\Examples;
+
 use QuickACG\RouterService as QuickRouterService;
 use Example\Controllers\eSignBaseController;
 use Example\Services\RouterService;

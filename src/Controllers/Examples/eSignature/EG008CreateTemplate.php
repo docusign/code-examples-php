@@ -54,7 +54,11 @@ class EG008CreateTemplate extends eSignBaseController
                 ManifestService::replacePlaceholders(
                     "{1}",
                     $templateInformation['template_id'],
-                    ManifestService::replacePlaceholders("{0}", $templateInformation['template_name'], $this->codeExampleText["ResultsPageText"])
+                    ManifestService::replacePlaceholders(
+                        "{0}",
+                        $templateInformation['template_name'],
+                        $this->codeExampleText["ResultsPageText"]
+                    )
                 ),
             );
         }

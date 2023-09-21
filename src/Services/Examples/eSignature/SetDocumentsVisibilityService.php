@@ -34,7 +34,7 @@ class SetDocumentsVisibilityService
         SignatureClientService $clientService,
         string $demoPath
     ): string {
-        $envelope_definition = SetDocumentsVisibilityService::make_envelope(
+        $envelope_definition = SetDocumentsVisibilityService::makeEnvelope(
             $signer1Email,
             $signer1Name,
             $signer2Email,
@@ -49,7 +49,6 @@ class SetDocumentsVisibilityService
         $envelope_api = $clientService->getEnvelopeApi();
 
         try {
-
             #ds-snippet-start:eSign40Step4
             $envelopeSummary = $envelope_api->createEnvelope(
                 $accountId,
@@ -74,7 +73,7 @@ class SetDocumentsVisibilityService
         return $envelopeSummary->getEnvelopeId();
     }
     #ds-snippet-start:eSign40Step3
-    private static function make_envelope(
+    private static function makeEnvelope(
         string $signer1Email,
         string $signer1Name,
         string $signer2Email,

@@ -15,7 +15,7 @@ final class ActivateClickwrapTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::Click, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $testConfig);
         (new CreateClickwrapTest($testConfig))->testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse();
 
         $activeStatus = "active";

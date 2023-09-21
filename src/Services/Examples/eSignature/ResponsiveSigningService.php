@@ -16,7 +16,7 @@ class ResponsiveSigningService
     // Step 3 start
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): string
     {
-        $envelopeDefinition = ResponsiveSigningService::make_envelope($args["envelope_args"], $demoPath);
+        $envelopeDefinition = ResponsiveSigningService::makeEnvelope($args["envelope_args"], $demoPath);
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
@@ -46,8 +46,8 @@ class ResponsiveSigningService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
 
-    // Step 2 start 
-    private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
+    // Step 2 start
+    private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $signer = new Signer(
             [
@@ -73,7 +73,7 @@ class ResponsiveSigningService
 
         $htmlWithData = str_replace(
             ['{signer_name}', '{signer_email}', '{cc_name}', '{cc_email}', '/sn1/', '/l1q/', '/l2q/'],
-            [$args['signer_name'], $args['signer_email'], $args['cc_name'], $args['cc_email'], 
+            [$args['signer_name'], $args['signer_email'], $args['cc_name'], $args['cc_email'],
             '<ds-signature data-ds-role="Signer"/>', ' <input data-ds-type="number"/>', '<input data-ds-type="number"/>'],
             $htmlMarkup
         );

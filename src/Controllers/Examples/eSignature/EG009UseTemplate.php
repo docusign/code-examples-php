@@ -48,7 +48,11 @@ class EG009UseTemplate extends eSignBaseController
                 $this->clientService->showDoneTemplateFromManifest(
                     $this->codeExampleText,
                     null,
-                    ManifestService::replacePlaceholders("{0}", $envelopeId["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                    ManifestService::replacePlaceholders(
+                        "{0}",
+                        $envelopeId["envelope_id"],
+                        $this->codeExampleText["ResultsPageText"]
+                    )
                 );
             }
         } else {

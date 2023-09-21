@@ -46,7 +46,7 @@ class CreateTemplateService
         } else {
             # Template not found -- so create it
             # Step 2 create the template
-            $template_req_object = CreateTemplateService::make_template_req($template_name, $demoDocsPath);
+            $template_req_object = CreateTemplateService::makeTemplateRequest($template_name, $demoDocsPath);
             #ds-snippet-start:eSign8Step3
             $templatesListResponse = $templates_api->createTemplate($args['account_id'], $template_req_object);
             #ds-snippet-end:eSign8Step3
@@ -67,7 +67,7 @@ class CreateTemplateService
      */
 
     #ds-snippet-start:eSign8Step2
-    public static function make_template_req($template_name, $demoDocsPath): EnvelopeTemplate
+    public static function makeTemplateRequest($template_name, $demoDocsPath): EnvelopeTemplate
     {
         # document 1 is a pdf
         #

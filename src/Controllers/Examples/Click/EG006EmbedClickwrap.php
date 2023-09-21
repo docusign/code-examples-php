@@ -40,15 +40,19 @@ class EG006EmbedClickwrap extends ClickApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapResponse = EmbedClickwrapService::createAgreeementUrl($this->args, $this->clientService);
-        $htmlString = "<p id='agreementStatus'>NOT AGREED</p><div id='ds-terms-of-service'></div><script src='https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js'></script><script>docuSignClick.Clickwrap.render({agreementUrl: '" . $clickwrapResponse . "',onAgreed: function () {document.getElementById('agreementStatus').innerHTML = 'AGREED';}}, '#ds-terms-of-service');</script>";
+        $htmlString = "<p id='agreementStatus'>NOT AGREED</p><div id='ds-terms-of-service'></div><script "
+            . "src='https://demo.docusign.net/clickapi/sdk/latest/docusign-click.js'></script><script>"
+            . "docuSignClick.Clickwrap.render({agreementUrl: '" . $clickwrapResponse . "',onAgreed: "
+            . "function () {document.getElementById('agreementStatus').innerHTML"
+            . " = 'AGREED';}}, '#ds-terms-of-service');</script>";
         if ($clickwrapResponse) {
-
-            if($clickwrapResponse === 'Already Agreed'){
-                $e = new ApiException("The email address was already used to agree to this elastic template. Provide a different email address if you want to view the agreement and agree to it.",990);
+            if ($clickwrapResponse === 'Already Agreed') {
+                $e = new ApiException("The email address was already used to agree to this elastic template. "
+                    . "Provide a different email address if you want to view the agreement and agree to it.", 990);
                 $this->clientService->showErrorTemplate($e);
                 exit;
             }
@@ -58,9 +62,9 @@ class EG006EmbedClickwrap extends ClickApiBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                $this->codeExampleText["ResultsPageText"]."<p>Agreement URL received back from API call: <code>".$clickwrapResponse."</code></p>".$htmlString
+                $this->codeExampleText["ResultsPageText"] . "<p>Agreement URL received back from API "
+                    . "call: <code>" . $clickwrapResponse . "</code></p>" . $htmlString
             );
-            
         }
     }
 

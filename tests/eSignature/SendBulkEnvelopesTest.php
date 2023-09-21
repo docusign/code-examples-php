@@ -24,7 +24,7 @@ final class SendBulkEnvelopesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $ccEmail = "cc@gmail.com";
         $ccName = "cc";
@@ -210,7 +210,7 @@ final class SendBulkEnvelopesTest extends TestCase
         );
 
         // Act
-        $envelopeDefinition = BulkSendEnvelopesService::make_envelope(
+        $envelopeDefinition = BulkSendEnvelopesService::makeEnvelope(
             self::DEMO_DOCS_PATH,
             "World_Wide_Corp_lorem.pdf"
         );

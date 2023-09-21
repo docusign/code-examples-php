@@ -20,7 +20,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateBrandTest($testConfig))->testCreateBrand_CorrectInputValues_ReturnArray();
 
         $requestArguments = [
@@ -74,7 +74,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         ];
         $clientService = new SignatureClientService($requestArguments);
 
-        $expectedEnvelopeDefinition = CreateAnEnvelopeFunctionService::make_envelope(
+        $expectedEnvelopeDefinition = CreateAnEnvelopeFunctionService::makeEnvelope(
             $requestArguments,
             $clientService,
             static::DEMO_DOCS_PATH,
@@ -107,7 +107,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $expectedEnvelopeDefinition->setBrandId($requestArguments['brand_id']);
 
         // Act
-        $envelopeDefinition = ApplyBrandToEnvelopeService::make_envelope(
+        $envelopeDefinition = ApplyBrandToEnvelopeService::makeEnvelope(
             $requestArguments,
             $clientService,
             ApplyBrandToEnvelopeTest::DEMO_DOCS_PATH,

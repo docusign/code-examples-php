@@ -20,7 +20,7 @@ class ApplyBrandToTemplateService
     public static function applyBrandToTemplate(array $args, $clientService): array
     {
         # Step 3. Construct the request body
-        $envelope_definition = ApplyBrandToTemplateService::make_envelope($args["envelope_args"]);
+        $envelope_definition = ApplyBrandToTemplateService::makeEnvelope($args["envelope_args"]);
 
         # Step 4. Call the eSignature REST API
         $envelope_api = $clientService->getEnvelopeApi();
@@ -31,11 +31,11 @@ class ApplyBrandToTemplateService
 
     /**
      *  Creates envelope definition
-     *  Parameters for the envelope: signer_email, signer_name, cc_name, cc_email, template_id, brand_id  
+     *  Parameters for the envelope: signer_email, signer_name, cc_name, cc_email, template_id, brand_id
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function makeEnvelope(array $args): EnvelopeDefinition
     {
         $signer = new TemplateRole([
             'name' => $args['signer_name'],

@@ -22,7 +22,7 @@ final class SigningViaEmailTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $ccEmail = 'cc@gmail.com';
         $ccName = 'CC';
@@ -140,7 +140,7 @@ final class SigningViaEmailTest extends TestCase
         $expectedEnvelopeDefinition->setStatus($requestArguments["status"]);
 
         // Act
-        $envelope = SigningViaEmailService::make_envelope(
+        $envelope = SigningViaEmailService::makeEnvelope(
             $requestArguments,
             $clientService,
             $this::DEMO_DOCS_PATH,

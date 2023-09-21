@@ -29,7 +29,7 @@ class EG001CreateClickwrap extends ClickApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapSummaryResponse = CreateClickwrapService::createClickwrap(

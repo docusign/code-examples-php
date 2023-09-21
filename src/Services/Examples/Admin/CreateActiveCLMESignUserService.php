@@ -66,7 +66,6 @@ class CreateActiveCLMESignUserService
             #ds-snippet-start:Admin2Step6
             $addUserResponse = $userAPI->addOrUpdateUser($organizationId, $arguments["account_id"], $request);
             #ds-snippet-end:Admin2Step6
-
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
         }

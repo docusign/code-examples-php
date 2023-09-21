@@ -49,7 +49,7 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         GrantOfficeAccessToFormGroupService::grantOfficeAccessToFormGroup($this->args, $this->clientService);
@@ -57,8 +57,8 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
             $this->codeExampleText,
             null,
             ManifestService::replacePlaceholders(
-                "{1}", 
-                $this->args["form_group_id"], 
+                "{1}",
+                $this->args["form_group_id"],
                 ManifestService::replacePlaceholders("{0}", $this->args["office_id"], $this->codeExampleText["ResultsPageText"])
             ),
         );

@@ -77,32 +77,26 @@ class ClickApiClientService
     public function showErrorTemplate(ApiException $e): void
     {
 
-if ($e->getCode() == 990){
-
-    $GLOBALS['twig']->display(
-        'error.html',
-        [
-            'error_code' => ' ',
-            'error_message' => $e->getMessage(),
-            'common_texts' => ManifestService::getCommonTexts()
-        ]
-    );
-
-
-}
-else {
-
-        $body = $e->getResponseBody();
-        $GLOBALS['twig']->display(
-            'error.html',
-            [
-                'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
-                'error_message' => $body->message ?? unserialize($body)->message,
+        if ($e->getCode() == 990) {
+            $GLOBALS['twig']->display(
+                'error.html',
+                [
+                'error_code' => ' ',
+                'error_message' => $e->getMessage(),
                 'common_texts' => ManifestService::getCommonTexts()
-            ]
-        );
-
-    }
+                ]
+            );
+        } else {
+                $body = $e->getResponseBody();
+                $GLOBALS['twig']->display(
+                    'error.html',
+                    [
+                    'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
+                    'error_message' => $body->message ?? unserialize($body)->message,
+                    'common_texts' => ManifestService::getCommonTexts()
+                    ]
+                );
+        }
     }
 
      /**

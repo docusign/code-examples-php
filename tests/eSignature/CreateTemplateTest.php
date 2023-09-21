@@ -37,7 +37,7 @@ final class CreateTemplateTest extends TestCase
     public function testCreateTemplate_CorrectInputValues_ReturnArray()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $this->testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $this->testConfig);
 
         $requestArguments = [
             'account_id' => $this->testConfig->getAccountId(),
@@ -200,7 +200,7 @@ final class CreateTemplateTest extends TestCase
             ]);
 
         // Act
-        $template = CreateTemplateService::make_template_req(
+        $template = CreateTemplateService::makeTemplateRequest(
             $this->templateName,
             $this::DEMO_DOCS_PATH
         );

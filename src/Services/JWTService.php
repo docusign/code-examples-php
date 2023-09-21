@@ -7,7 +7,7 @@ use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
 use Example\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Example\Services\utils;
+use Example\Services\Utils;
 use Throwable;
 
 class JWTService
@@ -31,8 +31,7 @@ class JWTService
     public function checkToken()
     {
 
-        if (
-            is_null($_SESSION['ds_access_token'])
+        if (is_null($_SESSION['ds_access_token'])
             || (time() + self::TOKEN_REPLACEMENT_IN_SECONDS) > (int) $_SESSION['ds_expiration']
         ) {
             $this->login();
@@ -51,8 +50,12 @@ class JWTService
         if (is_null(self::$account)) {
             self::$account = self::$apiClient->getUserInfo(self::$access_token->getAccessToken());
         }
-        $cfr = new utils();
-        $_SESSION['cfr_enabled'] = $cfr->isCFR(self::$access_token["access_token"], self::$account[0]["accounts"][0]["account_id"], self::$account[0]["accounts"][0]["base_uri"] . "/restapi");
+        $cfr = new Utils();
+        $_SESSION['cfr_enabled'] = $cfr->isCFR(
+            self::$access_token["access_token"],
+            self::$account[0]["accounts"][0]["account_id"],
+            self::$account[0]["accounts"][0]["base_uri"] . "/restapi"
+        );
 
         $redirectUrl = false;
         if (isset($_SESSION['eg'])) {
@@ -88,11 +91,12 @@ class JWTService
         } catch (Throwable $th) {
             // we found consent_required in the response body meaning first time consent is needed
             if (strpos($th->getMessage(), "consent_required") !== false) {
-                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?prompt=login&response_type=code&' . http_build_query(
+                $authorizationURL = 'https://account-d.docusign.com/oauth/auth?prompt=login&response_type=code&'
+                . http_build_query(
                     [
                         'scope' => "impersonation+" . $jwt_scope,
                         'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback'
+                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=dsCallback'
                     ]
                 );
                 header('Location: ' . $authorizationURL);
@@ -105,7 +109,7 @@ class JWTService
      * DocuSign login handler
      * @param $redirectUrl
      */
-    function authCallback($redirectUrl): void
+    public function authCallback($redirectUrl): void
     {
         // Check given state against previously stored one to mitigate CSRF attack
         if (!self::$access_token) {

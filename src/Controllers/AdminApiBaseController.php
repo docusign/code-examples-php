@@ -3,9 +3,9 @@
 namespace Example\Controllers;
 
 use Example\Services\AdminApiClientService;
-use Example\Services\RouterService;
 use Example\Services\ApiTypes;
 use Example\Services\ManifestService;
+use Example\Services\RouterService;
 
 abstract class AdminApiBaseController extends BaseController
 {
@@ -13,7 +13,6 @@ abstract class AdminApiBaseController extends BaseController
     protected RouterService $routerService;
     protected AdminApiClientService $clientService;
     private const MINIMUM_BUFFER_MIN = 3;
-
 
     public function __construct()
     {
@@ -33,8 +32,7 @@ abstract class AdminApiBaseController extends BaseController
     public function controller(
         $args = null,
         $permission_profiles = null
-    ): void
-    {
+    ): void {
         $method = $_SERVER['REQUEST_METHOD'];
 
         $this->codeExampleText = $this->getPageText(static::EG);
@@ -44,15 +42,15 @@ abstract class AdminApiBaseController extends BaseController
         }
 
         //override for batch import request status
-        if($_REQUEST['page'] == 'aeg004a'){
-            $this->createController(); 
+        if ($_REQUEST['page'] == 'aeg004a') {
+            $this->createController();
         };
         
         if ($method == 'GET') {
             $this->getController($args, $permission_profiles);
         };
         if ($method == 'POST') {
-            $this->routerService->check_csrf();
+            $this->routerService->checkCsrf();
             $this->createController();
         };
     }
@@ -69,20 +67,17 @@ abstract class AdminApiBaseController extends BaseController
     private function getController(
         ?array $args,
         ?array $permission_profiles
-    ): void
-    {
+    ): void {
         if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(static::EG . '.html', [
                 'title' => $this->homePageTitle(static::EG),
                 'show_doc' => false,
                 'common_texts' => $this->getCommonText()
             ]);
-        }
-        else
-        {
+        } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-            if ($this->routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
+            if ($this->routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($this->routerService->getTemplate(static::EG), [
                     'title' => $this->routerService->getTitle(static::EG),
                     'source_file' => basename(static::FILE),
@@ -96,10 +91,9 @@ abstract class AdminApiBaseController extends BaseController
                     'code_example_text' => $this->codeExampleText,
                     'common_texts' => $this->getCommonText()
                 ]);
-            }
-            else {
+            } else {
                 # Save the current operation so it will be resumed after authentication
-                $_SESSION['prefered_api_type'] = ApiTypes::Admin;
+                $_SESSION['prefered_api_type'] = ApiTypes::ADMIN;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
                 header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
@@ -114,8 +108,8 @@ abstract class AdminApiBaseController extends BaseController
     {
         $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
-            $_SESSION['prefered_api_type'] = ApiTypes::Admin;
+        if (!$this->routerService->dsTokenOk(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::ADMIN;
             $this->clientService->needToReAuth(static::EG);
         }
     }
@@ -123,7 +117,7 @@ abstract class AdminApiBaseController extends BaseController
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-    abstract function createController(): void;
+    abstract protected function createController(): void;
 
     /**
      * @return array
@@ -147,5 +141,5 @@ abstract class AdminApiBaseController extends BaseController
         return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
     }
 
-    abstract function getTemplateArgs(): array;
+    abstract protected function getTemplateArgs(): array;
 }

@@ -35,7 +35,7 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $room_id = $this->args['room_id'];
@@ -94,9 +94,9 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                 $this->clientService->showDoneTemplateFromManifest(
                     $this->codeExampleText,
                     "",
-                    "Results from the Forms::CreateExternalFormFillSession: <br/><code>".stripslashes($createExternalFormResponse)."</code>",
+                    "Results from the Forms::CreateExternalFormFillSession: <br/><code>"
+                    . stripslashes($createExternalFormResponse) . "</code>",
                     $createExternalFormJSON['url'],
-                    
                 );
             }
         }

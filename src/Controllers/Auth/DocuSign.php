@@ -106,18 +106,19 @@ class DocuSign extends AbstractProvider
      */
     public function getDefaultScopes(): array
     {
-        if ($_SESSION['api_type'] == ApiTypes::Rooms) {
+        if ($_SESSION['api_type'] == ApiTypes::ROOMS) {
             return [
-                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
+                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
             ];
-        } elseif ($_SESSION['api_type'] == ApiTypes::Click) {
+        } elseif ($_SESSION['api_type'] == ApiTypes::CLICK) {
             return [
                 "signature click.manage click.send"
             ];
-        } elseif ($_SESSION['api_type'] == ApiTypes::Admin) {
+        } elseif ($_SESSION['api_type'] == ApiTypes::ADMIN) {
             return [
-                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read user_data_redact"
+                "signature user_write group_read organization_read permission_read user_read "
+                . "account_read domain_read identity_provider_read user_data_redact"
             ];
         } else {
             return [

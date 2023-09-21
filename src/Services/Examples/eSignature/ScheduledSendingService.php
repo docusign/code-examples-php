@@ -31,7 +31,13 @@ class ScheduledSendingService
     public static function scheduleEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Step 2. Create the envelope definition
-        $envelope_definition = ScheduledSendingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = ScheduledSendingService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
         $envelope_api = $clientService->getEnvelopeApi();
 
 
@@ -65,10 +71,16 @@ class ScheduledSendingService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
         #ds-snippet-start:eSign35Step2
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = CreateAnEnvelopeFunctionService::makeEnvelope(
+            $args,
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
 
         # Create the signer recipient model
         $signer = new Signer([

@@ -35,7 +35,7 @@ class EG020PhoneAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
-            $envelopeAuthentification = PhoneAuthenticationService::phone_authentication(
+            $envelopeAuthentification = PhoneAuthenticationService::phoneAuthentication(
                 $this->args,
                 $this::DEMO_DOCS_PATH,
                 $this->clientService,
@@ -50,7 +50,11 @@ class EG020PhoneAuthentication extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeAuthentification["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }
