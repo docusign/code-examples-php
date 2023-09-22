@@ -1,7 +1,6 @@
 {
     "autoload": {
         "psr-4": {"DocuSign\\": "../src/",
-                  "DocuSign\\OAuth2\\Client\\Provider\\": "../src/",
                   "QuickACG\\": "src/"
                  }
     },
