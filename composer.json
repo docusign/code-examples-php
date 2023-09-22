@@ -36,5 +36,8 @@
         "mashape/unirest-php": "3.0.4",
         "squizlabs/php_codesniffer": "*",
         "phpunit/phpunit": "^9.5"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
     }
 }
