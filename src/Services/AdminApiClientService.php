@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\Admin\Api\OrganizationsApi;
 use DocuSign\Admin\Client\ApiException;
@@ -12,7 +12,7 @@ use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class AdminApiClientService
 {

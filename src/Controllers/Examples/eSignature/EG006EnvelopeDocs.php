@@ -4,10 +4,10 @@
  * Example 006: List an envelope's documents
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeDocsService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeDocsService;
 
 class EG006EnvelopeDocs extends eSignBaseController
 {

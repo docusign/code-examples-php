@@ -4,10 +4,10 @@
  * Example 011: Use embedded sending: Remote signer, cc; envelope has three documents
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EmbeddedSendingService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EmbeddedSendingService;
 
 class EG011EmbeddedSending extends eSignBaseController
 {

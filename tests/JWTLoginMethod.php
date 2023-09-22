@@ -1,6 +1,6 @@
 <?php
-namespace Example\Tests;
-use Example\Services\ApiTypes;
+namespace DocuSign\Tests;
+use DocuSign\Services\ApiTypes;
 use DocuSign\eSign\Client\ApiClient;
 
 final class JWTLoginMethod

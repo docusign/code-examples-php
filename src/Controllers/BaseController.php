@@ -1,8 +1,8 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 abstract class BaseController
 {

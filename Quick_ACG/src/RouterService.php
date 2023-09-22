@@ -2,10 +2,10 @@
 
 namespace QuickACG;
 
-use Example\Services\ApiTypes;
-use Example\Services\CodeGrantService;
-use Example\Services\ManifestService;
-use Example\Services\IRouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\CodeGrantService;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\IRouterService;
 
 class RouterService implements IRouterService
 {
@@ -79,13 +79,13 @@ class RouterService implements IRouterService
                 break;
             case 'eg001':
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
-                $controller = '\Example\\' . $this->getController($page);
+                $controller = '\DocuSign\\' . $this->getController($page);
                 new $controller($page);
                 break;
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
-                $controller = '\Example\\' . $this->getController($page);
+                $controller = '\DocuSign\\' . $this->getController($page);
                 new $controller($page);
                 break;
         }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Api\BulkEnvelopesApi;
@@ -9,9 +9,9 @@ use DocuSign\eSign\Api\GroupsApi;
 use DocuSign\eSign\Api\TemplatesApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
-use Example\Services\ApiTypes;
+use DocuSign\Services\ApiTypes;
 use PHPUnit\Framework\TestCase;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 final class SignatureClientTest extends TestCase
 {

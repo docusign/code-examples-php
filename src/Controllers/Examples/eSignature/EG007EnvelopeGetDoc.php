@@ -4,10 +4,10 @@
  * Example 007: Get an envelope's document
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeGetDocService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeGetDocService;
 
 class EG007EnvelopeGetDoc extends eSignBaseController
 {

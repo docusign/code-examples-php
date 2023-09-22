@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Rooms;
+namespace DocuSign\Controllers\Examples\Rooms;
 
-use Example\Controllers\RoomsApiBaseController;
-use Example\Services\Examples\Rooms\AssignFormToFormGroupService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\RoomsApiBaseController;
+use DocuSign\Services\Examples\Rooms\AssignFormToFormGroupService;
+use DocuSign\Services\ManifestService;
 
 class Eg009AssignFormToFormGroup extends RoomsApiBaseController
 {

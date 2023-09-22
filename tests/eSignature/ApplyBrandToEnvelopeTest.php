@@ -1,16 +1,16 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
-use Example\Services\Examples\eSignature\CreateAnEnvelopeFunctionService;
+use DocuSign\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
+use DocuSign\Services\Examples\eSignature\CreateAnEnvelopeFunctionService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\SignatureClientService;
 
 final class ApplyBrandToEnvelopeTest extends TestCase
 {

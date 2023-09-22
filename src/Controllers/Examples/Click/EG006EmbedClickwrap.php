@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
 use DocuSign\Click\Client\ApiException;
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\EmbedClickwrapService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\EmbedClickwrapService;
 
 class EG006EmbedClickwrap extends ClickApiBaseController
 {

@@ -7,10 +7,10 @@
  * Time: 9:32 AM
  */
 
-namespace Example\Controllers\Examples;
+namespace DocuSign\Controllers\Examples;
 
-use Example\Controllers\BaseController;
-use Example\Services\RouterService;
+use DocuSign\Controllers\BaseController;
+use DocuSign\Services\RouterService;
 
 class DsReturn extends BaseController
 {

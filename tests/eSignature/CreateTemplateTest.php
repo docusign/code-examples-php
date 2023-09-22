@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Checkbox;
@@ -16,9 +16,9 @@ use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\Text;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\CreateTemplateService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\CreateTemplateService;
+use DocuSign\Services\SignatureClientService;
 
 final class CreateTemplateTest extends TestCase
 {

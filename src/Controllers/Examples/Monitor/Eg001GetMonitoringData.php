@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Monitor;
+namespace DocuSign\Controllers\Examples\Monitor;
 
-use Example\Controllers\MonitorBaseController;
-use Example\Services\Examples\Monitor\GetMonitoringDataService;
-use Example\Services\JWTService;
+use DocuSign\Controllers\MonitorBaseController;
+use DocuSign\Services\Examples\Monitor\GetMonitoringDataService;
+use DocuSign\Services\JWTService;
 
 class Eg001GetMonitoringData extends MonitorBaseController
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\OrgAdmin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
+use DocuSign\Controllers\AdminApiBaseController;
 
 class EG003ACheckRequestStatus extends AdminApiBaseController
 {

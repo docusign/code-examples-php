@@ -1,15 +1,15 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Services\RouterService;
+use DocuSign\Services\RouterService;
 use QuickACG\RouterService as QuickRouterService;
-use Example\Services\SignatureClientService;
-use Example\Services\IRouterService;
-use Example\Services\ApiTypes;
-use Example\Services\ManifestService;
-use Example\Services\Utils;
+use DocuSign\Services\SignatureClientService;
+use DocuSign\Services\IRouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\Utils;
 
 abstract class ESignBaseController extends BaseController
 {

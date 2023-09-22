@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Configuration;
-use Example\Controllers\Auth\DocuSign;
+use DocuSign\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Example\Services\Utils;
+use DocuSign\Services\Utils;
 use Throwable;
 
 class JWTService

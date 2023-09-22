@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UserProductPermissionProfilesResponse;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\DeleteUserProductPermissionProfileByIdService;
-use Example\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\DeleteUserProductPermissionProfileByIdService;
+use DocuSign\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi\GetUserProductPermissionProfilesByEmailOptions;
 
 class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController

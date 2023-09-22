@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
@@ -9,7 +9,7 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class EmbeddedSigningService
 {

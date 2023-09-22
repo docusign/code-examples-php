@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\PhoneAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\PhoneAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG020PhoneAuthentication extends eSignBaseController
 {

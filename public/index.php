@@ -10,7 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../vendor/docusign/esign-client/autoload.php';
 require_once __DIR__ . '/../ds_config.php';
 
-use Example\Services\RouterService;
+use DocuSign\Services\RouterService;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

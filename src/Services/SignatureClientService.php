@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Api\BulkEnvelopesApi;
@@ -13,7 +13,7 @@ use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 use QuickACG\RouterService as QuickRouterService;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class SignatureClientService
 {

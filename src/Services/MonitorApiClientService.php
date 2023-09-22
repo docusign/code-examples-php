@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\Monitor\Client\ApiClient;
 use DocuSign\Monitor\Client\ApiException;
 use DocuSign\Monitor\Configuration;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class MonitorApiClientService
 {

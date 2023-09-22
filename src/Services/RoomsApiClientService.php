@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\Rooms\Api\ExternalFormFillSessionsApi;
 use DocuSign\Rooms\Api\FormGroupsApi;
@@ -15,7 +15,7 @@ use DocuSign\Rooms\Configuration;
 use DocuSign\Rooms\Model\FormGroup;
 use DocuSign\Rooms\Model\FormGroupForCreate;
 use DocuSign\Rooms\Model\Room;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class RoomsApiClientService
 {

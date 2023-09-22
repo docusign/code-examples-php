@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Rooms;
+namespace DocuSign\Controllers\Examples\Rooms;
 
-use Example\Controllers\RoomsApiBaseController;
-use Example\Services\Examples\Rooms\CreateRoomWithTemplatesService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\RoomsApiBaseController;
+use DocuSign\Services\Examples\Rooms\CreateRoomWithTemplatesService;
+use DocuSign\Services\ManifestService;
 
 class EG002CreateRoomWithTemplate extends RoomsApiBaseController
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserResponse;
 use DocuSign\Admin\Model\GroupRequest;
 use DocuSign\Admin\Model\PermissionProfileRequest;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 use DocuSign\Admin\Model\NewUserRequest as GlobalNewUserRequest;
 
 class CreateNewUserService

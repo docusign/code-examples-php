@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException as ApiExceptionAlias;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 use Exception;
 use SplFileObject;
 

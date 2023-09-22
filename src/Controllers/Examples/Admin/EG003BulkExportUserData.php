@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\BulkExportUserDataService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\BulkExportUserDataService;
+use DocuSign\Services\ManifestService;
 
 class EG003BulkExportUserData extends AdminApiBaseController
 {

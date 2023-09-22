@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services\Examples\Click;
+namespace DocuSign\Services\Examples\Click;
 
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapAgreementsResponse;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 class GetClickwrapResponseService
 {

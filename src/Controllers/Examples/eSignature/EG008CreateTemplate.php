@@ -4,11 +4,11 @@
  * Example 008: create a template if it doesn't already exist
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\CreateTemplateService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\CreateTemplateService;
+use DocuSign\Services\ManifestService;
 
 class EG008CreateTemplate extends eSignBaseController
 {

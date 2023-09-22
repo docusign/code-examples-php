@@ -4,11 +4,11 @@
  * Example 037: SMS Delivery with remote signer and carbon copy.
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SMSDeliveryService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SMSDeliveryService;
+use DocuSign\Services\ManifestService;
 
 class EG037SMSDelivery extends eSignBaseController
 {

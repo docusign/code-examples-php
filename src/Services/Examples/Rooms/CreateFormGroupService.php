@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Rooms;
+namespace DocuSign\Services\Examples\Rooms;
 
 use DocuSign\Rooms\Model\FormGroup;
 use DocuSign\Rooms\Model\FormGroupForCreate;

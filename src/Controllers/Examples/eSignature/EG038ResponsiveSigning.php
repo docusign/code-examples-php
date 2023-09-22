@@ -4,10 +4,10 @@
  * Example 038: Responsive signing.
 */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\ResponsiveSigningService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\ResponsiveSigningService;
 use DocuSign\eSign\Client\ApiException;
 
 class EG038ResponsiveSigning extends eSignBaseController

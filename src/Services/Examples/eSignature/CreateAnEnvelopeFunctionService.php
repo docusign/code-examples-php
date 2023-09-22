@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;

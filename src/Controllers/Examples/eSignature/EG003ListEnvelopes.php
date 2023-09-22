@@ -4,10 +4,10 @@
  * Example 003: List envelopes whose status has changed in the last 10 days
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\ListEnvelopesService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\ListEnvelopesService;
 
 class EG003ListEnvelopes extends eSignBaseController
 {

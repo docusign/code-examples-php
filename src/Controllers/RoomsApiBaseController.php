@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\RoomsApiClientService;
-use Example\Services\RouterService;
-use Example\Services\ApiTypes;
-use Example\Services\ManifestService;
+use DocuSign\Services\RoomsApiClientService;
+use DocuSign\Services\RouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\ManifestService;
 
 abstract class RoomsApiBaseController extends BaseController
 {

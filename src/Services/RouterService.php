@@ -1,8 +1,8 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class RouterService implements IRouterService
 {
@@ -233,12 +233,12 @@ class RouterService implements IRouterService
                 
                 // To ignore the Notice instead of Isset on missing POST vars
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
-                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+                $controller = '\DocuSign\Controllers\Examples\\' . $this->getController($page);
                 new $controller($page);
                 exit();
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
-                $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
+                $controller = "\DocuSign\Controllers\Examples\\" . $this->getController($page);
                 new $controller($page);
                 exit();
             }
@@ -265,7 +265,7 @@ class RouterService implements IRouterService
                 $this->dsLogin();
                 exit();
             }
-            $controller = 'Example\Controllers\Examples\\' . $this->getController($page);
+            $controller = 'DocuSign\Controllers\Examples\\' . $this->getController($page);
             $c = new $controller();
             $c->controller();
             exit();
@@ -294,13 +294,13 @@ class RouterService implements IRouterService
         } elseif ($page == 'eg001') {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
-            $controller = '\Example\\' . $this->getController($page);
+            $controller = '\DocuSign\\' . $this->getController($page);
             new $controller($page);
             exit();
         } else {
             // To ignore the Notice instead of Isset on missing POST vars
             error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
-            $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
+            $controller = '\DocuSign\Controllers\Examples\\' . $this->getController($page);
             new $controller($page);
             exit();
         }

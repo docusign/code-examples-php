@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\CreateClickwrapService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\CreateClickwrapService;
+use DocuSign\Services\ManifestService;
 
 class EG001CreateClickwrap extends ClickApiBaseController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Api\TemplatesApi\ListTemplatesOptions;
 use DocuSign\eSign\Model\CarbonCopy;

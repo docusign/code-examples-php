@@ -3,10 +3,10 @@
  * Example 001: Use embedded signing
  */
 
-namespace Example;
+namespace DocuSign;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EmbeddedSigningService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EmbeddedSigningService;
 
 class EG001EmbeddedSigning extends eSignBaseController
 {

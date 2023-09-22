@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
-use Example\Services\Examples\eSignature\CreateBrandService;
+use DocuSign\Services\Examples\eSignature\CreateBrandService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\SignatureClientService;
 
 final class CreateBrandTest extends TestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\Click\Api\AccountsApi;
 use DocuSign\Click\Client\ApiClient;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Configuration;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class ClickApiClientService
 {

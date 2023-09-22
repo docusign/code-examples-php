@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\GetClickwrapResponseService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\GetClickwrapResponseService;
 
 class EG005GetClickwrapResponses extends ClickApiBaseController
 {

@@ -7,9 +7,9 @@
  * Time: 9:40 PM
  */
 
-namespace Example\Controllers\Auth;
+namespace DocuSign\Controllers\Auth;
 
-use Example\Services\ApiTypes;
+use DocuSign\Services\ApiTypes;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;

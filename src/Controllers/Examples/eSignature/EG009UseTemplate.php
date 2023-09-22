@@ -4,11 +4,11 @@
  * Example 009: Send envelope using a template
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\UseTemplateService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\UseTemplateService;
+use DocuSign\Services\ManifestService;
 
 class EG009UseTemplate extends eSignBaseController
 {

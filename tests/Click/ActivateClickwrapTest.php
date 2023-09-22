@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
-use Example\Services\ClickApiClientService;
-use Example\Services\Examples\Click\ActivateClickwrapService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\Examples\Click\ActivateClickwrapService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
+use DocuSign\Services\ApiTypes;
 
 final class ActivateClickwrapTest extends TestCase
 {

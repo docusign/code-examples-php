@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Brand;
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 class CreateBrandService
 {

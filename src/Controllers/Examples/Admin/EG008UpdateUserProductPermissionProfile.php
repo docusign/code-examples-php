@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\ProductPermissionProfilesResponse;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\UpdateUserProductPermissionProfileByEmailService;
-use Example\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\UpdateUserProductPermissionProfileByEmailService;
+use DocuSign\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
 use DocuSign\Admin\ObjectSerializer;
 
 class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController

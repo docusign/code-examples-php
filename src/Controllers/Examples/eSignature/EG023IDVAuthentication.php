@@ -4,12 +4,12 @@
  * Example 023: ID Verification-based Recipient Authentication
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\IDVAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\IDVAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG023IDVAuthentication extends eSignBaseController
 {

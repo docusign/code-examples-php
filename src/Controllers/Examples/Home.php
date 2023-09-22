@@ -7,12 +7,12 @@
  * Time: 9:32 AM
  */
 
-namespace Example\Controllers\Examples;
+namespace DocuSign\Controllers\Examples;
 
 use QuickACG\RouterService as QuickRouterService;
-use Example\Controllers\eSignBaseController;
-use Example\Services\RouterService;
-use Example\Services\IRouterService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\RouterService;
+use DocuSign\Services\IRouterService;
 
 class Home extends eSignBaseController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
@@ -9,7 +9,7 @@ use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\DocumentHtmlDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {

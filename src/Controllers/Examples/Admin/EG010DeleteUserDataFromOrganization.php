@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\DeleteUserDataFromOrganizationService;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\DeleteUserDataFromOrganizationService;
 
 class EG010DeleteUserDataFromOrganization extends AdminApiBaseController
 {

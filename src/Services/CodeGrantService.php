@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
-use Example\Controllers\Auth\DocuSign;
+use DocuSign\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Example\Services\Utils;
+use DocuSign\Services\Utils;
 
 class CodeGrantService
 {

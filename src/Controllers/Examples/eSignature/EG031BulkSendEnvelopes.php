@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\BulkSendEnvelopesService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\BulkSendEnvelopesService;
 
 class EG031BulkSendEnvelopes extends eSignBaseController
 {

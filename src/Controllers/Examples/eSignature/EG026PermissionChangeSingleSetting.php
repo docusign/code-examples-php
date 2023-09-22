@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\PermissionChangeSingleSettingService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\PermissionChangeSingleSettingService;
+use DocuSign\Services\ManifestService;
 
 class EG026PermissionChangeSingleSetting extends eSignBaseController
 {

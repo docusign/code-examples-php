@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 class ManifestService
 {

@@ -3,10 +3,10 @@
  * Example 001: Use embedded signing
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\CFREmbeddedSigningService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\CFREmbeddedSigningService;
 
 class EG041CFREmbeddedSigning extends eSignBaseController
 {

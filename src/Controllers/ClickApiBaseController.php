@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\ApiTypes;
-use Example\Services\ManifestService;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 abstract class ClickApiBaseController extends BaseController
 {

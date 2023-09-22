@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\UseTemplateService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\UseTemplateService;
+use DocuSign\Services\SignatureClientService;
 
 final class UseTemplatesTest extends TestCase
 {

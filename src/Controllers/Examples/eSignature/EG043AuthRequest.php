@@ -3,11 +3,11 @@
  * Example 043: Shared access.
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SharedAccessService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SharedAccessService;
 
 class EG043AuthRequest extends eSignBaseController
 {
