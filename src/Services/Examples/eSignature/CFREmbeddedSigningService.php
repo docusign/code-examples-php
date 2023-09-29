@@ -31,28 +31,28 @@ class CFREmbeddedSigningService
      * @param SignatureClientService $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): array
     {
 
 
         // Obtain your workflowID
-
+        #ds-snippet-start:eSign41Step2
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $workflows_data = $accounts_response->getIdentityVerification();
         foreach ($workflows_data as $workflow) {
-            if ($workflow['default_name'] == 'SMS for access & signatures') 
+            if ($workflow['default_name'] == 'SMS for access & signatures')
             $args['envelope_args']['workflow_id'] = $workflow['workflow_id'];
         };
 
         if(!isset($args['envelope_args']['workflow_id'])){
             $clientService->showErrorTemplate(new ApiException("IDENTITY_WORKFLOW_INVALID_ID"));
         }
+        #ds-snippet-end:eSign41Step2
 
         # Create the envelope request object
+        #ds-snippet-start:eSign41Step4
         $envelope_definition = CFREmbeddedSigningService::make_envelope($args['envelope_args'], $demoPath);
-
 
         $envelope_api = $clientService->getEnvelopeApi();
 
@@ -69,19 +69,25 @@ class CFREmbeddedSigningService
             exit;
         }
         $envelope_id = $envelopeSummary->getEnvelopeId();
+        #ds-snippet-end:eSign41Step4
 
-        # 3. Create the Recipient View request object
+        # Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating
         # the signer? See the `authentication_method' definition
         # https://developers.docusign.com/docs/esign-rest-api/reference/envelopes/envelopeviews/createrecipient/
+
+        #ds-snippet-start:eSign41Step5
         $recipient_view_request = $clientService->getRecipientViewRequest(
             $authentication_method,
             $args["envelope_args"]
         );
+        #ds-snippet-end:eSign41Step5
 
         # 4. Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign41Step6
         $viewUrl = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        #ds-snippet-end:eSign41Step6
 
         return ['envelope_id' => $envelope_id, 'redirect_url' => $viewUrl['url']];
     }
@@ -93,6 +99,7 @@ class CFREmbeddedSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    #ds-snippet-start:eSign41Step3
     private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
@@ -173,5 +180,5 @@ class CFREmbeddedSigningService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign41Step3
 }
