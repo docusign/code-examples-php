@@ -34,7 +34,7 @@ class EG022KbAuthentication extends eSignBaseController
      */
     public function createController(): void
     {
-        # Step 1: Obtain your OAuth Token
+        # Obtain your OAuth Token
         $this->checkDsToken();
 
         $envelopeAuthentification = KbAuthenticationService::kbAuthentification(
