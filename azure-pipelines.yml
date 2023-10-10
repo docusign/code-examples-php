@@ -79,6 +79,7 @@ steps:
 
 
 - script: |
+    cd code-examples-php-private
     docker compose up -d
   displayName: 'start php app'
 
