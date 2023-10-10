@@ -28,30 +28,6 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)
 
-- task: DownloadSecureFile@1
-  name: php_dockerfile
-  displayName: 'download Dockerfile'
-  inputs:
-    secureFile: 'php.Dockerfile'
-
-- script: |
-    echo "place php.Dockerfile"
-    echo $(php_dockerfile.secureFilePath)
-    cp $(php_Dockerfile.secureFilePath) code-examples-php-private/Dockerfile
-  displayName: 'place Dockerfile'
-
-- task: DownloadSecureFile@1
-  name: php_docker_compose
-  displayName: 'download docker-compose file'
-  inputs:
-    secureFile: 'php.docker-compose.yml'
-
-- script: |
-    echo "place docker-compose.yml"
-    echo $(php_dockerfile.secureFilePath)
-    cp $(php_Dockerfile.secureFilePath) code-examples-php-private/docker-compose.yml
-  displayName: 'place docker-compose.yml'
-
 - script: |
     allure –-version
     java --version
@@ -63,7 +39,7 @@ steps:
   name: tests_config_properties
   displayName: 'download config.properties'
   inputs:
-    secureFile: 'tests_config.properties'
+    secureFile: 'java-phpconfig.properties'
 
 
 - script: |
@@ -101,16 +77,9 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
 
-# - task: DockerCompose@0
-#   displayName: Run php image
-#   inputs:
-#     action: Run services
-#     dockerComposeFile: '$(Build.SourcesDirectory)/code-examples-php-private/docker-compose.yml'
-#     workingDirectory: '$(Build.SourcesDirectory)/code-examples-php-private '
-#     includeLatestTag: true
 
 - script: |
-    docker compose run
+    docker compose up -d
   displayName: 'start php app'
 
 - script: |
