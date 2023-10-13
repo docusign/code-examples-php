@@ -56,7 +56,7 @@ class AuditUsersService
                 $userDrilldownResponse->setUsers($res->getUsers());
                 $decoded = json_decode((string)$userDrilldownResponse, true);
                 array_push($usersInformation, $decoded["users"]);
-                #ds-snippet-start:Admin5Step5
+                #ds-snippet-end:Admin5Step5
             }
         } catch (ApiException $e) {
             $GLOBALS['twig']->display(
