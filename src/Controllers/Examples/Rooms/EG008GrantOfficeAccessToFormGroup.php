@@ -22,16 +22,16 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
     {
         parent::__construct();
 
-        # Step 3 Start
+        #ds-snippet-start:Rooms8Step3
         $offices = GrantOfficeAccessToFormGroupService::getOffices(
             $this->routerService,
             $this->clientService,
             $this->args,
             $this::EG
         );
-        # Step 3 End
+        #ds-snippet-end:Rooms8Step3
 
-        # Step 4 Start
+        #ds-snippet-start:Rooms8Step4
         $formGroups = GrantOfficeAccessToFormGroupService::getFormGroups(
             $this->routerService,
             $this->clientService,
@@ -39,7 +39,7 @@ class EG008GrantOfficeAccessToFormGroup extends RoomsApiBaseController
             $this::EG
         );
         parent::controller(null, null, null, $offices, $formGroups);
-        # Step 4 End
+        #ds-snippet-end:Rooms8Step4
     }
 
     /**
