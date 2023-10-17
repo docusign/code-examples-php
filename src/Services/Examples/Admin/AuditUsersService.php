@@ -25,17 +25,17 @@ class AuditUsersService
         array $arguments,
         string $organizationId
     ): array {
-        # Step 5a start
+        #ds-snippet-start:Admin5Step5
         $usersInformation = [];
         $userDrilldownResponse = new UsersDrilldownResponse();
-        # Step 5a end
+        #ds-snippet-end:Admin5Step5
 
         $admin_api = $clientService->getUsersApi();
 
         # Here we set the from_date to filter envelopes for the last 10 days
         # Use ISO 8601 date format
 
-        # Step 3 start
+        #ds-snippet-start:Admin5Step3
         $options = new GetUsersOptions();
         $options->setAccountId($arguments["account_id"]);
         $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
@@ -43,20 +43,20 @@ class AuditUsersService
 
         try {
             $modifiedUsers = $admin_api->getUsers($organizationId, $options);
-            # Step 3 end
+            #ds-snippet-end:Admin5Step3
 
-            # Step 4 start
+            #ds-snippet-start:Admin5Step4
             foreach ($modifiedUsers["users"] as $user) {
                 $profileOptions = new GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
-                # Step 4 end
+                #ds-snippet-end:Admin5Step4
 
-                # Step 5b start
+                #ds-snippet-start:Admin5Step5
                 $res = $admin_api->getUserProfiles($organizationId, $profileOptions);
                 $userDrilldownResponse->setUsers($res->getUsers());
                 $decoded = json_decode((string)$userDrilldownResponse, true);
                 array_push($usersInformation, $decoded["users"]);
-                # Step 5b end
+                #ds-snippet-end:Admin5Step5
             }
         } catch (ApiException $e) {
             $GLOBALS['twig']->display(

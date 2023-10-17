@@ -15,10 +15,10 @@ class EnvelopeInfoService
      * @param $clientService
      * @return Envelope
      */
-    # ***DS.snippet.0.start
-    public static function envelopeInfo(array $args, $clientService): Envelope
+    #ds-snippet-start:eSign4Step2
+     public static function envelopeInfo(array $args, $clientService): Envelope
     {
-        # 1. call API method
+        # Call API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         try {
@@ -30,5 +30,5 @@ class EnvelopeInfoService
 
         return $envelopeId;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign4Step2
 }

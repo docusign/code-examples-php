@@ -15,17 +15,19 @@ class PermissionDeleteService
      * @param $clientService
      * @return string
      */
-    # ***DS.snippet.0.start
+    
     public static function permissionDelete(array $args, $clientService): string
     {
         $accounts_api = $clientService->getAccountsApi();
 
         try {
-            # Step 3. call the eSignature REST API
+            # Call the eSignature REST API
+            #ds-snippet-start:eSign27Step3
             $accounts_api->deletePermissionProfile(
                 $args['account_id'],
                 $args['permission_args']['permission_profile_id']
             );
+            #ds-snippet-end:eSign27Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -33,5 +35,5 @@ class PermissionDeleteService
 
         return "The permission profile has been deleted!";
     }
-    # ***DS.snippet.0.end
+    
 }

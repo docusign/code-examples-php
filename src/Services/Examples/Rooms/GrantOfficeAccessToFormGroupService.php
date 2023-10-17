@@ -16,10 +16,10 @@ class GrantOfficeAccessToFormGroupService
     public static function grantOfficeAccessToFormGroup(array $args, $clientService): void
     {
         try {
-            # Step 5 Start
+            #ds-snippet-start:Rooms8Step5
             $form_api = $clientService->getFromGroupsApi();
             $form_api->grantOfficeAccessToFormGroup($args['form_group_id'], $args['office_id'], $args["account_id"]);
-            # Step 5 End
+            #ds-snippet-end:Rooms8Step5
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
