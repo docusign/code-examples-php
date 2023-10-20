@@ -4,11 +4,13 @@ namespace Example\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
+use DocuSign\eSign\Model\FormulaTab;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\DocumentHtmlDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
+use DocuSign\eSign\Model\Tabs;
 use Example\Services\SignatureClientService;
 
 class ResponsiveSigningService
@@ -49,6 +51,9 @@ class ResponsiveSigningService
     // Step 2 start 
     private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
     {
+        $l1_price = 5;
+        $l2_price = 150;
+
         $signer = new Signer(
             [
                 'email' => $args['signer_email'],
@@ -74,9 +79,59 @@ class ResponsiveSigningService
         $htmlWithData = str_replace(
             ['{signer_name}', '{signer_email}', '{cc_name}', '{cc_email}', '/sn1/', '/l1q/', '/l2q/'],
             [$args['signer_name'], $args['signer_email'], $args['cc_name'], $args['cc_email'], 
-            '<ds-signature data-ds-role="Signer"/>', ' <input data-ds-type="number"/>', '<input data-ds-type="number"/>'],
+            '<ds-signature data-ds-role="Signer"/>', ' <input data-ds-type="number" name="l1q" />', '<input data-ds-type="number" name="l2q" />'],
             $htmlMarkup
         );
+
+        $formulaForFirstNumber = new FormulaTab([
+            'font' => "helvetica",
+            'font_size' => "size11",
+            'anchor_string' => '/l1e/',
+            'anchor_y_offset' => '-8',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '105',
+            'tab_label' => "l1e",
+            'formula' => "[l1q] * $l1_price",
+            'round_decimal_places' => "0",
+            'required' => "true",
+            'locked' => "true",
+            'disable_auto_size' => "false",
+            ]);
+
+        $formulaForSecondNumber = new FormulaTab([
+            'font' => "helvetica",
+            'font_size' => "size11",
+            'anchor_string' => '/l2e/',
+            'anchor_y_offset' => '-8',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '105',
+            'tab_label' => "l2e",
+            'formula' => "[l2q] * $l2_price",
+            'round_decimal_places' => "0",
+            'required' => "true",
+            'locked' => "true",
+            'disable_auto_size' => "false",
+            ]);
+
+        $formulaForResult = new FormulaTab([
+            'font' => "helvetica",
+            'bold' => "true",
+            'font_size' => "size11",
+            'anchor_string' => '/l3t/',
+            'anchor_y_offset' => '-8',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '105',
+            'tab_label' => "l3t",
+            'formula' => '[l1e] + [l2e]',
+            'round_decimal_places' => "0",
+            'required' => "true",
+            'locked' => "true",
+            'disable_auto_size' => "false",
+            ]);
+
+        $signer->setTabs(new Tabs([
+            'formula_tabs' => [ $formulaForFirstNumber, $formulaForSecondNumber, $formulaForResult, ],
+        ]));
 
         return new EnvelopeDefinition(
             [
