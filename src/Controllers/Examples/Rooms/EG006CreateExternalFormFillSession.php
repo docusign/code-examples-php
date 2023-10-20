@@ -38,9 +38,11 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
     function createController(): void
     {
         $this->checkDsToken();
+        #ds-snippet-start:Rooms6Step3
         $room_id = $this->args['room_id'];
         $form_id = $this->args['form_id'];
         $this->args['x_frame_allowed_url'] = "http://localhost:8080";
+        #ds-snippet-end:Rooms6Step3
         
         if ($room_id && !$form_id) {
             $room = CreateExternalFormFillSessionService::getRoom(
@@ -88,6 +90,7 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                 $this->clientService
             );
 
+            #ds-snippet-start:Rooms6Step5
             if ($createExternalFormResponse) {
                 $createExternalFormJSON = json_decode((string)$createExternalFormResponse, true);
 
@@ -99,6 +102,7 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                     
                 );
             }
+            #ds-snippet-end:Rooms6Step5
         }
     }
 
