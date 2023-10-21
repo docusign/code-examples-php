@@ -47,7 +47,7 @@ class PauseSignatureWorkflowService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    #ds-snippet-start:eSign32Step3B
+    #ds-snippet-start:eSign32Step3
     public static function make_envelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
@@ -149,5 +149,5 @@ class PauseSignatureWorkflowService
         $envelope_definition->setStatus($envelope_args['status']);
         return $envelope_definition;
     }
-    #ds-snippet-end:eSign32Step3B
+    #ds-snippet-end:eSign32Step3
 }

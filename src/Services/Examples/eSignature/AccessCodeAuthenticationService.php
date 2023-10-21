@@ -41,7 +41,7 @@ class AccessCodeAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    #ds-snippet-start:eSign19Step3B
+    #ds-snippet-start:eSign19Step3
     public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
@@ -67,5 +67,5 @@ class AccessCodeAuthenticationService
 
         return $envelope_definition;
     }
-    #ds-snippet-end:eSign19Step3B
+    #ds-snippet-end:eSign19Step3
 }
