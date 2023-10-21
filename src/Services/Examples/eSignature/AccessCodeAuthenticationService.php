@@ -19,14 +19,18 @@ class AccessCodeAuthenticationService
     public static function accessCodeAuthentication(array $args, $clientService, $demoDocsPath): array
     {
         # 1. Create the envelope request object
+        #ds-snippet-start:eSign19Step3
         $envelope_definition = AccessCodeAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
+        #ds-snippet-end:eSign19Step3
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign19Step4
         $envelope_api = $clientService->getEnvelopeApi();
         $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
 
         return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
+        #ds-snippet-end:eSign19Step4
     }
 
     /**
@@ -37,6 +41,7 @@ class AccessCodeAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
+    #ds-snippet-start:eSign19Step3B
     public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
@@ -62,4 +67,5 @@ class AccessCodeAuthenticationService
 
         return $envelope_definition;
     }
+    #ds-snippet-end:eSign19Step3B
 }
