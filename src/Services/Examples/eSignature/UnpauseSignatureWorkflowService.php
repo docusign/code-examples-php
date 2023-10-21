@@ -21,7 +21,7 @@ class UnpauseSignatureWorkflowService
 
     public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary 
     {
-        # Step 3 Start
+        #ds-snippet-start:eSign33Step3
         $env = new EnvelopeDefinition([
             'workflow' => new Workflow(['workflow_status' => 'in_progress'])
         ]);
@@ -30,17 +30,17 @@ class UnpauseSignatureWorkflowService
 
         # Update resend envelope parameter
         $envelope_option->setResendEnvelope('true');
-        # Step 3 End
+        #ds-snippet-end:eSign33Step3
 
-        # Step 4 Start
         # Call Envelopes::update API method to unpause signature workflow
+        #ds-snippet-start:eSign33Step4
         $envelope = $envelope_api->update(
             $args['account_id'],
             $args['pause_envelope_id'],
             $env,
             $envelope_option
         );
-        # Step 4 End
+        #ds-snippet-end:eSign33Step4
 
         return $envelope;
     }

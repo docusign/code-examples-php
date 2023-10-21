@@ -14,13 +14,13 @@ class EnvelopeCustomFieldDataService
      * @param $clientService
      * @return CustomFieldsEnvelope
      */
-    # ***DS.snippet.0.start
     public static function envelopeCustomFieldData(array $args, $clientService): CustomFieldsEnvelope
     {
-        # 1. call API method
+        # Call API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign18Step3
         $envelope_api = $clientService->getEnvelopeApi();
         return $envelope_api->listCustomFields($args['account_id'], $args['envelope_id']);
+        #ds-snippet-end:eSign18Step3
     }
-    # ***DS.snippet.0.end
 }
