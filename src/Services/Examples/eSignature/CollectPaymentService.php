@@ -26,18 +26,22 @@ class CollectPaymentService
      * @param $clientService
      * @return array ['redirect_url']
      */
-    # ***DS.snippet.0.start
+
     public static function collectPayment(array $args, $demoDocsPath, $clientService): array
     {
         # 1. Create the envelope request object
+        #ds-snippet-start:eSign14Step3
         $envelope_definition = CollectPaymentService::make_envelope($args["envelope_args"], $demoDocsPath);
+        #ds-snippet-end:eSign14Step3
 
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign14Step4
         $envelope_api = $clientService->getEnvelopeApi();
         $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
 
         return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
+        #ds-snippet-end:eSign14Step4
     }
 
     /**
@@ -71,6 +75,7 @@ class CollectPaymentService
      * @param $demoDocsPath
      * @return mixed -- returns an envelope definition
      */
+    #ds-snippet-start:eSign14Step3
     public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         # Order form constants
@@ -240,5 +245,5 @@ class CollectPaymentService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign14Step3
 }
