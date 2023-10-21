@@ -26,15 +26,15 @@ class PauseSignatureWorkflowService
      */
     public static function pauseSignatureWorkflow(array $args, $clientService, $demoDocsPath): EnvelopeSummary
     {
-        # Step 3-1 Start
+        #ds-snippet-start:eSign32Step3
         $envelope_args = $args['envelope_args'];
         $envelope_api = $clientService->getEnvelopeApi();
         $envelope_definition = PauseSignatureWorkflowService::make_envelope($envelope_args, $demoDocsPath);
-        # Step 3-1 End
+        #ds-snippet-end:eSign32Step3
 
-        # Step 4 Start
+        #ds-snippet-start:eSign32Step4
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
-        # Step 4 End
+        #ds-snippet-end:eSign32Step4
 
         return $envelope;
     }
@@ -47,7 +47,7 @@ class PauseSignatureWorkflowService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    # Step 3-2 start
+    #ds-snippet-start:eSign32Step3B
     public static function make_envelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
@@ -149,5 +149,5 @@ class PauseSignatureWorkflowService
         $envelope_definition->setStatus($envelope_args['status']);
         return $envelope_definition;
     }
-    # Step 3-2 End
+    #ds-snippet-end:eSign32Step3B
 }
