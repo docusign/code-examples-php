@@ -32,7 +32,7 @@ jobs:
     - name: Run linter
       run: |
         composer install --prefer-dist --no-progress
-        vendor/bin/phpcs --standard=phpcs.xml --report=checkstyle --report-file=phpcs-report.xml src/ -n -a
+        vendor/bin/phpcs --standard=phpcs.xml --report=checkstyle --report-file=phpcs-report.xml src/ -n
 
     - name: Run tests
       env:
