@@ -8,12 +8,6 @@
         }
     },
     "scripts": {
-        "post-install-cmd": [
-            "@code-sniffer"
-        ],
-        "post-update-cmd": [
-            "@code-sniffer"
-        ],
         "test": "./vendor/bin/phpunit --verbose tests"
     },
     "config": {
