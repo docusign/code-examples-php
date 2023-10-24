@@ -40,7 +40,7 @@ class EmbeddedSigningService
             exit;
         }
         $envelope_id = $envelopeSummary->getEnvelopeId();
-        #ds-snippet-end
+        #ds-snippet-end:eSign1Step3
 
         # Create the Recipient View request object
         #ds-snippet-start:eSign1Step4
@@ -51,7 +51,7 @@ class EmbeddedSigningService
             $authentication_method,
             $args["envelope_args"]
         );
-        #ds-snippet-end
+        #ds-snippet-end:eSign1Step4
 
         # Obtain the recipient_view_url for the embedded signing
         # Exceptions will be caught by the calling function
@@ -59,7 +59,7 @@ class EmbeddedSigningService
         $viewUrl = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 
         return ['envelope_id' => $envelope_id, 'redirect_url' => $viewUrl['url']];
-        #ds-snippet-end
+        #ds-snippet-end:eSign1Step5
     }
 
     /**
@@ -130,5 +130,5 @@ class EmbeddedSigningService
 
         return $envelope_definition;
     }
-    #ds-snippet-end
+    #ds-snippet-end:eSign1Step2
 }
