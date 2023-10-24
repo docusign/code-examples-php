@@ -8,6 +8,7 @@ use DocuSign\Rooms\Model\Room;
 
 class CreateExternalFormFillSessionService
 {
+    #ds-snippet-start:Rooms6Step4
     public static function createExternalFormFillSession($args, $clientService)
     {
         $form_session_api = $clientService->getExternalFormFillSessionsApi();
@@ -21,6 +22,7 @@ class CreateExternalFormFillSessionService
         }
         return $response;
     }
+    #ds-snippet-end:Rooms6Step4
 
     /**
      * Get available Rooms

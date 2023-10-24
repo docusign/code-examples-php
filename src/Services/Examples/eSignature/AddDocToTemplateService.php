@@ -51,6 +51,7 @@ class AddDocToTemplateService
      * @param $clientService
      * @return mixed -- returns an envelope definition
      */
+    #ds-snippet-start:eSign13Step2
     public static function makeEnvelope(array $args, $clientService): EnvelopeDefinition
     {
         # 1. Create Recipients for server template. Note that Recipients object
@@ -156,5 +157,5 @@ class AddDocToTemplateService
             ]
         );
     }
-    # ***DS.snippet.0.end
+   #ds-snippet-end:eSign13Step2
 }

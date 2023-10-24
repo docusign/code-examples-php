@@ -39,13 +39,13 @@ class CreateNewUserService
         ]);
         #ds-snippet-end:Admin1Step4
 
+        #ds-snippet-start:Admin1Step5
         $accountInfo = new NewUserRequestAccountProperties([
             'id' => $accountId,
             'permission_profile' => $permissionProfile,
             'groups' => [ $group ]
         ]);
 
-        #ds-snippet-start:Admin1Step5
         $request = new GlobalNewUserRequest([
             'user_name' => $userData['Name'],
             'first_name' => $userData['FirstName'],

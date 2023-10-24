@@ -16,12 +16,12 @@ class EnvelopeGetDocService
     {
         # Call API method
         # Exceptions will be caught by the calling function
-        # Step 3 start
+        #ds-snippet-start:eSign7Step3
         $envelope_api = $clientService->getEnvelopeApi();
 
         # An SplFileObject is returned. See http://php.net/manual/en/class.splfileobject.php
         $temp_file = $envelope_api->getDocument($args['account_id'], $args['document_id'], $args['envelope_id']);
-        # Step 3 end
+        #ds-snippet-end:eSign7Step3
         # find the matching document information item
         $doc_item = false;
         foreach ($args['envelope_documents']['documents'] as $item) {

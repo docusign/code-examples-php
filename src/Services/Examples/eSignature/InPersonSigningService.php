@@ -28,7 +28,7 @@ class InPersonSigningService
         string $demoPath
     ): string {
 
-        # Step 3 Start
+        #ds-snippet-start:eSign39Step3
         $envelopeDefinition = InPersonSigningService::_prepareEnvelope($hostName, $demoPath);
         $envelopeApi = $clientService->getEnvelopeApi();
 
@@ -38,9 +38,9 @@ class InPersonSigningService
             $clientService->showErrorTemplate($e);
             exit;
         }
-        # Step 3 end
+        #ds-snippet-end:eSign39Step3
 
-        # Step 5 start
+        #ds-snippet-start:eSign39Step5        
         $authentication_method = 'None';
 
         $envelopeArguments = [
@@ -55,10 +55,9 @@ class InPersonSigningService
         );
 
         $viewUrl = $clientService->getRecipientView($accountId, $envelopeSummary->getEnvelopeId(), $recipientViewRequest);
-
+        #ds-snippet-end:eSign39Step5
         return $viewUrl['url'];
     }
-        # Step 5 end
     
     /**
      *  Creates envelope definition
@@ -68,7 +67,7 @@ class InPersonSigningService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
 
-    # Step 2 start
+    #ds-snippet-start:eSign39Step2
     private static function _prepareEnvelope(string $hostName, string $demoPath): EnvelopeDefinition
     {
         $file_content_in_bytes = file_get_contents($demoPath . $GLOBALS['DS_CONFIG']['doc_pdf']);
@@ -111,5 +110,5 @@ class InPersonSigningService
             ]
         );
     }
-    #Step 2 end
+    #ds-snippet-end:eSign39Step2
 }

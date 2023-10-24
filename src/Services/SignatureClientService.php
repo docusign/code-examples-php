@@ -75,6 +75,7 @@ class SignatureClientService
     /**
      * Getter for the RecipientViewRequest
      */
+    #ds-snippet-start:eSign39Step4
     public function getRecipientViewRequest($authentication_method, $envelope_args): RecipientViewRequest
     {
         return new RecipientViewRequest(
@@ -88,6 +89,7 @@ class SignatureClientService
             ]
         );
     }
+    #ds-snippet-end:eSign39Step4
 
     /**
      * Getter for the AccountsApi

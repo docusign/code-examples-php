@@ -190,6 +190,8 @@ class RouterService implements IRouterService
 
         if (isset($_POST['auth_type'])) {
             $_SESSION['auth_service'] = $_POST['auth_type'];
+        } elseif ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
+            $_SESSION['auth_service'] = "code_grant";
         }
 
         if (isset($_POST["api_type"])) {

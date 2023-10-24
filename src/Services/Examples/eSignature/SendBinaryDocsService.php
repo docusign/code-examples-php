@@ -20,7 +20,7 @@ class SendBinaryDocsService
      * @return array ['redirect_url']
      * @throws GuzzleException
      */
-    # ***DS.snippet.0.start
+    #ds-snippet-start:eSign12Step3
     public static function sendBinaryDocs($args, $demoDocsPath, $clientService): array
     {
         $envelope_args = $args["envelope_args"];
@@ -73,9 +73,11 @@ class SendBinaryDocsService
         }
         # Add closing $boundary
         $req_body .= $CRLF . $hyphens . $boundary . $hyphens . $CRLF;
+        #ds-snippet-end:eSign12Step3
 
         # Step 2. call Envelopes::create API method
         # using Guzzle https://guzzle.readthedocs.io/en/latest/index.html
+        #ds-snippet-start:eSign12Step4
         $client = new Client();
         $uri = "{$args['base_path']}/v2.1/accounts/{$args['account_id']}/envelopes";
         $responseInterface = $client->request('POST', $uri, [
@@ -89,6 +91,7 @@ class SendBinaryDocsService
         $responseInterfaceToJson = json_decode((string)$responseInterface->getBody());
 
         return ['envelope_id' => $responseInterfaceToJson->envelopeId];
+        #ds-snippet-end:eSign12Step4
     }
 
     /**
@@ -102,6 +105,7 @@ class SendBinaryDocsService
      * @param  $args array
      * @return array {Envelope} An envelope definition
      */
+    #ds-snippet-start:eSign12Step3
     public static function makeEnvelopeJson(array $args): array
     {
         # create the envelope definition
@@ -161,5 +165,5 @@ class SendBinaryDocsService
 
         return $env_json;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign12Step3
 }

@@ -10,24 +10,25 @@ class KbAuthenticationService
 {
     /**
      * Do the work of the example
-     * 1. Get the envelope's data
+     * Get the envelope's data
      *
      * @param  $args array
      * @param $clientService
      * @return array ['envelope_id']
      */
-    # ***DS.snippet.0.start
     public static function kbAuthentification(array $args, $clientService, $demoDocsPath): array
     {
-        # 1. Create the envelope request object
+        # Create the envelope request object
         $envelope_definition = KbAuthenticationService::makeEnvelope($args["envelope_args"], $demoDocsPath);
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign22Step4
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        #ds-snippet-end:eSign22Step4
     }
 
     /**
@@ -38,7 +39,8 @@ class KbAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
+    #ds-snippet-start:eSign22Step3
+     public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
@@ -62,5 +64,5 @@ class KbAuthenticationService
 
         return $envelope_definition;
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign22Step3
 }

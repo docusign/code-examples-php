@@ -9,22 +9,26 @@ class ApplyBrandToTemplateService
 {
     /**
      * Do the work of the example
-     * 1. Create the envelope request object
-     * 2. Send the envelope
+     * Create the envelope request object
+     * Send the envelope
      *
      * @param  $args array
      * @param $clientService
      * @return array ['envelope_id']
      */
-    # ***DS.snippet.0.start
+    
     public static function applyBrandToTemplate(array $args, $clientService): array
     {
-        # Step 3. Construct the request body
+        # Construct the request body
+        #ds-snippet-start:eSign30Step3
         $envelope_definition = ApplyBrandToTemplateService::makeEnvelope($args["envelope_args"]);
+        #ds-snippet-end:eSign30Step3
 
-        # Step 4. Call the eSignature REST API
+        # Call the eSignature REST API
+        #ds-snippet-start:eSign30Step4
         $envelope_api = $clientService->getEnvelopeApi();
         $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        #ds-snippet-end:eSign30Step4
 
         return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
     }
@@ -35,6 +39,7 @@ class ApplyBrandToTemplateService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
+    #ds-snippet-start:eSign30Step3
     public static function makeEnvelope(array $args): EnvelopeDefinition
     {
         $signer = new TemplateRole([
@@ -55,5 +60,6 @@ class ApplyBrandToTemplateService
             'brand_id' => $args["brand_id"], # Apply selected Brand to envelope
         ]);
     }
-    # ***DS.snippet.0.end
+    #ds-snippet-end:eSign30Step3
+    
 }
