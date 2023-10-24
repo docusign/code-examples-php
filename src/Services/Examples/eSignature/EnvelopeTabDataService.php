@@ -14,7 +14,6 @@ class EnvelopeTabDataService
      * @param $clientService
      * @return EnvelopeFormData
      */
-    # 
     public static function envelopeTabData(array $args, $clientService): EnvelopeFormData
     {
         # 1. call API method
@@ -24,5 +23,4 @@ class EnvelopeTabDataService
         return $envelope_api->getFormData($args['account_id'], $args['envelope_id']);
         #ds-snippet-end:eSign15Step3
     }
-    # 
 }

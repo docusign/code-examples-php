@@ -61,5 +61,4 @@ class ApplyBrandToTemplateService
         ]);
     }
     #ds-snippet-end:eSign30Step3
-    
 }

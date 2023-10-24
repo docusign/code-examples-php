@@ -40,7 +40,7 @@ class InPersonSigningService
         }
         #ds-snippet-end:eSign39Step3
 
-        #ds-snippet-start:eSign39Step5        
+        #ds-snippet-start:eSign39Step5
         $authentication_method = 'None';
 
         $envelopeArguments = [

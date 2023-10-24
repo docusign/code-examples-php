@@ -18,6 +18,7 @@
     <exclude name="Squiz.Commenting.FunctionComment"/>
     <exclude name="Squiz.Commenting.VariableComment"/>
     <exclude name="Generic.Commenting.DocComment"/>
+    <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
 
     <!-- Define other rules and configurations here -->
     <rule ref="Generic.Files.LineLength">

@@ -35,5 +35,4 @@ class PermissionDeleteService
 
         return "The permission profile has been deleted!";
     }
-    
 }
