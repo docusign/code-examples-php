@@ -40,7 +40,7 @@ class KbAuthenticationService
      * @return mixed -- returns an envelope definition
      */
     #ds-snippet-start:eSign22Step3
-     public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
