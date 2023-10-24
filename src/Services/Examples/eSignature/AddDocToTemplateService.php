@@ -161,9 +161,9 @@ class AddDocToTemplateService
 
    public static function sendCompositeTemplate($clientService, $args, $envelope_definition): array
    {
-       #ds-snippet-start:eSign13Step3
        # Call Envelopes::create API method
        # Exceptions will be caught by the calling function
+       #ds-snippet-start:eSign13Step3
        $envelope_api = $clientService->getEnvelopeApi();
        $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
        $envelope_id = $envelopeResponse->getEnvelopeId();
