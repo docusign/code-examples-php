@@ -23,7 +23,7 @@
     },
     "description": "DocuSign PHP launcher",
     "require": {
-        "docusign/admin-client": "^1.4.0",
+        "docusign/admin-client": "^1.4.1",
         "docusign/click-client": "^1.3.0-rc",
         "docusign/esign-client": "^6.15.0-rc",
         "docusign/rooms-client": "^2.1.0",
