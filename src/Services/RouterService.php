@@ -87,6 +87,7 @@ class RouterService implements IRouterService
         'aeg009' => 'Admin\EG009DeleteUserProductPermissionProfile',
         'aeg010' => 'Admin\EG010DeleteUserDataFromOrganization',
         'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
+        'aeg012' => 'Admin\EG012CloneAccount',
     ];
     /**
      * The list of templates with examples
@@ -166,7 +167,7 @@ class RouterService implements IRouterService
         "aeg009" => "admin/eg009_delete_user_product_permission_profile.html",
         "aeg010" => "admin/eg010_delete_user_data_from_organization.html",
         "aeg011" => "admin/eg011_delete_user_data_from_account.html",
-
+        "aeg012" => "admin/eg012_clone_account.html",
     ];
     
     /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "44de23a86616c6faa8cbd6d1276a4359",
+    "content-hash": "403fe5550a8698dc9bad367e4ee57fd6",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -3149,7 +3149,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "docusign/admin-client": 5,
         "docusign/click-client": 5,
         "docusign/esign-client": 5
     },

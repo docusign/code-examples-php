@@ -117,7 +117,7 @@ class DocuSign extends AbstractProvider
             ];
         } elseif ($_SESSION['api_type'] == ApiTypes::Admin) {
             return [
-                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read user_data_redact"
+                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read"
             ];
         } else {
             return [

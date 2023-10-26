@@ -33,7 +33,8 @@ final class JWTLoginMethod
             $scopes = "signature click.manage click.send";
         } elseif ($apiType == ApiTypes::Admin) {
             $scopes = "signature user_write group_read organization_read permission_read user_read "
-            . "account_read domain_read identity_provider_read user_data_redact";
+            . "account_read domain_read identity_provider_read user_data_redact"
+            . "asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read";
         } else {
             $scopes = "signature";
         }
@@ -57,7 +58,7 @@ final class JWTLoginMethod
                 $testConfig->setAccessToken($access_token);
             }
         } catch (\Throwable $th) {
-            if (str_contains($th->getMessage(), "consent_required")) {
+            if (strpos($th->getMessage(), "consent_required") !== false) {
                 $authorizationURL = 'https://account-d.docusign.com/oauth/auth?' .
                     http_build_query([
                         'scope' => $scopes,

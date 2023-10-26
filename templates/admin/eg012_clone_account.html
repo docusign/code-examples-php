@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set formNumber = 0 %}
+{% set sourceAccountIdInputNumber = 0 %}
+{% set targetAccountNameInputNumber = 1 %}
+{% set targetAccountFirstNameInputNumber = 2 %}
+{% set targetAccountLastNameInputNumber = 3 %}
+{% set targetAccountEmailInputNumber = 4 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+  {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+      <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+  {% else %}
+      <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+  {% endif %}
+
+  {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+      <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+      {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+      </a>
+
+      {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+        <span>and</span>
+      {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+        <span>,</span>
+      {% endif %}
+  {% endfor %}
+</p>
+
+<p>
+ {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+<form class="eg" action="" method="post">
+  <div class="form-group">
+    <label for="source_account_id">
+      {{ code_example_text['Forms'][formNumber]['Inputs'][sourceAccountIdInputNumber]['InputName'] | raw }}
+    </label>
+
+      <select id="source_account_id" name="source_account_id" class="form-control">
+          {% for group in args['groups'] %}
+            <option value="{{ group['account_id'] }}"> {{ group['account_name'] }} </option>
+          {% endfor %}
+      </select>
+</div>
+
+<div class="form-group">
+    <label for="target_account_name">
+      {{ code_example_text['Forms'][formNumber]['Inputs'][targetAccountNameInputNumber]['InputName'] | raw }}
+    </label>
+
+    <input type="text"
+      class="form-control"
+      id="target_account_name"
+      name="target_account_name"
+      placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][targetAccountNameInputNumber]['InputPlaceholder']}}"
+      required>
+</div>
+
+<div class="form-group">
+    <label for="target_account_first_name">
+      {{ code_example_text['Forms'][formNumber]['Inputs'][targetAccountFirstNameInputNumber]['InputName'] | raw }}
+    </label>
+
+    <input type="text"
+      class="form-control"
+      id="target_account_first_name"
+      name="target_account_first_name"
+      placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][targetAccountFirstNameInputNumber]['InputPlaceholder']}}"
+      required>
+</div>
+
+<div class="form-group">
+    <label for="target_account_last_name">
+      {{ code_example_text['Forms'][formNumber]['Inputs'][targetAccountLastNameInputNumber]['InputName'] | raw }}
+    </label>
+
+    <input type="text"
+      class="form-control"
+      id="target_account_last_name"
+      name="target_account_last_name"
+      placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][targetAccountLastNameInputNumber]['InputPlaceholder']}}"
+      required>
+</div>
+
+<div class="form-group">
+    <label for="target_account_email">
+      {{ code_example_text['Forms'][formNumber]['Inputs'][targetAccountEmailInputNumber]['InputName'] | raw }}
+    </label>
+
+    <input type="email" 
+      class="form-control" 
+      id="target_account_email"
+      name="target_account_email"
+      aria-describedby="emailHelp"
+      placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][targetAccountEmailInputNumber]['InputPlaceholder']}}"
+      required>
+</div>
+
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  <button type="submit" class="btn btn-primary">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+  
+{% endblock %}
