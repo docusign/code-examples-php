@@ -56,6 +56,7 @@ class RouterService implements IRouterService
         'eg041' => 'eSignature\EG041CFREmbeddedSigning',
         'eg042' => 'eSignature\EG042DocumentGeneration',
         'eg043' => 'eSignature\EG043SharedAccess',
+        'eg044' => 'eSignature\EG044FocusedView',
         'eg043/AuthRequest' => 'eSignature\EG043AuthRequest',
         'eg043/EnvelopesListStatus' => 'eSignature\EG043EnvelopesListStatus',
         'reg001' => 'Rooms\EG001CreateRoomWithData',
@@ -93,81 +94,82 @@ class RouterService implements IRouterService
      * The list of templates with examples
      */
     private const TEMPLATES = [
-        BaseController::LOGIN_REDIRECT => "must_authenticate.html",
-        "ds_return" => "ds_return.html",
-        "home_esig" => "home_esig.html",
-        "eg001" => "esignature/eg001_embedded_signing.html",
-        "eg002" => "esignature/eg002_signing_via_email.html",
-        "eg003" => "esignature/eg003_list_envelopes.html",
-        "eg004" => "esignature/eg004_envelope_info.html",
-        "eg005" => "esignature/eg005_envelope_recipients.html",
-        "eg006" => "esignature/eg006_envelope_docs.html",
-        "eg007" => "esignature/eg007_envelope_get_doc.html",
-        "eg008" => "esignature/eg008_create_template.html",
-        "eg009" => "esignature/eg009_use_template.html",
-        "eg010" => "esignature/eg010_send_binary_docs.html",
-        "eg011" => "esignature/eg011_embedded_sending.html",
-        "eg012" => "esignature/eg012_embedded_console.html",
-        "eg013" => "esignature/eg013_add_doc_to_template.html",
-        "eg014" => "esignature/eg014_collect_payment.html",
-        "eg015" => "esignature/eg015_envelope_tab_data.html",
-        "eg016" => "esignature/eg016_set_tab_values.html",
-        "eg017" => "esignature/eg017_set_template_tab_values.html",
-        "eg018" => "esignature/eg018_envelope_custom_field_data.html",
-        "eg019" => "esignature/eg019_access_code_authentication.html",
-        "eg020" => "esignature/eg020_phone_authentication.html",
-        "eg022" => "esignature/eg022_kba_authentication.html",
-        "eg023" => "esignature/eg023_idv_authentication.html",
-        "eg024" => "esignature/eg024_permissions_creating.html",
-        "eg025" => "esignature/eg025_permissions_set_user_group.html",
-        "eg026" => "esignature/eg026_permission_change_single_setting.html",
-        "eg027" => "esignature/eg027_permissions_delete.html",
-        "eg028" => "esignature/eg028_create_brand.html",
-        "eg029" => "esignature/eg029_apply_brand_to_envelope.html",
-        "eg030" => "esignature/eg030_apply_brand_to_template.html",
-        "eg031" => "esignature/eg031_bulk_send.html",
+        BaseController::LOGIN_REDIRECT => 'must_authenticate.html',
+        'ds_return' => 'ds_return.html',
+        'home_esig' => 'home_esig.html',
+        'eg001' => 'esignature/eg001_embedded_signing.html',
+        'eg002' => 'esignature/eg002_signing_via_email.html',
+        'eg003' => 'esignature/eg003_list_envelopes.html',
+        'eg004' => 'esignature/eg004_envelope_info.html',
+        'eg005' => 'esignature/eg005_envelope_recipients.html',
+        'eg006' => 'esignature/eg006_envelope_docs.html',
+        'eg007' => 'esignature/eg007_envelope_get_doc.html',
+        'eg008' => 'esignature/eg008_create_template.html',
+        'eg009' => 'esignature/eg009_use_template.html',
+        'eg010' => 'esignature/eg010_send_binary_docs.html',
+        'eg011' => 'esignature/eg011_embedded_sending.html',
+        'eg012' => 'esignature/eg012_embedded_console.html',
+        'eg013' => 'esignature/eg013_add_doc_to_template.html',
+        'eg014' => 'esignature/eg014_collect_payment.html',
+        'eg015' => 'esignature/eg015_envelope_tab_data.html',
+        'eg016' => 'esignature/eg016_set_tab_values.html',
+        'eg017' => 'esignature/eg017_set_template_tab_values.html',
+        'eg018' => 'esignature/eg018_envelope_custom_field_data.html',
+        'eg019' => 'esignature/eg019_access_code_authentication.html',
+        'eg020' => 'esignature/eg020_phone_authentication.html',
+        'eg022' => 'esignature/eg022_kba_authentication.html',
+        'eg023' => 'esignature/eg023_idv_authentication.html',
+        'eg024' => 'esignature/eg024_permissions_creating.html',
+        'eg025' => 'esignature/eg025_permissions_set_user_group.html',
+        'eg026' => 'esignature/eg026_permission_change_single_setting.html',
+        'eg027' => 'esignature/eg027_permissions_delete.html',
+        'eg028' => 'esignature/eg028_create_brand.html',
+        'eg029' => 'esignature/eg029_apply_brand_to_envelope.html',
+        'eg030' => 'esignature/eg030_apply_brand_to_template.html',
+        'eg031' => 'esignature/eg031_bulk_send.html',
         'eg032' => 'esignature/eg032_pause_signature_workflow.html',
         'eg033' => 'esignature/eg033_unpause_signature_workflow.html',
         'eg034' => 'esignature/eg034_use_conditional_recipients.html',
-        "eg035" => "esignature/eg035_scheduled_sending.html",
-        "eg036" => "esignature/eg036_delayed_routing.html",
-        "eg037" => "esignature/eg037_sms_delivery.html",
-        "eg038" => "esignature/eg038_responsive_signing.html",
-        "eg039" => "esignature/eg039_in_person_signing.html",
-        "eg040" => "esignature/eg040_set_document_visibility.html",
+        'eg035' => 'esignature/eg035_scheduled_sending.html',
+        'eg036' => 'esignature/eg036_delayed_routing.html',
+        'eg037' => 'esignature/eg037_sms_delivery.html',
+        'eg038' => 'esignature/eg038_responsive_signing.html',
+        'eg039' => 'esignature/eg039_in_person_signing.html',
+        'eg040' => 'esignature/eg040_set_document_visibility.html',
         'eg041' => 'esignature/eg041_cfr_embedded_signing.html',
         'eg042' => 'esignature/eg042_document_generation.html',
         'eg043' => 'esignature/eg043_shared_access.html',
-        "reg001" => "rooms/eg001_create_room_with_data.html",
-        "reg002" => "rooms/eg002_create_room_with_template.html",
-        "reg003" => "rooms/eg003_export_data_from_room.html",
-        "reg004" => "rooms/eg004_add_forms_to_room.html",
-        "reg005" => "rooms/eg005_get_rooms_with_filters.html",
-        "reg006" => "rooms/eg006_create_external_form_fill_session.html",
+        'eg044' => 'esignature/eg044_focused_view.html',
+        'reg001' => 'rooms/eg001_create_room_with_data.html',
+        'reg002' => 'rooms/eg002_create_room_with_template.html',
+        'reg003' => 'rooms/eg003_export_data_from_room.html',
+        'reg004' => 'rooms/eg004_add_forms_to_room.html',
+        'reg005' => 'rooms/eg005_get_rooms_with_filters.html',
+        'reg006' => 'rooms/eg006_create_external_form_fill_session.html',
         'ceg001' => 'click/eg001_create_clickwrap.html',
         'ceg002' => 'click/eg002_activate_clickwrap.html',
         'ceg003' => 'click/eg003_create_clickwrap_version.html',
         'ceg004' => 'click/eg004_get_clickwraps.html',
         'ceg005' => 'click/eg005_get_clickwrap_responses.html',
         'ceg006' => 'click/eg006_embed_clickwrap.html',
-        "reg007" => "rooms/eg007_create_form_group.html",
-        "reg008" => "rooms/eg008_grant_office_access_to_form_group.html",
-        "reg009" => "rooms/eg009_assign_form_to_form_group.html",
-        "meg001" => "monitor/eg001_get_monitoring_data.html",
-        "aeg001" => "admin/eg001_create_active_user.html",
-        "aeg002" => "admin/eg002_create_new_esignature_clm_user.html",
-        "aeg003" => "admin/eg003_bulk_export_user_data.html",
-        "aeg003a" => "admin/eg003a_check_request_status.html",
-        "aeg004" => "admin/eg004_bulk_import_user_data.html",
-        "aeg004a" => "admin/eg004a_check_import_request_status.html",
-        "aeg005" => "admin/eg005_audit_users.html",
-        "aeg006" => "admin/eg006_retrieve_profile_by_email_address.html",
-        "aeg007" => "admin/eg007_retrieve_profile_by_user_id.html",
-        "aeg008" => "admin/eg008_update_user_product_permission_profile.html",
-        "aeg009" => "admin/eg009_delete_user_product_permission_profile.html",
-        "aeg010" => "admin/eg010_delete_user_data_from_organization.html",
-        "aeg011" => "admin/eg011_delete_user_data_from_account.html",
-        "aeg012" => "admin/eg012_clone_account.html",
+        'reg007' => 'rooms/eg007_create_form_group.html',
+        'reg008' => 'rooms/eg008_grant_office_access_to_form_group.html',
+        'reg009' => 'rooms/eg009_assign_form_to_form_group.html',
+        'meg001' => 'monitor/eg001_get_monitoring_data.html',
+        'aeg001' => 'admin/eg001_create_active_user.html',
+        'aeg002' => 'admin/eg002_create_new_esignature_clm_user.html',
+        'aeg003' => 'admin/eg003_bulk_export_user_data.html',
+        'aeg003a' => 'admin/eg003a_check_request_status.html',
+        'aeg004' => 'admin/eg004_bulk_import_user_data.html',
+        'aeg004a' => 'admin/eg004a_check_import_request_status.html',
+        'aeg005' => 'admin/eg005_audit_users.html',
+        'aeg006' => 'admin/eg006_retrieve_profile_by_email_address.html',
+        'aeg007' => 'admin/eg007_retrieve_profile_by_user_id.html',
+        'aeg008' => 'admin/eg008_update_user_product_permission_profile.html',
+        'aeg009' => 'admin/eg009_delete_user_product_permission_profile.html',
+        'aeg010' => 'admin/eg010_delete_user_data_from_organization.html',
+        'aeg011' => 'admin/eg011_delete_user_data_from_account.html',
+
     ];
     
     /**
@@ -185,7 +187,7 @@ class RouterService implements IRouterService
     {
         if (!isset($_SESSION['api_type'])) {
             // first time loading server and session is null causes problems for manifestService
-            $_SESSION['api_type'] = "eSign";
+            $_SESSION['api_type'] = 'eSign';
         }
         
         // To ignore the Notice instead of Isset on missing POST vars
@@ -194,15 +196,15 @@ class RouterService implements IRouterService
         if (isset($_POST['auth_type'])) {
             $_SESSION['auth_service'] = $_POST['auth_type'];
         } elseif ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
-            $_SESSION['auth_service'] = "code_grant";
+            $_SESSION['auth_service'] = 'code_grant';
         }
 
-        if (isset($_POST["api_type"])) {
+        if (isset($_POST['api_type'])) {
             $_SESSION['api_type'] = $_POST['api_type'];
             $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
         }
 
-        if ($_SESSION['auth_service'] == "code_grant") {
+        if ($_SESSION['auth_service'] == 'code_grant') {
             $this->authService = new CodeGrantService();
         } else {
             $this->authService = new JWTService();
@@ -220,11 +222,11 @@ class RouterService implements IRouterService
         $page = $_GET['page'] ?? $homeRoute;
         if ($page == $homeRoute) {
             // We're not logged in and Quickstart is true:  Route to the 1st example.
-            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == "true") {
-                $_SESSION['beenHere'] = "false";
+            if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && $_SESSION['beenHere'] == 'true') {
+                $_SESSION['beenHere'] = 'false';
                 $_SESSION['api_type'] = ApiTypes::eSignature;
 
-                if ($_SESSION['cfr_enabled'] == "enabled") {
+                if ($_SESSION['cfr_enabled'] == 'enabled') {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg041');
                 } else {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
@@ -233,7 +235,7 @@ class RouterService implements IRouterService
                 header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=' . BaseController::LOGIN_REDIRECT);
             } elseif (isset($_SESSION['userflow_example_43'])) {
                 unset($_SESSION['userflow_example_43']);
-                $page = "eg043/EnvelopesListStatus";
+                $page = 'eg043/EnvelopesListStatus';
                 $_GET['page'] = $page;
                 
                 // To ignore the Notice instead of Isset on missing POST vars
@@ -243,7 +245,7 @@ class RouterService implements IRouterService
                 exit();
             } else {
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
-                $controller = "\Example\Controllers\Examples\\" . $this->getController($page);
+                $controller = '\Example\Controllers\Examples\\' . $this->getController($page);
                 new $controller($page);
                 exit();
             }
@@ -265,7 +267,7 @@ class RouterService implements IRouterService
             if ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
                 //Let's just shortcut to login immediately
                 // we should default to ESignature for the first runthrough
-                $_SESSION['beenHere'] = "true";
+                $_SESSION['beenHere'] = 'true';
                 $this->authService = new CodeGrantService();
                 $this->ds_login();
                 exit();
@@ -405,13 +407,13 @@ class RouterService implements IRouterService
             $redirectUrl = $_SESSION['eg'];
         }
         // reset the session
-        $tempAPIType = $_SESSION["api_type"];
-        $tempGrant = $_SESSION["auth_service"];
+        $tempAPIType = $_SESSION['api_type'];
+        $tempGrant = $_SESSION['auth_service'];
         $this->ds_logout_internal();
 
         // Workaround for ACG apiTypePicker
-        $_SESSION["api_type"] = $tempAPIType;
-        $_SESSION["auth_service"] = $tempGrant;
+        $_SESSION['api_type'] = $tempAPIType;
+        $_SESSION['auth_service'] = $tempGrant;
         $this->authService->authCallback($redirectUrl);
     }
 
@@ -463,6 +465,6 @@ class RouterService implements IRouterService
      */
     public function getTitle($eg): string
     {
-        return ManifestService::getPageText($eg)["ExampleName"];
+        return ManifestService::getPageText($eg)['ExampleName'];
     }
 }
