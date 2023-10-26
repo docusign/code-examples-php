@@ -15,7 +15,7 @@ class FocusedViewService
 {
     public static function worker(array $args, SignatureClientService $client_service, string $demo_path, string $pdf_file): array
     {
-        //ds-snippet-start:eSign44Step3
+        #ds-snippet-start:eSign44Step3
         $envelope_definition = FocusedViewService::makeEnvelope($args['envelope_args'], $demo_path, $pdf_file);
         $envelope_api = $client_service->getEnvelopeApi();
 
@@ -26,9 +26,9 @@ class FocusedViewService
             exit;
         }
         $envelope_id = $envelope_summary->getEnvelopeId();
-        //ds-snippet-end:eSign44Step3
+        #ds-snippet-end:eSign44Step3
 
-        //ds-snippet-start:eSign44Step4
+        #ds-snippet-start:eSign44Step4
         $authentication_method = 'None';
 
         $recipient_view_request = $client_service->getRecipientViewRequest(
@@ -38,16 +38,16 @@ class FocusedViewService
 
         $recipient_view_request->setFrameAncestors(['http://localhost:8080/public', 'https://apps-d.docusign.com']);
         $recipient_view_request->setMessageOrigins(['https://apps-d.docusign.com']);
-        //ds-snippet-end:eSign44Step4
+        #ds-snippet-end:eSign44Step4
 
-        //ds-snippet-start:eSign44Step5
+        #ds-snippet-start:eSign44Step5
         $view_url = $client_service->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
 
         return ['envelope_id' => $envelope_id, 'redirect_url' => $view_url['url']];
-        //ds-snippet-end:eSign44Step5
+        #ds-snippet-end:eSign44Step5
     }
 
-    //ds-snippet-start:eSign44Step2
+    #ds-snippet-start:eSign44Step2
     public static function makeEnvelope(array $args, string $demo_path, string $pdf_file): EnvelopeDefinition
     {
         $content_bytes = file_get_contents($demo_path . $pdf_file);
@@ -92,5 +92,5 @@ class FocusedViewService
             ]
         );
     }
-    //ds-snippet-end:eSign44Step2
+    #ds-snippet-end:eSign44Step2
 }
