@@ -1,0 +1,76 @@
+{% extends "base.html" %}  {% block content %}
+
+{% set formNumber = 0 %}
+{% set signerEmailInputNumber = 0 %}
+{% set signerNameInputNumber = 1 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+        <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+        <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+  
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+        <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+        </a>
+  
+        {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+            <span>and</span>
+        {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+            <span>,</span>
+        {% endif %}
+    {% endfor %}
+  </p>
+  
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="signer_email">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="email" 
+            class="form-control"
+            id="signer_email"
+            name="signer_email"
+            aria-describedby="emailHelp" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}"
+            required
+            value="{{ signer_email }}">
+
+        <small id="emailHelp" class="form-text text-muted">
+            {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="signer_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" 
+            class="form-control" 
+            id="signer_name" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
+            name="signer_name"
+            value="{{ signer_name }}" 
+            required>
+    </div>
+    
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+
+{% endblock %}
+

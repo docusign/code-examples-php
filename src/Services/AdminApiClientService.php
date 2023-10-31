@@ -9,6 +9,7 @@ use DocuSign\Admin\Api\BulkExportsApi;
 use DocuSign\Admin\Api\BulkImportsApi;
 use DocuSign\Admin\Api\DSGroupsApi;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi;
+use DocuSign\Admin\Api\ProvisionAssetGroupApi;
 use DocuSign\Admin\Client\ApiClient;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Configuration;
@@ -81,6 +82,14 @@ class AdminApiClientService
         return new ProductPermissionProfilesApi($this->apiClient);
     }
 
+     /**
+    * Get provision asset group api
+    */
+    public function provisionAssetGroupApi(): ProvisionAssetGroupApi
+    {
+        return new ProvisionAssetGroupApi($this->apiClient);
+    }
+
     /**
     * Get Org Admin Id
     *
@@ -92,9 +101,7 @@ class AdminApiClientService
         $AccountsApi = new AccountsApi($this->apiClient);
         $orgs = $AccountsApi->getOrganizations();
         if ($orgs["organizations"] == null) {
-            throw new ApiException("You must create an organization for this account to use"
-                . " the DocuSign Admin API. For details, see <a target='_blank' href='"
-                . "https://support.docusign.com/guides/org-admin-guide'> this support article.</a>", 1);
+            throw new ApiException("You must create an organization for this account to use the DocuSign Admin API. For details, see <a target='_blank' href='https://support.docusign.com/guides/org-admin-guide'> this support article.</a>", 1);
         } else {
             return $orgs["organizations"][0]["id"];
         }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b325517caea9eea265a7f2cbe5211b6e",
+    "content-hash": "8b553239734ca448da2f0bb4691edc29",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -78,16 +78,16 @@
         },
         {
             "name": "docusign/admin-client",
-            "version": "v1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-admin-php-client.git",
-                "reference": "8443c73ceca01971d6d0cba0ed45847a43a6c317"
+                "reference": "4c07d15f9aaeb822b8b6e9625782d83974568f00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/8443c73ceca01971d6d0cba0ed45847a43a6c317",
-                "reference": "8443c73ceca01971d6d0cba0ed45847a43a6c317",
+                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/4c07d15f9aaeb822b8b6e9625782d83974568f00",
+                "reference": "4c07d15f9aaeb822b8b6e9625782d83974568f00",
                 "shasum": ""
             },
             "require": {
@@ -130,9 +130,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
-                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.4.0"
+                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.4.1"
             },
-            "time": "2023-08-16T16:26:49+00:00"
+            "time": "2023-10-26T03:21:39+00:00"
         },
         {
             "name": "docusign/click-client",
@@ -3149,7 +3149,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "docusign/admin-client": 5,
         "docusign/click-client": 5,
         "docusign/esign-client": 5
     },
