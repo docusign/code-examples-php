@@ -27,6 +27,8 @@ class ListEnvelopesService
         # a set of envelope_ids. Here we filter using a from_date.
         # Here we set the from_date to filter envelopes for the last 10 days
         # Use ISO 8601 date format
+
+        #ds-snippet-start:eSign3step2
         $envelope_api = $clientService->getEnvelopeApi();
         $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
         $options = new ListStatusChangesOptions();
@@ -37,8 +39,8 @@ class ListEnvelopesService
             $clientService->showErrorTemplate($e);
             exit;
         }
-
+        #ds-snippet-end:eSign3step2
         return $statusChanges;
     }
-    # ***DS.snippet.0.end
+    
 }
