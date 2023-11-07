@@ -15,7 +15,7 @@ use Example\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {
-    // Step 3 start
+    #ds-snippet-start:eSign38step3
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): string
     {
         $envelopeDefinition = ResponsiveSigningService::makeEnvelope($args["envelope_args"], $demoPath);
@@ -39,7 +39,7 @@ class ResponsiveSigningService
 
         return $viewUrl['url'];
     }
-    // Step 3 end
+    #ds-snippet-end:eSign38step3
 
     /**
      *  Creates envelope definition
@@ -47,8 +47,7 @@ class ResponsiveSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-
-    // Step 2 start
+    #ds-snippet-start:eSign38step2 
     private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $l1_price = 5;
@@ -169,5 +168,5 @@ class ResponsiveSigningService
             ]
         );
     }
-    // Step 2 end
+    #ds-snippet-end:eSign38step2
 }
