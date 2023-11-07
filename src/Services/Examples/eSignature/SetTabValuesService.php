@@ -34,7 +34,35 @@ class SetTabValuesService
         # 1. Create the envelope request object
         $envelope_definition = SetTabValuesService::make_envelope($args["envelope_args"], $demoDocsPath);
 
-        return SetTemplateTabValuesService::sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition);
+        return SetTabValuesService::sendEnvelope($clientService, $args, $envelope_definition);
+    }
+
+    public static function sendEnvelope($clientService, $args, $envelope_definition): array
+    {
+        # Call Envelopes::create API method
+        # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign16Step4
+        $envelope_api = $clientService->getEnvelopeApi();
+        $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $envelope_id = $envelopeResponse->getEnvelopeId();
+        #ds-snippet-end:eSign16Step4
+
+        # Create the Recipient View request object
+        #ds-snippet-start:eSign16Step5
+        $authentication_method = 'None'; # How is this application authenticating
+        # the signer? See the `authentication_method' definition
+        # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
+        $recipient_view_request = $clientService->getRecipientViewRequest(
+            $authentication_method,
+            $args["envelope_args"]
+        );
+
+        # Obtain the recipient_view_url for the embedded signing
+        # Exceptions will be caught by the calling function
+        $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        #ds-snippet-end:eSign16Step5
+        
+        return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
     }
 
     /**
@@ -46,7 +74,7 @@ class SetTabValuesService
      * @return mixed -- returns an envelope definition
      */
 
-     # Step 4 start
+    #ds-snippet-start:eSign16Step3
     public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         # document 1 (pdf) has tags
@@ -68,7 +96,6 @@ class SetTabValuesService
         $content_bytes = file_get_contents($demoDocsPath . $doc_name);
         $base64_file_content = base64_encode($content_bytes);
         
-        # Step 3 start
         # Create the document model
         $document = new Document([ # create the DocuSign document object
             'document_base64' => $base64_file_content,
@@ -156,7 +183,7 @@ class SetTabValuesService
         $custom_fields = new CustomFields([
             'text_custom_fields' => [$salary_custom_field]]);
 
-        # Step 3 end
+
         # Next, create the top level envelope definition and populate it.
         return new EnvelopeDefinition([
             'email_subject' => "Please sign this document sent from the PHP SDK",
@@ -167,5 +194,6 @@ class SetTabValuesService
             'custom_fields' => $custom_fields
         ]);
     }
-    # Step 4 end
+    #ds-snippet-end:eSign16Step3
+
 }
