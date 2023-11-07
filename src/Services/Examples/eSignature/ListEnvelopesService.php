@@ -42,5 +42,4 @@ class ListEnvelopesService
         #ds-snippet-end:eSign3step2
         return $statusChanges;
     }
-    
 }

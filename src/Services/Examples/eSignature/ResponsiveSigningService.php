@@ -11,7 +11,7 @@ use DocuSign\eSign\Model\DocumentHtmlDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {
@@ -47,7 +47,7 @@ class ResponsiveSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    #ds-snippet-start:eSign38step2 
+    #ds-snippet-start:eSign38step2
     private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $l1_price = 5;
