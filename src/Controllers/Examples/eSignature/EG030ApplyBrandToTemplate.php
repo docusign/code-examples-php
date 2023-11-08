@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\ApplyBrandToTemplateService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\ApplyBrandToTemplateService;
+use DocuSign\Services\ManifestService;
 
 class EG030ApplyBrandToTemplate extends eSignBaseController
 {
@@ -42,7 +42,7 @@ class EG030ApplyBrandToTemplate extends eSignBaseController
             $this->clientService
         );
 
-        if($envelopeId) {
+        if ($envelopeId) {
             # That need an envelope_id
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,

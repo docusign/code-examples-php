@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\AddUserResponse;
 use DocuSign\Admin\Model\DSGroupRequest;
 use DocuSign\Admin\Model\NewMultiProductUserAddRequest;
 use DocuSign\Admin\Model\ProductPermissionProfileRequest;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 
 class CreateActiveCLMESignUserService
 {
@@ -66,7 +66,6 @@ class CreateActiveCLMESignUserService
             #ds-snippet-start:Admin2Step6
             $addUserResponse = $userAPI->addOrUpdateUser($organizationId, $arguments["account_id"], $request);
             #ds-snippet-end:Admin2Step6
-
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
         }

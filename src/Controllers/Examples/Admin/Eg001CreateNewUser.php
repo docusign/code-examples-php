@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\CreateNewUserService;
-use Example\Services\SignatureClientService;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\CreateNewUserService;
+use DocuSign\Services\SignatureClientService;
 
 class EG001CreateNewUser extends AdminApiBaseController
 {

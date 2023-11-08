@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Monitor;
+namespace DocuSign\Controllers\Examples\Monitor;
 
-use Example\Controllers\MonitorBaseController;
-use Example\Services\Examples\Monitor\GetMonitoringDataService;
-use Example\Services\JWTService;
+use DocuSign\Controllers\MonitorBaseController;
+use DocuSign\Services\Examples\Monitor\GetMonitoringDataService;
+use DocuSign\Services\JWTService;
 
 class Eg001GetMonitoringData extends MonitorBaseController
 {
@@ -30,8 +30,7 @@ class Eg001GetMonitoringData extends MonitorBaseController
     {
         $accessToken = $_SESSION['ds_access_token'];
         $tokenExpirationTime = $_SESSION['ds_expiration'];
-        if (
-            is_null($accessToken) ||
+        if (is_null($accessToken) ||
             (time() + JWTService::TOKEN_REPLACEMENT_IN_SECONDS) > $tokenExpirationTime
         ) {
             $auth = new JWTService();

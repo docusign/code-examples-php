@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
@@ -9,7 +9,7 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class EmbeddedSigningService
 {
@@ -28,7 +28,7 @@ class EmbeddedSigningService
     {
         # Create the envelope request object
         #ds-snippet-start:eSign1Step3
-        $envelope_definition = EmbeddedSigningService::make_envelope($args["envelope_args"], $demoPath, $pdfFile);
+        $envelope_definition = EmbeddedSigningService::makeEnvelope($args["envelope_args"], $demoPath, $pdfFile);
         $envelope_api = $clientService->getEnvelopeApi();
 
         # Call Envelopes::create API method
@@ -70,7 +70,7 @@ class EmbeddedSigningService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign1Step2
-    public static function make_envelope(array $args, string $demoPath, string $pdfFile): EnvelopeDefinition
+    public static function makeEnvelope(array $args, string $demoPath, string $pdfFile): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
         #

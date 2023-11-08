@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
 use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UsersDrilldownResponse;
-use Example\Services\AdminApiClientService;
-use Example\Services\ManifestService;
+use DocuSign\Services\AdminApiClientService;
+use DocuSign\Services\ManifestService;
 
 class AuditUsersService
 {

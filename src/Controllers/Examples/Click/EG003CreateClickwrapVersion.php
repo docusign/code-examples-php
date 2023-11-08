@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\CreateNewClickwrapVersionService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\CreateNewClickwrapVersionService;
+use DocuSign\Services\ManifestService;
 
 class EG003CreateClickwrapVersion extends ClickApiBaseController
 {
@@ -46,7 +46,7 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
      * 2. Call the worker method
      * 3. Return created clickwrap version
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapSummaryResponse = CreateNewClickwrapVersionService::createNewClickwrapVersion(
@@ -66,7 +66,7 @@ class EG003CreateClickwrapVersion extends ClickApiBaseController
                 ManifestService::replacePlaceholders(
                     "{0}",
                     $clickwrap_version,
-                    ManifestService::replacePlaceholders("{1}",$clickwrap_name,$this->codeExampleText["ResultsPageText"])
+                    ManifestService::replacePlaceholders("{1}", $clickwrap_name, $this->codeExampleText["ResultsPageText"])
                 )
             );
         }

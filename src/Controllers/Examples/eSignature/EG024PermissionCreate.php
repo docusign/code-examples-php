@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\PermissionCreateService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\PermissionCreateService;
+use DocuSign\Services\ManifestService;
 
 class EG024PermissionCreate extends eSignBaseController
 {
@@ -51,7 +51,11 @@ class EG024PermissionCreate extends eSignBaseController
                 ManifestService::replacePlaceholders(
                     "{1}",
                     $permissionProfile["permission_profile_name"],
-                    ManifestService::replacePlaceholders("{0}", $permissionProfile["permission_profile_id"], $this->codeExampleText["ResultsPageText"])
+                    ManifestService::replacePlaceholders(
+                        "{0}",
+                        $permissionProfile["permission_profile_id"],
+                        $this->codeExampleText["ResultsPageText"]
+                    )
                 )
             );
         }

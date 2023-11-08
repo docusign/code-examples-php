@@ -4,11 +4,11 @@
  * Example 022: Remote signer, cc, envelope has three documents
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\KbAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\KbAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG022KbAuthentication extends eSignBaseController
 {
@@ -49,7 +49,11 @@ class EG022KbAuthentication extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeAuthentification["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

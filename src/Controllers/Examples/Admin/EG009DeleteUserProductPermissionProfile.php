@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UserProductPermissionProfilesResponse;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\DeleteUserProductPermissionProfileByIdService;
-use Example\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\DeleteUserProductPermissionProfileByIdService;
+use DocuSign\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi\GetUserProductPermissionProfilesByEmailOptions;
 
 class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
@@ -32,7 +32,7 @@ class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
         $this->checkDsToken();
 
         try {
-            if ($_SESSION['email_address'] == null){
+            if ($_SESSION['email_address'] == null) {
                 parent::controller(
                     ['email_address' => $_SESSION['email_address']]
                 );
@@ -58,18 +58,18 @@ class EG009DeleteUserProductPermissionProfile extends AdminApiBaseController
                 $getUserProductPermissionProfilesByEmailOptions = new GetUserProductPermissionProfilesByEmailOptions();
                 $getUserProductPermissionProfilesByEmailOptions->setEmail($_SESSION['email_address']);
 
-                $userProductPermissionProfilesResponse = $permissionProfilesApi->getUserProductPermissionProfilesByEmail(
-                    $this->orgId,
-                    $this->args["account_id"],
-                    $getUserProductPermissionProfilesByEmailOptions
-                );
+                $userProductPermissionProfilesResponse = $permissionProfilesApi->
+                    getUserProductPermissionProfilesByEmail(
+                        $this->orgId,
+                        $this->args["account_id"],
+                        $getUserProductPermissionProfilesByEmailOptions
+                    );
                 #ds-snippet-end:Admin9Step3
 
                 parent::controller(
                     $this->preparePageProperties($userProductPermissionProfilesResponse)
                 );
             }
-
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
         }

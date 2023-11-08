@@ -4,10 +4,10 @@
  * Example 012: Embedded console
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EmbeddedConsoleService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EmbeddedConsoleService;
 
 class EG012EmbeddedConsole extends eSignBaseController
 {

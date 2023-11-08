@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
@@ -11,14 +11,14 @@ use DocuSign\eSign\Model\DocumentHtmlDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {
     #ds-snippet-start:eSign38step3
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): string
     {
-        $envelopeDefinition = ResponsiveSigningService::make_envelope($args["envelope_args"], $demoPath);
+        $envelopeDefinition = ResponsiveSigningService::makeEnvelope($args["envelope_args"], $demoPath);
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
@@ -47,9 +47,8 @@ class ResponsiveSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-
-    #ds-snippet-start:eSign38step2 
-    private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
+    #ds-snippet-start:eSign38step2
+    private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $l1_price = 5;
         $l2_price = 150;
@@ -77,9 +76,24 @@ class ResponsiveSigningService
         $htmlMarkup = file_get_contents($demoPath . $htmlMarkupFileName);
 
         $htmlWithData = str_replace(
-            ['{signer_name}', '{signer_email}', '{cc_name}', '{cc_email}', '/sn1/', '/l1q/', '/l2q/'],
-            [$args['signer_name'], $args['signer_email'], $args['cc_name'], $args['cc_email'], 
-            '<ds-signature data-ds-role="Signer"/>', ' <input data-ds-type="number" name="l1q" />', '<input data-ds-type="number" name="l2q" />'],
+            [
+                '{signer_name}',
+                '{signer_email}',
+                '{cc_name}',
+                '{cc_email}',
+                '/sn1/',
+                '/l1q/',
+                '/l2q/'
+            ],
+            [
+                $args['signer_name'],
+                $args['signer_email'],
+                $args['cc_name'],
+                $args['cc_email'],
+                '<ds-signature data-ds-role="Signer"/>',
+                ' <input data-ds-type="number" name="l1q" />',
+                '<input data-ds-type="number" name="l2q" />'
+            ],
             $htmlMarkup
         );
 

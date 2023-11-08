@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\CustomFields;
@@ -30,7 +30,7 @@ class SetTemplateTabValuesService
     public static function setTemplateTabValues(array $args, $clientService): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = SetTemplateTabValuesService::make_envelope($args["envelope_args"]);
+        $envelope_definition = SetTemplateTabValuesService::makeEnvelope($args["envelope_args"]);
 
         return SetTemplateTabValuesService::sendEnvelopeFromCreatedTemplate($clientService, $args, $envelope_definition);
     }
@@ -71,7 +71,7 @@ class SetTemplateTabValuesService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function makeEnvelope(array $args): EnvelopeDefinition
     {
         # create the envelope definition with the template_id
         #ds-snippet-start:eSign17Step4
@@ -140,6 +140,5 @@ class SetTemplateTabValuesService
 
         return $envelope_definition;
         #ds-snippet-end:eSign17Step3
-
     }
 }

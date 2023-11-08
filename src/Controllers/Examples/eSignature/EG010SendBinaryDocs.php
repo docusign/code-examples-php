@@ -4,12 +4,12 @@
  * Example 010: Send binary docs with multipart mime: Remote signer, cc; the envelope has three documents
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SendBinaryDocsService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SendBinaryDocsService;
 use GuzzleHttp\Exception\GuzzleException;
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 class EG010SendBinaryDocs extends eSignBaseController
 {

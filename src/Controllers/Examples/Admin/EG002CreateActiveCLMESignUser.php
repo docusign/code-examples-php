@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\CreateActiveCLMESignUserService;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\CreateActiveCLMESignUserService;
 
 class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 {

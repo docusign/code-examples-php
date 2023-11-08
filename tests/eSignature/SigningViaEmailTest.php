@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Document;
@@ -10,9 +10,9 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\SigningViaEmailService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\SigningViaEmailService;
+use DocuSign\Services\SignatureClientService;
 
 final class SigningViaEmailTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class SigningViaEmailTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $ccEmail = 'cc@gmail.com';
         $ccName = 'CC';
@@ -140,7 +140,7 @@ final class SigningViaEmailTest extends TestCase
         $expectedEnvelopeDefinition->setStatus($requestArguments["status"]);
 
         // Act
-        $envelope = SigningViaEmailService::make_envelope(
+        $envelope = SigningViaEmailService::makeEnvelope(
             $requestArguments,
             $clientService,
             $this::DEMO_DOCS_PATH,

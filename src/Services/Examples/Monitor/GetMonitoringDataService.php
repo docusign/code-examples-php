@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services\Examples\Monitor;
+namespace DocuSign\Services\Examples\Monitor;
 
 use DocuSign\Monitor\Api\DataSetApi;
 use DocuSign\Monitor\Api\DataSetApi\GetStreamOptions;
 use DocuSign\Monitor\Client\ApiException;
-use Example\Services\MonitorApiClientService;
+use DocuSign\Services\MonitorApiClientService;
 
 class GetMonitoringDataService
 {

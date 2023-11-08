@@ -4,12 +4,12 @@
  * Example 040: Set document visibility.
 */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SetDocumentsVisibilityService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SetDocumentsVisibilityService;
 use DocuSign\eSign\Client\ApiException;
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 class EG040SetDocumentsVisibility extends eSignBaseController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
@@ -9,7 +9,7 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\InPersonSigner;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class InPersonSigningService
 {
@@ -19,7 +19,7 @@ class InPersonSigningService
      * 2. Send the envelope
      * 3. Create the Recipient View request object
      * 4. Obtain the recipient_view_url for the embedded signing
-     * @return string  
+     * @return string
      */
     public static function worker(
         string $accountId,
@@ -40,7 +40,7 @@ class InPersonSigningService
         }
         #ds-snippet-end:eSign39Step3
 
-        #ds-snippet-start:eSign39Step5        
+        #ds-snippet-start:eSign39Step5
         $authentication_method = 'None';
 
         $envelopeArguments = [

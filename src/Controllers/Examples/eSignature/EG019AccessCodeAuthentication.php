@@ -4,11 +4,11 @@
  * Example 019: Access-code authentication for recipient
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\AccessCodeAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\AccessCodeAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG019AccessCodeAuthentication extends eSignBaseController
 {

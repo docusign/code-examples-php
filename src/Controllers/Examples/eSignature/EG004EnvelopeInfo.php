@@ -4,10 +4,10 @@
  * Example 004: Get an envelope's basic information and status
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeInfoService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeInfoService;
 
 class EG004EnvelopeInfo extends eSignBaseController
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Rooms;
+namespace DocuSign\Controllers\Examples\Rooms;
 
-use Example\Controllers\RoomsApiBaseController;
-use Example\Services\Examples\Rooms\CreateExternalFormFillSessionService;
+use DocuSign\Controllers\RoomsApiBaseController;
+use DocuSign\Services\Examples\Rooms\CreateExternalFormFillSessionService;
 
 class EG006CreateExternalFormFillSession extends RoomsApiBaseController
 {
@@ -35,7 +35,7 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         #ds-snippet-start:Rooms6Step3
@@ -97,9 +97,9 @@ class EG006CreateExternalFormFillSession extends RoomsApiBaseController
                 $this->clientService->showDoneTemplateFromManifest(
                     $this->codeExampleText,
                     "",
-                    "Results from the Forms::CreateExternalFormFillSession: <br/><code>".stripslashes($createExternalFormResponse)."</code>",
+                    "Results from the Forms::CreateExternalFormFillSession: <br/><code>"
+                    . stripslashes($createExternalFormResponse) . "</code>",
                     $createExternalFormJSON['url'],
-                    
                 );
             }
             #ds-snippet-end:Rooms6Step5

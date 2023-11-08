@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\UseTemplateService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\UseTemplateService;
+use DocuSign\Services\SignatureClientService;
 
 final class UseTemplatesTest extends TestCase
 {
@@ -17,7 +17,7 @@ final class UseTemplatesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccEmail = "CC@gmail.com";
@@ -49,7 +49,7 @@ final class UseTemplatesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $ccMail = "CC@gmail.com";
@@ -84,7 +84,7 @@ final class UseTemplatesTest extends TestCase
         $expectedEnvelopeDefinition->setTemplateRoles([$signer, $cc]);
 
         // Act
-        $envelopeDefinition = UseTemplateService::make_envelope($requestArguments);
+        $envelopeDefinition = UseTemplateService::makeEnvelope($requestArguments);
 
         // Assert
         $this->assertNotNull($envelopeDefinition);

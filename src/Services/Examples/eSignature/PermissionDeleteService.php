@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 
@@ -35,5 +35,4 @@ class PermissionDeleteService
 
         return "The permission profile has been deleted!";
     }
-    
 }

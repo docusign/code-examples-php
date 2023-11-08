@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\GetClickwrapResponseService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\GetClickwrapResponseService;
 
 class EG005GetClickwrapResponses extends ClickApiBaseController
 {
@@ -36,7 +36,7 @@ class EG005GetClickwrapResponses extends ClickApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapResponse = GetClickwrapResponseService::getClickwrapResponse($this->args, $this->clientService);

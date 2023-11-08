@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Document;
@@ -31,7 +31,7 @@ class CollectPaymentService
     {
         # 1. Create the envelope request object
         #ds-snippet-start:eSign14Step3
-        $envelope_definition = CollectPaymentService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = CollectPaymentService::makeEnvelope($args["envelope_args"], $demoDocsPath);
         #ds-snippet-end:eSign14Step3
 
         # 2. call Envelopes::create API method
@@ -76,7 +76,7 @@ class CollectPaymentService
      * @return mixed -- returns an envelope definition
      */
     #ds-snippet-start:eSign14Step3
-    public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         # Order form constants
         $l1_name = "Harmonica";

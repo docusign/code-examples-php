@@ -1,8 +1,8 @@
 <?php
 
-namespace Example\Controllers\Examples;
+namespace DocuSign\Controllers\Examples;
 
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 class MustAuthenticate
 {

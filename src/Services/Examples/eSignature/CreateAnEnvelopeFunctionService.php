@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 
 class CreateAnEnvelopeFunctionService
 {
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
         $envelope_definition = new EnvelopeDefinition([
             'email_subject' => 'Please sign this document set'

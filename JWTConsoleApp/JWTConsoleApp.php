@@ -1,7 +1,7 @@
 <?php
 
-use Example\Services\SignatureClientService;
-use Example\Services\Examples\eSignature\SigningViaEmailService;
+use DocuSign\Services\SignatureClientService;
+use DocuSign\Services\Examples\eSignature\SigningViaEmailService;
 
 use DocuSign\eSign\Client\ApiClient;
 

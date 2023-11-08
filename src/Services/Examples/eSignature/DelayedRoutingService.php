@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
@@ -29,10 +29,16 @@ class DelayedRoutingService
      * @return array ['redirect_url']
      */
 
-    public static function SendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
+    public static function sendEnvelopeWithDelayedRouting(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): array
     {
         # Create the envelope definition
-        $envelope_definition = DelayedRoutingService::make_envelope($args["envelope_args"], $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = DelayedRoutingService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
         $envelope_api = $clientService->getEnvelopeApi();
 
 
@@ -66,9 +72,15 @@ class DelayedRoutingService
      * @param $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, $docDocx, $docPDF): EnvelopeDefinition
     {
-        $envelope_definition = CreateAnEnvelopeFunctionService::make_envelope($args, $clientService, $demoDocsPath, $docDocx, $docPDF);
+        $envelope_definition = CreateAnEnvelopeFunctionService::makeEnvelope(
+            $args,
+            $clientService,
+            $demoDocsPath,
+            $docDocx,
+            $docPDF
+        );
 
         #ds-snippet-start:eSign36Step2
         # Create the signer recipient models

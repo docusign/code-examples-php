@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\CompositeTemplate;
@@ -13,9 +13,9 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\AddDocToTemplateService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\AddDocToTemplateService;
+use DocuSign\Services\SignatureClientService;
 
 final class AddDocToTemplateTest extends TestCase
 {
@@ -27,7 +27,7 @@ final class AddDocToTemplateTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $signerClientId = 1000;
@@ -196,7 +196,7 @@ final class AddDocToTemplateTest extends TestCase
         );
 
         // Act
-        $envelopeDefinition = AddDocToTemplateService::make_envelope(
+        $envelopeDefinition = AddDocToTemplateService::makeEnvelope(
             $requestArguments,
             $clientService
         );

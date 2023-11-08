@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services\Examples\Click;
+namespace DocuSign\Services\Examples\Click;
 
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapAgreementsResponse;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 class GetClickwrapResponseService
 {
@@ -37,7 +37,7 @@ class GetClickwrapResponseService
         array $args,
         string $eg
     ): array {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

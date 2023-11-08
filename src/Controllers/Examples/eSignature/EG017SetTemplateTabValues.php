@@ -4,10 +4,10 @@
  * Example 017: Set template field (tab) values and an envelope custom field value
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SetTemplateTabValuesService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SetTemplateTabValuesService;
 
 class EG017SetTemplateTabValues extends eSignBaseController
 {

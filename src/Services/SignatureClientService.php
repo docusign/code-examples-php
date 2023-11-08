@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Api\BulkEnvelopesApi;
@@ -13,7 +13,7 @@ use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Configuration;
 use DocuSign\eSign\Model\RecipientViewRequest;
 use QuickACG\RouterService as QuickRouterService;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class SignatureClientService
 {
@@ -43,7 +43,9 @@ class SignatureClientService
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         #ds-snippet-end:eSignPHPStep2
-        $this->routerService = isset($GLOBALS['DS_CONFIG']) && $GLOBALS['DS_CONFIG']['quickACG'] === "true" ? new QuickRouterService() : new RouterService();
+        $this->routerService = isset($GLOBALS['DS_CONFIG']) && $GLOBALS['DS_CONFIG']['quickACG'] === "true"
+            ? new QuickRouterService()
+            : new RouterService();
     }
 
     /**
@@ -98,9 +100,12 @@ class SignatureClientService
      * @return \DocuSign\eSign\Model\ViewUrl - the list of Recipient Views
      */
 
-    # Step 4 Start (inPersonSigning) 
-    public function getRecipientView(string $account_id, string $envelope_id, RecipientViewRequest $recipient_view_request): \DocuSign\eSign\Model\ViewUrl
-    {
+    # Step 4 Start (inPersonSigning)
+    public function getRecipientView(
+        string $account_id,
+        string $envelope_id,
+        RecipientViewRequest $recipient_view_request
+    ): \DocuSign\eSign\Model\ViewUrl {
         try {
             $envelope_api = $this->getEnvelopeApi();
             $viewUrl = $envelope_api->createRecipientView($account_id, $envelope_id, $recipient_view_request);
@@ -383,9 +388,14 @@ color: darkblue;">Order Processing Division</h2>
         <h4>Ordered by {$args['signer_name']}</h4>
         <p style="margin-top:0em; margin-bottom:0em;">Email: {$args['signer_email']}</p>
         <p style="margin-top:0em; margin-bottom:0em;">Copy to: {$args['cc_name']}, {$args['cc_email']}</p>
-        <p style="margin-top:3em; margin-bottom:0em;">Item: <b> {$args['item']} </b>, quantity: <b> {$args['quantity']} </b> at market price.</p>
+        <p style="margin-top:3em; margin-bottom:0em;">
+            Item: <b> {$args['item']} </b>, quantity: <b> {$args['quantity']} </b> at market price.
+        </p>
         <p style="margin-top:3em;">
-  Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.
+  Candy bonbon pastry jujubes lollipop wafer biscuit biscuit. Topping brownie sesame snaps sweet roll pie. 
+  Croissant danish biscuit soufflé caramels jujubes jelly. Dragée danish caramels lemon drops dragée. Gummi bears 
+  cupcake biscuit tiramisu sugar plum pastry. Dragée gummies applicake pudding liquorice. Donut jujubes oat cake jelly-o. 
+  Dessert bear claw chocolate cake gummies lollipop sugar plum ice cream gummies cheesecake.
         </p>
         <!-- Note the anchor tag for the signature field is in white. -->
         <h3 style="margin-top:3em;">Agreed: <span style="color:white;">**signature_1**/</span></h3>

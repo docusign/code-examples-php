@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -21,23 +21,25 @@ class IDVAuthenticationService
    
     public static function idvAuthentication(array $args, $clientService, $demoDocsPath, string $fixingInstructions): array
     {
-        # 1. Create the envelope request object
-        $envelope_definition = IDVAuthenticationService::make_envelope(
-            $args["envelope_args"], 
-            $clientService, 
-            $demoDocsPath, 
+        # Create the envelope request object
+        $envelope_definition = IDVAuthenticationService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
             $fixingInstructions
         );
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign23Step5
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope(
-            $args['account_id'], 
+            $args['account_id'],
             $envelope_definition
         );
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        #ds-snippet-end:eSign23Step5
     }
 
     /**
@@ -49,31 +51,33 @@ class IDVAuthenticationService
      * @param $clientService
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, string $fixingInstruction): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, string $fixingInstruction): EnvelopeDefinition
     {
         # Retrieve the workflow ID
-        # Step 3 start
+        #ds-snippet-start:eSign23Step3
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $workflows_data = $accounts_response->getIdentityVerification();
         $workflow_id = '';
         foreach ($workflows_data as $workflow) {
-            if ($workflow['default_name'] == 'DocuSign ID Verification') 
+            if ($workflow['default_name'] == 'DocuSign ID Verification') {
                 $workflow_id = $workflow['workflow_id'];
+            }
         }
-        # Step 3 end
+        #ds-snippet-end:eSign23Step3
 
-        if ($workflow_id == '') 
+        if ($workflow_id == '') {
             throw new ApiException($fixingInstruction);
+        }
 
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope(
             $demoDocsPath
         );
-        # Step 4 start
+        #ds-snippet-start:eSign23Step4
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
-        $signer1 = new Signer( 
+        $signer1 = new Signer(
             [
                 'name' => $args['signer_name'],
                 'email' => $args['signer_email'],
@@ -93,9 +97,8 @@ class IDVAuthenticationService
         $recipients = new Recipients();
         $recipients->setSigners(array($signer1));
         $envelope_definition->setRecipients($recipients);
-        # Step 4 end
+        #ds-snippet-end:eSign23Step4
 
         return $envelope_definition;
     }
-
 }

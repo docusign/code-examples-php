@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
@@ -21,7 +21,7 @@ class ApplyBrandToTemplateService
     {
         # Construct the request body
         #ds-snippet-start:eSign30Step3
-        $envelope_definition = ApplyBrandToTemplateService::make_envelope($args["envelope_args"]);
+        $envelope_definition = ApplyBrandToTemplateService::makeEnvelope($args["envelope_args"]);
         #ds-snippet-end:eSign30Step3
 
         # Call the eSignature REST API
@@ -35,12 +35,12 @@ class ApplyBrandToTemplateService
 
     /**
      *  Creates envelope definition
-     *  Parameters for the envelope: signer_email, signer_name, cc_name, cc_email, template_id, brand_id  
+     *  Parameters for the envelope: signer_email, signer_name, cc_name, cc_email, template_id, brand_id
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign30Step3
-    public static function make_envelope(array $args): EnvelopeDefinition
+    public static function makeEnvelope(array $args): EnvelopeDefinition
     {
         $signer = new TemplateRole([
             'name' => $args['signer_name'],
@@ -61,5 +61,4 @@ class ApplyBrandToTemplateService
         ]);
     }
     #ds-snippet-end:eSign30Step3
-    
 }

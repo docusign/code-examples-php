@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Services\Examples\Click;
+namespace DocuSign\Services\Examples\Click;
 
 use DocuSign\Click\Api\AccountsApi\GetClickwrapsOptions;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapRequest;
 use DocuSign\Click\Model\ClickwrapVersionSummaryResponse;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 class ActivateClickwrapService
 {
@@ -48,7 +48,7 @@ class ActivateClickwrapService
         string $status
     ): array {
         $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->dsTokenOk($minimum_buffer_min)) {
             try {
                 $apiClient = $clientService->accountsApi();
                 $options = new GetClickwrapsOptions();
