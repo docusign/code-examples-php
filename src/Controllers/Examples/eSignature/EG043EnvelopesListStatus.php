@@ -3,10 +3,10 @@
  * Example 043: Shared access code example
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SharedAccessService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SharedAccessService;
 
 class EG043EnvelopesListStatus extends eSignBaseController
 {
@@ -27,7 +27,8 @@ class EG043EnvelopesListStatus extends eSignBaseController
         $listStatus = SharedAccessService::listEnvelopes(
             $this->clientService->apiClient,
             $_SESSION['ds_account_id'],
-            $_SESSION['principal_user_id']);
+            $_SESSION['principal_user_id']
+        );
 
         if ($listStatus != null && $listStatus->getEnvelopes() != null) {
             $this->clientService->showDoneTemplate(
@@ -53,7 +54,9 @@ class EG043EnvelopesListStatus extends eSignBaseController
      * @return void
      * @throws \DocuSign\eSign\Client\ApiException
      */
-    public function createController(): void { }
+    public function createController(): void
+    {
+    }
 
     /**
      * Get specific template arguments

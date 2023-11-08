@@ -1,21 +1,19 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
-use Example\Controllers\Auth\DocuSign;
+use DocuSign\Controllers\Auth\DocuSign;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use Example\Services\utils;
-
+use DocuSign\Services\Utils;
 
 class CodeGrantService
 {
     /**
      * Checker for the CSRF token
      */
-    function checkToken(): void
+    public function checkToken(): void
     {
-        if (
-            !(isset($_POST['csrf_token']) &&
+        if (!(isset($_POST['csrf_token']) &&
             hash_equals($_SESSION['csrf_token'], $_POST['csrf_token']))
         ) {
             # trouble!
@@ -40,9 +38,9 @@ class CodeGrantService
     /**
      * DocuSign login handler
      */
-    function login(): void
+    public function login(): void
     {
-        $provider = $this->get_oauth_provider();
+        $provider = $this->getOauthProvider();
         $authorizationUrl = $provider->getAuthorizationUrl();
         // Get the state generated for you and store it to the session.
         $_SESSION['oauth2state'] = $provider->getState();
@@ -55,7 +53,7 @@ class CodeGrantService
      * Get OAUTH provider
      * @return DocuSign $provider
      */
-    function get_oauth_provider(): DocuSign
+    public function getOauthProvider(): DocuSign
     {
         return new DocuSign(
             [
@@ -68,15 +66,13 @@ class CodeGrantService
         );
     }
 
-
-
     /**
      * DocuSign login handler
      * @param $redirectUrl
      */
-    function authCallback($redirectUrl): void
+    public function authCallback($redirectUrl): void
     {
-        $provider = $this->get_oauth_provider();
+        $provider = $this->getOauthProvider();
         // Check given state against previously stored one to mitigate CSRF attack
         if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
             if (isset($_SESSION['oauth2state'])) {
@@ -110,8 +106,12 @@ class CodeGrantService
 
                 $base_uri_suffix = '/restapi';
 
-                $cfr = new utils();
-                $_SESSION['cfr_enabled'] = $cfr->isCFR($_SESSION['ds_access_token'], $account_info["account_id"], $account_info["base_uri"] . $base_uri_suffix);
+                $cfr = new Utils();
+                $_SESSION['cfr_enabled'] = $cfr->isCFR(
+                    $_SESSION['ds_access_token'],
+                    $account_info["account_id"],
+                    $account_info["base_uri"] . $base_uri_suffix
+                );
                 $_SESSION['ds_account_id'] = $account_info["account_id"];
                 $_SESSION['ds_account_name'] = $account_info["account_name"];
                 $_SESSION['ds_base_path'] = $account_info["base_uri"] . $base_uri_suffix;

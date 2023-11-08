@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Rooms;
+namespace DocuSign\Services\Examples\Rooms;
 
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\ExternalFormFillSessionForCreate;
@@ -35,7 +35,7 @@ class CreateExternalFormFillSessionService
      */
     public static function getRooms($clientService, $routerService, $args, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getRooms($args);
         } else {
             $clientService->needToReAuth($eg);
@@ -54,7 +54,7 @@ class CreateExternalFormFillSessionService
      */
     public static function getRoom($room_id, $routerService, $clientService, $args, $eg): Room
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getRoom($room_id, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);
@@ -73,7 +73,7 @@ class CreateExternalFormFillSessionService
      */
     public static function getDocuments($room_id, $routerService, $clientService, $args, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getDocuments($room_id, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);

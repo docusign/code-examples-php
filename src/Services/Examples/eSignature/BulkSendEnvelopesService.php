@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\BulkSendingCopy;
@@ -16,7 +16,7 @@ use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use DocuSign\eSign\Model\TextCustomField;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 
 class BulkSendEnvelopesService
 {
@@ -47,7 +47,7 @@ class BulkSendEnvelopesService
         #ds-snippet-end:eSign31Step3
 
         #ds-snippet-start:eSign31Step4
-        $envelope_definition = BulkSendEnvelopesService::make_envelope($demoDocsPath, $docPDF);
+        $envelope_definition = BulkSendEnvelopesService::makeEnvelope($demoDocsPath, $docPDF);
         $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
         $envelope_id = $envelope["envelope_id"];
         #ds-snippet-end:eSign31Step4
@@ -155,7 +155,7 @@ class BulkSendEnvelopesService
      * @param string $demoDocsPath
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    public static function make_envelope(string $demoDocsPath, string $docPDF): EnvelopeDefinition
+    public static function makeEnvelope(string $demoDocsPath, string $docPDF): EnvelopeDefinition
     {
         # Document 1 (PDF) has tag /sn1/
         #

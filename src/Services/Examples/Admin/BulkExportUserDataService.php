@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\OrganizationExportResponse;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 

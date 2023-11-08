@@ -1,13 +1,13 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\ManifestService;
+use DocuSign\Services\ManifestService;
 
 abstract class BaseController
 {
 
-    protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';    
+    protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
     protected array $codeExampleText;
     public const LOGIN_REDIRECT = 'must_authenticate';
 
@@ -53,7 +53,7 @@ abstract class BaseController
         return ManifestService::getCommonTexts();
     }
 
-    protected function homePageTitle($eg=''): string
+    protected function homePageTitle($eg = ''): string
     {
         $title = '';
         if (isset(explode("_", $eg)[1])) {

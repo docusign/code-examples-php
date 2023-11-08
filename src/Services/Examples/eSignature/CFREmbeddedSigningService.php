@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
@@ -9,14 +9,10 @@ use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\SignatureClientService;
 use DocuSign\eSign\Model\RecipientIdentityPhoneNumber;
 use DocuSign\eSign\Model\RecipientIdentityInputOption;
 use DocuSign\eSign\Model\RecipientIdentityVerification;
-
-
-
-
 
 class CFREmbeddedSigningService
 {
@@ -33,26 +29,25 @@ class CFREmbeddedSigningService
      */
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): array
     {
-
-
         // Obtain your workflowID
         #ds-snippet-start:eSign41Step2
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $workflows_data = $accounts_response->getIdentityVerification();
         foreach ($workflows_data as $workflow) {
-            if ($workflow['default_name'] == 'SMS for access & signatures')
-            $args['envelope_args']['workflow_id'] = $workflow['workflow_id'];
+            if ($workflow['default_name'] == 'SMS for access & signatures') {
+                $args['envelope_args']['workflow_id'] = $workflow['workflow_id'];
+            }
         };
 
-        if(!isset($args['envelope_args']['workflow_id'])){
+        if (!isset($args['envelope_args']['workflow_id'])) {
             $clientService->showErrorTemplate(new ApiException("IDENTITY_WORKFLOW_INVALID_ID"));
         }
         #ds-snippet-end:eSign41Step2
 
         # Create the envelope request object
         #ds-snippet-start:eSign41Step4
-        $envelope_definition = CFREmbeddedSigningService::make_envelope($args['envelope_args'], $demoPath);
+        $envelope_definition = CFREmbeddedSigningService::makeEnvelope($args['envelope_args'], $demoPath);
 
         $envelope_api = $clientService->getEnvelopeApi();
 
@@ -100,7 +95,7 @@ class CFREmbeddedSigningService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign41Step3
-    private static function make_envelope(array $args, string $demoPath): EnvelopeDefinition
+    private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         # document 1 (pdf) has tag /sn1/
         #
@@ -134,7 +129,6 @@ class CFREmbeddedSigningService
         $identityVerification->setWorkflowId($args['workflow_id']);
         $identityVerification->setInputOptions(array($inputOption));
 
-
         # Create the signer recipient model
         $signer = new Signer(
             [ # The signer
@@ -149,9 +143,6 @@ class CFREmbeddedSigningService
         );
 
         $signer->setIdentityVerification($identityVerification);
-
-
-
 
         # Create a sign_here tab (field on the document)
         $sign_here = new SignHere(

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\CompositeTemplate;
@@ -33,7 +33,7 @@ class AddDocToTemplateService
     {
         $envelope_args = $args["envelope_args"];
         # 1. Create the envelope request object
-        $envelope_definition = AddDocToTemplateService::make_envelope($envelope_args, $clientService);
+        $envelope_definition = AddDocToTemplateService::makeEnvelope($envelope_args, $clientService);
 
         return AddDocToTemplateService::sendCompositeTemplate($clientService, $args, $envelope_definition);
     }
@@ -52,7 +52,7 @@ class AddDocToTemplateService
      * @return mixed -- returns an envelope definition
      */
     #ds-snippet-start:eSign13Step2
-    public static function make_envelope(array $args, $clientService): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService): EnvelopeDefinition
     {
         # 1. Create Recipients for server template. Note that Recipients object
         #    is used, not TemplateRole
@@ -159,31 +159,31 @@ class AddDocToTemplateService
     }
    #ds-snippet-end:eSign13Step2
 
-   public static function sendCompositeTemplate($clientService, $args, $envelope_definition): array
-   {
-       # Call Envelopes::create API method
-       # Exceptions will be caught by the calling function
-       #ds-snippet-start:eSign13Step3
-       $envelope_api = $clientService->getEnvelopeApi();
-       $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-       $envelope_id = $envelopeResponse->getEnvelopeId();
-       #ds-snippet-end:eSign13Step3
+    public static function sendCompositeTemplate($clientService, $args, $envelope_definition): array
+    {
+        # Call Envelopes::create API method
+        # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign13Step3
+        $envelope_api = $clientService->getEnvelopeApi();
+        $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $envelope_id = $envelopeResponse->getEnvelopeId();
+        #ds-snippet-end:eSign13Step3
 
-       #ds-snippet-start:eSign13Step4
-       # Create the Recipient View request object
-       $authentication_method = 'None'; # How is this application authenticating
-       # the signer? See the `authentication_method' definition
-       # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
-       $recipient_view_request = $clientService->getRecipientViewRequest(
-           $authentication_method,
-           $args["envelope_args"]
-       );
+        #ds-snippet-start:eSign13Step4
+        # Create the Recipient View request object
+        $authentication_method = 'None'; # How is this application authenticating
+        # the signer? See the `authentication_method' definition
+        # https://developers.docusign.com/esign-rest-api/reference/Envelopes/EnvelopeViews/createRecipient
+        $recipient_view_request = $clientService->getRecipientViewRequest(
+            $authentication_method,
+            $args["envelope_args"]
+        );
 
-       # Obtain the recipient_view_url for the embedded signing
-       # Exceptions will be caught by the calling function
-       $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
-       
-       return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
-       #ds-snippet-end:eSign13Step4
-   }
+        # Obtain the recipient_view_url for the embedded signing
+        # Exceptions will be caught by the calling function
+        $recipientView = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
+        
+        return ['envelope_id' => $envelope_id, 'redirect_url' => $recipientView['url']];
+        #ds-snippet-end:eSign13Step4
+    }
 }

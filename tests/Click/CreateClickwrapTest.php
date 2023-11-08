@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
-use Example\Services\ClickApiClientService;
-use Example\Services\Examples\Click\CreateClickwrapService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\Examples\Click\CreateClickwrapService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
+use DocuSign\Services\ApiTypes;
 
 final class CreateClickwrapTest extends TestCase
 {
@@ -22,7 +22,7 @@ final class CreateClickwrapTest extends TestCase
     public function testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::Click, $this->testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $this->testConfig);
         (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
 
         $clickwrapName = "Clickwrap";

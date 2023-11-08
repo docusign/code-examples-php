@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\BulkSendingCopy;
 use DocuSign\eSign\Model\BulkSendingCopyRecipient;
@@ -12,9 +12,9 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\BulkSendEnvelopesService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\BulkSendEnvelopesService;
+use DocuSign\Services\SignatureClientService;
 
 final class SendBulkEnvelopesTest extends TestCase
 {
@@ -24,7 +24,7 @@ final class SendBulkEnvelopesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $ccEmail = "cc@gmail.com";
         $ccName = "cc";
@@ -210,7 +210,7 @@ final class SendBulkEnvelopesTest extends TestCase
         );
 
         // Act
-        $envelopeDefinition = BulkSendEnvelopesService::make_envelope(
+        $envelopeDefinition = BulkSendEnvelopesService::makeEnvelope(
             self::DEMO_DOCS_PATH,
             "World_Wide_Corp_lorem.pdf"
         );

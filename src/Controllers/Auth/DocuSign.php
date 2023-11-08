@@ -7,9 +7,9 @@
  * Time: 9:40 PM
  */
 
-namespace Example\Controllers\Auth;
+namespace DocuSign\Controllers\Auth;
 
-use Example\Services\ApiTypes;
+use DocuSign\Services\ApiTypes;
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -106,18 +106,20 @@ class DocuSign extends AbstractProvider
      */
     public function getDefaultScopes(): array
     {
-        if ($_SESSION['api_type'] == ApiTypes::Rooms) {
+        if ($_SESSION['api_type'] == ApiTypes::ROOMS) {
             return [
-                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write " 
+                "room_forms dtr.rooms.read dtr.rooms.write dtr.documents.read dtr.documents.write "
                 . "dtr.profile.read dtr.profile.write dtr.company.read dtr.company.write"
             ];
-        } elseif ($_SESSION['api_type'] == ApiTypes::Click) {
+        } elseif ($_SESSION['api_type'] == ApiTypes::CLICK) {
             return [
                 "signature click.manage click.send"
             ];
-        } elseif ($_SESSION['api_type'] == ApiTypes::Admin) {
+        } elseif ($_SESSION['api_type'] == ApiTypes::ADMIN) {
             return [
-                "signature user_write group_read organization_read permission_read user_read account_read domain_read identity_provider_read user_data_redact asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read"
+                "signature user_write group_read organization_read permission_read user_read"
+                . " account_read domain_read identity_provider_read user_data_redact asset_group_account_read"
+                . " asset_group_account_clone_write asset_group_account_clone_read"
             ];
         } else {
             return [

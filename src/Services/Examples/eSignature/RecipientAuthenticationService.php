@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -20,7 +20,7 @@ class RecipientAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args,  $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];

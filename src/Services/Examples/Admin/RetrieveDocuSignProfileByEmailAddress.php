@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Api\UsersApi\GetUserDSProfilesByEmailOptions;
 use DocuSign\Admin\Client\ApiException;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 
 class RetrieveDocuSignProfileByEmailAddress
 {

@@ -4,10 +4,10 @@
  * Example 005: List an envelope's recipients and status
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeRecipientsService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeRecipientsService;
 
 class EG005EnvelopeRecipients extends eSignBaseController
 {

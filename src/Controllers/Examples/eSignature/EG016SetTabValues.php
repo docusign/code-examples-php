@@ -4,10 +4,10 @@
  * Example 016: Set optional and locked field values and an envelope custom field value
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SetTabValuesService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SetTabValuesService;
 
 class EG016SetTabValues extends eSignBaseController
 {

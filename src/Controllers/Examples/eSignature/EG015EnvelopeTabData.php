@@ -4,10 +4,10 @@
  * Example 015: Get an envelope's tab (field) data
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeTabDataService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeTabDataService;
 
 class EG015EnvelopeTabData extends eSignBaseController
 {

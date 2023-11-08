@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Rooms;
+namespace DocuSign\Controllers\Examples\Rooms;
 
-use Example\Controllers\RoomsApiBaseController;
-use Example\Services\Examples\Rooms\AddFormsToRoomService;
+use DocuSign\Controllers\RoomsApiBaseController;
+use DocuSign\Services\Examples\Rooms\AddFormsToRoomService;
 
 class EG004AddFormsToRoom extends RoomsApiBaseController
 {
@@ -45,7 +45,7 @@ class EG004AddFormsToRoom extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $roomsDocument = AddFormsToRoomService::addFormsToRoom($this->args, $this->clientService);

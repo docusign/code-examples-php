@@ -4,11 +4,11 @@
  * Example 014: Remote signer, cc; envelope has an order form
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\ManifestService;
-use Example\Services\Examples\eSignature\CollectPaymentService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\Examples\eSignature\CollectPaymentService;
 
 class EG014CollectPayment extends eSignBaseController
 {

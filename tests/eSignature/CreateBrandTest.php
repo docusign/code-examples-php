@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
-use Example\Services\Examples\eSignature\CreateBrandService;
+use DocuSign\Services\Examples\eSignature\CreateBrandService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\SignatureClientService;
 
 final class CreateBrandTest extends TestCase
 {
@@ -20,7 +20,7 @@ final class CreateBrandTest extends TestCase
     public function testCreateBrand_CorrectInputValues_ReturnArray()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $this->testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $this->testConfig);
 
         $defaultLanguage = "en";
         $requestArguments = [

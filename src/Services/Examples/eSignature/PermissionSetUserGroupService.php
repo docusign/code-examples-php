@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Group;
@@ -17,7 +17,6 @@ class PermissionSetUserGroupService
      * @param $clientService
      * @return string
      */
-    # 
     public static function permissionSetUserGroup(array $args, $clientService): string
     {
         # Step 3. Construct your request body
@@ -41,5 +40,4 @@ class PermissionSetUserGroupService
 
         return $updatedGroups;
     }
-    # 
 }

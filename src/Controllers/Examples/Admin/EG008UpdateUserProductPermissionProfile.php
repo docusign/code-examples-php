@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\ProductPermissionProfilesResponse;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\UpdateUserProductPermissionProfileByEmailService;
-use Example\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\UpdateUserProductPermissionProfileByEmailService;
+use DocuSign\Services\Examples\Admin\RetrieveDocuSignProfileByEmailAddress;
 use DocuSign\Admin\ObjectSerializer;
 
 class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController
@@ -30,7 +30,7 @@ class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController
         try {
             $this->orgId = $this->clientService->getOrgAdminId($this->args);
             
-            if ($_SESSION['email_address'] == null){
+            if ($_SESSION['email_address'] == null) {
                 parent::controller(
                     ['email_address' => $_SESSION['email_address']]
                 );
@@ -77,14 +77,15 @@ class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController
         try {
             $permissionProfilesAPI = $this->clientService->permProfilesApi();
 
-            $productPermissionProfileResponse = UpdateUserProductPermissionProfileByEmailService::updateUserProductPermissionProfile(
-                $permissionProfilesAPI,
-                $this->orgId,
-                $this->args['account_id'],
-                $_SESSION['email_address'],
-                $this->args['product_id'],
-                $this->args['permission_id']
-            );
+            $productPermissionProfileResponse = UpdateUserProductPermissionProfileByEmailService::
+                updateUserProductPermissionProfile(
+                    $permissionProfilesAPI,
+                    $this->orgId,
+                    $this->args['account_id'],
+                    $_SESSION['email_address'],
+                    $this->args['product_id'],
+                    $this->args['permission_id']
+                );
 
             if ($productPermissionProfileResponse) {
                 $this->clientService->showDoneTemplateFromManifest(

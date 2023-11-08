@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\PermissionSetUserGroupService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\PermissionSetUserGroupService;
 
 class EG025PermissionSetUserGroup extends eSignBaseController
 {

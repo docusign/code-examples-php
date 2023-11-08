@@ -1,16 +1,16 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
-use Example\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
-use Example\Services\Examples\eSignature\CreateAnEnvelopeFunctionService;
+use DocuSign\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
+use DocuSign\Services\Examples\eSignature\CreateAnEnvelopeFunctionService;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\SignatureClientService;
 
 final class ApplyBrandToEnvelopeTest extends TestCase
 {
@@ -20,7 +20,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         (new CreateBrandTest($testConfig))->testCreateBrand_CorrectInputValues_ReturnArray();
 
         $requestArguments = [
@@ -74,7 +74,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         ];
         $clientService = new SignatureClientService($requestArguments);
 
-        $expectedEnvelopeDefinition = CreateAnEnvelopeFunctionService::make_envelope(
+        $expectedEnvelopeDefinition = CreateAnEnvelopeFunctionService::makeEnvelope(
             $requestArguments,
             $clientService,
             static::DEMO_DOCS_PATH,
@@ -107,7 +107,7 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         $expectedEnvelopeDefinition->setBrandId($requestArguments['brand_id']);
 
         // Act
-        $envelopeDefinition = ApplyBrandToEnvelopeService::make_envelope(
+        $envelopeDefinition = ApplyBrandToEnvelopeService::makeEnvelope(
             $requestArguments,
             $clientService,
             ApplyBrandToEnvelopeTest::DEMO_DOCS_PATH,

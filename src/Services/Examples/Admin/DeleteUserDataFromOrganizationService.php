@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Api\OrganizationsApi;
 use DocuSign\Admin\Api\UsersApi;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Api\EnvelopesApi\UpdateOptions;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -19,7 +19,7 @@ class UnpauseSignatureWorkflowService
      * @return string
      */
 
-    public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary 
+    public static function unpauseSignatureWorkflow(array $args, $clientService): EnvelopeUpdateSummary
     {
         #ds-snippet-start:eSign33Step3
         $env = new EnvelopeDefinition([

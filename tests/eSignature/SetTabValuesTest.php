@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\CustomFields;
 use DocuSign\eSign\Model\Document;
@@ -14,9 +14,9 @@ use DocuSign\eSign\Model\TextCustomField;
 use DocuSign\eSign\Model\Numerical;
 use DocuSign\eSign\Model\LocalePolicyTab;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\SetTabValuesService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\SetTabValuesService;
+use DocuSign\Services\SignatureClientService;
 
 final class SetTabValuesTest extends TestCase
 {
@@ -30,7 +30,7 @@ final class SetTabValuesTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -167,7 +167,7 @@ final class SetTabValuesTest extends TestCase
         ]);
 
         // Act
-        $envelope = SetTabValuesService::make_envelope(
+        $envelope = SetTabValuesService::makeEnvelope(
             $requestArguments,
             $this::DEMO_DOCS_PATH
         );

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Rooms;
+namespace DocuSign\Services\Examples\Rooms;
 
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\FormGroupFormToAssign;
@@ -24,7 +24,11 @@ class AssignFormToFormGroupService
         try {
             #ds-snippet-start:Rooms9Step6
             $form_api = $clientService->getFromGroupsApi();
-            $formGroupResult = $form_api->assignFormGroupForm($args['form_group_id'], $args["account_id"], $form_group_form_to_assign);
+            $formGroupResult = $form_api->assignFormGroupForm(
+                $args['form_group_id'],
+                $args["account_id"],
+                $form_group_form_to_assign
+            );
             #ds-snippet-end:Rooms9Step6
         } catch (ApiException $e) {
             error_log($e);
@@ -79,7 +83,7 @@ class AssignFormToFormGroupService
     public static function getFormLibraries($routerService, $clientService, $args, $eg): array
     {
         $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->dsTokenOk($minimum_buffer_min)) {
             return $clientService->getFormLibraries($args);
         } else {
             $clientService->needToReAuth($eg);
@@ -99,7 +103,7 @@ class AssignFormToFormGroupService
     public static function getFormLibraryForms(string $libraryID, $routerService, $clientService, $args, $eg): array
     {
         $minimum_buffer_min = 3;
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->dsTokenOk($minimum_buffer_min)) {
             return $clientService->getFormLibraryForms($libraryID, $args['account_id']);
         } else {
             $clientService->needToReAuth($eg);
@@ -121,7 +125,7 @@ class AssignFormToFormGroupService
     {
         $minimum_buffer_min = 3;
         $formGroups = [];
-        if ($routerService->ds_token_ok($minimum_buffer_min)) {
+        if ($routerService->dsTokenOk($minimum_buffer_min)) {
             $formGroups = $clientService->getFormGroups($args['account_id']);
         } else {
             $clientService->needToReAuth($eg);

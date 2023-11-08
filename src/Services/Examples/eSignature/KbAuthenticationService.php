@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
@@ -19,7 +19,7 @@ class KbAuthenticationService
     public static function kbAuthentification(array $args, $clientService, $demoDocsPath): array
     {
         # Create the envelope request object
-        $envelope_definition = KbAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = KbAuthenticationService::makeEnvelope($args["envelope_args"], $demoDocsPath);
 
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -40,7 +40,7 @@ class KbAuthenticationService
      * @return mixed -- returns an envelope definition
      */
     #ds-snippet-start:eSign22Step3
-     public static function make_envelope(array $args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $demoDocsPath): EnvelopeDefinition
     {
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
