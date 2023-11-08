@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Envelope;
@@ -16,7 +16,7 @@ class EnvelopeInfoService
      * @return Envelope
      */
     #ds-snippet-start:eSign4Step2
-     public static function envelopeInfo(array $args, $clientService): Envelope
+    public static function envelopeInfo(array $args, $clientService): Envelope
     {
         # Call API method
         # Exceptions will be caught by the calling function

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -25,7 +25,7 @@ class SendBinaryDocsService
     {
         $envelope_args = $args["envelope_args"];
         # 1. Create the envelope JSON request object
-        $envelope_JSON = SendBinaryDocsService::make_envelope_JSON($envelope_args);
+        $envelope_JSON = SendBinaryDocsService::makeEnvelopeJson($envelope_args);
 
         # 2. Gather documents and their headers
         # Read files 2 and 3 from a local directory
@@ -106,7 +106,7 @@ class SendBinaryDocsService
      * @return array {Envelope} An envelope definition
      */
     #ds-snippet-start:eSign10Step3
-    public static function make_envelope_JSON(array $args): array
+    public static function makeEnvelopeJson(array $args): array
     {
         # create the envelope definition
         $env_json = [];

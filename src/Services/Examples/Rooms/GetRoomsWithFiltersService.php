@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Rooms;
+namespace DocuSign\Services\Examples\Rooms;
 
 use DocuSign\Rooms\Api\RoomsApi\GetRoomsOptions;
 use DocuSign\Rooms\Client\ApiException;
@@ -51,7 +51,7 @@ class GetRoomsWithFiltersService
      */
     public static function getRooms($routerService, $args, $clientService, $eg): array
     {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             return $clientService->getRooms($args);
         } else {
             $clientService->needToReAuth($eg);

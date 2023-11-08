@@ -4,10 +4,10 @@
  * Example 013: Use embedded signing from template with added document
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\AddDocToTemplateService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\AddDocToTemplateService;
 
 class EG013AddDocToTemplate extends eSignBaseController
 {

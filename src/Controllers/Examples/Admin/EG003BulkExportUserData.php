@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\BulkExportUserDataService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\BulkExportUserDataService;
+use DocuSign\Services\ManifestService;
 
 class EG003BulkExportUserData extends AdminApiBaseController
 {
@@ -43,7 +43,8 @@ class EG003BulkExportUserData extends AdminApiBaseController
             );
             $filePath = realpath(
                 $_SERVER["DOCUMENT_ROOT"]
-            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents" . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
+            ) . DIRECTORY_SEPARATOR . "public" . DIRECTORY_SEPARATOR . "demo_documents"
+                . DIRECTORY_SEPARATOR . "ExportedUserData.csv";
             if ($bulkExports) {
                 $this->clientService->showDoneTemplateFromManifest(
                     $this->codeExampleText,

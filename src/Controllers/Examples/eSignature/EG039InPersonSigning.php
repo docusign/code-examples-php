@@ -4,10 +4,10 @@
  * Example 039: In person signing.
 */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\InPersonSigningService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\InPersonSigningService;
 use DocuSign\eSign\Client\ApiException;
 
 class EG039InPersonSigning extends eSignBaseController

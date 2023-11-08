@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Rooms;
+namespace DocuSign\Controllers\Examples\Rooms;
 
-use Example\Controllers\RoomsApiBaseController;
-use Example\Services\Examples\Rooms\GetRoomsWithFiltersService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\RoomsApiBaseController;
+use DocuSign\Services\Examples\Rooms\GetRoomsWithFiltersService;
+use DocuSign\Services\ManifestService;
 
 class EG005GetRoomsWithFilters extends RoomsApiBaseController
 {
@@ -35,7 +35,7 @@ class EG005GetRoomsWithFilters extends RoomsApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $roomSummaryList = GetRoomsWithFiltersService::getRoomsWithFilter($this->args, $this->clientService);
@@ -48,8 +48,8 @@ class EG005GetRoomsWithFilters extends RoomsApiBaseController
                 $this->codeExampleText,
                 json_encode(json_encode($roomSummaryList)),
                 ManifestService::replacePlaceholders(
-                    "{1}", 
-                    $end_date, 
+                    "{1}",
+                    $end_date,
                     ManifestService::replacePlaceholders("{0}", "$start_date", $this->codeExampleText["ExampleName"])
                 )
             );

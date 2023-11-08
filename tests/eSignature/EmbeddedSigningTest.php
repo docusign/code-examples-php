@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -9,9 +9,9 @@ use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
 use DocuSign\eSign\Model\Tabs;
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\EmbeddedSigningService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\EmbeddedSigningService;
+use DocuSign\Services\SignatureClientService;
 
 final class EmbeddedSigningTest extends TestCase
 {
@@ -25,7 +25,7 @@ final class EmbeddedSigningTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
         $documentName = 'World_Wide_Corp_lorem.pdf';
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -120,7 +120,7 @@ final class EmbeddedSigningTest extends TestCase
         );
 
         // Act
-        $envelope = EmbeddedSigningService::make_envelope(
+        $envelope = EmbeddedSigningService::makeEnvelope(
             $requestArguments,
             $this::DEMO_DOCS_PATH,
             $documentName

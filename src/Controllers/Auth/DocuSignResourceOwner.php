@@ -7,7 +7,7 @@
  * Time: 9:42 PM
  */
 
-namespace Example\Controllers\Auth;
+namespace DocuSign\Controllers\Auth;
 
 use Exception;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;

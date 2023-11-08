@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 use DocuSign\Monitor\Client\ApiClient;
 use DocuSign\Monitor\Client\ApiException;
 use DocuSign\Monitor\Configuration;
-use Example\Controllers\BaseController;
+use DocuSign\Controllers\BaseController;
 
 class MonitorApiClientService
 {
@@ -62,23 +62,22 @@ class MonitorApiClientService
                 'error.html',
                 [
                     'error_code' => " ",
-                    'error_message' => "Please enable DocuSign Monitor in your account. See <a target=_BLANK href='https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/'>How to enable DocuSign Monitor for your organization</a> for details."
+                    'error_message' => "Please enable DocuSign Monitor in your account. See <a "
+                        . "target=_BLANK href='https://developers.docusign.com/docs/monitor-api/how-to"
+                        . "/enable-monitor/'>How to enable DocuSign Monitor for your organization</a> for details."
                 ]
             );
-        }
-
-        else {
-
-        $GLOBALS['twig']->display(
-            'error.html',
-            [
+        } else {
+            $GLOBALS['twig']->display(
+                'error.html',
+                [
                 'error_code' => $body->errorCode ?? unserialize($body)->errorCode,
                 'error_message' => $body->message ?? unserialize($body)->message,
                 'common_texts' => ManifestService::getCommonTexts()
-            ]
-        );
+                ]
+            );
+        }
     }
-}
 
      /**
      * Redirect user to results page

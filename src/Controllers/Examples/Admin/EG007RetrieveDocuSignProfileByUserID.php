@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\Admin;
+namespace DocuSign\Controllers\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
-use Example\Controllers\AdminApiBaseController;
-use Example\Services\Examples\Admin\RetrieveDocuSignProfileByUserId;
+use DocuSign\Controllers\AdminApiBaseController;
+use DocuSign\Services\Examples\Admin\RetrieveDocuSignProfileByUserId;
 
 class EG007RetrieveDocuSignProfileByUserID extends AdminApiBaseController
 {
@@ -37,8 +37,8 @@ class EG007RetrieveDocuSignProfileByUserID extends AdminApiBaseController
         try {
             $organizationId = $this->clientService->getOrgAdminId();
             $usersResponse = RetrieveDocuSignProfileByUserId::getDocuSignProfileByUserId(
-                $organizationId, 
-                $this->args["user_id"], 
+                $organizationId,
+                $this->args["user_id"],
                 $this->clientService
             );
 

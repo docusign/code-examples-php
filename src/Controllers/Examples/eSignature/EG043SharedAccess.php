@@ -3,10 +3,10 @@
  * Example 043: Shared access code example
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SharedAccessService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SharedAccessService;
 
 class EG043SharedAccess extends eSignBaseController
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UserProductProfileDeleteRequest;
 use DocuSign\Admin\Model\RemoveUserProductsResponse;
-use Example\Services\AdminApiClientService;
+use DocuSign\Services\AdminApiClientService;
 use DocuSign\Admin\Api\ProductPermissionProfilesApi;
 
 class DeleteUserProductPermissionProfileByIdService

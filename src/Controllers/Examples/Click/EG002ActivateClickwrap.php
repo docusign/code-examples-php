@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\Click;
+namespace DocuSign\Controllers\Examples\Click;
 
-use Example\Controllers\ClickApiBaseController;
-use Example\Services\Examples\Click\ActivateClickwrapService;
+use DocuSign\Controllers\ClickApiBaseController;
+use DocuSign\Services\Examples\Click\ActivateClickwrapService;
 
 class EG002ActivateClickwrap extends ClickApiBaseController
 {
@@ -37,7 +37,6 @@ class EG002ActivateClickwrap extends ClickApiBaseController
             "draft"
         );
         parent::controller(['clickwraps' => array_merge($inactiveClickwraps, $draftClickwraps)]);
-
     }
 
     /**
@@ -47,7 +46,7 @@ class EG002ActivateClickwrap extends ClickApiBaseController
      *
      * @return void
      */
-    function createController(): void
+    protected function createController(): void
     {
         $this->checkDsToken();
         $clickwrapSummaryResponse = ActivateClickwrapService::activateClickwrap($this->args, $this->clientService);
@@ -65,7 +64,7 @@ class EG002ActivateClickwrap extends ClickApiBaseController
     public function getTemplateArgs(): array
     {
         $clickwrap = $this->checkInputValues($_POST['clickwrap']);
-        list($clickwrap_id, $version_number) = explode(",",$clickwrap);
+        list($clickwrap_id, $version_number) = explode(",", $clickwrap);
         return [
             'account_id' => $_SESSION['ds_account_id'],
             'ds_access_token' => $_SESSION['ds_access_token'],

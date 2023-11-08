@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\CreateBrandService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\CreateBrandService;
+use DocuSign\Services\ManifestService;
 
 class EG028CreateBrand extends eSignBaseController
 {
@@ -91,8 +91,8 @@ class EG028CreateBrand extends eSignBaseController
                 null,
                 ManifestService::replacePlaceholders("{0}", $brandId["brand_id"], $this->codeExampleText["ResultsPageText"])
             );
-        } # If the brand name is null the brand name is a duplicate.
-        else {
+        } else {
+            # If the brand name is null the brand name is a duplicate.
             $GLOBALS['twig']->display(
                 'error_eg028.html',
                 [

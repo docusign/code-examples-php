@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\UseConditionalRecipientsService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\UseConditionalRecipientsService;
+use DocuSign\Services\ManifestService;
 
 class EG034UseConditionalRecipients extends eSignBaseController
 {

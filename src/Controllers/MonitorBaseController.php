@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\MonitorApiClientService;
-use Example\Services\RouterService;
-use Example\Services\ApiTypes;
-use Example\Services\ManifestService;
+use DocuSign\Services\MonitorApiClientService;
+use DocuSign\Services\RouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\ManifestService;
 
 abstract class MonitorBaseController extends BaseController
 {
@@ -20,7 +20,7 @@ abstract class MonitorBaseController extends BaseController
         $this->routerService = new RouterService();
     }
 
-    abstract function getTemplateArgs(): array;
+    abstract protected function getTemplateArgs(): array;
 
     /**
      * Monitor base controller
@@ -36,7 +36,7 @@ abstract class MonitorBaseController extends BaseController
             $this->getController($this->routerService, basename(static::FILE), $this->args);
         }
         if ($method == 'POST') {
-            $this->routerService->check_csrf();
+            $this->routerService->checkCsrf();
             $this->createController();
         }
     }
@@ -66,7 +66,7 @@ abstract class MonitorBaseController extends BaseController
         } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-            if ($routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
+            if ($routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
                     'title' => $routerService->getTitle(static::EG),
                     'source_file' => $basename,
@@ -79,7 +79,7 @@ abstract class MonitorBaseController extends BaseController
                 ]);
             } else {
                 # Save the current operation so it will be resumed after authentication
-                $_SESSION['prefered_api_type'] = ApiTypes::Monitor;
+                $_SESSION['prefered_api_type'] = ApiTypes::MONITOR;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
                 header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
@@ -91,7 +91,7 @@ abstract class MonitorBaseController extends BaseController
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
 
-    abstract function createController(): void;
+    abstract protected function createController(): void;
 
     /**
      * Check input values using regular expressions

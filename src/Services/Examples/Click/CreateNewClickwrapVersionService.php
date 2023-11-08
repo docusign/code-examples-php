@@ -1,14 +1,14 @@
 <?php
 
-namespace Example\Services\Examples\Click;
+namespace DocuSign\Services\Examples\Click;
 
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapRequest;
 use DocuSign\Click\Model\ClickwrapVersionSummaryResponse;
 use DocuSign\Click\Model\DisplaySettings;
 use DocuSign\Click\Model\Document;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 class CreateNewClickwrapVersionService
 {
@@ -18,8 +18,11 @@ class CreateNewClickwrapVersionService
      * @param ClickApiClientService $clientService
      * @return ClickwrapVersionSummaryResponse
      */
-    public static function createNewClickwrapVersion(array $args, string $demoDocsPath, ClickApiClientService $clientService): ClickwrapVersionSummaryResponse
-    {
+    public static function createNewClickwrapVersion(
+        array $args,
+        string $demoDocsPath,
+        ClickApiClientService $clientService
+    ): ClickwrapVersionSummaryResponse {
 
         #ds-snippet-start:Click3Step3
         $accountsApi = $clientService->accountsApi();
@@ -81,7 +84,7 @@ class CreateNewClickwrapVersionService
         ClickApiClientService $clientService,
         string $eg
     ): array {
-        if ($routerService->ds_token_ok($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
+        if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
                 $apiClient = $clientService->accountsApi();
                 return $apiClient->getClickwraps($args['account_id'])['clickwraps'];

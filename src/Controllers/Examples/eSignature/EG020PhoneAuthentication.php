@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\PhoneAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\PhoneAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG020PhoneAuthentication extends eSignBaseController
 {
@@ -35,7 +35,7 @@ class EG020PhoneAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
-            $envelopeAuthentification = PhoneAuthenticationService::phone_authentication(
+            $envelopeAuthentification = PhoneAuthenticationService::phoneAuthentication(
                 $this->args,
                 $this::DEMO_DOCS_PATH,
                 $this->clientService,
@@ -50,7 +50,11 @@ class EG020PhoneAuthentication extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeAuthentification["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }

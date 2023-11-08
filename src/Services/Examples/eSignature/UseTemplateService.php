@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
@@ -20,7 +20,7 @@ class UseTemplateService
     {
         #ds-snippet-start:eSign9Step3
         # Create the envelope request object
-        $envelope_definition = UseTemplateService::make_envelope($args["envelope_args"]);
+        $envelope_definition = UseTemplateService::makeEnvelope($args["envelope_args"]);
 
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
@@ -40,22 +40,22 @@ class UseTemplateService
      */
 
     #ds-snippet-start:eSign9Step2
-     public static function make_envelope(array $args): EnvelopeDefinition
+    public static function makeEnvelope(array $args): EnvelopeDefinition
     {
         # create the envelope definition with the template_id
         $envelope_definition = new EnvelopeDefinition([
-           'status' => 'sent', 'template_id' => $args['template_id']
+          'status' => 'sent', 'template_id' => $args['template_id']
         ]);
         # Create the template role elements to connect the signer and cc recipients
         # to the template
         $signer = new TemplateRole([
-            'email' => $args['signer_email'], 'name' => $args['signer_name'],
-            'role_name' => 'signer'
+           'email' => $args['signer_email'], 'name' => $args['signer_name'],
+           'role_name' => 'signer'
         ]);
         # Create a cc template role.
         $cc = new TemplateRole([
-            'email' => $args['cc_email'], 'name' => $args['cc_name'],
-            'role_name' => 'cc'
+           'email' => $args['cc_email'], 'name' => $args['cc_name'],
+           'role_name' => 'cc'
         ]);
 
         # Add the TemplateRole objects to the envelope object

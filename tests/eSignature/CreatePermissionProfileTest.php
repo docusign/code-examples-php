@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Example\Services\ApiTypes;
-use Example\Services\Examples\eSignature\PermissionCreateService;
-use Example\Services\SignatureClientService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\Examples\eSignature\PermissionCreateService;
+use DocuSign\Services\SignatureClientService;
 
 final class CreatePermissionProfileTest extends TestCase
 {
@@ -43,7 +43,7 @@ final class CreatePermissionProfileTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::eSignature, $testConfig);
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),

@@ -1,11 +1,11 @@
 <?php
 
-namespace Example\Controllers;
+namespace DocuSign\Controllers;
 
-use Example\Services\ApiTypes;
-use Example\Services\ManifestService;
-use Example\Services\ClickApiClientService;
-use Example\Services\RouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\ClickApiClientService;
+use DocuSign\Services\RouterService;
 
 abstract class ClickApiBaseController extends BaseController
 {
@@ -24,7 +24,7 @@ abstract class ClickApiBaseController extends BaseController
         }
     }
 
-    abstract function getTemplateArgs(): array;
+    abstract protected function getTemplateArgs(): array;
 
     /**
      * Base controller
@@ -41,7 +41,7 @@ abstract class ClickApiBaseController extends BaseController
             $this->getController($this->routerService, basename(static::FILE), $args);
         }
         if ($method == 'POST') {
-            $this->routerService->check_csrf();
+            $this->routerService->checkCsrf();
             $this->createController();
         }
     }
@@ -71,7 +71,7 @@ abstract class ClickApiBaseController extends BaseController
         } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-            if ($routerService->ds_token_ok() && $currentAPI === $_SESSION['api_type']) {
+            if ($routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
                     'title' => $routerService->getTitle(static::EG),
                     'source_file' => $basename,
@@ -84,7 +84,7 @@ abstract class ClickApiBaseController extends BaseController
                 ]);
             } else {
                 # Save the current operation so it will be resumed after authentication
-                $_SESSION['prefered_api_type'] = ApiTypes::Click;
+                $_SESSION['prefered_api_type'] = ApiTypes::CLICK;
                 $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
                 header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
                 exit;
@@ -95,7 +95,7 @@ abstract class ClickApiBaseController extends BaseController
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-    abstract function createController(): void;
+    abstract protected function createController(): void;
 
     /**
      * @return array
@@ -116,8 +116,8 @@ abstract class ClickApiBaseController extends BaseController
     {
         $currentAPI = ManifestService::getAPIByLink(static::EG);
 
-        if (!$this->routerService->ds_token_ok(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
-            $_SESSION['prefered_api_type'] = ApiTypes::Click;
+        if (!$this->routerService->dsTokenOk(self::MINIMUM_BUFFER_MIN) || $currentAPI !== $_SESSION['api_type']) {
+            $_SESSION['prefered_api_type'] = ApiTypes::CLICK;
             $this->clientService->needToReAuth(static::EG);
         }
     }

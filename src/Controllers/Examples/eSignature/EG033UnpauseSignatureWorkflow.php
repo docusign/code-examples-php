@@ -1,9 +1,9 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\UnpauseSignatureWorkflowService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\UnpauseSignatureWorkflowService;
 
 class EG033UnpauseSignatureWorkflow extends eSignBaseController
 {

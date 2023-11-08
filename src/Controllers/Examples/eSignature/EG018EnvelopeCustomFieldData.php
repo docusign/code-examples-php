@@ -4,10 +4,10 @@
  * Example 018: Get an envelope's custom field data
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\EnvelopeCustomFieldDataService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\EnvelopeCustomFieldDataService;
 
 class EG018EnvelopeCustomFieldData extends eSignBaseController
 {

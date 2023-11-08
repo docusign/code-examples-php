@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -29,7 +29,7 @@ class PauseSignatureWorkflowService
         #ds-snippet-start:eSign32Step3
         $envelope_args = $args['envelope_args'];
         $envelope_api = $clientService->getEnvelopeApi();
-        $envelope_definition = PauseSignatureWorkflowService::make_envelope($envelope_args, $demoDocsPath);
+        $envelope_definition = PauseSignatureWorkflowService::makeEnvelope($envelope_args, $demoDocsPath);
         #ds-snippet-end:eSign32Step3
 
         #ds-snippet-start:eSign32Step4
@@ -48,7 +48,7 @@ class PauseSignatureWorkflowService
      * @return EnvelopeDefinition -- returns an envelope definition
      */
     #ds-snippet-start:eSign32Step3
-    public static function make_envelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
+    public static function makeEnvelope(array $envelope_args, $demoDocsPath): EnvelopeDefinition
     {
         # The envelope has two recipients
         # Recipient 1 - signer1

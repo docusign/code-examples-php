@@ -3,11 +3,11 @@
  * Example 043: Shared access.
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\SharedAccessService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\SharedAccessService;
 
 class EG043AuthRequest extends eSignBaseController
 {
@@ -39,7 +39,8 @@ class EG043AuthRequest extends eSignBaseController
                 $accessToken,
                 $accountId,
                 $userId,
-                $agentUserId);
+                $agentUserId
+            );
 
             $_SESSION['principal_user_id'] = strval($userId);
             $_SESSION['userflow_example_43'] = true;
@@ -70,7 +71,9 @@ class EG043AuthRequest extends eSignBaseController
      * @return void
      * @throws \DocuSign\eSign\Client\ApiException
      */
-    public function createController(): void { }
+    public function createController(): void
+    {
+    }
 
     /**
      * Get specific template arguments

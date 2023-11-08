@@ -4,11 +4,11 @@
  * Example 036: Delayed Routing.
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\DelayedRoutingService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\DelayedRoutingService;
+use DocuSign\Services\ManifestService;
 
 class EG036DelayedRouting extends eSignBaseController
 {
@@ -39,12 +39,13 @@ class EG036DelayedRouting extends eSignBaseController
         # 2. Call the worker method
         # More data validation would be a good idea here
         # Strip anything other than characters listed
-        $envelopeId = DelayedRoutingService::SendEnvelopeWithDelayedRouting(
+        $envelopeId = DelayedRoutingService::sendEnvelopeWithDelayedRouting(
             $this->args,
             $this->clientService,
             $this::DEMO_DOCS_PATH,
             $GLOBALS['DS_CONFIG']['doc_docx'],
-            $GLOBALS['DS_CONFIG']['doc_pdf']);
+            $GLOBALS['DS_CONFIG']['doc_pdf']
+        );
 
         if ($envelopeId) {
             $_SESSION["envelope_id"] = $envelopeId["envelope_id"]; # Save for use by other examples

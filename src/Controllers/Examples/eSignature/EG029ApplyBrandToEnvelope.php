@@ -1,10 +1,10 @@
 <?php
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\ApplyBrandToEnvelopeService;
+use DocuSign\Services\ManifestService;
 
 class EG029ApplyBrandToEnvelope extends eSignBaseController
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -20,12 +20,12 @@ class PhoneAuthenticationService
      * @param $clientService
      * @return array ['envelope_id']
      */
-    public static function phone_authentication(array $args, $demoDocsPath, $clientService, string $fixingInstructions): array
+    public static function phoneAuthentication(array $args, $demoDocsPath, $clientService, string $fixingInstructions): array
     {
         # Create the envelope request object
-        $envelope_definition = PhoneAuthenticationService::make_envelope(
-            $args["envelope_args"], 
-            $clientService, 
+        $envelope_definition = PhoneAuthenticationService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
             $demoDocsPath,
             $fixingInstructions
         );
@@ -48,9 +48,12 @@ class PhoneAuthenticationService
      * @param  $args array
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, string $fixingInstructions): EnvelopeDefinition
-    {
-
+    public static function makeEnvelope(
+        array $args,
+        $clientService,
+        $demoDocsPath,
+        string $fixingInstructions
+    ): EnvelopeDefinition {
         # Retrieve the workflow ID
         #ds-snippet-start:eSign20Step3
         $accounts_api = $clientService->getAccountsApi();
@@ -58,12 +61,14 @@ class PhoneAuthenticationService
         $workflows_data = $accounts_response->getIdentityVerification();
         $workflow_id = '';
         foreach ($workflows_data as $workflow) {
-            if ($workflow['default_name'] == 'Phone Authentication')
-                $workflow_id = $workflow['workflow_id'];  
+            if ($workflow['default_name'] == 'Phone Authentication') {
+                $workflow_id = $workflow['workflow_id'];
+            }
         }
         #ds-snippet-end:eSign20Step3
-        if ($workflow_id == '') 
-          throw new ApiException($fixingInstructions);
+        if ($workflow_id == '') {
+            throw new ApiException($fixingInstructions);
+        }
         
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope($demoDocsPath);
         #ds-snippet-start:eSign20Step4

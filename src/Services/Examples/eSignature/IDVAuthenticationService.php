@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\eSignature;
+namespace DocuSign\Services\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -22,10 +22,10 @@ class IDVAuthenticationService
     public static function idvAuthentication(array $args, $clientService, $demoDocsPath, string $fixingInstructions): array
     {
         # 1. Create the envelope request object
-        $envelope_definition = IDVAuthenticationService::make_envelope(
-            $args["envelope_args"], 
-            $clientService, 
-            $demoDocsPath, 
+        $envelope_definition = IDVAuthenticationService::makeEnvelope(
+            $args["envelope_args"],
+            $clientService,
+            $demoDocsPath,
             $fixingInstructions
         );
 
@@ -33,7 +33,7 @@ class IDVAuthenticationService
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope(
-            $args['account_id'], 
+            $args['account_id'],
             $envelope_definition
         );
 
@@ -49,7 +49,7 @@ class IDVAuthenticationService
      * @param $clientService
      * @return mixed -- returns an envelope definition
      */
-    public static function make_envelope(array $args, $clientService, $demoDocsPath, string $fixingInstruction): EnvelopeDefinition
+    public static function makeEnvelope(array $args, $clientService, $demoDocsPath, string $fixingInstruction): EnvelopeDefinition
     {
         # Retrieve the workflow ID
         # Step 3 start
@@ -58,13 +58,15 @@ class IDVAuthenticationService
         $workflows_data = $accounts_response->getIdentityVerification();
         $workflow_id = '';
         foreach ($workflows_data as $workflow) {
-            if ($workflow['default_name'] == 'DocuSign ID Verification') 
+            if ($workflow['default_name'] == 'DocuSign ID Verification') {
                 $workflow_id = $workflow['workflow_id'];
+            }
         }
         # Step 3 end
 
-        if ($workflow_id == '') 
+        if ($workflow_id == '') {
             throw new ApiException($fixingInstruction);
+        }
 
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope(
             $demoDocsPath
@@ -73,7 +75,7 @@ class IDVAuthenticationService
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
-        $signer1 = new Signer( 
+        $signer1 = new Signer(
             [
                 'name' => $args['signer_name'],
                 'email' => $args['signer_email'],
@@ -97,5 +99,4 @@ class IDVAuthenticationService
 
         return $envelope_definition;
     }
-
 }

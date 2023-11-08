@@ -2,10 +2,10 @@
 
 namespace QuickACG;
 
-use Example\Services\ApiTypes;
-use Example\Services\CodeGrantService;
-use Example\Services\ManifestService;
-use Example\Services\IRouterService;
+use DocuSign\Services\ApiTypes;
+use DocuSign\Services\CodeGrantService;
+use DocuSign\Services\ManifestService;
+use DocuSign\Services\IRouterService;
 
 class RouterService implements IRouterService
 {
@@ -66,26 +66,26 @@ class RouterService implements IRouterService
 
         switch ($page) {
             case 'select_api':
-                $this->ds_login();
+                $this->dsLogin();
                 break;
             case 'ds_callback':
-                $this->ds_callback(); // See below in oauth section
+                $this->dsCallback(); // See below in oauth section
                 break;
             case 'must_authenticate':
-                $this->ds_login();
+                $this->dsLogin();
                 break;
             case 'ds_return':
                 header('Location: ' . '/public', true);
                 break;
             case 'eg001':
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
-                $controller = '\Example\\' . $this->getController($page);
+                $controller = '\DocuSign\\' . $this->getController($page);
                 new $controller($page);
                 break;
             default:
                 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
                 $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
-                $controller = '\Example\\' . $this->getController($page);
+                $controller = '\DocuSign\\' . $this->getController($page);
                 new $controller($page);
                 break;
         }
@@ -95,7 +95,7 @@ class RouterService implements IRouterService
      * @param int $buffer_min buffer time needed in minutes
      * @return boolean $ok true iff the user has an access token that will be good for another buffer min
      */
-    function ds_token_ok(int $buffer_min = 10): bool
+    function dsTokenOk(int $buffer_min = 10): bool
     {
         $areTokenAndExprirationSet = isset($_SESSION['ds_access_token']) && isset($_SESSION['ds_expiration']);
 
@@ -116,7 +116,7 @@ class RouterService implements IRouterService
     /**
      * Unset all items from the session
      */
-    function ds_logout_internal(): void
+    function dsLogoutInternal(): void
     {
         foreach (self::SESSION_VALUES as &$sessionValue) {
             if (isset($_SESSION[$sessionValue])) {
@@ -128,16 +128,16 @@ class RouterService implements IRouterService
     /**
      * DocuSign login handler
      */
-    function ds_login(): void
+    function dsLogin(): void
     {
-        $_SESSION['api_type'] = ApiTypes::eSignature;
+        $_SESSION['api_type'] = ApiTypes::ESIGNATURE;
         $this->authService->login();
     }
 
     /**
      * Called via a redirect from DocuSign authentication service
      */
-    function ds_callback(): void
+    function dsCallback(): void
     {
         # Save the redirect eg if present
         $redirectUrl = false;
@@ -149,7 +149,7 @@ class RouterService implements IRouterService
         # reset the session
         $tempAPIType = $_SESSION['api_type'];
         $tempGrant = $_SESSION['auth_service'];
-        $this->ds_logout_internal();
+        $this->dsLogoutInternal();
 
         // Workaround for ACG apiTypePicker
         $_SESSION['api_type'] = $tempAPIType;
@@ -169,7 +169,7 @@ class RouterService implements IRouterService
     /**
      * Checker for the CSRF token
      */
-    function check_csrf(): void
+    function checkCsrf(): void
     {
         $this->authService->checkToken();
     }

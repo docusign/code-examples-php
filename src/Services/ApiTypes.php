@@ -1,12 +1,12 @@
 <?php
 
-namespace Example\Services;
+namespace DocuSign\Services;
 
 abstract class ApiTypes
 {
-    const Admin = 'Admin';
-    const Click = 'Click';
-    const Monitor = 'Monitor';
-    const Rooms = 'Rooms';
-    const eSignature = 'eSignature';
+    const ADMIN = 'Admin';
+    const CLICK = 'Click';
+    const MONITOR = 'Monitor';
+    const ROOMS = 'Rooms';
+    const ESIGNATURE = 'eSignature';
 }

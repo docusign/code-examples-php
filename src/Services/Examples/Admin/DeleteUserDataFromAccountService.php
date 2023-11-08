@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Services\Examples\Admin;
+namespace DocuSign\Services\Examples\Admin;
 
 use DocuSign\Admin\Api\AccountsApi;
 use DocuSign\Admin\Client\ApiException;

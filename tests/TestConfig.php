@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Tests;
+namespace DocuSign\Tests;
 
 $configFile = __DIR__ . '/../ds_config.php';
 

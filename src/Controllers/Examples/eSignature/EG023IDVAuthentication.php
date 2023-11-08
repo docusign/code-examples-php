@@ -4,12 +4,12 @@
  * Example 023: ID Verification-based Recipient Authentication
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\eSign\Client\ApiException;
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\IDVAuthenticationService;
-use Example\Services\ManifestService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\IDVAuthenticationService;
+use DocuSign\Services\ManifestService;
 
 class EG023IDVAuthentication extends eSignBaseController
 {
@@ -54,7 +54,11 @@ class EG023IDVAuthentication extends eSignBaseController
             $this->clientService->showDoneTemplateFromManifest(
                 $this->codeExampleText,
                 null,
-                ManifestService::replacePlaceholders("{0}", $envelopeAuthentification["envelope_id"], $this->codeExampleText["ResultsPageText"])
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $envelopeAuthentification["envelope_id"],
+                    $this->codeExampleText["ResultsPageText"]
+                )
             );
         }
     }
