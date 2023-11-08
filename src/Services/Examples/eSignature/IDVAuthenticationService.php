@@ -21,7 +21,7 @@ class IDVAuthenticationService
    
     public static function idvAuthentication(array $args, $clientService, $demoDocsPath, string $fixingInstructions): array
     {
-        # 1. Create the envelope request object
+        # Create the envelope request object
         $envelope_definition = IDVAuthenticationService::makeEnvelope(
             $args["envelope_args"],
             $clientService,
@@ -29,8 +29,9 @@ class IDVAuthenticationService
             $fixingInstructions
         );
 
-        # 2. call Envelopes::create API method
+        # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
+        #ds-snippet-start:eSign23Step5
         $envelope_api = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelope_api->createEnvelope(
             $args['account_id'],
@@ -38,6 +39,7 @@ class IDVAuthenticationService
         );
 
         return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        #ds-snippet-end:eSign23Step5
     }
 
     /**
@@ -52,7 +54,7 @@ class IDVAuthenticationService
     public static function makeEnvelope(array $args, $clientService, $demoDocsPath, string $fixingInstruction): EnvelopeDefinition
     {
         # Retrieve the workflow ID
-        # Step 3 start
+        #ds-snippet-start:eSign23Step3
         $accounts_api = $clientService->getAccountsApi();
         $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
         $workflows_data = $accounts_response->getIdentityVerification();
@@ -62,7 +64,7 @@ class IDVAuthenticationService
                 $workflow_id = $workflow['workflow_id'];
             }
         }
-        # Step 3 end
+        #ds-snippet-end:eSign23Step3
 
         if ($workflow_id == '') {
             throw new ApiException($fixingInstruction);
@@ -71,7 +73,7 @@ class IDVAuthenticationService
         $envelopeAndSigner = RecipientAuthenticationService::constructAnEnvelope(
             $demoDocsPath
         );
-        # Step 4 start
+        #ds-snippet-start:eSign23Step4
         $envelope_definition = $envelopeAndSigner['envelopeDefinition'];
         $signer1Tabs = $envelopeAndSigner['signerTabs'];
 
@@ -95,7 +97,7 @@ class IDVAuthenticationService
         $recipients = new Recipients();
         $recipients->setSigners(array($signer1));
         $envelope_definition->setRecipients($recipients);
-        # Step 4 end
+        #ds-snippet-end:eSign23Step4
 
         return $envelope_definition;
     }
