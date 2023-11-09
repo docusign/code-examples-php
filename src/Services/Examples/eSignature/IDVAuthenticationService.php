@@ -38,7 +38,7 @@ class IDVAuthenticationService
             $envelope_definition
         );
 
-        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        return ['envelope_id' => $envelopeResponse->getEnvelopeId()]
         #ds-snippet-end:eSign23Step5
     }
 
