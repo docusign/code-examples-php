@@ -1,0 +1,94 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+resources:
+  repositories:
+  - repository: IntegrationTests
+    type: git
+    name: launcher-automation/IntegrationTests
+    ref: azure-pipelines
+    trigger:
+      branches:
+        include:
+          - azure-pipelines
+
+pr:
+- master
+- releases/*
+
+pool:
+  name: launcher-automation-pool
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+- checkout: self
+- checkout: IntegrationTests
+
+- script: dir $(Build.SourcesDirectory)
+
+- script: |
+    allure –-version
+    java --version
+    javac --version
+    mvn --version
+    docker --version
+
+- task: DownloadSecureFile@1
+  name: tests_config_properties
+  displayName: 'download config.properties'
+  inputs:
+    secureFile: 'java-php.config.properties'
+
+
+- script: |
+    echo "place config.properties"
+    echo $(tests_config_properties.secureFilePath)
+    cp $(tests_config_properties.secureFilePath) IntegrationTests/src/main/resources/config.properties
+  displayName: 'place config.properties'
+
+- task: DownloadSecureFile@1
+  name: php_ds_config
+  displayName: 'download ds_config.php'
+  inputs:
+    secureFile: 'php.ds_config.php'
+
+
+- script: |
+    echo "place ds_config.php"
+    cp $(php_ds_config.secureFilePath) code-examples-php-private/ds_config.php
+  displayName: 'place ds_config.php'
+
+
+- task: DownloadSecureFile@1
+  name: php_private_key
+  displayName: 'download private.key'
+  inputs:
+    secureFile: 'private.key'
+
+
+- script: |
+    echo "place private.key"
+    cp $(php_private_key.secureFilePath) code-examples-php-private/private.key
+  displayName: 'place private.key'
+
+- script: dir $(Build.SourcesDirectory)
+
+- script: dir $(Build.SourcesDirectory)/code-examples-php-private
+
+
+- script: |
+    cd code-examples-php-private
+    docker compose up -d
+  displayName: 'start php app'
+
+- script: |
+    cd IntegrationTests
+    mvn clean test -DsuiteXmlFile="php_suite.xml"
+  displayName: 'Node app tests'
+
+- script: |
+    docker stop $(docker ps -a -q)
+    docker rm $(docker ps -a -q)
+  displayName: 'stop node app'
