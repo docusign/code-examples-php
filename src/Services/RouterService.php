@@ -88,6 +88,7 @@ class RouterService implements IRouterService
         'aeg010' => 'Admin\EG010DeleteUserDataFromOrganization',
         'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
         'aeg012' => 'Admin\EG012CloneAccount',
+        'con001' => 'Connect\Eg001ValidateUsingHmac',
     ];
     /**
      * The list of templates with examples
@@ -168,7 +169,7 @@ class RouterService implements IRouterService
         'aeg009' => 'admin/eg009_delete_user_product_permission_profile.html',
         'aeg010' => 'admin/eg010_delete_user_data_from_organization.html',
         'aeg011' => 'admin/eg011_delete_user_data_from_account.html',
-
+        'con001' => 'connect/eg001_validate_using_hmac.html',
     ];
     
     /**
@@ -229,8 +230,6 @@ class RouterService implements IRouterService
                 } else {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
                 }
-            } elseif ($this->dsTokenOk() == false) {
-                header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=' . BaseController::LOGIN_REDIRECT);
             } elseif (isset($_SESSION['userflow_example_43'])) {
                 unset($_SESSION['userflow_example_43']);
                 $page = 'eg043/EnvelopesListStatus';
@@ -254,7 +253,7 @@ class RouterService implements IRouterService
                 $_SESSION['prefered_api_type'] = ApiTypes::ESIGNATURE;
             }
 
-            if ($_SESSION['prefered_api_type'] == 'Monitor') {
+            if ($_SESSION['prefered_api_type'] == 'Monitor' || $_SESSION['prefered_api_type'] == 'Connect') {
                 //Monitor only works via JWT Grant Authentication
                 //Let's just shortcut to login immediately
                 $this->authService = new JWTService();

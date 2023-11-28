@@ -36,11 +36,10 @@ abstract class ClickApiBaseController extends BaseController
     {
         $this->codeExampleText = $this->getPageText(static::EG);
         
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {
+        if ($this->isMethodGet()) {
             $this->getController($this->routerService, basename(static::FILE), $args);
         }
-        if ($method == 'POST') {
+        if ($this->isMethodPost()) {
             $this->routerService->checkCsrf();
             $this->createController();
         }

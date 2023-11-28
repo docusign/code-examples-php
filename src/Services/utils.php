@@ -14,6 +14,10 @@ class Utils
      */
     public function isCFR($access_token, $account_id, $base_path)
     {
+        if ($account_id === null) {
+            return null;
+        }
+
         try {
             $config = new Configuration();
             $config->setHost($base_path);

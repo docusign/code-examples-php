@@ -83,8 +83,8 @@ abstract class ESignBaseController extends BaseController
             $eg = static::EG;
             $this->codeExampleText = $this->getPageText(static::EG);
         }
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'GET') {
+
+        if ($this->isMethodGet()) {
             $this->getController(
                 $eg,
                 basename(static::FILE),
@@ -94,7 +94,7 @@ abstract class ESignBaseController extends BaseController
                 $groups
             );
         }
-        if ($method == 'POST') {
+        if ($this->isMethodPost()) {
             $this->routerService->checkCsrf();
             $this->createController();
         }

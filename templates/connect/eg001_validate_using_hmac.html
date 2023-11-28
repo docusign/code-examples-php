@@ -1,0 +1,74 @@
+{% extends "base.html" %}  {% block content %}
+
+{% set formNumber = 0 %}
+{% set hmacInputNumber = 0 %}
+{% set jsonInputNumber = 1 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length != 0 %}
+        {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+            <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+        {% else %}
+            <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+        {% endif %}
+    
+        {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+            <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+            {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+            </a>
+    
+            {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+                <span>and</span>
+            {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+                <span>,</span>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+  </p>
+  
+<p>
+   {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+<p>
+    <b>Prerequisites:</b> See <a href="https://developers.docusign.com/platform/webhooks/connect/validate/">How to validate a webhook message using HMAC</a>.
+</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group" style="display: flex;">
+        <label for="HmacSecret" style="width: 50%;">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][hmacInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="HmacSecret"
+               name="HmacSecret"
+               required/>
+    </div>
+    <div class="form-group">
+        <label for="JsonPayload">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][jsonInputNumber]['InputName'] | raw }}
+        </label>
+
+        <textarea
+            rows="6"
+            class="form-control"
+            id="JsonPayload"
+            name="JsonPayload"
+            required ></textarea>
+    </div>
+    
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+
+{% endblock %}
+

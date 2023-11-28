@@ -9,4 +9,5 @@ abstract class ApiTypes
     const MONITOR = 'Monitor';
     const ROOMS = 'Rooms';
     const ESIGNATURE = 'eSignature';
+    const CONNECT = 'Connect';
 }

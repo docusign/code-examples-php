@@ -33,8 +33,6 @@ abstract class AdminApiBaseController extends BaseController
         $args = null,
         $permission_profiles = null
     ): void {
-        $method = $_SERVER['REQUEST_METHOD'];
-
         $this->codeExampleText = $this->getPageText(static::EG);
         
         if (!$this->routerService) {
@@ -46,10 +44,10 @@ abstract class AdminApiBaseController extends BaseController
             $this->createController();
         };
         
-        if ($method == 'GET') {
+        if ($this->isMethodGet()) {
             $this->getController($args, $permission_profiles);
         };
-        if ($method == 'POST') {
+        if ($this->isMethodPost()) {
             $this->routerService->checkCsrf();
             $this->createController();
         };

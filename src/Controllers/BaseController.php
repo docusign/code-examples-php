@@ -61,4 +61,24 @@ abstract class BaseController
         }
         return "Home--PHP $title Code Examples";
     }
+
+    protected function isMethodGet(): bool
+    {
+        return $this->isRequestMethod('GET');
+    }
+
+    protected function isMethodPost(): bool
+    {
+        return $this->isRequestMethod('POST');
+    }
+
+    protected function isRequestMethod(string $method): bool
+    {
+        return strtoupper($this->getRequestMethod()) === strtoupper($method);
+    }
+
+    protected function getRequestMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
 }

@@ -43,12 +43,11 @@ abstract class RoomsApiBaseController extends BaseController
         $offices = null,
         $formGroups = null
     ): void {
-        $method = $_SERVER['REQUEST_METHOD'];
         $this->codeExampleText = $this->getPageText(static::EG);
-        if ($method == 'GET') {
+        if ($this->isMethodGet()) {
             $this->getController(basename(static::FILE), $templates, $rooms, $forms, $offices, $formGroups);
         }
-        if ($method == 'POST') {
+        if ($this->isMethodPost()) {
             $this->routerService->checkCsrf();
             $this->createController();
         }

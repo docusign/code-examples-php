@@ -2,22 +2,23 @@
 
 namespace DocuSign\Controllers;
 
-use DocuSign\Services\MonitorApiClientService;
 use DocuSign\Services\RouterService;
 use DocuSign\Services\ApiTypes;
 use DocuSign\Services\ManifestService;
+use DocuSign\Services\ConnectApiClientService;
 
-abstract class MonitorBaseController extends BaseController
+abstract class ConnectBaseController extends BaseController
 {
-    protected MonitorApiClientService $clientService;
     protected RouterService $routerService;
+    protected ConnectApiClientService $clientService;
     protected array $args;
+    private const MINIMUM_BUFFER_MIN = 3;
 
     public function __construct()
     {
         $this->args = $this->getTemplateArgs();
-        $this->clientService = new MonitorApiClientService($this->args);
         $this->routerService = new RouterService();
+        $this->clientService = new ConnectApiClientService($this->args);
     }
 
     abstract protected function getTemplateArgs(): array;
@@ -32,10 +33,10 @@ abstract class MonitorBaseController extends BaseController
         $this->codeExampleText = $this->getPageText(static::EG);
 
         if ($this->isMethodGet()) {
+            $_SESSION['prefered_api_type'] = ApiTypes::CONNECT;
             $this->getController($this->routerService, basename(static::FILE), $this->args);
         }
         if ($this->isMethodPost()) {
-            $this->routerService->checkCsrf();
             $this->createController();
         }
     }
@@ -50,8 +51,8 @@ abstract class MonitorBaseController extends BaseController
      */
     private function getController(
         RouterService $routerService,
-        ?string $basename,
-        ?array $args
+        string $basename,
+        array $args
     ): void {
         if ($this->isHomePage(static::EG)) {
             $GLOBALS['twig']->display(
@@ -63,44 +64,23 @@ abstract class MonitorBaseController extends BaseController
                 ]
             );
         } else {
-            $currentAPI = ManifestService::getAPIByLink(static::EG);
-
-            if ($routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
-                $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
-                    'title' => $routerService->getTitle(static::EG),
-                    'source_file' => $basename,
-                    'source_url' => $GLOBALS['DS_CONFIG']['github_example_url']  . "/Monitor/".  $basename,
-                    'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
-                    'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
-                    'args' => $args,
-                    'code_example_text' => $this->codeExampleText,
-                    'common_texts' => $this->getCommonText()
-                ]);
-            } else {
-                # Save the current operation so it will be resumed after authentication
-                $_SESSION['prefered_api_type'] = ApiTypes::MONITOR;
-                $_SESSION['eg'] = $GLOBALS['app_url'] . 'index.php?page=' . static::EG;
-                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . static::LOGIN_REDIRECT);
-                exit;
-            }
+            $GLOBALS['twig']->display($routerService->getTemplate(static::EG), [
+                'title' => $routerService->getTitle(static::EG),
+                'source_file' => $basename,
+                'source_url' => $GLOBALS['DS_CONFIG']['github_example_url']  . '/Connect/'.  $basename,
+                'documentation' => $GLOBALS['DS_CONFIG']['documentation'] . static::EG,
+                'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
+                'args' => $args,
+                'code_example_text' => $this->codeExampleText,
+                'common_texts' => $this->getCommonText()
+            ]);
         }
     }
     
     /**
      * Declaration for the base controller creator. Each creator should be described in specific Controller
      */
-
     abstract protected function createController(): void;
-
-    /**
-     * Check input values using regular expressions
-     * @param $value
-     * @return string
-     */
-    protected function checkInputValues($value): string
-    {
-        return preg_replace('/([^\w \-\@\.\,])+/', '', $value);
-    }
 
     /**
      * Provides the default template arguments

@@ -18,6 +18,7 @@
     </tbody>
     </table>
   </div> 
+  <br/>
 {% endif %}
 
 <!--  Future: add a table of contents or navigation pane
@@ -49,8 +50,10 @@
         {% set linkToCodeExample = "meg" %}
       {% elseif api["Name"] == "Rooms" %}
         {% set linkToCodeExample = "reg" %}
-        {% elseif api["Name"] == "Admin" %}
+      {% elseif api["Name"] == "Admin" %}
         {% set linkToCodeExample = "aeg" %}
+      {% elseif api["Name"] == "Connect" %}
+        {% set linkToCodeExample = "con" %}
       {% endif %}
 
       {% for groups in api["Groups"] %}
@@ -70,23 +73,25 @@
             </p>
 
             <p>
-              {% if example["LinksToAPIMethod"] | length == 1 %}
-                <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
-              {% else %}
-                <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
-              {% endif %}
-
-              {% for i in 0..(example["LinksToAPIMethod"] | length - 1) %}
-                <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
-                  {{ example['LinksToAPIMethod'][i]['PathName'] | raw}}
-                </a>
-
-                {% if  i + 1 == example["LinksToAPIMethod"] | length - 1 %}
-                  <span>and</span>
-                {% elseif i + 1 != example["LinksToAPIMethod"] | length %}
-                  <span>,</span>
+              {% if example["LinksToAPIMethod"] | length != 0 %}
+                {% if example["LinksToAPIMethod"] | length == 1 %}
+                  <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+                {% else %}
+                  <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
                 {% endif %}
-              {% endfor %}
+
+                {% for i in 0..(example["LinksToAPIMethod"] | length - 1) %}
+                  <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+                    {{ example['LinksToAPIMethod'][i]['PathName'] | raw}}
+                  </a>
+
+                  {% if  i + 1 == example["LinksToAPIMethod"] | length - 1 %}
+                    <span>and</span>
+                  {% elseif i + 1 != example["LinksToAPIMethod"] | length %}
+                    <span>,</span>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             </p>
           {% endif %}
           {% endif %}

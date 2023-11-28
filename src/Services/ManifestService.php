@@ -79,6 +79,9 @@ class ManifestService
             case "reg":
                 $currentAPI = ApiTypes::ROOMS;
                 break;
+            case "con":
+                $currentAPI = ApiTypes::CONNECT;
+                break;
             default:
                 $currentAPI = ApiTypes::ESIGNATURE;
                 break;
