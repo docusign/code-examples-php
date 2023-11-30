@@ -8,6 +8,7 @@ abstract class ConnectWebhookHMACValidation
      * Useful reference: https://www.php.net/manual/en/function.hash-hmac.php
      * NOTE: Currently DocuSign only supports SHA256.
      */
+    #ds-snippet-start:Connect1Step1
     private static function computeHash($secret, $payload)
     {
         $hexHash = hash_hmac('sha256', $payload, utf8_encode($secret));
@@ -18,4 +19,5 @@ abstract class ConnectWebhookHMACValidation
     {
         return hash_equals($verify, self::computeHash($secret, $payload));
     }
+    #ds-snippet-end:Connect1Step1
 }
