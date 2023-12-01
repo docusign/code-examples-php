@@ -185,8 +185,8 @@ Apache will run.
 **Note:** To kill all containers, run: `docker rm -f $(docker ps -a -q)`
 
 
-## JWT grant remote signing project
-See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing project.
+## JWT grant remote signing and Authorization Code Grant embedded signing projects
+See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing and the Authorization Code Grant embedded signing project.
 
 
 ## Payments code example  
