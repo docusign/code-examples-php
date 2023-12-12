@@ -188,7 +188,7 @@ class RouterService implements IRouterService
             // first time loading server and session is null causes problems for manifestService
             $_SESSION['api_type'] = 'eSign';
         }
-        if (!isset($_SESSION['API_TEXT'])) {
+        if (!isset($_SESSION['API_TEXT']) && isset($GLOBALS['DS_CONFIG'])) {
             // load manifest data
             $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
         }
