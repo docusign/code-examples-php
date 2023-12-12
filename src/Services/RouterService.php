@@ -188,6 +188,10 @@ class RouterService implements IRouterService
             // first time loading server and session is null causes problems for manifestService
             $_SESSION['api_type'] = 'eSign';
         }
+        if (!isset($_SESSION['API_TEXT'])) {
+            // load manifest data
+            $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
+        }
         
         // To ignore the Notice instead of Isset on missing POST vars
         error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING & ~E_DEPRECATED);
@@ -200,7 +204,6 @@ class RouterService implements IRouterService
 
         if (isset($_POST['api_type'])) {
             $_SESSION['api_type'] = $_POST['api_type'];
-            $_SESSION['API_TEXT'] = ManifestService::loadManifestData($GLOBALS['DS_CONFIG']['CodeExamplesManifest']);
         }
 
         if ($_SESSION['auth_service'] == 'code_grant') {
