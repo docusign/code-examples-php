@@ -149,7 +149,7 @@ let DS_SEARCH = (function () {
                                         $("#filtered_code_examples").append(
                                             "<h4 id="
                                             + "example".concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber) + ">"
-                                            + "<a href = 'index.php?page="
+                                            + "<a href = '" + getExampleUrlBase()
                                             + linkToCodeExample.concat("0".repeat(3 - example.ExampleNumber.toString().length)).concat(example.ExampleNumber)
                                             + "' >"
                                             + example.ExampleName
@@ -204,13 +204,30 @@ let DS_SEARCH = (function () {
         $("#filtered_code_examples").append(processJSONData().SupportingTexts.SearchFailed);
     }
 
+    function getExampleUrlBase() {
+        // Create a temporary link element
+        let tempLink = document.createElement('a');
+
+        // Set the href property of the temporary link
+        tempLink.href = 'index.php';
+
+        // Check if resolved URL contains 'public' in pathname
+        const hasPublicInPathname = tempLink.href.includes('public');
+
+        // Remove the temporary link from the DOM
+        tempLink.remove();
+
+        return hasPublicInPathname ? 'index.php?page=' : 'public/index.php?page=';
+    }
+
     return {
         processJSONData: processJSONData,
         getEnteredAPIType: getEnteredAPIType,
         getExamplesByAPIType: getExamplesByAPIType,
         findCodeExamplesByKeywords: findCodeExamplesByKeywords,
         textCouldNotBeFound: textCouldNotBeFound,
-        addCodeExampleToHomepage: addCodeExampleToHomepage
+        addCodeExampleToHomepage: addCodeExampleToHomepage,
+        getExampleUrlBase: getExampleUrlBase,
     }
 })();
 
