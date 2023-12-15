@@ -20,7 +20,7 @@ class AccessCodeAuthenticationService
     {
         # 1. Create the envelope request object
         #ds-snippet-start:eSign19Step3
-        $envelope_definition = AccessCodeAuthenticationService::make_envelope($args["envelope_args"], $demoDocsPath);
+        $envelope_definition = AccessCodeAuthenticationService::makeEnvelope($args["envelope_args"], $demoDocsPath);
         #ds-snippet-end:eSign19Step3
 
         # 2. call Envelopes::create API method
