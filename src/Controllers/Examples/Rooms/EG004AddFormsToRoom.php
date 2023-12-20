@@ -28,7 +28,7 @@ class EG004AddFormsToRoom extends RoomsApiBaseController
         $forms = null;
         if (count($libraries)) {
             $forms = AddFormsToRoomService::getForms(
-                $libraries[0]['forms_library_id'],
+                $libraries[10]['forms_library_id'],
                 $this->routerService,
                 $this->clientService,
                 $this->args,
