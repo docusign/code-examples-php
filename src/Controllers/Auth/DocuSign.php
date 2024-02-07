@@ -121,6 +121,10 @@ class DocuSign extends AbstractProvider
                 . " account_read domain_read identity_provider_read user_data_redact asset_group_account_read"
                 . " asset_group_account_clone_write asset_group_account_clone_read"
             ];
+        } elseif ($_SESSION['api_type'] == ApiTypes::WEBFORMS) {
+            return [
+                "signature webforms_read webforms_instance_read webforms_instance_write"
+            ];
         } else {
             return [
                 "signature"
