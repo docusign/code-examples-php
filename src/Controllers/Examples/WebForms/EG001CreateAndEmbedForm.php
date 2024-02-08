@@ -92,13 +92,7 @@ class EG001CreateAndEmbedForm extends WebFormsApiBaseController
             $this->askToCreateWebForm();
         }
 
-        $formId = "";
-        foreach ($formList->getItems() as $item) {
-            if ($item->getFormProperties()->getName() == self::WEB_FORM_EXAMPLE_TEMPLATE) {
-                $formId = $item->getId();
-                break;
-            }
-        }
+        $formId = $formList->getItems()[0]->getId();
 
         $webFormInstance = CreateAndEmbedFormService::createInstance(
             $this->clientService->FormInstanceManagementApi(),

@@ -150,7 +150,7 @@ class CreateAndEmbedFormService
             $templateId = $templatesListResponse['envelope_templates'][0]['template_id'];
             $resultsTemplateName = $templatesListResponse['envelope_templates'][0]['name'];
         } else {
-            $templateObject = CreateTemplateService::makeTemplateRequest(
+            $templateObject = CreateAndEmbedFormService::makeTemplateRequest(
                 $template_name,
                 $demoDocsPath
             );
@@ -216,7 +216,7 @@ class CreateAndEmbedFormService
         ]);
         $text = new Text([
             'document_id' => "1",
-            'font_size' => "FullName",
+            'tab_label' => "FullName",
             'anchor_string' => "/FullName/",
             'anchor_units' => "pixels",
             'anchor_x_offset' => "20",
@@ -224,7 +224,7 @@ class CreateAndEmbedFormService
         ]);
         $text2 = new Text([
             'document_id' => "1",
-            'font_size' => "PhoneNumber",
+            'tab_label' => "PhoneNumber",
             'anchor_string' => "/PhoneNumber/",
             'anchor_units' => "pixels",
             'anchor_x_offset' => "20",
@@ -232,7 +232,7 @@ class CreateAndEmbedFormService
         ]);
         $text3 = new Text([
             'document_id' => "1",
-            'font_size' => "Company",
+            'tab_label' => "Company",
             'anchor_string' => "/Company/",
             'anchor_units' => "pixels",
             'anchor_x_offset' => "20",
@@ -240,7 +240,7 @@ class CreateAndEmbedFormService
         ]);
         $text4 = new Text([
             'document_id' => "1",
-            'font_size' => "JobTitle",
+            'tab_label' => "JobTitle",
             'anchor_string' => "/Title/",
             'anchor_units' => "pixels",
             'anchor_x_offset' => "20",
@@ -249,7 +249,7 @@ class CreateAndEmbedFormService
 
         $dateSignedTabs = new DateSigned([
             'document_id' => "1",
-            'font_size' => "DateSigned",
+            'tab_label' => "DateSigned",
             'anchor_string' => "/Date/",
             'anchor_units' => "pixels",
             'anchor_x_offset' => "20",
