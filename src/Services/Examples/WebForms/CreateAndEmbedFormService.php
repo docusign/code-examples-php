@@ -4,14 +4,10 @@ namespace DocuSign\Services\Examples\WebForms;
 
 use DocuSign\eSign\Api\TemplatesApi;
 use DocuSign\eSign\Api\TemplatesApi\ListTemplatesOptions;
-use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Checkbox;
+use DocuSign\eSign\Model\DateSigned;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeTemplate;
-use DocuSign\eSign\Model\ModelList;
-use DocuSign\eSign\Model\Numerical;
-use DocuSign\eSign\Model\Radio;
-use DocuSign\eSign\Model\RadioGroup;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
 use DocuSign\eSign\Model\SignHere;
@@ -108,7 +104,7 @@ class CreateAndEmbedFormService
         TemplatesApi $templatesApi,
         string       $templateName,
         string       $accountId
-    ): array
+    ): mixed
     {
         $listTemplateOptions = new ListTemplatesOptions();
         $listTemplateOptions->setSearchText($templateName);
@@ -186,13 +182,13 @@ class CreateAndEmbedFormService
         string $demoDocsPath
     ): EnvelopeTemplate
     {
-        $docName = 'World_Wide_Corp_fields.pdf';
+        $docName = 'World_Wide_Corp_Web_Form.pdf';
         $contentBytes = file_get_contents($demoDocsPath . $docName);
         $base64FileContent = base64_encode($contentBytes);
 
         $document = new Document([
             'document_base64' => $base64FileContent,
-            'name' => 'Lorem Ipsum',
+            'name' => 'World_Wide_Web_Form',
             'file_extension' => 'pdf',
             'document_id' => '1'
         ]);
@@ -202,109 +198,69 @@ class CreateAndEmbedFormService
             'recipient_id' => "1",
             'routing_order' => "1"
         ]);
-        $cc = new CarbonCopy([
-            'role_name' => 'cc',
-            'recipient_id' => "2",
-            'routing_order' => "2"
-        ]);
         $signHere = new SignHere([
             'document_id' => '1',
-            'page_number' => '1',
-            'x_position' => '191',
-            'y_position' => '148'
+            'anchor_string' => '/SignHere/',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '20',
+            'anchor_y_offset' => '10',
+            'tab_label' => 'Signature'
         ]);
         $checkbox = new Checkbox([
             'document_id' => '1',
-            'page_number' => '1',
-            'x_position' => '75',
-            'y_position' => '417',
-            'tab_label' => 'ckAuthorization'
+            'anchor_string' => '/SMS/',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '20',
+            'anchor_y_offset' => '10',
+            'tab_label' => 'Yes'
         ]);
-        $checkboxTwo = new Checkbox([
-            'document_id' => '1',
-            'page_number' => '1',
-            'x_position' => '75',
-            'y_position' => '447',
-            'tab_label' => 'ckAuthentication'
-        ]);
-        $checkboxThree = new Checkbox([
-            'document_id' => '1',
-            'page_number' => '1',
-            'x_position' => '75',
-            'y_position' => '478',
-            'tab_label' => 'ckAgreement'
-        ]);
-        $checkboxFour = new Checkbox([
-            'document_id' => '1',
-            'page_number' => '1',
-            'x_position' => '75',
-            'y_position' => '508',
-            'tab_label' => 'ckAcknowledgement'
-        ]);
-
-        $list = CreateAndEmbedFormService::createListOfButtonOptions();
-
-        $numerical = new Numerical([
-            'document_id' => "1",
-            'validation_type' => "Currency",
-            'page_number' => "1",
-            'x_position' => "163",
-            'y_position' => "260",
-            'font' => "helvetica",
-            'font_size' => "size14",
-            'tab_label' => "numericalCurrency",
-            'width' => "84",
-            'required' => "false"
-        ]);
-
-        $radioGroup = new RadioGroup(
-            [
-                'document_id' => "1",
-                'group_name' => "radio1",
-                'radios' => [
-                    new Radio([
-                        'page_number' => "1",
-                        'x_position' => "142",
-                        'y_position' => "384",
-                        'value' => "white",
-                        'required' => "false"
-                    ]),
-                    new Radio([
-                        'page_number' => "1",
-                        'x_position' => "74",
-                        'y_position' => "384",
-                        'value' => "red",
-                        'required' => "false"
-                    ]),
-                    new Radio([
-                        'page_number' => "1",
-                        'x_position' => "220",
-                        'y_position' => "384",
-                        'value' => "blue",
-                        'required' => "false"
-                    ])
-                ]]
-        );
         $text = new Text([
             'document_id' => "1",
-            'page_number' => "1",
-            'x_position' => "153",
-            'y_position' => "230",
-            'font' => "helvetica",
-            'font_size' => "size14",
-            'tab_label' => "text",
-            'height' => "23",
-            'width' => "84",
-            'required' => "false"
+            'font_size' => "FullName",
+            'anchor_string' => "/FullName/",
+            'anchor_units' => "pixels",
+            'anchor_x_offset' => "20",
+            'anchor_y_offset' => "10"
+        ]);
+        $text2 = new Text([
+            'document_id' => "1",
+            'font_size' => "PhoneNumber",
+            'anchor_string' => "/PhoneNumber/",
+            'anchor_units' => "pixels",
+            'anchor_x_offset' => "20",
+            'anchor_y_offset' => "10"
+        ]);
+        $text3 = new Text([
+            'document_id' => "1",
+            'font_size' => "Company",
+            'anchor_string' => "/Company/",
+            'anchor_units' => "pixels",
+            'anchor_x_offset' => "20",
+            'anchor_y_offset' => "10"
+        ]);
+        $text4 = new Text([
+            'document_id' => "1",
+            'font_size' => "JobTitle",
+            'anchor_string' => "/Title/",
+            'anchor_units' => "pixels",
+            'anchor_x_offset' => "20",
+            'anchor_y_offset' => "10"
+        ]);
+
+        $dateSignedTabs = new DateSigned([
+            'document_id' => "1",
+            'font_size' => "DateSigned",
+            'anchor_string' => "/Date/",
+            'anchor_units' => "pixels",
+            'anchor_x_offset' => "20",
+            'anchor_y_offset' => "10"
         ]);
 
         $signer->setTabs(new Tabs([
             'sign_here_tabs' => [$signHere],
-            'checkbox_tabs' => [$checkbox, $checkboxTwo, $checkboxThree, $checkboxFour],
-            'list_tabs' => [$list],
-            'numerical_tabs' => [$numerical],
-            'radio_group_tabs' => [$radioGroup],
-            'text_tabs' => [$text]
+            'checkbox_tabs' => [$checkbox],
+            'text_tabs' => [$text, $text2, $text3, $text4],
+            'date_signed_tabs' => [$dateSignedTabs]
         ]));
 
         return new EnvelopeTemplate(
@@ -315,33 +271,10 @@ class CreateAndEmbedFormService
                 'documents' => [$document],
                 'email_subject' => "Please sign this document",
                 'recipients' => new Recipients([
-                    'signers' => [$signer],
-                    'carbon_copies' => [$cc]
+                    'signers' => [$signer]
                 ]),
                 'status' => "created"
             ]
         );
-    }
-
-    public static function createListOfButtonOptions(): ModelList
-    {
-        return new ModelList([
-            'font' => "helvetica",
-            'font_size' => "size11",
-            'anchor_string' => '/l1q/',
-            'anchor_y_offset' => '-10',
-            'anchor_units' => 'pixels',
-            'anchor_x_offset' => '0',
-            'list_items' => [
-                ['text' => "Red", 'value' => "red"],
-                ['text' => "Orange", 'value' => "orange"],
-                ['text' => "Yellow", 'value' => "yellow"],
-                ['text' => "Green", 'value' => "green"],
-                ['text' => "Blue", 'value' => "blue"],
-                ['text' => "Indigo", 'value' => "indigo"]
-            ],
-            'required' => "true",
-            'tab_label' => "l1q"
-        ]);
     }
 }
