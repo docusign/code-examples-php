@@ -5,7 +5,8 @@ let DS_SEARCH = (function () {
         CLICK: 'click',
         ROOMS: 'rooms',
         ADMIN: 'admin',
-        CONNECT: 'connect'
+        CONNECT: 'connect',
+        WEBFORMS: 'webforms'
     };
 
     let processJSONData = function () {
@@ -125,6 +126,8 @@ let DS_SEARCH = (function () {
                 return "eg";
             case API_TYPES.CONNECT:
                 return "con";
+            case API_TYPES.WEBFORMS:
+                return "web";
         }
     }
 

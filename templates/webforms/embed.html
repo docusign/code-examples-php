@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set formNumber = 0 %}
+{% set roomNameInputNumber = 0 %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+
+<p>{{ description | raw }}</p>
+{% if show_doc %}
+  <p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
+</form>
+  
+{% endblock %}
+

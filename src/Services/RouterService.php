@@ -89,6 +89,7 @@ class RouterService implements IRouterService
         'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
         'aeg012' => 'Admin\EG012CloneAccount',
         'con001' => 'Connect\Eg001ValidateUsingHmac',
+        'web001' => 'WebForms\EG001CreateAndEmbedForm',
     ];
     /**
      * The list of templates with examples
@@ -170,6 +171,7 @@ class RouterService implements IRouterService
         'aeg010' => 'admin/eg010_delete_user_data_from_organization.html',
         'aeg011' => 'admin/eg011_delete_user_data_from_account.html',
         'con001' => 'connect/eg001_validate_using_hmac.html',
+        'web001' => 'webforms/eg001_embed_form.html'
     ];
     
     /**
