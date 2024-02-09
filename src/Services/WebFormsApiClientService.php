@@ -32,10 +32,12 @@ class WebFormsApiClientService
         # Construct your API headers
         # Exceptions will be caught by the calling function
 
+        #ds-snippet-start:WebFormsPHPStep2
         $config = new Configuration();
         $config->setHost('https://apps-d.docusign.com/api/webforms/v1.1');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
+        #ds-snippet-end:WebFormsPHPStep2
 
         $this->routerService = new RouterService();
     }

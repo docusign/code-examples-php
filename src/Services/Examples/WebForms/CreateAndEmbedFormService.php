@@ -52,7 +52,8 @@ class CreateAndEmbedFormService
      * @param string $templateId
      * @return void
      */
-    public static function addTemplateIdToForm(string $fileLocation, string $templateId): void
+    #ds-snippet-start:WebForms1Step3
+     public static function addTemplateIdToForm(string $fileLocation, string $templateId): void
     {
         $targetString = "template-id";
 
@@ -64,6 +65,7 @@ class CreateAndEmbedFormService
             echo "An error occurred: " . $ex->getMessage();
         }
     }
+    #ds-snippet-end:WebForms1Step3
 
     /**
      * @param FormInstanceManagementApi $formInstanceApi
@@ -72,12 +74,13 @@ class CreateAndEmbedFormService
      * @return WebFormInstance
      * @throws ApiException
      */
-    public static function createInstance(
+     public static function createInstance(
         FormInstanceManagementApi $formInstanceApi,
         string                    $accountId,
         string                    $formId
     ): WebFormInstance
     {
+        #ds-snippet-start:WebForms1Step4
         $formValues = new WebFormValues([
             ["PhoneNumber" => "555-555-5555"],
             ["Yes" => ["Yes"]],
@@ -90,8 +93,11 @@ class CreateAndEmbedFormService
             'form_values' => $formValues,
             'expiration_offset' => 3600,
         ]);
+        #ds-snippet-end:WebForms1Step4
 
+        #ds-snippet-start:WebForms1Step5
         return $formInstanceApi->createInstance($accountId, $formId, $options);
+        #ds-snippet-end:WebForms1Step5
     }
 
     /**
