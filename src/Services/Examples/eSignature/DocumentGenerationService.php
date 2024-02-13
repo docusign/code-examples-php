@@ -23,46 +23,46 @@ class DocumentGenerationService
     public static function worker(array $args, $clientService, $documentPath): string
     {
 
-        // Step 2a start
+        #ds-snippet-start:eSign42Step2
         $templatesApi = $clientService->getTemplatesApi();
 
         $envelopeTemplate = DocumentGenerationService::makeTemplate();
         $templatesListResponse = $templatesApi->createTemplate($args['account_id'], $envelopeTemplate);
         $templateId = $templatesListResponse['template_id'];
-        // Step 2a end
+        #ds-snippet-end:eSign42Step2
 
-        // Step 3a start
+        #ds-snippet-start:eSign42Step3
         $templatesApi->updateDocument($args['account_id'], "1", $templateId, self::addDocumentTemplate($documentPath));
-        // Step 3a end
+        #ds-snippet-end:eSign42Step3
 
-        // Step 4a start
+        #ds-snippet-start:eSign42Step4
         $templatesApi->createTabs($args['account_id'], "1", $templateId, self::prepareTabs());
-        // Step 4a end
+        #ds-snippet-end:eSign42Step4
 
-        // Step 5a start
+        #ds-snippet-start:eSign42Step5
         $envelopeApi = $clientService->getEnvelopeApi();
         $envelopeResponse = $envelopeApi->createEnvelope(
             $args['account_id'],
             DocumentGenerationService::makeEnvelope($args["form_data"], $templateId)
         );
         $envelopeId = $envelopeResponse["envelope_id"];
-        // Step 5a end
+        #ds-snippet-end:eSign42Step5
 
-        // Step 6 start
+        #ds-snippet-start:eSign42Step6
         $documents = $envelopeApi->getEnvelopeDocGenFormFields($args['account_id'], $envelopeId);
         $documentId = $documents["doc_gen_form_fields"][0]["document_id"];
-        // Step 6 end
-        
-        // Step 7a start
+        #ds-snippet-end:eSign42Step6
+
+        #ds-snippet-start:eSign42Step7
         $formFields = DocumentGenerationService::formFields($args["form_data"], $documentId);
         $envelopeApi->updateEnvelopeDocGenFormFields(
             $args['account_id'],
             $envelopeId,
             $formFields
         );
-        // Step 7a end
+        #ds-snippet-end:eSign42Step7
 
-        // Step 8 start
+        #ds-snippet-start:eSign42Step8
         $envelopeResponse = $envelopeApi->update(
             $args['account_id'],
             $envelopeId,
@@ -70,11 +70,11 @@ class DocumentGenerationService
                 'status' => 'sent'
             ])
         );
-        // Step 8 end
+        #ds-snippet-end:eSign42Step8
 
         return $envelopeResponse->getEnvelopeId();
     }
-    // Step 2b start
+    #ds-snippet-start:eSign42Step2
     public static function makeTemplate(): EnvelopeTemplate
     {
         $signer = new Signer([
@@ -96,10 +96,10 @@ class DocumentGenerationService
             ]
         );
     }
-    // Step 2b end
+    #ds-snippet-end:eSign42Step2
 
 
-    // Step 4b start
+    #ds-snippet-start:eSign42Step4
     public static function prepareTabs(): TemplateTabs
     {
         $signHere = new SignHere([
@@ -121,9 +121,9 @@ class DocumentGenerationService
              'date_signed_tabs' => [$dateSigned],
         ]);
     }
-    // Step4b end
+    #ds-snippet-end:eSign42Step4
 
-    // Step 3b start
+    #ds-snippet-start:eSign42Step3
     public static function addDocumentTemplate(string $documentPath): EnvelopeDefinition
     {
         $documentFile = $GLOBALS['DS_CONFIG']['offer_doc_docx'];
@@ -143,9 +143,9 @@ class DocumentGenerationService
                 'documents' => [$document],
         ]);
     }
-    // Step 3b end
-    
-    // Step 5b start
+    #ds-snippet-end:eSign42Step3
+
+    #ds-snippet-start:eSign42Step5
     public static function makeEnvelope(array $args, $templateId): EnvelopeDefinition
     {
         $signer = new TemplateRole([
@@ -162,8 +162,9 @@ class DocumentGenerationService
             ]
         );
     }
-    // Step 5b end
-    // Step 7b start
+    #ds-snippet-end:eSign42Step5
+
+    #ds-snippet-start:eSign42Step7
     public static function formFields(array $args, $documentId): DocGenFormFieldRequest
     {
         return new DocGenFormFieldRequest(
@@ -198,5 +199,5 @@ class DocumentGenerationService
             ]
         );
     }
-    // Step 7b end
+    #ds-snippet-end:eSign42Step7
 }
