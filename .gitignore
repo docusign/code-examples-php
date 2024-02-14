@@ -48,3 +48,4 @@ public/demo_documents/ExportedUserData.csv
 JWTConsoleApp/vendor/*
 JWTConsoleApp/ds_config_jwt_mini.php
 Quick_ACG/vendor/*
+public/demo_documents/web-form-config.json
