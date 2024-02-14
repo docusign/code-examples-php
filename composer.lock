@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdd1ca4a4205d8f7b564e0e4919b12bd",
+    "content-hash": "34bfa1fe97606526b1ac6ce341873821",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -369,16 +369,16 @@
         },
         {
             "name": "docusign/webforms-client",
-            "version": "v1.0.2-rc11",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-webforms-php-client.git",
-                "reference": "a270a5c129613459b5a6b26e22cd58305c188403"
+                "reference": "2a24e5e04b6cdeb82fc60531d079539eb37e17e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-webforms-php-client/zipball/a270a5c129613459b5a6b26e22cd58305c188403",
-                "reference": "a270a5c129613459b5a6b26e22cd58305c188403",
+                "url": "https://api.github.com/repos/docusign/docusign-webforms-php-client/zipball/2a24e5e04b6cdeb82fc60531d079539eb37e17e1",
+                "reference": "2a24e5e04b6cdeb82fc60531d079539eb37e17e1",
                 "shasum": ""
             },
             "require": {
@@ -421,9 +421,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-webforms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-webforms-php-client/tree/v1.0.2-rc11"
+                "source": "https://github.com/docusign/docusign-webforms-php-client/tree/v1.0.0"
             },
-            "time": "2024-02-09T17:26:04+00:00"
+            "time": "2024-02-14T12:32:10+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -3308,8 +3308,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "docusign/click-client": 5,
-        "docusign/esign-client": 5,
-        "docusign/webforms-client": 5
+        "docusign/esign-client": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -84,7 +84,7 @@ class EG001CreateAndEmbedForm extends WebFormsApiBaseController
         $_SESSION['can_embed_form'] = null;
 
         $formList = CreateAndEmbedFormService::getForms(
-            $this->clientService->FormManagementApi(),
+            $this->clientService->formManagementApi(),
             $accountId
         );
 
@@ -95,7 +95,7 @@ class EG001CreateAndEmbedForm extends WebFormsApiBaseController
         $formId = $formList->getItems()[0]->getId();
 
         $webFormInstance = CreateAndEmbedFormService::createInstance(
-            $this->clientService->FormInstanceManagementApi(),
+            $this->clientService->formInstanceManagementApi(),
             $accountId,
             $formId
         );

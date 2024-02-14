@@ -45,7 +45,7 @@ class WebFormsApiClientService
     /**
      * Getter for the FormManagementApi
      */
-    public function FormManagementApi(): FormManagementApi
+    public function formManagementApi(): FormManagementApi
     {
         return new FormManagementApi($this->apiClient);
     }
@@ -53,7 +53,7 @@ class WebFormsApiClientService
     /**
      * Getter for the FormInstanceManagementApi
      */
-    public function FormInstanceManagementApi(): FormInstanceManagementApi
+    public function formInstanceManagementApi(): FormInstanceManagementApi
     {
         return new FormInstanceManagementApi($this->apiClient);
     }
