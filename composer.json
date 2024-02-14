@@ -20,7 +20,7 @@
         "docusign/esign-client": "^6.15.0-rc",
         "docusign/rooms-client": "^2.1.0",
         "docusign/monitor-client": "^1.1.0",
-        "docusign/webforms-client": "^v1.0.1-rc10",
+        "docusign/webforms-client": "^1.0.0",
         "twig/twig": "^3.5.1",
         "league/oauth2-client": "^2.6.1",
         "ext-json": "*",
