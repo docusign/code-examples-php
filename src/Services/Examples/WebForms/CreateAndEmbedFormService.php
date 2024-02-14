@@ -36,8 +36,7 @@ class CreateAndEmbedFormService
     public static function getForms(
         FormManagementApi $formManagementApi,
         string            $accountId
-    ): WebFormSummaryList
-    {
+    ): WebFormSummaryList {
         $formName = "Web Form Example Template";
 
         $listFormsOptions = new FormManagementApi\ListFormsOptions();
@@ -53,7 +52,7 @@ class CreateAndEmbedFormService
      * @return void
      */
     #ds-snippet-start:WebForms1Step3
-     public static function addTemplateIdToForm(string $fileLocation, string $templateId): void
+    public static function addTemplateIdToForm(string $fileLocation, string $templateId): void
     {
         $targetString = "template-id";
 
@@ -74,12 +73,11 @@ class CreateAndEmbedFormService
      * @return WebFormInstance
      * @throws ApiException
      */
-     public static function createInstance(
+    public static function createInstance(
         FormInstanceManagementApi $formInstanceApi,
         string                    $accountId,
         string                    $formId
-    ): WebFormInstance
-    {
+    ): WebFormInstance {
         #ds-snippet-start:WebForms1Step4
         $formValues = new WebFormValues([
             ["PhoneNumber" => "555-555-5555"],
@@ -110,8 +108,7 @@ class CreateAndEmbedFormService
         TemplatesApi $templatesApi,
         string       $templateName,
         string       $accountId
-    ): mixed
-    {
+    ): mixed {
         $listTemplateOptions = new ListTemplatesOptions();
         $listTemplateOptions->setSearchText($templateName);
 
@@ -142,8 +139,7 @@ class CreateAndEmbedFormService
         string                 $template_name,
         string                 $demoDocsPath,
         SignatureClientService $clientService
-    ): array
-    {
+    ): array {
         $templatesApi = $clientService->getTemplatesApi();
         $options = new ListTemplatesOptions();
         $options->setSearchText($template_name);
@@ -186,8 +182,7 @@ class CreateAndEmbedFormService
     public static function makeTemplateRequest(
         string $template_name,
         string $demoDocsPath
-    ): EnvelopeTemplate
-    {
+    ): EnvelopeTemplate {
         $docName = 'World_Wide_Corp_Web_Form.pdf';
         $contentBytes = file_get_contents($demoDocsPath . $docName);
         $base64FileContent = base64_encode($contentBytes);
