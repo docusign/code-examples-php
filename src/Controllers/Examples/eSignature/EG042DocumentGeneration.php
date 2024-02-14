@@ -63,7 +63,7 @@ class EG042DocumentGeneration extends eSignBaseController
     public function getTemplateArgs(): array
     {
         $form_data = [
-            'candidate_email' => $this->checkInputValues($_POST['candidate_email']),
+            'candidate_email' => $this->checkEmailInputValue($_POST['candidate_email']),
             'candidate_name' => $this->checkInputValues($_POST['candidate_name']),
             'manager_name' => $this->checkInputValues($_POST['manager_name']),
             'job_title' => $_POST['job_title'],
