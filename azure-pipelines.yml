@@ -39,7 +39,7 @@ steps:
   name: tests_config_properties
   displayName: 'download config.properties'
   inputs:
-    secureFile: 'java-php.config.properties'
+    secureFile: 'php.config.properties'
 
 
 - script: |
