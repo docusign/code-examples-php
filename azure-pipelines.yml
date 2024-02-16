@@ -73,6 +73,18 @@ steps:
     cp $(php_private_key.secureFilePath) code-examples-php-private/private.key
   displayName: 'place private.key'
 
+- task: DownloadSecureFile@1
+  name: php_dockerfile
+  displayName: 'download Dockerfile'
+  inputs:
+    secureFile: 'php.Dockerfile'
+
+
+- script: |
+    echo "place Dockerfile"
+    cp $(php_ds_config.secureFilePath) code-examples-php-private/Dockerfile
+  displayName: 'place Dockerfile'
+
 - script: dir $(Build.SourcesDirectory)
 
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
@@ -82,6 +94,11 @@ steps:
     cd code-examples-php-private
     docker compose up -d
   displayName: 'start php app'
+
+- script: |
+    cd code-examples-php-private
+    docker exec -it --user www-data docusign-php-fpm composer install
+  displayName: 'Install dependencies'
 
 - script: |
     cd IntegrationTests
