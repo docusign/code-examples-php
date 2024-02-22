@@ -31,8 +31,6 @@ class ListEnvelopesService
         #ds-snippet-start:eSign3step2
         $envelope_api = $clientService->getEnvelopeApi();
         $from_date = date("c", (time() - (30 * 24 * 60 * 60)));
-        var_dump($from_date);
-        die;
         $options = new ListStatusChangesOptions();
         $options->setFromDate($from_date);
         try {
