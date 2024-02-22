@@ -25,12 +25,14 @@ class ListEnvelopesService
         # See https://developers.docusign.com/esign-rest-api/reference/Envelopes/Envelopes/listStatusChanges
         # The list status changes call requires at least a from_date OR
         # a set of envelope_ids. Here we filter using a from_date.
-        # Here we set the from_date to filter envelopes for the last 10 days
+        # Here we set the from_date to filter envelopes for the last 30 days
         # Use ISO 8601 date format
 
         #ds-snippet-start:eSign3step2
         $envelope_api = $clientService->getEnvelopeApi();
-        $from_date = date("c", (time() - (10 * 24 * 60 * 60)));
+        $from_date = date("c", (time() - (30 * 24 * 60 * 60)));
+        var_dump($from_date);
+        die;
         $options = new ListStatusChangesOptions();
         $options->setFromDate($from_date);
         try {
