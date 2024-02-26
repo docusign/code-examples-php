@@ -16,7 +16,6 @@ class ListEnvelopesService
      * @param $clientService
      * @return EnvelopesInformation
      */
-    # ***DS.snippet.0.start
     public static function listEnvelopes(array $args, $clientService): EnvelopesInformation
     {
         # 1. call API method
@@ -28,7 +27,7 @@ class ListEnvelopesService
         # Here we set the from_date to filter envelopes for the last 30 days
         # Use ISO 8601 date format
 
-        #ds-snippet-start:eSign3step2
+        #ds-snippet-start:eSign3Step2
         $envelope_api = $clientService->getEnvelopeApi();
         $from_date = date("c", (time() - (30 * 24 * 60 * 60)));
         $options = new ListStatusChangesOptions();
@@ -39,7 +38,7 @@ class ListEnvelopesService
             $clientService->showErrorTemplate($e);
             exit;
         }
-        #ds-snippet-end:eSign3step2
+        #ds-snippet-end:eSign3Step2
         return $statusChanges;
     }
 }
