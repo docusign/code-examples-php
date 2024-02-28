@@ -235,6 +235,8 @@ class RouterService implements IRouterService
                 } else {
                     header('Location: ' . $GLOBALS['app_url'] . '/index.php?page=eg001');
                 }
+            } elseif ($GLOBALS['DS_CONFIG']['quickstart'] == 'true' && !isset($_SESSION['beenHere'])) {
+                header('Location: ' . $GLOBALS['app_url'] . 'index.php?page=' . BaseController::LOGIN_REDIRECT);
             } elseif (isset($_SESSION['userflow_example_43'])) {
                 unset($_SESSION['userflow_example_43']);
                 $page = 'eg043/EnvelopesListStatus';
