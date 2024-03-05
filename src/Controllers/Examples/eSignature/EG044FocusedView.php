@@ -4,10 +4,10 @@
  * it directly from the app without having to open an email.
  */
 
-namespace Example\Controllers\Examples\eSignature;
+namespace DocuSign\Controllers\Examples\eSignature;
 
-use Example\Controllers\eSignBaseController;
-use Example\Services\Examples\eSignature\FocusedViewService;
+use DocuSign\Controllers\eSignBaseController;
+use DocuSign\Services\Examples\eSignature\FocusedViewService;
 
 class EG044FocusedView extends eSignBaseController
 {
