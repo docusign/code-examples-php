@@ -82,7 +82,7 @@ steps:
 
 - script: |
     echo "place Dockerfile"
-    cp $(php_ds_config.secureFilePath) code-examples-php-private/Dockerfile
+    cp $(php_dockerfile.secureFilePath) code-examples-php-private/Dockerfile
   displayName: 'place Dockerfile'
 
 - script: dir $(Build.SourcesDirectory)
