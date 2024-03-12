@@ -4,14 +4,11 @@
 # https://aka.ms/yaml
 resources:
   repositories:
-  - repository: IntegrationTests
-    type: git
-    name: launcher-automation/IntegrationTests
-    ref: azure-pipelines
-    trigger:
-      branches:
-        include:
-          - azure-pipelines
+  - repository: launcher-automation
+    type: github
+    name: docusign/launcher-automation
+    ref: main
+    endpoint: launcherAutomationServiceConnection
 
 pr:
 - master
@@ -21,10 +18,11 @@ pool:
   name: launcher-automation-pool
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: |
+    sudo rm -rf $(Build.SourcesDirectory)/code-examples-php-private
+  displayName: 'Remove Project Folder'
 - checkout: self
-- checkout: IntegrationTests
+- checkout: launcher-automation
 
 - script: dir $(Build.SourcesDirectory)
 
@@ -45,7 +43,7 @@ steps:
 - script: |
     echo "place config.properties"
     echo $(tests_config_properties.secureFilePath)
-    cp $(tests_config_properties.secureFilePath) IntegrationTests/src/main/resources/config.properties
+    cp $(tests_config_properties.secureFilePath) launcher-automation/src/main/resources/config.properties
   displayName: 'place config.properties'
 
 - task: DownloadSecureFile@1
@@ -89,23 +87,36 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
 
+- script: |
+    echo "kill and remove any running containers"
+    docker rm -f $(docker ps -a -q)
+    docker system prune -f
+  displayName: 'cleanup docker env'
 
 - script: |
     cd code-examples-php-private
-    docker compose up -d
+    docker compose up -d --build
   displayName: 'start php app'
 
 - script: |
     cd code-examples-php-private
-    docker exec -it --user www-data docusign-php-fpm composer install
-  displayName: 'Install dependencies'
+    docker exec docusign-php-fpm composer install
+  displayName: 'install dependencies'
 
 - script: |
-    cd IntegrationTests
+    cd launcher-automation
     mvn clean test -DsuiteXmlFile="php_suite.xml"
-  displayName: 'Node app tests'
+  displayName: 'php app tests'
 
 - script: |
     docker stop $(docker ps -a -q)
     docker rm $(docker ps -a -q)
-  displayName: 'stop node app'
+  displayName: 'stop php app'
+
+- script: |
+    allure generate --clean --output $(Build.SourcesDirectory)/php-allure-output '$(Build.SourcesDirectory)/launcher-automation/target/allure-results'
+  displayName: generate allure html reports
+- task: PublishAllureReport@1
+  displayName: 'Publish Allure Report'
+  inputs:
+    reportDir: '$(Build.SourcesDirectory)/php-allure-output'
