@@ -6,7 +6,7 @@ use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapVersionSummaryResponse;
 use DocuSign\Click\Api\AccountsApi\GetClickwrapsOptions;
 use DocuSign\Services\ClickApiClientService;
-use DocuSign\Click\model\UserAgreementRequest;
+use DocuSign\Click\Model\UserAgreementRequest;
 use DocuSign\Services\RouterService;
 
 class EmbedClickwrapService

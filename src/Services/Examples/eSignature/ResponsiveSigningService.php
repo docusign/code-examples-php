@@ -15,7 +15,7 @@ use DocuSign\Services\SignatureClientService;
 
 class ResponsiveSigningService
 {
-    #ds-snippet-start:eSign38step3
+    #ds-snippet-start:eSign38Step3
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): string
     {
         $envelopeDefinition = ResponsiveSigningService::makeEnvelope($args["envelope_args"], $demoPath);
@@ -39,7 +39,7 @@ class ResponsiveSigningService
 
         return $viewUrl['url'];
     }
-    #ds-snippet-end:eSign38step3
+    #ds-snippet-end:eSign38Step3
 
     /**
      *  Creates envelope definition
@@ -47,7 +47,7 @@ class ResponsiveSigningService
      * @param  $args array
      * @return EnvelopeDefinition -- returns an envelope definition
      */
-    #ds-snippet-start:eSign38step2
+    #ds-snippet-start:eSign38Step2
     private static function makeEnvelope(array $args, string $demoPath): EnvelopeDefinition
     {
         $l1_price = 5;
@@ -168,5 +168,5 @@ class ResponsiveSigningService
             ]
         );
     }
-    #ds-snippet-end:eSign38step2
+    #ds-snippet-end:eSign38Step2
 }
