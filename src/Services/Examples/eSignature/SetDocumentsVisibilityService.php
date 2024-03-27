@@ -99,6 +99,10 @@ class SetDocumentsVisibilityService
                 'enforce_signer_visibility' => 'true',
                 'email_subject' => "Please sign this document set",
                 'documents' => SetDocumentsVisibilityService::_prepareDocuments(
+                    $signer1Email,
+                    $signer1Name,
+                    $ccEmail,
+                    $ccName,
                     $docPdf,
                     $docDocx,
                     $docHTML,
@@ -180,6 +184,10 @@ class SetDocumentsVisibilityService
     }
 
     private static function _prepareDocuments(
+        string $signer1Email,
+        string $signer1Name,
+        string $ccEmail,
+        string $ccName,
         string $docPdf,
         string $docDocx,
         string $docHTML,
@@ -188,6 +196,10 @@ class SetDocumentsVisibilityService
         $contentBytesPdf = file_get_contents($demoPath . $docPdf);
         $contentBytesDocx = file_get_contents($demoPath . $docDocx);
         $contentBytesHtml = file_get_contents($demoPath . $docHTML);
+        $contentBytesHtml = str_replace("{USER_EMAIL}", $signer1Email, $contentBytesHtml);
+        $contentBytesHtml = str_replace("{USER_FULLNAME}", $signer1Name, $contentBytesHtml);
+        $contentBytesHtml = str_replace("{CC_EMAIL}", $ccEmail, $contentBytesHtml);
+        $contentBytesHtml = str_replace("{CC_NAME}", $ccName, $contentBytesHtml);
 
         $documentHTML = new Document(
             [
