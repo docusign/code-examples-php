@@ -1,10 +1,12 @@
 {% extends "base.html" %}  {% block content %}
 
 {% set formNumber = 0 %}
-{% set signerEmailInputNumber = 0 %}
-{% set signerNameInputNumber = 1 %}
-{% set ccEmailInputNumber = 2 %}
-{% set ccNameInputNumber = 3 %}
+{% set instanceNameInputNumber = 0 %}
+{% set signerEmailInputNumber = 1 %}
+{% set signerNameInputNumber = 2 %}
+{% set ccEmailInputNumber = 3 %}
+{% set ccNameInputNumber = 4 %}
+{% set redirectToCodeExample = "href='" ~ app_url ~ "index.php?page=eg008'" %}
 
 <h4>{{ code_example_text['ExampleName'] | raw }}</h4>
 <p>{{ code_example_text["ExampleDescription"] | raw }}</p>
@@ -32,77 +34,100 @@
         {% endif %}
     {% endfor %}
   </p>
-
+  
 <p>
    {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
 </p>
 
+{% if template_id == null and workflow_id == null %}
+    {{ code_example_text['RedirectsToOtherCodeExamples'][0]['RedirectText']|replace({ ("{0}"): redirectToCodeExample }) | raw }}
+    
+    <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+        <input type="hidden" name="page" value="eg008"/>
+        <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
+    </form>
+{% else %}
 <form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="instance_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][instanceNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+            class="form-control"
+            id="instance_name"
+            name="instance_name"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][instanceNameInputNumber]['InputPlaceholder']}}"
+            required>
+    </div>
+
     <div class="form-group">
         <label for="signer_email">
             {{ code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputName'] | raw }}
         </label>
 
-        <input type="email" 
-            class="form-control"
-            id="signer_email" 
-            name="signer_email"
+        <input type="email"
+            class="form-control" 
+            id="signer_email"
             aria-describedby="emailHelp"
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}"
-            required
-            value="{{ signer_email }}">
+            name="signer_email"
+            value="{{ signer_email }}"
+            required>
 
-        <small id="emailHelp" class="form-text text-muted">
+        <small id="emailHelp1" class="form-text text-muted">
             {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
         </small>
     </div>
+
     <div class="form-group">
         <label for="signer_name">
             {{ code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputName'] | raw }}
         </label>
 
-        <input type="text" 
-            class="form-control" 
-            id="signer_name" 
-            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
-            name="signer_name"
-            value="{{ signer_name }}" 
-            required>
+        <input type="text"
+               class="form-control"
+               id="signer_name"
+               value="{{ signer_name }}"
+               name="signer_name"
+               placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
+               required>
     </div>
+
     <div class="form-group">
         <label for="cc_email">
             {{ code_example_text['Forms'][formNumber]['Inputs'][ccEmailInputNumber]['InputName'] | raw }}
         </label>
 
-        <input type="email" 
-            class="form-control" 
-            id="cc_email" 
-            name="cc_email"
-            aria-describedby="emailHelp" 
-            value="{{ signer_email }}"
-            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccEmailInputNumber]['InputPlaceholder']}}"
-            required >
-
-        <small id="emailHelpCC" class="form-text text-muted">
+        <input type="email"
+               class="form-control"
+               id="cc_email"
+               aria-describedby="emailHelp"
+               placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccEmailInputNumber]['InputPlaceholder']}}"
+               name="cc_email"
+               required>
+        <small id="emailHelp" class="form-text text-muted">
             {{ common_texts["HelpingTexts"]["CCEmailShouldDifferFromSigner"] | raw }}
         </small>
     </div>
+
     <div class="form-group">
         <label for="cc_name">
             {{ code_example_text['Forms'][formNumber]['Inputs'][ccNameInputNumber]['InputName'] | raw }}
         </label>
 
         <input type="text"
-            class="form-control" 
-            id="cc_name" 
-            value="{{ signer_name }}" 
-            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccNameInputNumber]['InputPlaceholder']}}"
-            name="cc_name"
-            required >
+               class="form-control"
+               id="cc_name"
+               name="cc_name"
+               placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][ccNameInputNumber]['InputPlaceholder']}}"
+               required>
     </div>
-
+    
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
 </form>
+{% endif %}
 
 {% endblock %}
+

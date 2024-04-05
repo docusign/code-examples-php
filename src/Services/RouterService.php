@@ -89,6 +89,9 @@ class RouterService implements IRouterService
         'aeg011' => 'Admin\EG011DeleteUserDataFromAccount',
         'aeg012' => 'Admin\EG012CloneAccount',
         'con001' => 'Connect\Eg001ValidateUsingHmac',
+        'mae001' => 'Maestro\Eg001TriggerWorkflow',
+        'mae002' => 'Maestro\Eg002CancelWorkflow',
+        'mae003' => 'Maestro\Eg003GetWorkflowStatus',
         'web001' => 'WebForms\EG001CreateAndEmbedForm',
     ];
     /**
@@ -171,6 +174,9 @@ class RouterService implements IRouterService
         'aeg010' => 'admin/eg010_delete_user_data_from_organization.html',
         'aeg011' => 'admin/eg011_delete_user_data_from_account.html',
         'con001' => 'connect/eg001_validate_using_hmac.html',
+        'mae001' => 'maestro/eg001_trigger_workflow.html',
+        'mae002' => 'maestro/eg002_cancel_workflow.html',
+        'mae003' => 'maestro/eg003_get_workflow_status.html',
         'web001' => 'webforms/eg001_embed_form.html'
     ];
     
