@@ -36,11 +36,13 @@ class MaestroApiClientService
         # Construct your API headers
         # Exceptions will be caught by the calling function
 
+        #ds-snippet-start:MaestroPHPStep2
         $basePath = "https://demo.services.docusign.net/";
         $config = new Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
+        #ds-snippet-end:MaestroPHPStep2
 
         $this->accessToken = $args['ds_access_token']?? "";
         $this->routerService = new RouterService();
