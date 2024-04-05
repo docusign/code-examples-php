@@ -45,9 +45,8 @@ class CancelMaestroWorkflowService
      * @param string $accountId
      * @param string $instanceId
      * @return CancelResponse
-     * @throws ApiException
      */
-    #ds-snippet-start:Maestro2Step2
+    #ds-snippet-start:Maestro2Step3
     public static function cancelWorkflowInstance(
         WorkflowInstanceManagementApi $workflowInstanceApi,
         string $accountId,
@@ -55,5 +54,5 @@ class CancelMaestroWorkflowService
     ): CancelResponse {
         return $workflowInstanceApi->cancelWorkflowInstance($accountId, $instanceId);
     }
-    #ds-snippet-end:Maestro2Step2
+    #ds-snippet-end:Maestro2Step3
 }
