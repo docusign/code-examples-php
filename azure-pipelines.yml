@@ -87,6 +87,15 @@ steps:
 
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
 
+- task: CmdLine@2
+  inputs:
+    script: 'docker rm -f $(docker ps -a -q)' 
+  continueOnError: true
+
+- script: |
+    docker system prune -a --force
+  displayName: "cleanup docker files"
+
 - script: |
     echo "kill and remove any running containers"
     docker rm -f $(docker ps -a -q)
