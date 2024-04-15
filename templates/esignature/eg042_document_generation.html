@@ -7,6 +7,7 @@
 {% set jobTitleIndex = 3 %}
 {% set salaryIndex = 4 %}
 {% set startDateIndex = 5 %}
+{% set rsusIndex = 6 %}
 
 <h4>{{ code_example_text['ExampleName'] | raw }}</h4>
 <p>{{ code_example_text["ExampleDescription"] | raw }}</p>
@@ -108,6 +109,19 @@
             id="salary" 
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][salaryIndex]['InputPlaceholder']}}"
             name="salary"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label for="rsus">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][rsusIndex]['InputName'] | raw }}
+        </label>
+
+        <input type="number" 
+            class="form-control" 
+            id="rsus" 
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][rsusIndex]['InputPlaceholder']}}"
+            name="rsus"
             required>
     </div>
 

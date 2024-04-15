@@ -201,7 +201,7 @@ class DocumentGenerationService
                                             ]),
                                             new DocGenFormField([
                                                 'name' => 'Details',
-                                                'value' => $args['salary']
+                                                'value' => '$' . $args['salary']
                                             ])
                                         ]
                                     ]),
@@ -213,7 +213,19 @@ class DocumentGenerationService
                                             ]),
                                             new DocGenFormField([
                                                 'name' => 'Details',
-                                                'value' => 'You will be eligible for a bonus of up to 20 percent based on your performance.'
+                                                'value' => '20%'
+                                            ])
+                                        ]
+                                    ]),
+                                    new DocGenFormFieldRowValue([
+                                        'doc_gen_form_field_list' => [
+                                            new DocGenFormField([
+                                                'name' => 'Compensation_Component',
+                                                'value' => 'RSUs'
+                                            ]),
+                                            new DocGenFormField([
+                                                'name' => 'Details',
+                                                'value' => $args['rsus']
                                             ])
                                         ]
                                     ])
