@@ -104,7 +104,7 @@
             {{ code_example_text['Forms'][formNumber]['Inputs'][salaryIndex]['InputName'] | raw }}
         </label>
 
-        <input type="tel" 
+        <input type="text" 
             class="form-control" 
             id="salary" 
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][salaryIndex]['InputPlaceholder']}}"
@@ -118,6 +118,7 @@
         </label>
 
         <input type="number" 
+            min="0"
             class="form-control" 
             id="rsus" 
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][rsusIndex]['InputPlaceholder']}}"
