@@ -21,11 +21,12 @@
         "docusign/rooms-client": "^2.1.0",
         "docusign/monitor-client": "^1.1.0",
         "docusign/webforms-client": "^1.0.0",
+        "docusign/maestro-client": "dev-1.0.0-rc1-v1.0.0-1.0.3",
         "twig/twig": "^3.5.1",
         "league/oauth2-client": "^2.6.1",
         "ext-json": "*",
         "guzzlehttp/guzzle": "7.5.0",
-        "firebase/php-jwt": "5.5.1",
+        "firebase/php-jwt": "6.0.0",
         "mashape/unirest-php": "3.0.4",
         "squizlabs/php_codesniffer": "*",
         "phpunit/phpunit": "^9.5"

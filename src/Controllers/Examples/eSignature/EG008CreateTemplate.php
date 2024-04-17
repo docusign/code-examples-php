@@ -45,6 +45,8 @@ class EG008CreateTemplate extends eSignBaseController
         );
         if ($templateInformation) {
             $_SESSION["template_id"] = $templateInformation["template_id"]; # Save for use by other examples
+            setcookie("template_id", $_SESSION["template_id"]);
+
             $msg = $templateInformation['created_new_template'] ? "The template has been created!" :
                 "Done. The template already existed in your account.";
 

@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ consent_url | raw }}</p>
+
+<form class="eg" action="" method="get">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <a href="{{ app_url ~ 'index.php?page=mae001' }}" class="btn btn-docu">
+        {{ common_texts["ContinueButton"] | raw }}
+    </a>
+</form {% endblock %}

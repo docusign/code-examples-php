@@ -82,6 +82,9 @@ class ManifestService
             case "con":
                 $currentAPI = ApiTypes::CONNECT;
                 break;
+            case "mae":
+                $currentAPI = ApiTypes::MAESTRO;
+                break;
             case "web":
                 $currentAPI = ApiTypes::WEBFORMS;
                 break;

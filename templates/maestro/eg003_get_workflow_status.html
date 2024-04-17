@@ -1,0 +1,84 @@
+{% extends "base.html" %}  {% block content %}
+
+{% set formNumber = 0 %}
+{% set workflowIdInputNumber = 0 %}
+{% set instanceIdInputNumber = 1 %}
+{% set redirectToCodeExample = "href='" ~ app_url ~ "index.php?page=mae001'" %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+{% if show_doc %}
+<p><a target='_blank' href='{{ documentation | raw }}'>Documentation</a> about this example.</p>
+{% endif %}
+
+<p>
+    {% if code_example_text["LinksToAPIMethod"] | length == 1 %}
+    <span>{{ common_texts["APIMethodUsed"] | raw }}</span>
+    {% else %}
+    <span>{{ common_texts["APIMethodUsedPlural"] | raw }}</span>
+    {% endif %}
+
+    {% for i in 0..(code_example_text["LinksToAPIMethod"] | length - 1) %}
+    <a target='_blank' href="{{ example['LinksToAPIMethod'][i]['Path'] }}">
+        {{ code_example_text['LinksToAPIMethod'][i]['PathName'] | raw}}
+    </a>
+
+    {% if  i + 1 == code_example_text["LinksToAPIMethod"] | length - 1 %}
+    <span>and</span>
+    {% elseif i + 1 != code_example_text["LinksToAPIMethod"] | length %}
+    <span>,</span>
+    {% endif %}
+    {% endfor %}
+</p>
+
+<p>
+    {{ common_texts["ViewSourceFile"]|replace({ ("{0}"): ("<a target='_blank' href='%s'>%s</a>"|format(source_url, source_file)) })| raw }}
+</p>
+
+{% if workflow_id == null or instance_id == null %}
+    {{ code_example_text['RedirectsToOtherCodeExamples'][0]['RedirectText']|replace({ ("{0}"): redirectToCodeExample }) | raw }}
+    
+    <form class="eg" action="{{ app_url ~ 'index.php' }}" method="get">
+        <input type="hidden" name="page" value="mae001"/>
+        <button type="submit" class="btn btn-docu">{{ common_texts["ContinueButton"] | raw }}</button>
+    </form>
+{% else %}
+<form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="workflow_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][workflowIdInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="workflow_id"
+               name="workflow_id"
+               value="{{ workflow_id }}"
+               placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][workflowIdInputNumber]['InputPlaceholder']}}"
+               readonly
+               required>
+    </div>
+
+    <div class="form-group">
+        <label for="instance_id">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][instanceIdInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text"
+               class="form-control"
+               id="instance_id"
+               placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][instanceIdInputNumber]['InputPlaceholder']}}"
+               name="instance_id"
+               value="{{ instance_id }}"
+               readonly
+               required>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <button type="submit" class="btn btn-docu">{{ common_texts["SubmitButton"] | raw }}</button>
+</form>
+{% endif %}
+
+{% endblock %}
+
