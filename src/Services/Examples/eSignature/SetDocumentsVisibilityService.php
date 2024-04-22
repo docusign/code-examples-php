@@ -17,7 +17,7 @@ class SetDocumentsVisibilityService
     const CASE_FOR_INSTRUCTIONS = "ACCOUNT_LACKS_PERMISSIONS";
     const FIXING_INSTRUCTIONS_FOR_PERMISSIONS = "See " .
         "<a href=\"https://developers.docusign.com/docs/esign-rest-api/how-to/set-document-visibility\">" .
-        "How to set document visibility for envelope recipients</a> in the DocuSign Developer Center " .
+        "How to set document visibility for envelope recipients</a> in the Docusign Developer Center " .
         "for instructions on how to enable document visibility in your developer account.";
 
     public static function worker(
