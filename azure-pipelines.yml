@@ -88,6 +88,17 @@ steps:
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
 
 - script: |
+    echo "Checking for running Docker containers..."
+    containers=$(docker ps -q)
+    if [ ! -z "$containers" ]; then
+      echo "Stopping running Docker containers..."
+      docker stop $(docker ps -q)
+    else
+      echo "No Docker containers are running."
+    fi
+  displayName: "check for running containers"
+
+- script: |
     echo "kill and remove any running containers"
     docker rm -f $(docker ps -a -q)
     docker system prune -f
