@@ -6,7 +6,7 @@
     },
  
     "require": {
-        "docusign/esign-client": "^6.19.0-rc2",
+        "docusign/esign-client": "^6.19.0",
         "twig/twig": "^3.9.3",
         "league/oauth2-client": "^2.7.0",
         "ext-json": "*",
