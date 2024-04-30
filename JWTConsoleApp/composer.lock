@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af4e5c71e8906e232d3e8909a0a7999d",
+    "content-hash": "1ff212e0edbedd3eefceaafa2d361ae3",
     "packages": [
         {
             "name": "docusign/esign-client",
-            "version": "v6.19.0-rc2",
+            "version": "v6.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df"
+                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df",
-                "reference": "b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
+                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
                 "shasum": ""
             },
             "require": {
@@ -61,9 +61,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0-rc2"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0"
             },
-            "time": "2024-03-15T15:56:33+00:00"
+            "time": "2024-04-30T10:27:14+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -899,9 +899,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "docusign/esign-client": 5
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
