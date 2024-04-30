@@ -17,7 +17,7 @@
     "require": {
         "docusign/admin-client": "^1.4.2-rc1",
         "docusign/click-client": "^1.4.1-rc1",
-        "docusign/esign-client": "^6.15.0-rc",
+        "docusign/esign-client": "^6.19.0",
         "docusign/rooms-client": "^2.1.1-rc1",
         "docusign/monitor-client": "^1.2.1-rc1",
         "docusign/webforms-client": "^1.0.1-rc1",
