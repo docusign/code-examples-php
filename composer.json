@@ -17,11 +17,11 @@
     "require": {
         "docusign/admin-client": "^1.4.2",
         "docusign/click-client": "^1.4.1",
-        "docusign/esign-client": "^6.19.0-rc2",
+        "docusign/esign-client": "^6.19.0",
         "docusign/rooms-client": "^2.1.1",
         "docusign/monitor-client": "^1.2.1",
         "docusign/webforms-client": "^1.0.1",
-        "docusign/maestro-client": "^1.0.0-rc1",
+        "docusign/maestro-client": "^1.0.0",
         "twig/twig": "^3.9.3",
         "league/oauth2-client": "^2.7.0",
         "ext-json": "*",

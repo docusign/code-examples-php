@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d525efd2988dcb53bd644d7a89ef220e",
+    "content-hash": "6f1fb925038e33ae797bd1afbcff61aa",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -194,16 +194,16 @@
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.19.0-rc2",
+            "version": "v6.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df"
+                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df",
-                "reference": "b74a1fc3b96bd83e7deccd19d054a5b9d1ce70df",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
+                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
                 "shasum": ""
             },
             "require": {
@@ -247,22 +247,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0-rc2"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0"
             },
-            "time": "2024-03-15T15:56:33+00:00"
+            "time": "2024-04-30T10:27:14+00:00"
         },
         {
             "name": "docusign/maestro-client",
-            "version": "v1.0.0-rc1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-maestro-php-client.git",
-                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941"
+                "reference": "b80b20437106613f4bf3305b1e5a3fe77ec9ae57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
-                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
+                "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/b80b20437106613f4bf3305b1e5a3fe77ec9ae57",
+                "reference": "b80b20437106613f4bf3305b1e5a3fe77ec9ae57",
                 "shasum": ""
             },
             "require": {
@@ -305,9 +305,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-maestro-php-client/issues",
-                "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0-rc1"
+                "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0"
             },
-            "time": "2024-04-03T17:50:23+00:00"
+            "time": "2024-04-29T15:03:57+00:00"
         },
         {
             "name": "docusign/monitor-client",
@@ -3385,10 +3385,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "docusign/esign-client": 5,
-        "docusign/maestro-client": 5
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
