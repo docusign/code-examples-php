@@ -68,6 +68,7 @@ class EG042DocumentGeneration extends eSignBaseController
             'manager_name' => $this->checkInputValues($_POST['manager_name']),
             'job_title' => $_POST['job_title'],
             'salary' => $_POST['salary'],
+            'rsus' => $_POST['rsus'],
             'start_date' => $_POST['start_date'],
         ];
         

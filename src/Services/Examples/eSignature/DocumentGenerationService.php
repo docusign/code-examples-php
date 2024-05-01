@@ -7,6 +7,7 @@ use DocuSign\eSign\Model\DateSigned;
 use DocuSign\eSign\Model\DocGenFormField;
 use DocuSign\eSign\Model\TemplateTabs;
 use DocuSign\eSign\Model\DocGenFormFieldRequest;
+use DocuSign\eSign\Model\DocGenFormFieldRowValue;
 use DocuSign\eSign\Model\DocGenFormFields;
 use DocuSign\eSign\Model\Envelope;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -103,17 +104,16 @@ class DocumentGenerationService
     public static function prepareTabs(): TemplateTabs
     {
         $signHere = new SignHere([
-             'document_id' => '1',
-             'page_number' => '1',
-             'x_position' => '75',
-             'y_position' => '415'
+            'anchor_string' => 'Employee Signature',
+            'anchor_units' => 'pixels',
+            'anchor_x_offset' => '5',
+            'anchor_y_offset' => '-22'
         ]);
 
         $dateSigned = new DateSigned([
-             'document_id' => '1',
-             'page_number' => '1',
-             'x_position' => '290',
-             'y_position' => '435'
+            'anchor_string' => 'Date Signed',
+            'anchor_units' => 'pixels',
+            'anchor_y_offset' => '-22'
         ]);
 
         return new TemplateTabs([
@@ -186,12 +186,50 @@ class DocumentGenerationService
                                 'value' => $args['job_title']
                             ]),
                             new DocGenFormField([
-                                'name' => 'Salary',
-                                'value' => $args['salary']
-                            ]),
-                            new DocGenFormField([
                                 'name' => 'Start_Date',
                                 'value' => $args['start_date']
+                            ]),
+                            new DocGenFormField([
+                                'name' => 'Compensation_Package',
+                                'type' => 'TableRow',
+                                'row_values' => [
+                                    new DocGenFormFieldRowValue([
+                                        'doc_gen_form_field_list' => [
+                                            new DocGenFormField([
+                                                'name' => 'Compensation_Component',
+                                                'value' => 'Salary'
+                                            ]),
+                                            new DocGenFormField([
+                                                'name' => 'Details',
+                                                'value' => '$' . $args['salary']
+                                            ])
+                                        ]
+                                    ]),
+                                    new DocGenFormFieldRowValue([
+                                        'doc_gen_form_field_list' => [
+                                            new DocGenFormField([
+                                                'name' => 'Compensation_Component',
+                                                'value' => 'Bonus'
+                                            ]),
+                                            new DocGenFormField([
+                                                'name' => 'Details',
+                                                'value' => '20%'
+                                            ])
+                                        ]
+                                    ]),
+                                    new DocGenFormFieldRowValue([
+                                        'doc_gen_form_field_list' => [
+                                            new DocGenFormField([
+                                                'name' => 'Compensation_Component',
+                                                'value' => 'RSUs'
+                                            ]),
+                                            new DocGenFormField([
+                                                'name' => 'Details',
+                                                'value' => $args['rsus']
+                                            ])
+                                        ]
+                                    ])
+                                ]
                             ])
                         ]
                     ])
