@@ -4,34 +4,34 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bfbf612d86ba495435d65d96abd85af8",
+    "content-hash": "0b7c83ae1a97a149a42ce0a704686a85",
     "packages": [
         {
             "name": "doctrine/instantiator",
-            "version": "1.5.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b"
+                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/0a0fa9780f5d4e507415a065172d26a98d02047b",
-                "reference": "0a0fa9780f5d4e507415a065172d26a98d02047b",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
+                "reference": "c6222283fa3f4ac679f8b9ced9a4e23f163e80d0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9 || ^11",
+                "doctrine/coding-standard": "^11",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.16 || ^1",
-                "phpstan/phpstan": "^1.4",
-                "phpstan/phpstan-phpunit": "^1",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
-                "vimeo/psalm": "^4.30 || ^5.4"
+                "phpbench/phpbench": "^1.2",
+                "phpstan/phpstan": "^1.9.4",
+                "phpstan/phpstan-phpunit": "^1.3",
+                "phpunit/phpunit": "^9.5.27",
+                "vimeo/psalm": "^5.4"
             },
             "type": "library",
             "autoload": {
@@ -58,7 +58,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/instantiator/issues",
-                "source": "https://github.com/doctrine/instantiator/tree/1.5.0"
+                "source": "https://github.com/doctrine/instantiator/tree/2.0.0"
             },
             "funding": [
                 {
@@ -74,20 +74,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-30T00:15:36+00:00"
+            "time": "2022-12-30T00:23:10+00:00"
         },
         {
             "name": "docusign/admin-client",
-            "version": "v1.4.2-rc1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-admin-php-client.git",
-                "reference": "99f6b8dc8e3bc2d81783a3ec764b5ed92f60f6a3"
+                "reference": "67c9c9f895b1673d2a10c805b93739cef14c484a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/99f6b8dc8e3bc2d81783a3ec764b5ed92f60f6a3",
-                "reference": "99f6b8dc8e3bc2d81783a3ec764b5ed92f60f6a3",
+                "url": "https://api.github.com/repos/docusign/docusign-admin-php-client/zipball/67c9c9f895b1673d2a10c805b93739cef14c484a",
+                "reference": "67c9c9f895b1673d2a10c805b93739cef14c484a",
                 "shasum": ""
             },
             "require": {
@@ -130,22 +130,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-admin-php-client/issues",
-                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.4.2-rc1"
+                "source": "https://github.com/docusign/docusign-admin-php-client/tree/v1.4.2"
             },
-            "time": "2024-03-20T13:02:21+00:00"
+            "time": "2024-04-29T05:16:15+00:00"
         },
         {
             "name": "docusign/click-client",
-            "version": "v1.4.1-rc1",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-click-php-client.git",
-                "reference": "daef6b091742d49f4580953cb3de3ef4853cb101"
+                "reference": "5c6dbae536b483d72e79e4f79a31ca0b603955fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-click-php-client/zipball/daef6b091742d49f4580953cb3de3ef4853cb101",
-                "reference": "daef6b091742d49f4580953cb3de3ef4853cb101",
+                "url": "https://api.github.com/repos/docusign/docusign-click-php-client/zipball/5c6dbae536b483d72e79e4f79a31ca0b603955fb",
+                "reference": "5c6dbae536b483d72e79e4f79a31ca0b603955fb",
                 "shasum": ""
             },
             "require": {
@@ -188,22 +188,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-click-php-client/issues",
-                "source": "https://github.com/docusign/docusign-click-php-client/tree/v1.4.1-rc1"
+                "source": "https://github.com/docusign/docusign-click-php-client/tree/v1.4.1"
             },
-            "time": "2024-03-21T08:07:16+00:00"
+            "time": "2024-04-29T05:16:38+00:00"
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.19.0",
+            "version": "v7.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb"
+                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
-                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/10991ddde2d2856fca636b4035ff70e07a8bf981",
+                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981",
                 "shasum": ""
             },
             "require": {
@@ -247,9 +247,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v7.0.0-rc1"
             },
-            "time": "2024-04-30T10:27:14+00:00"
+            "time": "2024-05-03T15:10:55+00:00"
         },
         {
             "name": "docusign/maestro-client",
@@ -311,16 +311,16 @@
         },
         {
             "name": "docusign/monitor-client",
-            "version": "v1.2.1-rc1",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-monitor-php-client.git",
-                "reference": "9e03f8f3bb453c7218e8808bc268ca77047421ff"
+                "reference": "91de927ff326b0f22b1892bf2aee81459178d12b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/9e03f8f3bb453c7218e8808bc268ca77047421ff",
-                "reference": "9e03f8f3bb453c7218e8808bc268ca77047421ff",
+                "url": "https://api.github.com/repos/docusign/docusign-monitor-php-client/zipball/91de927ff326b0f22b1892bf2aee81459178d12b",
+                "reference": "91de927ff326b0f22b1892bf2aee81459178d12b",
                 "shasum": ""
             },
             "require": {
@@ -363,22 +363,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-monitor-php-client/issues",
-                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.2.1-rc1"
+                "source": "https://github.com/docusign/docusign-monitor-php-client/tree/v1.2.1"
             },
-            "time": "2024-03-20T14:03:16+00:00"
+            "time": "2024-04-29T05:16:34+00:00"
         },
         {
             "name": "docusign/rooms-client",
-            "version": "v2.1.1-rc1",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-rooms-php-client.git",
-                "reference": "f3998a3551332e5bb45731418cd7a67b2c650149"
+                "reference": "f1106e554ee4795a7853a7dff050f4303202b239"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/f3998a3551332e5bb45731418cd7a67b2c650149",
-                "reference": "f3998a3551332e5bb45731418cd7a67b2c650149",
+                "url": "https://api.github.com/repos/docusign/docusign-rooms-php-client/zipball/f1106e554ee4795a7853a7dff050f4303202b239",
+                "reference": "f1106e554ee4795a7853a7dff050f4303202b239",
                 "shasum": ""
             },
             "require": {
@@ -421,22 +421,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-rooms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.1.1-rc1"
+                "source": "https://github.com/docusign/docusign-rooms-php-client/tree/v2.1.1"
             },
-            "time": "2024-03-21T08:24:01+00:00"
+            "time": "2024-04-29T05:16:26+00:00"
         },
         {
             "name": "docusign/webforms-client",
-            "version": "v1.0.1-rc1",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-webforms-php-client.git",
-                "reference": "b3f2c6f7940b319011cd941735ecb0213ed4c2b6"
+                "reference": "43f826416a0efcb3efa62b2adc2bb1369783dd3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-webforms-php-client/zipball/b3f2c6f7940b319011cd941735ecb0213ed4c2b6",
-                "reference": "b3f2c6f7940b319011cd941735ecb0213ed4c2b6",
+                "url": "https://api.github.com/repos/docusign/docusign-webforms-php-client/zipball/43f826416a0efcb3efa62b2adc2bb1369783dd3c",
+                "reference": "43f826416a0efcb3efa62b2adc2bb1369783dd3c",
                 "shasum": ""
             },
             "require": {
@@ -479,9 +479,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-webforms-php-client/issues",
-                "source": "https://github.com/docusign/docusign-webforms-php-client/tree/v1.0.1-rc1"
+                "source": "https://github.com/docusign/docusign-webforms-php-client/tree/v1.0.1"
             },
-            "time": "2024-03-21T08:20:45+00:00"
+            "time": "2024-04-22T21:26:28+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -1745,20 +1745,20 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
@@ -1782,7 +1782,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -1794,9 +1794,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
-            "time": "2023-04-10T20:10:41+00:00"
+            "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2860,16 +2860,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.1",
+            "version": "3.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "267a4405fff1d9c847134db3a3c92f1ab7f77909"
+                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/267a4405fff1d9c847134db3a3c92f1ab7f77909",
-                "reference": "267a4405fff1d9c847134db3a3c92f1ab7f77909",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
                 "shasum": ""
             },
             "require": {
@@ -2936,29 +2936,29 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-03-31T21:03:09+00:00"
+            "time": "2024-04-23T20:25:34+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.0.2",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c"
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
-                "reference": "26954b3d62a6c5fd0ea8a2a00c0353a14978d05c",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
+                "php": ">=8.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
+                    "dev-main": "3.5-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -2987,7 +2987,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.0.2"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
             },
             "funding": [
                 {
@@ -3003,7 +3003,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2024-04-18T09:32:20+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3296,16 +3296,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.9.2",
+            "version": "v3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "856cb5a6cfd6f3e4dc1f6c9a8f54e259503f7cf3"
+                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/856cb5a6cfd6f3e4dc1f6c9a8f54e259503f7cf3",
-                "reference": "856cb5a6cfd6f3e4dc1f6c9a8f54e259503f7cf3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7aaed0b8311a557cc8c4047a71fd03153a00e755",
+                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755",
                 "shasum": ""
             },
             "require": {
@@ -3359,7 +3359,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.9.2"
+                "source": "https://github.com/twigphp/Twig/tree/v3.10.2"
             },
             "funding": [
                 {
@@ -3371,7 +3371,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-17T14:16:25+00:00"
+            "time": "2024-05-14T06:04:16+00:00"
         }
     ],
     "packages-dev": [],
@@ -3380,6 +3380,7 @@
     "stability-flags": {
         "docusign/admin-client": 5,
         "docusign/click-client": 5,
+        "docusign/esign-client": 5,
         "docusign/rooms-client": 5,
         "docusign/monitor-client": 5,
         "docusign/webforms-client": 5,
@@ -3391,5 +3392,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.6.0"
 }

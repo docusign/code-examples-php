@@ -2,7 +2,12 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
-use DocuSign\eSign\Model\ReturnUrlRequest;
+use DocuSign\eSign\Model\EnvelopeViewRecipientSettings;
+use DocuSign\eSign\Model\EnvelopeViewDocumentSettings;
+use DocuSign\eSign\Model\EnvelopeViewTaggerSettings;
+use DocuSign\eSign\Model\EnvelopeViewTemplateSettings;
+use DocuSign\eSign\Model\EnvelopeViewRequest;
+use DocuSign\eSign\Model\EnvelopeViewSettings;
 
 class EmbeddedSendingService
 {
@@ -30,7 +35,7 @@ class EmbeddedSendingService
 
         # Create sender view
         #ds-snippet-start:eSign11Step3
-        $view_request = new ReturnUrlRequest(['return_url' => $args['ds_return_url']]);
+        $view_request = EmbeddedSendingService::prepareViewRequest($args['starting_view'], $args['ds_return_url']);
         $envelope_api = $clientService->getEnvelopeApi();
         $senderView = $envelope_api->createSenderView($args['account_id'], $envelope_id, $view_request);
 
@@ -42,5 +47,42 @@ class EmbeddedSendingService
 
         return ['envelope_id' => $envelope_id, 'redirect_url' =>  $url];
         #ds-snippet-end:eSign11Step3
+    }
+
+    private static function prepareViewRequest(string $startingView, string $returnUrl): EnvelopeViewRequest
+    {
+        $viewSettings = new EnvelopeViewSettings([
+            'starting_screen' => $startingView,
+            'send_button_action' => 'send',
+            'show_back_button' => 'false',
+            'back_button_action' => 'previousPage',
+            'show_header_actions' => 'false',
+            'show_discard_action' => 'false',
+            'lock_token' => '',
+            'recipient_settings' => new EnvelopeViewRecipientSettings([
+                'show_edit_recipients' => 'false',
+                'show_contacts_list' => 'false'
+            ]),
+            'document_settings' => new EnvelopeViewDocumentSettings([
+                'show_edit_documents' => 'false',
+                'show_edit_document_visibility' => 'false',
+                'show_edit_pages' => 'false',
+            ]),
+            'tagger_settings' => new EnvelopeViewTaggerSettings([
+                'palette_sections' => 'default',
+                'palette_default' => 'custom'
+            ]),
+            'template_settings' => new EnvelopeViewTemplateSettings([
+                'show_matching_templates_prompt' => 'true'
+            ])
+        ]);
+
+        $viewRequest = new EnvelopeViewRequest([
+            'return_url' => $returnUrl,
+            'view_access' => 'envelope',
+            'settings' => $viewSettings
+        ]);
+
+        return $viewRequest;
     }
 }
