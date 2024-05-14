@@ -11,6 +11,8 @@ final class CreateBrandTest extends TestCase
 {
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
+    protected $testConfig;
+
     public function __construct($testConfig = null)
     {
         parent::__construct();

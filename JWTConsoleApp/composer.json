@@ -4,11 +4,11 @@
     },
  
     "require": {
-        "docusign/esign-client": "^6.14.0-rc",
-        "league/oauth2-client": "^2.6.1",
+        "docusign/esign-client": "^6.19.0",
+        "league/oauth2-client": "^2.7.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "7.7.0",
-        "firebase/php-jwt": "6.0.0",
+        "guzzlehttp/guzzle": "7.8.1",
+        "firebase/php-jwt": "6.10.0",
         "mashape/unirest-php": "3.0.4"
     }
 }
