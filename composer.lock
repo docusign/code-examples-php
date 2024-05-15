@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f9c08ff2ba5365b5a428078d572298e",
+    "content-hash": "bf71d63eb70aac84c156188d704df394",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -194,16 +194,16 @@
         },
         {
             "name": "docusign/esign-client",
-            "version": "v6.19.0",
+            "version": "v7.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb"
+                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
-                "reference": "855615f859dfc3d4035fe7ff8b554dda3dbef1cb",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/10991ddde2d2856fca636b4035ff70e07a8bf981",
+                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981",
                 "shasum": ""
             },
             "require": {
@@ -247,22 +247,22 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v6.19.0"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v7.0.0-rc1"
             },
-            "time": "2024-04-30T10:27:14+00:00"
+            "time": "2024-05-03T15:10:55+00:00"
         },
         {
             "name": "docusign/maestro-client",
-            "version": "v1.0.0",
+            "version": "v1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-maestro-php-client.git",
-                "reference": "b80b20437106613f4bf3305b1e5a3fe77ec9ae57"
+                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/b80b20437106613f4bf3305b1e5a3fe77ec9ae57",
-                "reference": "b80b20437106613f4bf3305b1e5a3fe77ec9ae57",
+                "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
+                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
                 "shasum": ""
             },
             "require": {
@@ -305,9 +305,9 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-maestro-php-client/issues",
-                "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0"
+                "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0-rc1"
             },
-            "time": "2024-04-29T15:03:57+00:00"
+            "time": "2024-04-03T17:50:23+00:00"
         },
         {
             "name": "docusign/monitor-client",
@@ -1753,20 +1753,20 @@
         },
         {
             "name": "psr/http-factory",
-            "version": "1.0.2",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-factory.git",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
-                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
+                "reference": "2b4765fddfe3b508ac62f829e852b1501d3f6e8a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0.0",
+                "php": ">=7.1",
                 "psr/http-message": "^1.0 || ^2.0"
             },
             "type": "library",
@@ -1790,7 +1790,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -1802,9 +1802,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
-            "time": "2023-04-10T20:10:41+00:00"
+            "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2948,16 +2948,16 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.4.0",
+            "version": "v3.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
-                "reference": "7c3aff79d10325257a001fcf92d991f24fc967cf"
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/7c3aff79d10325257a001fcf92d991f24fc967cf",
-                "reference": "7c3aff79d10325257a001fcf92d991f24fc967cf",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
+                "reference": "0e0d29ce1f20deffb4ab1b016a7257c4f1e789a1",
                 "shasum": ""
             },
             "require": {
@@ -2966,7 +2966,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.4-dev"
+                    "dev-main": "3.5-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -2995,7 +2995,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.4.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.0"
             },
             "funding": [
                 {
@@ -3011,7 +3011,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-23T14:45:45+00:00"
+            "time": "2024-04-18T09:32:20+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3304,16 +3304,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.9.3",
+            "version": "v3.10.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58"
+                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58",
-                "reference": "a842d75fed59cdbcbd3a3ad7fb9eb768fc350d58",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7aaed0b8311a557cc8c4047a71fd03153a00e755",
+                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755",
                 "shasum": ""
             },
             "require": {
@@ -3367,7 +3367,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.9.3"
+                "source": "https://github.com/twigphp/Twig/tree/v3.10.2"
             },
             "funding": [
                 {
@@ -3379,13 +3379,21 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T11:59:33+00:00"
+            "time": "2024-05-14T06:04:16+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "docusign/admin-client": 5,
+        "docusign/click-client": 5,
+        "docusign/esign-client": 5,
+        "docusign/rooms-client": 5,
+        "docusign/monitor-client": 5,
+        "docusign/webforms-client": 5,
+        "docusign/maestro-client": 5
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
