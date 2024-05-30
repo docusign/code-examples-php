@@ -2,22 +2,22 @@
 
 ### GitHub repo: [code-examples-php](./README.md)
 
-This GitHub repo includes code examples for the DocuSign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `EXAMPLES_API_TYPE` setting in the ds_config.php file. Set only one API type to `true` and set the remaining to `false`.
+This GitHub repo includes code examples for the Docusign Admin API, Click API, eSignature REST API, Monitor API, and Rooms API. To switch between API code examples, modify the `EXAMPLES_API_TYPE` setting in the ds_config.php file. Set only one API type to `true` and set the remaining to `false`.
 
-If none of the API types are set to `true`, the DocuSign eSignature REST API code examples will be shown. If multiple API types are set to `true`, only the first will be shown.
+If none of the API types are set to `true`, the Docusign eSignature REST API code examples will be shown. If multiple API types are set to `true`, only the first will be shown.
 
 
 ## Introduction
 This repo is a PHP application that supports the following authentication workflows: 
 
-* Authentication with DocuSign via [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode).
+* Authentication with Docusign via [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode).
 When the token expires, the user is asked to re-authenticate. The refresh token is not used.
 
-* Authentication with DocuSign via [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt/).
+* Authentication with Docusign via [JSON Web Token (JWT) Grant](https://developers.docusign.com/platform/auth/jwt/).
 When the token expires, it updates automatically.
 
 
-The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a DocuSign OAuth2 [provider](src/Controllers/Auth/DocuSign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocuSignResourceOwner.php) to process the results of the call to OAuth::getUser.
+The [PHP OAuth 2.0 Client package](http://oauth2-client.thephpleague.com/) is used for authentication. This launcher includes a Docusign OAuth2 [provider](src/Controllers/Auth/Docusign.php) for the OAuth package and a [resource owner](src/Controllers/Auth/DocusignResourceOwner.php) to process the results of the call to OAuth::getUser.
 
 The OAuth library is used in the file [index.php](./public/index.php).
 
@@ -25,58 +25,58 @@ The OAuth library is used in the file [index.php](./public/index.php).
 
 For more information about the scopes used for obtaining authorization to use the eSignature API, see [Required scopes](https://developers.docusign.com/docs/esign-rest-api/esign101/auth#required-scopes).  
 
-For a list of code examples that use the eSignature API, see the [How-to guides overview](https://developers.docusign.com/docs/esign-rest-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the eSignature API, see the [How-to guides overview](https://developers.docusign.com/docs/esign-rest-api/how-to/) on the Docusign Developer Center.
 
 
 ## Rooms API 
 
-**Note:** To use the Rooms API, you must also [create your Rooms developer account](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the DocuSign Forms feature enabled in your Rooms for Real Estate account.  
+**Note:** To use the Rooms API, you must also [create your Rooms developer account](https://developers.docusign.com/docs/rooms-api/rooms101/create-account). Examples 4 and 6 require that you have the Docusign Forms feature enabled in your Rooms for Real Estate account.  
 For more information about the scopes used for obtaining authorization to use the Rooms API, see [Required scopes](https://developers.docusign.com/docs/rooms-api/rooms101/auth/).  
 
-For a list of code examples that use the Rooms API, see the [How-to guides overview](https://developers.docusign.com/docs/rooms-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the Rooms API, see the [How-to guides overview](https://developers.docusign.com/docs/rooms-api/how-to/) on the Docusign Developer Center.
 
 
 ## Click API  
 For more information about the scopes used for obtaining authorization to use the Click API, see [Required scopes](https://developers.docusign.com/docs/click-api/click101/auth/#required-scopes)  
 
-For a list of code examples that use the Click API, see the [How-to guides overview](https://developers.docusign.com/docs/click-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the Click API, see the [How-to guides overview](https://developers.docusign.com/docs/click-api/how-to/) on the Docusign Developer Center.
 
 
 ## Monitor API
 
-**Note:** To use the Monitor API, you must also [enable DocuSign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).  
+**Note:** To use the Monitor API, you must also [enable Docusign Monitor for your organization](https://developers.docusign.com/docs/monitor-api/how-to/enable-monitor/).  
 
 For information about the scopes used for obtaining authorization to use the Monitor API, see the [scopes section](https://developers.docusign.com/docs/monitor-api/monitor101/auth/). 
 
-For a list of code examples that use the Monitor API, see the [How-to guides overview](https://developers.docusign.com/docs/monitor-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the Monitor API, see the [How-to guides overview](https://developers.docusign.com/docs/monitor-api/how-to/) on the Docusign Developer Center.
 
 
 ## Admin API
 
-**Note:** To use the Admin API, you must [create an organization](https://support.docusign.com/en/guides/org-admin-guide-create-org) in your DocuSign developer account. Also, to run the DocuSign CLM code example, [CLM must be enabled for your organization](https://support.docusign.com/en/articles/DocuSign-and-SpringCM).
+**Note:** To use the Admin API, you must [create an organization](https://support.docusign.com/en/guides/org-admin-guide-create-org) in your Docusign developer account. Also, to run the Docusign CLM code example, [CLM must be enabled for your organization](https://support.docusign.com/en/articles/Docusign-and-SpringCM).
 
 For information about the scopes used for obtaining authorization to use the Admin API, see the [scopes section](https://developers.docusign.com/docs/admin-api/admin101/auth/).
 
-For a list of code examples that use the Admin API, see the [How-to guides overview](https://developers.docusign.com/docs/admin-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the Admin API, see the [How-to guides overview](https://developers.docusign.com/docs/admin-api/how-to/) on the Docusign Developer Center.
 
 
 ## Web Forms API
 
-The Web Forms API is available in all developer accounts, but only in certain production account plans. Contact [DocuSign Support](https://support.docusign.com/) or your account manager to find out whether the Web Forms API is available for your production account plan.
+The Web Forms API is available in all developer accounts, but only in certain production account plans. Contact [Docusign Support](https://support.docusign.com/) or your account manager to find out whether the Web Forms API is available for your production account plan.
 
 For more information about the scopes used for obtaining authorization to use the Rooms API, see [Required scopes](https://developers.docusign.com/docs/web-forms-api/plan-integration/authentication/).
 
-For a list of code examples that use the Web Forms API, see the [How-to guides overview](https://developers.docusign.com/docs/web-forms-api/how-to/) on the DocuSign Developer Center.
+For a list of code examples that use the Web Forms API, see the [How-to guides overview](https://developers.docusign.com/docs/web-forms-api/how-to/) on the Docusign Developer Center.
 
 
 ## Installation
 
 ### Prerequisites
 
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip items 1 and 2 below as they were automatically performed for you.
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the Docusign Developer Center, skip items 1 and 2 below as they were automatically performed for you.
 
-1. A free [DocuSign developer account](https://go.docusign.com/o/sandbox/); create one if you don't already have one.
-1. A DocuSign app and integration key that is configured to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/) authentication.
+1. A free [Docusign developer account](https://go.docusign.com/o/sandbox/); create one if you don't already have one.
+1. A Docusign app and integration key that is configured to use either [Authorization Code Grant](https://developers.docusign.com/platform/auth/authcode/) or [JWT Grant](https://developers.docusign.com/platform/auth/jwt/) authentication.
 
    This [video](https://www.youtube.com/watch?v=eiRI4fe5HgM) demonstrates how to obtain an integration key.  
    
@@ -104,7 +104,7 @@ For a list of code examples that use the Web Forms API, see the [How-to guides o
 
 ### Installation steps
 
-**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the DocuSign Developer Center, skip step 4 below as it was automatically performed for you.  
+**Note:** If you downloaded this code using [Quickstart](https://developers.docusign.com/docs/esign-rest-api/quickstart) from the Docusign Developer Center, skip step 4 below as it was automatically performed for you.  
 
 1. Extract the Quickstart ZIP file or download or clone the code-examples-php repository.
 1. In your command-line environment, switch to the folder: `cd <Quickstart_folder>` or `cd code-examples-php`
@@ -196,7 +196,7 @@ Apache will run.
 
 
 ## JWT grant remote signing and Authorization Code Grant embedded signing projects
-See [DocuSign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the DocuSign Developer Center for more information on how to run the JWT grant remote signing and the Authorization Code Grant embedded signing project.
+See [Docusign Quickstart overview](https://developers.docusign.com/docs/esign-rest-api/quickstart/overview/) on the Docusign Developer Center for more information on how to run the JWT grant remote signing and the Authorization Code Grant embedded signing project.
 
 
 ## Payments code example  
