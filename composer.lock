@@ -21,8 +21,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
-                "php": "^7.1 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^11",
@@ -195,16 +194,16 @@
         },
         {
             "name": "docusign/esign-client",
-            "version": "v7.0.0-rc1",
+            "version": "v7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-esign-php-client.git",
-                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981"
+                "reference": "69223c5831d905a4c3f30630217f163fb8faec9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/10991ddde2d2856fca636b4035ff70e07a8bf981",
-                "reference": "10991ddde2d2856fca636b4035ff70e07a8bf981",
+                "url": "https://api.github.com/repos/docusign/docusign-esign-php-client/zipball/69223c5831d905a4c3f30630217f163fb8faec9c",
+                "reference": "69223c5831d905a4c3f30630217f163fb8faec9c",
                 "shasum": ""
             },
             "require": {
@@ -248,24 +247,20 @@
             ],
             "support": {
                 "issues": "https://github.com/docusign/docusign-esign-php-client/issues",
-                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v7.0.0-rc1"
+                "source": "https://github.com/docusign/docusign-esign-php-client/tree/v7.0.0"
             },
-            "time": "2024-05-03T15:10:55+00:00"
+            "time": "2024-05-22T11:40:55+00:00"
         },
         {
             "name": "docusign/maestro-client",
-            "version": "v1.0.0-rc1",
             "version": "v1.0.0-rc1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/docusign/docusign-maestro-php-client.git",
                 "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941"
-                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
-                "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
                 "url": "https://api.github.com/repos/docusign/docusign-maestro-php-client/zipball/ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
                 "reference": "ba8cde7227f0760e8b959f9a37c21e3a0cc6a941",
                 "shasum": ""
@@ -311,9 +306,7 @@
             "support": {
                 "issues": "https://github.com/docusign/docusign-maestro-php-client/issues",
                 "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0-rc1"
-                "source": "https://github.com/docusign/docusign-maestro-php-client/tree/v1.0.0-rc1"
             },
-            "time": "2024-04-03T17:50:23+00:00"
             "time": "2024-04-03T17:50:23+00:00"
         },
         {
@@ -769,12 +762,9 @@
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
                 "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
-                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/45b30f99ac27b5ca93cb4831afe16285f57b8221",
-                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/45b30f99ac27b5ca93cb4831afe16285f57b8221",
                 "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
                 "shasum": ""
@@ -864,7 +854,6 @@
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
                 "source": "https://github.com/guzzle/psr7/tree/2.6.2"
-                "source": "https://github.com/guzzle/psr7/tree/2.6.2"
             },
             "funding": [
                 {
@@ -880,7 +869,6 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-12-03T20:05:35+00:00"
             "time": "2023-12-03T20:05:35+00:00"
         },
         {
@@ -1007,17 +995,13 @@
         {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",
-            "version": "1.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
                 "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c"
-                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
-                "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
                 "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
                 "reference": "7284c22080590fb39f2ffa3e9057f10a4ddd0e0c",
                 "shasum": ""
@@ -1027,7 +1011,6 @@
             },
             "conflict": {
                 "doctrine/collections": "<1.6.8",
-                "doctrine/common": "<2.13.3 || >=3,<3.2.2"
                 "doctrine/common": "<2.13.3 || >=3,<3.2.2"
             },
             "require-dev": {
@@ -1059,7 +1042,6 @@
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
                 "source": "https://github.com/myclabs/DeepCopy/tree/1.11.1"
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.11.1"
             },
             "funding": [
                 {
@@ -1068,22 +1050,17 @@
                 }
             ],
             "time": "2023-03-08T13:26:56+00:00"
-            "time": "2023-03-08T13:26:56+00:00"
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.0.2",
             "version": "v5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
                 "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13"
-                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/139676794dc1e9231bf7bcd123cfc0c99182cb13",
-                "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/139676794dc1e9231bf7bcd123cfc0c99182cb13",
                 "reference": "139676794dc1e9231bf7bcd123cfc0c99182cb13",
                 "shasum": ""
@@ -1096,7 +1073,6 @@
             },
             "require-dev": {
                 "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "bin": [
@@ -1130,9 +1106,7 @@
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.2"
             },
-            "time": "2024-03-05T20:51:40+00:00"
             "time": "2024-03-05T20:51:40+00:00"
         },
         {
@@ -1187,7 +1161,6 @@
         },
         {
             "name": "phar-io/manifest",
-            "version": "2.0.4",
             "version": "2.0.4",
             "source": {
                 "type": "git",
@@ -1817,7 +1790,7 @@
                     "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "description": "PSR-17: Common interfaces for PSR-7 HTTP message factories",
             "keywords": [
                 "factory",
                 "http",
@@ -1829,14 +1802,12 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
-                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-factory"
             },
             "time": "2024-04-15T12:06:14+00:00"
         },
         {
             "name": "psr/http-message",
-            "version": "2.0",
             "version": "2.0",
             "source": {
                 "type": "git",
@@ -2897,16 +2868,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.9.2",
+            "version": "3.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480"
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/aac1f6f347a5c5ac6bc98ad395007df00990f480",
-                "reference": "aac1f6f347a5c5ac6bc98ad395007df00990f480",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/8f90f7a53ce271935282967f53d0894f8f1ff877",
+                "reference": "8f90f7a53ce271935282967f53d0894f8f1ff877",
                 "shasum": ""
             },
             "require": {
@@ -2973,7 +2944,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-04-23T20:25:34+00:00"
+            "time": "2024-05-22T21:24:41+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2990,14 +2961,12 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2"
-                "php": ">=8.0.2"
+                "php": ">=8.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "3.0-dev"
-                    "dev-main": "3.0-dev"
+                    "dev-main": "3.5-dev"
                 },
                 "thanks": {
                     "name": "symfony/contracts",
@@ -3046,7 +3015,6 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.29.0",
             "version": "v1.29.0",
             "source": {
                 "type": "git",
@@ -3336,16 +3304,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.10.2",
+            "version": "v3.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755"
+                "reference": "67f29781ffafa520b0bbfbd8384674b42db04572"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7aaed0b8311a557cc8c4047a71fd03153a00e755",
-                "reference": "7aaed0b8311a557cc8c4047a71fd03153a00e755",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/67f29781ffafa520b0bbfbd8384674b42db04572",
+                "reference": "67f29781ffafa520b0bbfbd8384674b42db04572",
                 "shasum": ""
             },
             "require": {
@@ -3399,7 +3367,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.10.2"
+                "source": "https://github.com/twigphp/Twig/tree/v3.10.3"
             },
             "funding": [
                 {
@@ -3411,7 +3379,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-05-14T06:04:16+00:00"
+            "time": "2024-05-16T10:04:27+00:00"
         }
     ],
     "packages-dev": [],
@@ -3432,5 +3400,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

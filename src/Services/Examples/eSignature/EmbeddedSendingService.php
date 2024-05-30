@@ -49,6 +49,7 @@ class EmbeddedSendingService
         #ds-snippet-end:eSign11Step3
     }
 
+    #ds-snippet-start:eSign11Step3
     private static function prepareViewRequest(string $startingView, string $returnUrl): EnvelopeViewRequest
     {
         $viewSettings = new EnvelopeViewSettings([
@@ -85,4 +86,5 @@ class EmbeddedSendingService
 
         return $viewRequest;
     }
+    #ds-snippet-end:eSign11Step3
 }
