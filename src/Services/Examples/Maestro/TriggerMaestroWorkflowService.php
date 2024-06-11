@@ -76,7 +76,8 @@ class TriggerMaestroWorkflowService
         string $ccName,
         string $ccEmail,
         string $mtid,
-        string $mtsec
+        string $mtsec,
+        string $workflowId
     ): TriggerWorkflowViaPostResponse {
         #ds-snippet-start:Maestro1Step4
         $triggerPayload = new TriggerPayload();
@@ -98,7 +99,7 @@ class TriggerMaestroWorkflowService
         #ds-snippet-end:Maestro1Step4
 
         #ds-snippet-start:Maestro1Step5
-        return $workflowTriggerApi->triggerWorkflow($accountId, $triggerPayload, $triggerOptions);
+        return $workflowTriggerApi->triggerWorkflow($accountId, $workflowId, $triggerPayload, $triggerOptions);
         #ds-snippet-end:Maestro1Step5
     }
 
