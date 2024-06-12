@@ -44,7 +44,7 @@ class EG023IDVAuthentication extends eSignBaseController
                     'error.html',
                     [
                         'error_code' => "400",
-                        'error_message' => ManifestService::getCommonTexts()['RecipientShouldDifferFromSender'],
+                        'error_message' => ManifestService::getCommonTexts()['IdenticalEmailsNotAllowedErrorMessage'],
                         'common_texts' => ManifestService::getCommonTexts()
                     ]
                 );
