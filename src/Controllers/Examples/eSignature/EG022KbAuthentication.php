@@ -37,15 +37,16 @@ class EG022KbAuthentication extends eSignBaseController
         # Obtain your OAuth Token
         $this->checkDsToken();
 
-        if($this->args['envelope_args']['signer_email'] == $GLOBALS['DS_CONFIG']['signer_email']) {
+        if ($this->args['envelope_args']['signer_email'] == $GLOBALS['DS_CONFIG']['signer_email']) {
             $GLOBALS['twig']->display(
-                'error.html', 
+                'error.html',
                 [
                     'error_code' => "400",
                     'error_message' => ManifestService::getCommonTexts()['RecipientShouldDifferFromSender'],
                     'common_texts' => ManifestService::getCommonTexts()
                 ]
             );
+
             exit;
         }
 
