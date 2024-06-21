@@ -35,6 +35,19 @@ class EG020PhoneAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
+            if ($this->args['envelope_args']['signer_email'] == $GLOBALS['DS_CONFIG']['signer_email']) {
+                $GLOBALS['twig']->display(
+                    'error.html',
+                    [
+                        'error_code' => "400",
+                        'error_message' => ManifestService::getCommonTexts()['IdenticalEmailsNotAllowedErrorMessage'],
+                        'common_texts' => ManifestService::getCommonTexts()
+                    ]
+                );
+
+                exit;
+            }
+            
             $envelopeAuthentification = PhoneAuthenticationService::phoneAuthentication(
                 $this->args,
                 $this::DEMO_DOCS_PATH,

@@ -37,7 +37,7 @@ class MaestroApiClientService
         # Exceptions will be caught by the calling function
 
         #ds-snippet-start:MaestroPHPStep2
-        $basePath = "https://demo.services.docusign.net/";
+        $basePath = "https://apps-d.docusign.com/api/maestro";
         $config = new Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
@@ -61,7 +61,7 @@ class MaestroApiClientService
      */
     public function workflowTriggerApi(): WorkflowTriggerApi
     {
-        $basePath = "https://demo.services.docusign.net/";
+        $basePath = "https://apps-d.docusign.com/api/maestro";
         $config = new Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $this->accessToken);

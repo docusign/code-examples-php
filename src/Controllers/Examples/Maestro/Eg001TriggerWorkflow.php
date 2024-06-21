@@ -123,7 +123,8 @@ class Eg001TriggerWorkflow extends MaestroApiBaseController
                 $this->args['envelope_args']['cc_name'],
                 $this->args['envelope_args']['cc_email'],
                 $mtid,
-                $mtsec
+                $mtsec,
+                $workflowId
             );
             $_SESSION['instance_id'] = $trigger->getInstanceId();
         } catch (ApiException $e) {
@@ -131,6 +132,7 @@ class Eg001TriggerWorkflow extends MaestroApiBaseController
                 $this->contactSupportToEnableFeature($e);
             }
         }
+
         $this->clientService->showDoneTemplateFromManifest(
             $this->codeExampleText,
             json_encode($trigger->__toString())

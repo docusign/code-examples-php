@@ -4,7 +4,7 @@
 {% if not session['ds_user_name'] %}
 <!-- IF not signed in -->
 <div>
-    <div class="jumbotron jumbotron-fluid"> <table>
+    <div class="jumbotron jumbotron-fluid" style="background-color: #210058!important"> <table>
       <tbody>
       <tr>
       <td>
@@ -12,7 +12,7 @@
       <p class="Xlead">{{ common_texts["HomePageText"] | raw }}</p>
       </td>
       <td>
-          <img src="{{ app_url ~ 'assets/banner-code.png' }}" />
+          <img src="{{ app_url ~ 'assets/header.png' }}" />
       </td>
     </tr>
     </tbody>

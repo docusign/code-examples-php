@@ -76,8 +76,7 @@
             name="signer_email"
             aria-describedby="emailHelp" 
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerEmailInputNumber]['InputPlaceholder']}}"
-            required
-            value="{{ signer_email }}">
+            required>
 
         <small id="emailHelp" class="form-text text-muted">
             {{ common_texts["HelpingTexts"]["EmailWontBeShared"] | raw }}
@@ -93,7 +92,6 @@
             id="signer_name"
             placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][signerNameInputNumber]['InputPlaceholder']}}"
             name="signer_name"
-            value="{{ signer_name }}"
             required>
     </div>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
