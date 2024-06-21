@@ -39,6 +39,19 @@ class EG023IDVAuthentication extends eSignBaseController
         $this->checkDsToken();
 
         try {
+            if ($this->args['envelope_args']['signer_email'] == $GLOBALS['DS_CONFIG']['signer_email']) {
+                $GLOBALS['twig']->display(
+                    'error.html',
+                    [
+                        'error_code' => "400",
+                        'error_message' => ManifestService::getCommonTexts()['IdenticalEmailsNotAllowedErrorMessage'],
+                        'common_texts' => ManifestService::getCommonTexts()
+                    ]
+                );
+
+                exit;
+            }
+
             $envelopeAuthentification = IDVAuthenticationService::idvAuthentication(
                 $this->args,
                 $this->clientService,
