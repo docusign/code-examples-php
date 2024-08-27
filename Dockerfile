@@ -6,6 +6,9 @@ WORKDIR /var/www/html
 
 FROM php:8.1.6RC1-fpm-alpine3.15
 
+# Install and update linux headers
+RUN apk add --update linux-headers
+
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
@@ -44,7 +47,7 @@ ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 RUN docker-php-ext-enable \
     imagick \
     xdebug
-RUN docker-php-ext-configure zip 
+RUN docker-php-ext-configure zip
 RUN docker-php-ext-install \
     curl \
     pdo \
@@ -53,14 +56,14 @@ RUN docker-php-ext-install \
     xml \
     gd \
     zip \
-    bcmath 
+    bcmath
 
 WORKDIR /var/www/html
 COPY src src/
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 COPY composer.json /var/www/html/
-# This are production settings, I'm running with 'no-dev', adjust accordingly 
-# if you need it  
+# This are production settings, I'm running with 'no-dev', adjust accordingly
+# if you need it
 RUN composer install
 
 CMD ["php-fpm"]
