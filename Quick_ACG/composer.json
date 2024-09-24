@@ -6,11 +6,11 @@
     },
  
     "require": {
-        "docusign/esign-client": "^6.19.0",
-        "twig/twig": "^3.9.3",
+        "docusign/esign-client": "^8.0.0",
+        "twig/twig": "^3.11.0",
         "league/oauth2-client": "^2.7.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "7.8.1",
+        "guzzlehttp/guzzle": "7.9.2",
         "mashape/unirest-php": "3.0.4"
     }
 }
