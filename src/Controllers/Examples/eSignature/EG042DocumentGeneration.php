@@ -7,6 +7,7 @@ namespace DocuSign\Controllers\Examples\eSignature;
 
 use DocuSign\Controllers\eSignBaseController;
 use DocuSign\Services\Examples\eSignature\DocumentGenerationService;
+use DocuSign\eSign\Client\ApiException;
 use DocuSign\Services\ManifestService;
 
 class EG042DocumentGeneration extends eSignBaseController
@@ -36,22 +37,26 @@ class EG042DocumentGeneration extends eSignBaseController
     {
         $this->checkDsToken();
 
-        $envelopeId = DocumentGenerationService::worker(
-            $this->args,
-            $this->clientService,
-            self::DEMO_DOCS_PATH
-        );
-
-        if ($envelopeId) {
-            $this->clientService->showDoneTemplateFromManifest(
-                $this->codeExampleText,
-                null,
-                ManifestService::replacePlaceholders(
-                    "{0}",
-                    $envelopeId,
-                    $this->codeExampleText["ResultsPageText"]
-                )
+        try {
+            $envelopeId = DocumentGenerationService::worker(
+                $this->args,
+                $this->clientService,
+                self::DEMO_DOCS_PATH
             );
+
+            if ($envelopeId) {
+                $this->clientService->showDoneTemplateFromManifest(
+                    $this->codeExampleText,
+                    null,
+                    ManifestService::replacePlaceholders(
+                        "{0}",
+                        $envelopeId,
+                        $this->codeExampleText["ResultsPageText"]
+                    )
+                );
+            }
+        } catch (ApiException $e) {
+            $this->clientService->showErrorTemplate($e);
         }
     }
 
