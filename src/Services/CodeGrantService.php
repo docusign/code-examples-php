@@ -8,6 +8,14 @@ use DocuSign\Services\Utils;
 
 class CodeGrantService
 {
+    function generateCodeVerifier() {
+        return bin2hex(random_bytes(32));
+    }
+    
+    function generateCodeChallenge($code_verifier) {
+        return rtrim(strtr(base64_encode(hash('sha256', $code_verifier, true)), '+/', '-_'), '=');
+    }
+
     /**
      * Checker for the CSRF token
      */
@@ -35,20 +43,28 @@ class CodeGrantService
         array_push($_SESSION['flash'], $msg);
     }
 
-    /**
-     * DocuSign login handler
-     */
     public function login(): void
     {
-        $provider = $this->getOauthProvider();
-        $authorizationUrl = $provider->getAuthorizationUrl();
-        // Get the state generated for you and store it to the session.
+        if (isset($_SESSION['pkce_failed']) && $_SESSION['pkce_failed'] === true) {
+            $provider = $this->getOauthProvider();
+            $authorizationUrl = $provider->getAuthorizationUrl();
+        } else {
+            $codeVerifier = $this->generateCodeVerifier();
+            $codeChallenge = $this->generateCodeChallenge($codeVerifier);
+            $_SESSION['code_verifier'] = $codeVerifier;
+
+            $provider = $this->getOauthProvider();
+            $authorizationUrl = $provider->getAuthorizationUrl([
+                'code_challenge' => $codeChallenge,
+                'code_challenge_method' => 'S256'
+            ]);
+        }
         $_SESSION['oauth2state'] = $provider->getState();
         // Redirect the user to the authorization URL.
         header('Location: ' . $authorizationUrl);
         exit;
     }
-
+    
     /**
      * Get OAUTH provider
      * @return DocuSign $provider
@@ -80,15 +96,19 @@ class CodeGrantService
             }
             exit('Invalid OAuth state');
         } else {
+            $tokenRequestOptions = [
+                'code' => $_GET['code']
+            ];
+            
+            // Add the code_verifier only for PKCE authorization
+            if (!isset($_SESSION['pkce_failed']) || $_SESSION['pkce_failed'] === false) {
+                $tokenRequestOptions['code_verifier'] = $_SESSION['code_verifier'];
+                unset($_SESSION['pkce_failed']);
+            }
+            
             try {
                 // Try to get an access token using the authorization code grant.
-                $accessToken = $provider->getAccessToken(
-                    'authorization_code',
-                    [
-                        'code' => $_GET['code']
-                    ]
-                );
-
+                $accessToken = $provider->getAccessToken('authorization_code', $tokenRequestOptions);
                 $this->flash('You have authenticated with DocuSign.');
                 // We have an access token, which we may use in authenticated
                 // requests against the service provider's API.
@@ -117,7 +137,9 @@ class CodeGrantService
                 $_SESSION['ds_base_path'] = $account_info["base_uri"] . $base_uri_suffix;
             } catch (IdentityProviderException $e) {
                 // Failed to get the access token or user details.
-                exit($e->getMessage());
+                $_SESSION['pkce_failed'] = true;
+                $this->login();
+                exit;
             }
             if (!$redirectUrl) {
                 $redirectUrl = $GLOBALS['app_url'];
