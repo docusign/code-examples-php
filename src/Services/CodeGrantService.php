@@ -8,11 +8,13 @@ use DocuSign\Services\Utils;
 
 class CodeGrantService
 {
-    function generateCodeVerifier() {
+    public function generateCodeVerifier()
+    {
         return bin2hex(random_bytes(32));
     }
     
-    function generateCodeChallenge($code_verifier) {
+    public function generateCodeChallenge($code_verifier)
+    {
         return rtrim(strtr(base64_encode(hash('sha256', $code_verifier, true)), '+/', '-_'), '=');
     }
 
