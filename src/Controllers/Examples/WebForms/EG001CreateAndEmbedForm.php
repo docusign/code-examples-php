@@ -5,6 +5,7 @@ namespace DocuSign\Controllers\Examples\WebForms;
 use DocuSign\Controllers\WebFormsApiBaseController;
 use DocuSign\Services\Examples\WebForms\CreateAndEmbedFormService;
 use DocuSign\WebForms\Client\ApiException;
+use DocuSign\Services\ManifestService;
 
 class EG001CreateAndEmbedForm extends WebFormsApiBaseController
 {
@@ -124,7 +125,11 @@ class EG001CreateAndEmbedForm extends WebFormsApiBaseController
             [
                 'common_texts' => $this->getCommonText(),
                 'code_example_text' => $this->codeExampleText,
-                'description' => $this->codeExampleText["AdditionalPage"][1]["ResultsPageText"],
+                'description' => ManifestService::replacePlaceholders(
+                    "{0}",
+                    "public/demo_documents",
+                    $this->codeExampleText["AdditionalPage"][1]["ResultsPageText"]
+                ),
             ]
         );
 
