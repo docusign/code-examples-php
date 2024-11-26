@@ -3274,6 +3274,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "docusign/admin-client": 5,
         "docusign/webforms-client": 5,
         "docusign/maestro-client": 5
     },
