@@ -3,8 +3,7 @@ FROM composer:2 as composer_stage
 RUN rm -rf /var/www && mkdir -p /var/www/html
 WORKDIR /var/www/html
 
-
-FROM php:8.1.6RC1-fpm-alpine3.15
+FROM php:8.2-fpm-alpine
 
 # Install dev dependencies
 RUN apk add --no-cache --virtual .build-deps \
@@ -12,7 +11,8 @@ RUN apk add --no-cache --virtual .build-deps \
     curl-dev \
     imagemagick-dev \
     libtool \
-    libxml2-dev
+    libxml2-dev \
+    linux-headers # Add linux-headers here
 
 # Install production dependencies
 RUN apk add --no-cache \
@@ -36,15 +36,15 @@ RUN pecl install \
     imagick \
     xdebug
 
-# We currently can't natively pull iconv with PHP8, see: https://github.com/docker-library/php/issues/240#issuecomment-876464325
+# Workaround for iconv with PHP8
 RUN apk add gnu-libiconv=1.15-r3 --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.13/community/ --allow-untrusted
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
-# Install and enable php extensions
+# Install and enable PHP extensions
 RUN docker-php-ext-enable \
     imagick \
     xdebug
-RUN docker-php-ext-configure zip 
+RUN docker-php-ext-configure zip
 RUN docker-php-ext-install \
     curl \
     pdo \
@@ -53,15 +53,14 @@ RUN docker-php-ext-install \
     xml \
     gd \
     zip \
-    bcmath 
+    bcmath
 
 WORKDIR /var/www/html
 COPY src src/
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
 COPY composer.json /var/www/html/
-# This are production settings, I'm running with 'no-dev', adjust accordingly 
-# if you need it  
-RUN composer install
+# Install composer dependencies
+RUN composer install --no-dev --optimize-autoloader
 
 CMD ["php-fpm"]
 
