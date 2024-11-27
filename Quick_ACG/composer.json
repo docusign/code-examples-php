@@ -1,16 +1,16 @@
 {
-    "autoload": {
-        "psr-4": {"DocuSign\\": "../src/",
-                  "QuickACG\\": "src/"
-                 }
-    },
- 
-    "require": {
-        "docusign/esign-client": "^8.0.0",
-        "twig/twig": "^3.11.0",
-        "league/oauth2-client": "^2.7.0",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "7.9.2",
-        "mashape/unirest-php": "3.0.4"
+  "autoload": {
+    "psr-4": {
+      "DocuSign\\": "../src/",
+      "QuickACG\\": "src/"
     }
+  },
+  "require": {
+    "docusign/esign-client": "^8.0.0",
+    "twig/twig": "^3.14.0",
+    "league/oauth2-client": "^2.7.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "7.9.2",
+    "mashape/unirest-php": "3.0.4"
+  }
 }
