@@ -13,10 +13,10 @@ final class CreateClickwrapTest extends TestCase
 
     protected $testConfig;
 
-    public function __construct($testConfig = null)
+    protected function setUp(): void
     {
-        parent::__construct();
-        $this->testConfig = $testConfig ?? new TestConfig();
+        parent::setUp();
+        $this->testConfig = new TestConfig();
     }
 
     public function testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse()
