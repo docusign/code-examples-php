@@ -28,10 +28,10 @@ final class CreateTemplateTest extends TestCase
 
     protected $testConfig;
 
-    protected function setUp(): void
+    public function __construct(TestConfig $testConfig = null)
     {
-        parent::setUp();
-        $this->testConfig = new TestConfig();
+        parent::__construct();
+        $this->testConfig = $testConfig ?? new TestConfig();
     }
 
     public function testCreateTemplate_CorrectInputValues_ReturnArray()

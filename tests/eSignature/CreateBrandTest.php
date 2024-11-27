@@ -13,10 +13,10 @@ final class CreateBrandTest extends TestCase
 
     protected $testConfig;
 
-    protected function setUp(): void
+    public function __construct($testConfig = null)
     {
-        parent::setUp();
-        $this->testConfig = new TestConfig();
+        parent::__construct();
+        $this->testConfig = $testConfig ?? new TestConfig();
     }
 
     public function testCreateBrand_CorrectInputValues_ReturnArray()
