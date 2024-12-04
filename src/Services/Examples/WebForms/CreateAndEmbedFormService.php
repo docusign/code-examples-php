@@ -211,8 +211,8 @@ class CreateAndEmbedFormService
             'document_id' => '1',
             'anchor_string' => '/SMS/',
             'anchor_units' => 'pixels',
-            'anchor_x_offset' => '20',
-            'anchor_y_offset' => '10',
+            'anchor_x_offset' => '0',
+            'anchor_y_offset' => '0',
             'tab_label' => 'Yes'
         ]);
         $text = new Text([
@@ -220,32 +220,32 @@ class CreateAndEmbedFormService
             'tab_label' => "FullName",
             'anchor_string' => "/FullName/",
             'anchor_units' => "pixels",
-            'anchor_x_offset' => "20",
-            'anchor_y_offset' => "10"
+            'anchor_x_offset' => "0",
+            'anchor_y_offset' => "0"
         ]);
         $text2 = new Text([
             'document_id' => "1",
             'tab_label' => "PhoneNumber",
             'anchor_string' => "/PhoneNumber/",
             'anchor_units' => "pixels",
-            'anchor_x_offset' => "20",
-            'anchor_y_offset' => "10"
+            'anchor_x_offset' => "0",
+            'anchor_y_offset' => "0"
         ]);
         $text3 = new Text([
             'document_id' => "1",
             'tab_label' => "Company",
             'anchor_string' => "/Company/",
             'anchor_units' => "pixels",
-            'anchor_x_offset' => "20",
-            'anchor_y_offset' => "10"
+            'anchor_x_offset' => "0",
+            'anchor_y_offset' => "0"
         ]);
         $text4 = new Text([
             'document_id' => "1",
             'tab_label' => "JobTitle",
             'anchor_string' => "/Title/",
             'anchor_units' => "pixels",
-            'anchor_x_offset' => "20",
-            'anchor_y_offset' => "10"
+            'anchor_x_offset' => "0",
+            'anchor_y_offset' => "0"
         ]);
 
         $dateSignedTabs = new DateSigned([
@@ -253,8 +253,8 @@ class CreateAndEmbedFormService
             'tab_label' => "DateSigned",
             'anchor_string' => "/Date/",
             'anchor_units' => "pixels",
-            'anchor_x_offset' => "20",
-            'anchor_y_offset' => "10"
+            'anchor_x_offset' => "0",
+            'anchor_y_offset' => "0"
         ]);
 
         $signer->setTabs(new Tabs([
@@ -266,7 +266,7 @@ class CreateAndEmbedFormService
 
         return new EnvelopeTemplate(
             [
-                'description' => "Example template created via the API",
+                'description' => "Example template created via the eSignature API",
                 'name' => $template_name,
                 'shared' => "false",
                 'documents' => [$document],
