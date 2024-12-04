@@ -13,12 +13,15 @@ final class UseTemplatesTest extends TestCase
 {
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
+    private string $templateName = 'Example Signer and CC template';
+    
     public function testUseTemplate_CorrectInputValues_ReturnsArray()
     {
         // Arrange
         $testConfig = new TestConfig();
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
-        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
         $ccEmail = "CC@gmail.com";
         $ccName = "CC";
@@ -50,7 +53,8 @@ final class UseTemplatesTest extends TestCase
         // Arrange
         $testConfig = new TestConfig();
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
-        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
         $ccMail = "CC@gmail.com";
         $ccName = "CC";

@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "test": "./vendor/bin/phpunit --verbose tests"
+    "test": "./vendor/bin/phpunit tests"
   },
   "config": {
     "process-timeout": 0

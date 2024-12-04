@@ -26,35 +26,15 @@ final class CreateTemplateTest extends TestCase
 
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
-    protected $testConfig;
-
-    public function __construct(TestConfig $testConfig = null)
-    {
-        parent::__construct();
-        $this->testConfig = $testConfig ?? new TestConfig();
-    }
-
     public function testCreateTemplate_CorrectInputValues_ReturnArray()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $this->testConfig);
-
-        $requestArguments = [
-            'account_id' => $this->testConfig->getAccountId(),
-            'base_path' => $this->testConfig->getBasePath(),
-            'ds_access_token' => $this->testConfig->getAccessToken()
-        ];
-
-        $clientService = new SignatureClientService($requestArguments);
+        $testConfig = new TestConfig();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
 
         // Act
-        $templateInformation = CreateTemplateService::createTemplate(
-            $requestArguments,
-            $this->templateName,
-            $this::DEMO_DOCS_PATH,
-            $clientService
-        );
-        $this->testConfig->setTemplateId($templateInformation["template_id"]);
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
         // Assert
         $this->assertNotEmpty($templateInformation);

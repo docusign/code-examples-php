@@ -21,6 +21,8 @@ final class AddDocToTemplateTest extends TestCase
 {
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
+    private string $templateName = 'Example Signer and CC template';
+
     private string $redirectUrl = "https://developers.docusign.com/platform/auth/consent";
 
     public function testAddDocToTemplate_CorrectInputValues_ReturnEnvelopeId()
@@ -28,7 +30,8 @@ final class AddDocToTemplateTest extends TestCase
         // Arrange
         $testConfig = new TestConfig();
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
-        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
         $signerClientId = 1000;
         $ccEmail = 'cc@gmail.com';
@@ -73,7 +76,9 @@ final class AddDocToTemplateTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        (new CreateTemplateTest($testConfig))->testCreateTemplate_CorrectInputValues_ReturnArray();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
         $status = "sent";
         $ccEmail = 'cc@gmail.com';

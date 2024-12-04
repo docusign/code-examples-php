@@ -9,14 +9,27 @@ use DocuSign\Services\ApiTypes;
 
 final class ActivateClickwrapTest extends TestCase
 {
+    private string $templateName = 'Example Signer and CC template';
+
+    private string $clickwrapName = "Clickwrap";
+
     protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
 
     public function testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse()
     {
         // Arrange
         $testConfig = new TestConfig();
+        
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
+
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $testConfig);
-        (new CreateClickwrapTest($testConfig))->testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse();
+        
+        $clickwrapVersionSummaryResponse = DocuSignHelpers::createClickwrapMethod($this->clickwrapName, $testConfig);
+
+        $testConfig->setClickwrapId($clickwrapVersionSummaryResponse["clickwrap_id"]);
+        $testConfig->setClickwrapVersionNumber($clickwrapVersionSummaryResponse["version_number"]);
 
         $activeStatus = "active";
         $requestArguments = [
