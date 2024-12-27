@@ -27,6 +27,7 @@ class GetMonitoringDataService
             $cursor = "";
             $complete = false;
             $options = new GetStreamOptions();
+            $options->setLimit(2000);
             $monitoringLogs = array();
 
             // First call the endpoint with no cursor to get the first records.
