@@ -23,7 +23,7 @@ class GetMonitoringDataService
         try {
             // Get monitoring data
             $datasetApi = new DataSetApi($apiClient);
-            $cursorDate = new DateTime();
+            $cursorDate = new \DateTime();
             $cursorDate->modify('-1 year');
             $cursor = $cursorDate->format('Y-m-d') . "T00:00:00Z";
             $complete = false;
