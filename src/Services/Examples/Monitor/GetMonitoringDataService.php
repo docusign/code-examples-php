@@ -23,8 +23,9 @@ class GetMonitoringDataService
         try {
             // Get monitoring data
             $datasetApi = new DataSetApi($apiClient);
-
-            $cursor = "";
+            $cursorDate = new \DateTime();
+            $cursorDate->modify('-1 year');
+            $cursor = $cursorDate->format('Y-m-d') . "T00:00:00Z";
             $complete = false;
             $options = new GetStreamOptions();
             $options->setLimit(2000);
