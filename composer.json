@@ -1,37 +1,39 @@
 {
-    "autoload": {
-        "psr-4": {"DocuSign\\": "src/"}
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "DocuSign\\Tests\\": "tests/"
-        }
-    },
-    "scripts": {
-        "test": "./vendor/bin/phpunit --verbose tests"
-    },
-    "config": {
-        "process-timeout": 0
-    },
-    "description": "DocuSign PHP launcher",
-    "require": {
-        "docusign/admin-client": "^1.4.2",
-        "docusign/click-client": "^1.4.1",
-        "docusign/esign-client": "^8.0.0",
-        "docusign/rooms-client": "^2.1.1",
-        "docusign/monitor-client": "^1.2.1",
-        "docusign/webforms-client": "^1.0.1-rc1",
-        "docusign/maestro-client": "v2.0.0-rc1",
-        "twig/twig": "^3.11.0",
-        "league/oauth2-client": "^2.7.0",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "7.9.2",
-        "firebase/php-jwt": "6.10.1",
-        "mashape/unirest-php": "3.0.4",
-        "squizlabs/php_codesniffer": "*",
-        "phpunit/phpunit": "^9.6.20"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+  "autoload": {
+    "psr-4": {
+      "DocuSign\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DocuSign\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "./vendor/bin/phpunit tests"
+  },
+  "config": {
+    "process-timeout": 0
+  },
+  "description": "DocuSign PHP launcher",
+  "require": {
+    "docusign/admin-client": "^2.0.0",
+    "docusign/click-client": "^1.4.1",
+    "docusign/esign-client": "^8.0.0",
+    "docusign/rooms-client": "^2.1.1",
+    "docusign/monitor-client": "^1.2.1",
+    "docusign/webforms-client": "^1.0.1-rc1",
+    "docusign/maestro-client": "v2.0.0-rc1",
+    "twig/twig": "^3.14.0",
+    "league/oauth2-client": "^2.7.0",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "7.9.2",
+    "firebase/php-jwt": "6.10.1",
+    "mashape/unirest-php": "3.0.4",
+    "squizlabs/php_codesniffer": "*",
+    "phpunit/phpunit": "^11.4.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*"
+  }
 }

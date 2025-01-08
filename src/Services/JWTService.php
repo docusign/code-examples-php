@@ -96,7 +96,7 @@ class JWTService
                     [
                         'scope' => "impersonation+" . $jwt_scope,
                         'client_id' => $GLOBALS['JWT_CONFIG']['ds_client_id'],
-                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=dsCallback'
+                        'redirect_uri' => $GLOBALS['DS_CONFIG']['app_url'] . '/index.php?page=ds_callback'
                     ]
                 );
                 header('Location: ' . $authorizationURL);

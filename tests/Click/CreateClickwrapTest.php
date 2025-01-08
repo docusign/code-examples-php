@@ -9,45 +9,30 @@ use DocuSign\Services\ApiTypes;
 
 final class CreateClickwrapTest extends TestCase
 {
-    protected const DEMO_DOCS_PATH = __DIR__ . '/../../public/demo_documents/';
+    private string $templateName = 'Example Signer and CC template';
 
-    protected $testConfig;
-
-    public function __construct($testConfig = null)
-    {
-        parent::__construct();
-        $this->testConfig = $testConfig ?? new TestConfig();
-    }
+    private string $clickwrapName = "Clickwrap";
 
     public function testCreateClickwrap_CorrectInputValues_ReturnClickwrapVersionSummaryResponse()
     {
         // Arrange
-        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $this->testConfig);
-        (new CreateTemplateTest())->testCreateTemplate_CorrectInputValues_ReturnArray();
+        $testConfig = new TestConfig();
+        
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
+        $templateInformation = DocuSignHelpers::createTemplateMethod($this->templateName, $testConfig);
+        $testConfig->setTemplateId($templateInformation["template_id"]);
 
-        $clickwrapName = "Clickwrap";
-        $requestArguments = [
-            'account_id' => $this->testConfig->getAccountId(),
-            'base_path' => $this->testConfig->getBasePath(),
-            'ds_access_token' => $this->testConfig->getAccessToken(),
-            'clickwrap_name' => $clickwrapName,
-        ];
-
-        $clientService = new ClickApiClientService($requestArguments);
-
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::CLICK, $testConfig);
+        
         // Act
-        $clickwrapVersionSummaryResponse = CreateClickwrapService::createClickwrap(
-            $requestArguments,
-            self::DEMO_DOCS_PATH,
-            $clientService
-        );
+        $clickwrapVersionSummaryResponse = DocuSignHelpers::createClickwrapMethod($this->clickwrapName, $testConfig);
 
-        $this->testConfig->setClickwrapId($clickwrapVersionSummaryResponse["clickwrap_id"]);
-        $this->testConfig->setClickwrapVersionNumber($clickwrapVersionSummaryResponse["version_number"]);
+        $testConfig->setClickwrapId($clickwrapVersionSummaryResponse["clickwrap_id"]);
+        $testConfig->setClickwrapVersionNumber($clickwrapVersionSummaryResponse["version_number"]);
 
         // Assert
         $this->assertNotEmpty($clickwrapVersionSummaryResponse);
         $this->assertNotNull($clickwrapVersionSummaryResponse);
-        $this->assertEquals($clickwrapName, $clickwrapVersionSummaryResponse["clickwrap_name"]);
+        $this->assertEquals($this->clickwrapName, $clickwrapVersionSummaryResponse["clickwrap_name"]);
     }
 }

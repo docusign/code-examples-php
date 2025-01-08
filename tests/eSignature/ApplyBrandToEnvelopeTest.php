@@ -21,7 +21,8 @@ final class ApplyBrandToEnvelopeTest extends TestCase
         // Arrange
         $testConfig = new TestConfig();
         JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
-        (new CreateBrandTest($testConfig))->testCreateBrand_CorrectInputValues_ReturnArray();
+        $brandId = DocuSignHelpers::createBrand($testConfig);
+        $testConfig->setBrandId($brandId['brand_id']);
 
         $requestArguments = [
             'account_id' => $testConfig->getAccountId(),
@@ -54,7 +55,9 @@ final class ApplyBrandToEnvelopeTest extends TestCase
     {
         // Arrange
         $testConfig = new TestConfig();
-        (new CreateBrandTest($testConfig))->testCreateBrand_CorrectInputValues_ReturnArray();
+        JWTLoginMethod::jwtAuthenticationMethod(ApiTypes::ESIGNATURE, $testConfig);
+        $brandId = DocuSignHelpers::createBrand($testConfig);
+        $testConfig->setBrandId($brandId['brand_id']);
 
         $status = 'sent';
         $defaultId = '1';
