@@ -26,7 +26,6 @@ class TriggerMaestroWorkflowService
      * @return WorkflowDefinitionWithId
      * @throws ApiException
      */
-    #ds-snippet-start:Maestro1Step3
     public static function getWorkflowDefinition(
         WorkflowManagementApi $managementApi,
         string $accountId,
@@ -34,7 +33,6 @@ class TriggerMaestroWorkflowService
     ): WorkflowDefinitionWithId {
         return $managementApi->getWorkflowDefinition($accountId, $workflowId);
     }
-    #ds-snippet-end:Maestro1Step3
 
     /**
      * Get workflow definitions
@@ -79,7 +77,6 @@ class TriggerMaestroWorkflowService
         string $mtsec,
         string $workflowId
     ): TriggerWorkflowViaPostResponse {
-        #ds-snippet-start:Maestro1Step4
         $triggerPayload = new TriggerPayload();
         $triggerPayload->setInstanceName($instanceName);
         $triggerPayload->setParticipants(new stdClass());
@@ -96,11 +93,8 @@ class TriggerMaestroWorkflowService
         $triggerOptions = new TriggerWorkflowOptions();
         $triggerOptions->setMtid($mtid);
         $triggerOptions->setMtsec($mtsec);
-        #ds-snippet-end:Maestro1Step4
 
-        #ds-snippet-start:Maestro1Step5
         return $workflowTriggerApi->triggerWorkflow($accountId, $workflowId, $triggerPayload, $triggerOptions);
-        #ds-snippet-end:Maestro1Step5
     }
 
     /**
