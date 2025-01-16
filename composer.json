@@ -23,7 +23,6 @@
     "docusign/rooms-client": "^2.1.1",
     "docusign/monitor-client": "^1.2.1",
     "docusign/webforms-client": "^1.0.1-rc1",
-    "docusign/maestro-client": "v2.0.0-rc1",
     "twig/twig": "^3.14.0",
     "league/oauth2-client": "^2.7.0",
     "ext-json": "*",

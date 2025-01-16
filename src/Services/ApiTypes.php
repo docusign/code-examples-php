@@ -10,6 +10,5 @@ abstract class ApiTypes
     const ROOMS = 'Rooms';
     const ESIGNATURE = 'eSignature';
     const CONNECT = 'Connect';
-    const MAESTRO = 'Maestro';
     const WEBFORMS = 'WebForms';
 }
