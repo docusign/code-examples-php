@@ -35,10 +35,10 @@ final class JWTLoginMethod
             $scopes = "signature user_write group_read organization_read permission_read user_read "
             . "account_read domain_read identity_provider_read user_data_redact"
             . "asset_group_account_read asset_group_account_clone_write asset_group_account_clone_read organization_sub_account_write organization_sub_account_read";
-        } elseif ($apiType == ApiTypes::MAESTRO) {
-            $scopes = "signature aow_manage";
         } elseif ($apiType == ApiTypes::WEBFORMS) {
             $scopes = "signature webforms_read webforms_instance_read webforms_instance_write";
+        } elseif ($apiType == ApiTypes::NOTARY) {
+            $scopes = "signature";
         } else {
             $scopes = "signature";
         }

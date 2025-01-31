@@ -11,4 +11,5 @@ abstract class ApiTypes
     const ESIGNATURE = 'eSignature';
     const CONNECT = 'Connect';
     const WEBFORMS = 'WebForms';
+    const NOTARY = 'Notary';
 }
