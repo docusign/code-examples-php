@@ -15,14 +15,16 @@ use DocuSign\eSign\Model\RecipientSignatureProviderOptions;
 
 class SendWithThirdPartyNotaryService
 {
-    public static function sendWithNotary($signerEmail, $signerName, $envelopesApi, $accountId, $demoPath): mixed {
+    public static function sendWithNotary($signerEmail, $signerName, $envelopesApi, $accountId, $demoPath): mixed
+    {
         $env = SendWithThirdPartyNotaryService::makeEnvelope($signerEmail, $signerName, $demoPath);
         
         $results = $envelopesApi->createEnvelope($accountId, $env);
         return $results;
     }
     
-    static function makeEnvelope($signerEmail, $signerName, $demoPath): EnvelopeDefinition {
+    private static function makeEnvelope($signerEmail, $signerName, $demoPath): EnvelopeDefinition
+    {
         $env = new EnvelopeDefinition();
         $env->setEmailSubject("Please sign this document set");
         
@@ -38,7 +40,8 @@ class SendWithThirdPartyNotaryService
         return $env;
     }
     
-    static function getDocuments($signerEmail, $signerName,$demoPath): array {
+    private static function getDocuments($signerEmail, $signerName, $demoPath): array
+    {
         $doc = new Document();
         $b64 = base64_encode(SendWithThirdPartyNotaryService::getDocumentExample($signerEmail, $signerName, $demoPath));
         
@@ -50,7 +53,8 @@ class SendWithThirdPartyNotaryService
         return [$doc];
     }
     
-    static function getDocumentExample($signerEmail, $signerName, $demoPath): string {
+    private static function getDocumentExample($signerEmail, $signerName, $demoPath): string
+    {
         $htmlMarkupFileName = "order_form.html";
         $htmlMarkup = file_get_contents($demoPath . $htmlMarkupFileName);
         $htmlWithData = str_replace(
@@ -67,7 +71,8 @@ class SendWithThirdPartyNotaryService
         return $htmlWithData;
     }
     
-    static function getSigners($signerEmail, $signerName) {
+    private static function getSigners($signerEmail, $signerName)
+    {
         $signer = new Signer();
         $signer->setClientUserId("1000");
         $signer->setEmail($signerEmail);
@@ -96,7 +101,8 @@ class SendWithThirdPartyNotaryService
         return [$signer];
     }
     
-    static function getNotaryRecipients(): array {
+    private static function getNotaryRecipients(): array
+    {
         $notarySeal = new NotarySeal();
         $notarySeal->setXPosition("300");
         $notarySeal->setYPosition("235");

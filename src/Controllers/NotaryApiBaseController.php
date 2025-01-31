@@ -33,7 +33,8 @@ abstract class NotaryApiBaseController extends BaseController
      * @param null $eg
      * @return void
      */
-    public function controller($eg = null): void {
+    public function controller($eg = null): void
+    {
         if (empty($eg)) {
             $eg = static::EG;
             $this->codeExampleText = $this->getPageText(static::EG);
@@ -67,7 +68,6 @@ abstract class NotaryApiBaseController extends BaseController
         ?string $basename
     ): void {
         if ($this->isHomePage($eg)) {
-
             $GLOBALS['twig']->display(
                 $eg . '.html',
                 [
@@ -81,7 +81,6 @@ abstract class NotaryApiBaseController extends BaseController
         } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
             if ($this->routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
-
                 $displayOptions = [
                     'title' => $this->routerService->getTitle($eg),
                     'source_file' => $basename,
