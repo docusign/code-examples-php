@@ -15,14 +15,14 @@ use DocuSign\eSign\Model\RecipientSignatureProviderOptions;
 
 class SendWithThirdPartyNotaryService
 {
-    public static function sendWithNotary($signerEmail, $signerName, $envelopesApi, $accountId, $demoPath) {
+    public static function sendWithNotary($signerEmail, $signerName, $envelopesApi, $accountId, $demoPath): mixed {
         $env = SendWithThirdPartyNotaryService::makeEnvelope($signerEmail, $signerName, $demoPath);
         
         $results = $envelopesApi->createEnvelope($accountId, $env);
         return $results;
     }
     
-    static function makeEnvelope($signerEmail, $signerName, $demoPath) {
+    static function makeEnvelope($signerEmail, $signerName, $demoPath): EnvelopeDefinition {
         $env = new EnvelopeDefinition();
         $env->setEmailSubject("Please sign this document set");
         
@@ -38,17 +38,16 @@ class SendWithThirdPartyNotaryService
         return $env;
     }
     
-    static function getDocuments($signerEmail, $signerName,$demoPath) {
-        
-
-        $doc1 = new Document();
+    static function getDocuments($signerEmail, $signerName,$demoPath): array {
+        $doc = new Document();
         $b64 = base64_encode(SendWithThirdPartyNotaryService::getDocumentExample($signerEmail, $signerName, $demoPath));
-        $doc1->setDocumentBase64($b64);
-        $doc1->setName("Order acknowledgement");
-        $doc1->setFileExtension("html");
-        $doc1->setDocumentId("1");
         
-        return [$doc1];
+        $doc->setDocumentBase64($b64);
+        $doc->setName("Order acknowledgement");
+        $doc->setFileExtension("html");
+        $doc->setDocumentId("1");
+        
+        return [$doc];
     }
     
     static function getDocumentExample($signerEmail, $signerName, $demoPath): string {
