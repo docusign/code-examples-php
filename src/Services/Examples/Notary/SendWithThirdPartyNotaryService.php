@@ -15,6 +15,7 @@ use DocuSign\eSign\Model\RecipientSignatureProviderOptions;
 
 class SendWithThirdPartyNotaryService
 {
+    #ds-snippet-start:Notary4Step4
     public static function sendWithNotary($signerEmail, $signerName, $envelopesApi, $accountId, $demoPath): mixed
     {
         $env = SendWithThirdPartyNotaryService::makeEnvelope($signerEmail, $signerName, $demoPath);
@@ -22,7 +23,9 @@ class SendWithThirdPartyNotaryService
         $results = $envelopesApi->createEnvelope($accountId, $env);
         return $results;
     }
+    #ds-snippet-end:Notary4Step4
     
+    #ds-snippet-start:Notary4Step3
     private static function makeEnvelope($signerEmail, $signerName, $demoPath): EnvelopeDefinition
     {
         $env = new EnvelopeDefinition();
@@ -137,4 +140,5 @@ class SendWithThirdPartyNotaryService
 
         return [$notaryRecipient];
     }
+    #ds-snippet-end:Notary4Step3
 }
