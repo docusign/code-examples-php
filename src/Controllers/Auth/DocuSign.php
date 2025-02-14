@@ -126,6 +126,10 @@ class DocuSign extends AbstractProvider
             return [
                 "signature webforms_read webforms_instance_read webforms_instance_write"
             ];
+        } elseif ($_SESSION['api_type'] == ApiTypes::NOTARY) {
+            return [
+                "signature"
+            ];
         } else {
             return [
                 "signature"

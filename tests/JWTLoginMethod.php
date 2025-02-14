@@ -39,6 +39,8 @@ final class JWTLoginMethod
             $scopes = "signature aow_manage";
         } elseif ($apiType == ApiTypes::WEBFORMS) {
             $scopes = "signature webforms_read webforms_instance_read webforms_instance_write";
+        } elseif ($apiType == ApiTypes::NOTARY) {
+            $scopes = "signature";
         } else {
             $scopes = "signature";
         }
