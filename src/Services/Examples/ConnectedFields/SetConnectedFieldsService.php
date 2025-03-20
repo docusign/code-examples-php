@@ -23,6 +23,7 @@ class SetConnectedFieldsService
         $client = new Client();
 
         try {
+            #ds-snippet-start:ConnectedFields1Step3
             $response = $client->request('GET', $url, [
                 'headers' => [
                     'Authorization' => "Bearer $accessToken",
@@ -30,6 +31,7 @@ class SetConnectedFieldsService
                     'Content-Type' => 'application/json'
                 ]
             ]);
+            #ds-snippet-end:ConnectedFields1Step3
 
             $body = $response->getBody()->getContents();
             $data = json_decode($body, true);
@@ -41,6 +43,7 @@ class SetConnectedFieldsService
         }
     }
 
+    #ds-snippet-start:ConnectedFields1Step4
     public static function filterData(array $data): string
     {
         $filteredData = array_filter($data, function ($item) {
@@ -61,6 +64,7 @@ class SetConnectedFieldsService
 
         return json_encode(array_values($filteredData));
     }
+    #ds-snippet-end:ConnectedFields1Step4
 
     public static function sendEnvelope(
         $basePath,
@@ -72,10 +76,13 @@ class SetConnectedFieldsService
         $signerName,
         $signerEmail
     ): string {
+        #ds-snippet-start:ConnectedFields1Step2
         $config = new Configuration();
         $config->setHost($basePath);
         $config->addDefaultHeader('Authorization', 'Bearer ' . $accessToken);
+        #ds-snippet-end:ConnectedFields1Step2
 
+        #ds-snippet-start:ConnectedFields1Step6
         $apiClient = new ApiClient($config);
         $envelopesApi = new EnvelopesApi($apiClient);
     
@@ -91,8 +98,10 @@ class SetConnectedFieldsService
         $results = $envelopesApi->createEnvelope($accountId, $envelope, $options);
         
         return $results->getEnvelopeId();
+        #ds-snippet-end:ConnectedFields1Step6
     }
     
+    #ds-snippet-start:ConnectedFields1Step5
     public static function makeEnvelopes($app, $signerName, $signerEmail, $pdfDoc, $demoPath): EnvelopeDefinition
     {
         $appId = $app['appId'] ?? null;
@@ -194,4 +203,5 @@ class SetConnectedFieldsService
     
         return $envelope;
     }
+    #ds-snippet-end:ConnectedFields1Step5
 }
