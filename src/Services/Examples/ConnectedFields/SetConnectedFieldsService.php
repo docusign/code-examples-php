@@ -49,10 +49,9 @@ class SetConnectedFieldsService
             }
 
             foreach ($item['tabs'] as $tab) {
-                if (
-                    (isset($tab['extensionData']['actionContract']) && str_contains($tab['extensionData']['actionContract'], "Verify")) ||
-                    (isset($tab['tabLabel']) && str_contains($tab['tabLabel'], "connecteddata"))
-                ) {
+                if ((isset($tab['extensionData']['actionContract'])
+                        && str_contains($tab['extensionData']['actionContract'], "Verify")) ||
+                    (isset($tab['tabLabel']) && str_contains($tab['tabLabel'], "connecteddata"))) {
                     return true;
                 }
             }
@@ -85,7 +84,8 @@ class SetConnectedFieldsService
             $signerName,
             $signerEmail,
             $pdfDoc,
-            $demoPath);
+            $demoPath
+        );
     
         $options = new \DocuSign\eSign\Api\EnvelopesApi\CreateEnvelopeOptions();
         $results = $envelopesApi->createEnvelope($accountId, $envelope, $options);
@@ -93,7 +93,8 @@ class SetConnectedFieldsService
         return $results->getEnvelopeId();
     }
     
-    public static function makeEnvelopes($app, $signerName, $signerEmail, $pdfDoc, $demoPath): EnvelopeDefinition {
+    public static function makeEnvelopes($app, $signerName, $signerEmail, $pdfDoc, $demoPath): EnvelopeDefinition
+    {
         $appId = $app['appId'] ?? null;
         $extensionGroupId = $app['tabs'][0]['extensionData']['extensionGroupId'] ?? null;
         $publisherName = $app['tabs'][0]['extensionData']['publisherName'] ?? null;
@@ -194,4 +195,3 @@ class SetConnectedFieldsService
         return $envelope;
     }
 }
-

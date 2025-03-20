@@ -40,7 +40,7 @@ class Cf001SetConnectedFields extends ConnectedFieldsApiBaseController
             );
         } else {
             $_SESSION["apps"] = $filteredAppsJson;
-            parent::controller(null, ['apps' => $filteredAppsJson]);
+            parent::controller(['apps' => $filteredAppsJson]);
         }
     }
 
@@ -105,7 +105,7 @@ class Cf001SetConnectedFields extends ConnectedFieldsApiBaseController
      * @return array
      */
     public function getTemplateArgs(): array
-    {   
+    {
         return [
             'signer_email' => $this->checkInputValues($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),

@@ -33,7 +33,7 @@ abstract class ConnectedFieldsApiBaseController extends BaseController
      * @param null $eg
      * @return void
      */
-    public function controller($eg = null, $args = null): void
+    public function controller($args = null): void
     {
         if (empty($eg)) {
             $eg = static::EG;
@@ -44,7 +44,6 @@ abstract class ConnectedFieldsApiBaseController extends BaseController
         
         if ($this->isMethodGet()) {
             $this->getController(
-                $eg,
                 $args,
                 basename(static::FILE)
             );
@@ -67,8 +66,7 @@ abstract class ConnectedFieldsApiBaseController extends BaseController
      * @return void
      */
     protected function getController(
-        $eg,
-        $args = null,
+        $args,
         ?string $basename
     ): void {
         if ($this->isHomePage(static::EG)) {
@@ -77,7 +75,7 @@ abstract class ConnectedFieldsApiBaseController extends BaseController
                 'show_doc' => false,
                 'common_texts' => $this->getCommonText()
             ]);
-        } else { 
+        } else {
             $currentAPI = ManifestService::getAPIByLink(static::EG);
             if ($this->routerService->dsTokenOk() && $currentAPI === $_SESSION['api_type']) {
                 $displayOptions = [
