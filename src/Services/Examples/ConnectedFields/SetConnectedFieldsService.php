@@ -105,19 +105,8 @@ class SetConnectedFieldsService
     public static function makeEnvelopes($app, $signerName, $signerEmail, $pdfDoc, $demoPath): EnvelopeDefinition
     {
         $appId = $app['appId'] ?? null;
-        $extensionGroupId = $app['tabs'][0]['extensionData']['extensionGroupId'] ?? null;
-        $publisherName = $app['tabs'][0]['extensionData']['publisherName'] ?? null;
-        $applicationName = $app['tabs'][0]['extensionData']['applicationName'] ?? null;
-        $actionName = $app['tabs'][0]['extensionData']['actionName'] ?? null;
-        $actionInputKey = $app['tabs'][0]['extensionData']['actionInputKey'] ?? null;
-        $actionContract = $app['tabs'][0]['extensionData']['actionContract'] ?? null;
-        $extensionName = $app['tabs'][0]['extensionData']['extensionName'] ?? null;
-        $extensionContract = $app['tabs'][0]['extensionData']['extensionContract'] ?? null;
-        $requiredForExtension = $app['tabs'][0]['extensionData']['requiredForExtension'] ?? null;
-        $tabLabels = implode(',', array_column($app['tabs'], 'tabLabel'));
-        $connectionKey = $app['tabs'][0]['extensionData']['connectionInstances'][0]['connectionKey'] ?? null;
-        $connectionValue = $app['tabs'][0]['extensionData']['connectionInstances'][0]['connectionValue'] ?? null;
-
+        $tabLabels = $app['tabs'];
+       
         $contentBytes = file_get_contents($demoPath . $pdfDoc);
         $base64FileContent = base64_encode($contentBytes);
     
@@ -141,52 +130,72 @@ class SetConnectedFieldsService
             'anchor_units' => 'pixels',
             'anchor_x_offset' => '20'
         ]);
-    
-        $textTab = new Text([
-            "require_initial_on_shared_change"=> false,
-            "require_all"=> false,
-            "name"=> $applicationName,
-            "required"=> true,
-            "locked"=> false,
-            "disable_auto_size"=> false,
-            "max_length"=> 4000,
-            "tab_label"=> $tabLabels,
-            "font"=> "lucidaconsole",
-            "font_color"=> "black",
-            "font_size"=> "size9",
-            "document_id"=> "1",
-            "recipient_id"=> "1",
-            "page_number"=> "1",
-            "x_position"=> "273",
-            "y_position"=> "191",
-            "width"=> "84",
-            "height"=> "22",
-            "template_required"=> false,
-            "tab_type"=> "text",
-            "extensionData" => [
-                "extension_group_id" => $extensionGroupId,
-                "publisher_name"=> $publisherName,
-                "application_id"=> $appId,
-                "application_name"=> $applicationName,
-                "action_name"=> $actionName,
-                "action_contract"=> $actionContract,
-                "extension_name"=> $extensionName,
-                "extension_contract"=> $extensionContract,
-                "required_for_extension"=> $requiredForExtension,
-                "action_input_key"=> $actionInputKey,
-                "extension_policy"=> "None",
-                "connection_instances"=> [
-                    [
-                        "connection_key"=> $connectionKey,
-                        "connection_value"=> $connectionValue
+
+        $textTabs = [];
+
+        foreach($tabLabels as $tab) {
+            $connectionKey = $tab['extensionData']['connectionInstances'][0]['connectionKey'] ?? null;
+            $connectionValue = $tab['extensionData']['connectionInstances'][0]['connectionValue'] ?? null;
+            $extensionGroupId = $tab['extensionData']['extensionGroupId'] ?? null;
+            $publisherName = $tab['extensionData']['publisherName'] ?? null;
+            $applicationName = $tab['extensionData']['applicationName'] ?? null;
+            $actionName = $tab['extensionData']['actionName'] ?? null;
+            $actionInputKey = $tab['extensionData']['actionInputKey'] ?? null;
+            $actionContract = $tab['extensionData']['actionContract'] ?? null;
+            $extensionName = $tab['extensionData']['extensionName'] ?? null;
+            $extensionContract = $tab['extensionData']['extensionContract'] ?? null;
+            $requiredForExtension = $tab['extensionData']['requiredForExtension'] ?? null;
+        
+            $textTab = new Text([
+                "require_initial_on_shared_change"=> false,
+                "require_all"=> false,
+                "name"=> $applicationName,
+                "required"=> true,
+                "locked"=> false,
+                "disable_auto_size"=> false,
+                "max_length"=> 4000,
+                "tab_label"=> $tab["tabLabel"],
+                "font"=> "lucidaconsole",
+                "font_color"=> "black",
+                "font_size"=> "size9",
+                "document_id"=> "1",
+                "recipient_id"=> "1",
+                "page_number"=> "1",
+                "x_position"=> "273",
+                "y_position"=> 170 + 20 * count($textTabs),
+                "width"=> "84",
+                "height"=> "22",
+                "template_required"=> false,
+                "tab_type"=> "text",
+                "extensionData" => [
+                    "extension_group_id" => $extensionGroupId,
+                    "publisher_name"=> $publisherName,
+                    "application_id"=> $appId,
+                    "application_name"=> $applicationName,
+                    "action_name"=> $actionName,
+                    "action_contract"=> $actionContract,
+                    "extension_name"=> $extensionName,
+                    "extension_contract"=> $extensionContract,
+                    "required_for_extension"=> $requiredForExtension,
+                    "action_input_key"=> $actionInputKey,
+                    "extension_policy"=> "MustVerifyToSign",
+                    "connection_instances"=> [
+                        [
+                            "connection_key"=> $connectionKey,
+                            "connection_value"=> $connectionValue
+                        ]
                     ]
                 ]
-            ]
-        ]);
+            ]);
+
+            array_push($textTabs, $textTab);
+        }
+    
+        
     
         $signerTabs = new Tabs([
             'sign_here_tabs' => [$signHere],
-            'text_tabs' => [$textTab]
+            'text_tabs' => $textTabs
         ]);
         $signer->setTabs($signerTabs);
     
