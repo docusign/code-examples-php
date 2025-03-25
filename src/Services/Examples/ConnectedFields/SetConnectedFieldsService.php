@@ -162,7 +162,7 @@ class SetConnectedFieldsService
                 "recipientId"=> "1",
                 "pageNumber"=> "1",
                 "xPosition"=> "273",
-                "yPosition"=>  20 * count($textTabs),
+                "yPosition"=>  150 + 20 * count($textTabs),
                 "width"=> "84",
                 "height"=> "22",
                 "templateRequired"=> false,
