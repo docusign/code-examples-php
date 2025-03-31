@@ -133,7 +133,7 @@ class SetConnectedFieldsService
 
         $textTabs = [];
 
-        foreach($tabLabels as $tab) {
+        foreach ($tabLabels as $tab) {
             $connectionKey = $tab['extensionData']['connectionInstances'][0]['connectionKey'] ?? "";
             $connectionValue = $tab['extensionData']['connectionInstances'][0]['connectionValue'] ?? "";
             $extensionGroupId = $tab['extensionData']['extensionGroupId'] ??  "";
