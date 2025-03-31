@@ -62,6 +62,8 @@
       {% set linkToCodeExample = "con" %}
       {% elseif api["Name"] == "Notary" %}
       {% set linkToCodeExample = "n" %}
+      {% elseif api["Name"] == "ConnectedFields" %}
+      {% set linkToCodeExample = "cf" %}
       {% endif %}
 
       {% for groups in api["Groups"] %}

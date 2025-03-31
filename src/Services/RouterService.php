@@ -95,6 +95,7 @@ class RouterService implements IRouterService
         'mae003' => 'Maestro\Eg003GetWorkflowStatus',
         'web001' => 'WebForms\EG001CreateAndEmbedForm',
         'n004' => 'Notary\Neg004SendWithThirdPartyNotary',
+        'cf001' => 'ConnectedFields\Cf001SetConnectedFields',
     ];
     /**
      * The list of templates with examples
@@ -183,6 +184,7 @@ class RouterService implements IRouterService
         'mae003' => 'maestro/eg003_get_workflow_status.html',
         'web001' => 'webforms/eg001_embed_form.html',
         'n004' => 'notary/n004_third_party_notary.html',
+        'cf001' => 'connectedFields/cf001_set_connected_fields.html',
     ];
     
     /**

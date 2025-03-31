@@ -130,6 +130,10 @@ class DocuSign extends AbstractProvider
             return [
                 "signature"
             ];
+        } elseif ($_SESSION['api_type'] == ApiTypes::CONNECTEDFIELDS) {
+            return [
+                "signature adm_store_unified_repo_read"
+            ];
         } else {
             return [
                 "signature"

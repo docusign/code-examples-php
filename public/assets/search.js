@@ -8,6 +8,8 @@ let DS_SEARCH = (function () {
         CONNECT: 'connect',
         WEBFORMS: 'webforms',
         NOTARY: 'notary',
+        MAESTRO: 'maestro',
+        CONNECTEDFIELDS: 'connectedfields',
     };
 
     let processJSONData = function () {
@@ -131,6 +133,10 @@ let DS_SEARCH = (function () {
                 return "web";
             case API_TYPES.NOTARY:
                 return "n";
+            case API_TYPES.CONNECTEDFIELDS:
+                return "cf";
+            case API_TYPES.MAESTRO:
+                return "mae";
         }
     }
 
