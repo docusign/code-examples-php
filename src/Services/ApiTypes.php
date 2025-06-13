@@ -12,4 +12,6 @@ abstract class ApiTypes
     const CONNECT = 'Connect';
     const MAESTRO = 'Maestro';
     const WEBFORMS = 'WebForms';
+    const NOTARY = 'Notary';
+    const CONNECTEDFIELDS = 'ConnectedFields';
 }

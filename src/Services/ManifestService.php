@@ -88,6 +88,12 @@ class ManifestService
             case "web":
                 $currentAPI = ApiTypes::WEBFORMS;
                 break;
+            case "n":
+                $currentAPI = ApiTypes::NOTARY;
+                break;
+            case "cf":
+                $currentAPI = ApiTypes::CONNECTEDFIELDS;
+                break;
             default:
                 $currentAPI = ApiTypes::ESIGNATURE;
                 break;

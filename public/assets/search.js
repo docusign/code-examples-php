@@ -6,8 +6,10 @@ let DS_SEARCH = (function () {
         ROOMS: 'rooms',
         ADMIN: 'admin',
         CONNECT: 'connect',
+        WEBFORMS: 'webforms',
+        NOTARY: 'notary',
         MAESTRO: 'maestro',
-        WEBFORMS: 'webforms'
+        CONNECTEDFIELDS: 'connectedfields',
     };
 
     let processJSONData = function () {
@@ -127,10 +129,14 @@ let DS_SEARCH = (function () {
                 return "eg";
             case API_TYPES.CONNECT:
                 return "con";
-            case API_TYPES.MAESTRO:
-                return "mae";
             case API_TYPES.WEBFORMS:
                 return "web";
+            case API_TYPES.NOTARY:
+                return "n";
+            case API_TYPES.CONNECTEDFIELDS:
+                return "cf";
+            case API_TYPES.MAESTRO:
+                return "mae";
         }
     }
 
