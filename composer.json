@@ -30,7 +30,7 @@
     "firebase/php-jwt": "6.11.1",
     "mashape/unirest-php": "3.0.4",
     "squizlabs/php_codesniffer": "*",
-    "phpunit/phpunit": "^12.2.5"
+    "phpunit/phpunit": "^11.4.3"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*"
