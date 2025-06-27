@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8058d0ffc18d46a7600c884d03ec6e2",
+    "content-hash": "a5151f3c1ef8d9f0c1c000e4149efaaa",
     "packages": [
         {
             "name": "docusign/admin-client",

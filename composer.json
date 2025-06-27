@@ -24,7 +24,7 @@
     "docusign/monitor-client": "^1.2.1",
     "docusign/webforms-client": "^2.0.0",
     "twig/twig": "^3.21.1",
-    "league/oauth2-client": "^2.8.1",
+    "league/oauth2-client": "^2.7.0",
     "ext-json": "*",
     "guzzlehttp/guzzle": "7.9.3",
     "firebase/php-jwt": "6.11.1",

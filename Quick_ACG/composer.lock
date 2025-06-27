@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ccc6f768e58f83c3c592bc95410478ff",
+    "content-hash": "9f34254782a305b7e8134f13755f7d6b",
     "packages": [
         {
             "name": "docusign/esign-client",
