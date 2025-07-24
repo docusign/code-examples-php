@@ -17,7 +17,6 @@ class GetWorkflowStatusService
      * @return WorkflowInstance
      * @throws ApiException
      */
-    #ds-snippet-start:Maestro3Step3
     public static function getWorkflowInstance(
         WorkflowInstanceManagementApi $workflowInstanceApi,
         string $accountId,
@@ -30,5 +29,4 @@ class GetWorkflowStatusService
             $instanceId
         );
     }
-    #ds-snippet-end:Maestro3Step3
 }
