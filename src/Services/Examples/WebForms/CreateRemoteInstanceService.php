@@ -166,7 +166,6 @@ class CreateRemoteInstanceService
         if ($templatesListResponse['result_set_size'] > 0) {
             $templateId = $templatesListResponse['envelope_templates'][0]['template_id'];
             $resultsTemplateName = $templatesListResponse['envelope_templates'][0]['name'];
-
         } else {
             $templateObject = CreateAndEmbedFormService::makeTemplateRequest(
                 $templateName,

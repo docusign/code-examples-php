@@ -90,13 +90,13 @@ class EG002CreateRemoteInstance extends WebFormsApiBaseController
 
         if (empty($formList->getItems()) || count($formList->getItems()) == 0) {
             $GLOBALS['twig']->display(
-                    'error.html',
-                    [
-                        'error_code' => '400',
-                        'error_message' => $this->codeExampleText['CustomErrorTexts'][0]['ErrorMessage'],
-                        'common_texts' => ManifestService::getCommonTexts()
-                    ]
-                );
+                'error.html',
+                [
+                    'error_code' => '400',
+                    'error_message' => $this->codeExampleText['CustomErrorTexts'][0]['ErrorMessage'],
+                    'common_texts' => ManifestService::getCommonTexts()
+                ]
+            );
             return;
         }
 
