@@ -1,14 +1,15 @@
 {
     "autoload": {
-        "psr-4": {"DocuSign\\": "../src/"}
+        "psr-4": {
+            "DocuSign\\": "../src/"
+        }
     },
- 
     "require": {
-        "docusign/esign-client": "^8.0.0",
+        "docusign/esign-client": "^8.2.0",
         "league/oauth2-client": "^2.7.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "7.9.2",
-        "firebase/php-jwt": "6.10.1",
+        "guzzlehttp/guzzle": "7.9.3",
+        "firebase/php-jwt": "6.11.1",
         "mashape/unirest-php": "3.0.4"
     }
 }
