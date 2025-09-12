@@ -1,12 +1,12 @@
 <?php
 // ds_config.php
 // 
-// DocuSign configuration settings
+// Docusign configuration settings
 $DS_CONFIG = [
     'quickstart' => '{QUICKSTART_VALUE}',
     'quickACG' => '{QUICK_ACG_VALUE}',
-    'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}',  // The app's DocuSign integration key
-    'ds_client_secret' => '{SECRET_KEY}', // The app's DocuSign integration key's secret
+    'ds_client_id' => '{INTEGRATION_KEY_AUTH_CODE}',  // The app's Docusign integration key
+    'ds_client_secret' => '{SECRET_KEY}', // The app's Docusign integration key's secret
     'signer_email' => '{SIGNER_EMAIL}',
     'signer_name' => '{SIGNER_NAME}',
     'app_url' => 'http://localhost:8080/public', // The url of the application.
@@ -18,7 +18,7 @@ $DS_CONFIG = [
     'session_secret' => '{SESSION_SECRET}', // Secret for encrypting session cookie content
     'allow_silent_authentication' => true, // a user can be silently authenticated if they have an
     // active login session on another tab of the same browser
-    'target_account_id' => false, // Set if you want a specific DocuSign AccountId, If false, the user's default account will be used.
+    'target_account_id' => false, // Set if you want a specific Docusign AccountId, If false, the user's default account will be used.
     'demo_doc_path' => 'demo_documents',
     'doc_docx' => 'World_Wide_Corp_Battle_Plan_Trafalgar.docx',
     'offer_doc_docx' => 'Offer_Letter_Dynamic_Table.docx',
@@ -37,7 +37,7 @@ $DS_CONFIG = [
 ];
 
 $JWT_CONFIG = [
-    'ds_client_id' => '{INTEGRATION_KEY_JWT}', // The app's DocuSign integration key
+    'ds_client_id' => '{INTEGRATION_KEY_JWT}', // The app's Docusign integration key
     'authorization_server' => 'account-d.docusign.com',
     "ds_impersonated_user_id" => '{IMPERSONATED_USER_ID}',  // the id of the user
     "private_key_file" => "./private.key", // path to private key file

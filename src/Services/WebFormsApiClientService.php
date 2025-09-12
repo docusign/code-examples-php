@@ -34,7 +34,7 @@ class WebFormsApiClientService
 
         #ds-snippet-start:WebFormsPHPStep2
         $config = new Configuration();
-        $config->setHost('https://apps-d.docusign.com/api/webforms/v1.1');
+        $config->setHost('https://apps-d.docusign.com/api/webforms');
         $config->addDefaultHeader('Authorization', 'Bearer ' . $args['ds_access_token']);
         $this->apiClient = new ApiClient($config);
         #ds-snippet-end:WebFormsPHPStep2
