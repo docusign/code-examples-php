@@ -22,7 +22,7 @@
     "docusign/esign-client": "^8.2.0",
     "docusign/rooms-client": "^2.1.1",
     "docusign/monitor-client": "^1.2.1",
-    "docusign/webforms-client": "^2.0.0",
+    "docusign/webforms-client": "^2.1.0",
     "twig/twig": "^3.21.1",
     "league/oauth2-client": "^2.7.0",
     "ext-json": "*",
