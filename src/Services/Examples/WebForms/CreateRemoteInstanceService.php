@@ -45,10 +45,11 @@ class CreateRemoteInstanceService
         string                    $signerName,
         string                    $signerEmail
     ): WebFormInstance {
+    #ds-snippet-start:WebForms2Step4
         $formValues = new WebFormValues([
             ['PhoneNumber' => '555-555-5555'],
             ['Yes' => ['Yes']],
-            ['Company' => 'Tally'],
+            ['Company' => 'Tally'], 
             ['JobTitle' => 'Programmer Writer']
         ]);
 
@@ -66,8 +67,11 @@ class CreateRemoteInstanceService
                 ])
             ],
         ]);
+        #ds-snippet-end:WebForms2Step4
+        #ds-snippet-start:WebForms2Step5
 
         return $formInstanceApi->createInstance($accountId, $formId, $options);
+        #ds-snippet-end:WebForms2Step5
     }
 
     /**
@@ -76,6 +80,7 @@ class CreateRemoteInstanceService
      * @param string $accountId
      * @return array
      */
+    #ds-snippet-start:WebForms2Step3
     public static function getTemplatesByName(
         TemplatesApi $templatesApi,
         string       $templateName,
@@ -92,6 +97,7 @@ class CreateRemoteInstanceService
             throw new RuntimeException('Error fetching templates: ' . $e->getMessage(), 0, $e);
         }
     }
+    #ds-snippet-end:WebForms2Step3
 
     /**
      * Get forms
