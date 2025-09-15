@@ -89,7 +89,7 @@ class CreateAndEmbedFormService
         $options = new CreateInstanceRequestBody([
             'client_user_id' => '1234-5678-abcd-ijkl',
             'form_values' => $formValues,
-            'expiration_offset' => 3600,
+            'expiration_offset' => 24,
         ]);
         #ds-snippet-end:WebForms1Step4
 
