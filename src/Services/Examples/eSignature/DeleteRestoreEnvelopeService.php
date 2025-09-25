@@ -24,8 +24,8 @@ class DeleteRestoreEnvelopeService
         string $accountId,
         string $envelopeId,
         string $folderId,
-        string|null $fromFolderId): FoldersResponse
-    {
+        string|null $fromFolderId
+    ): FoldersResponse {
         $foldersApi = $clientService->getFoldersApi();
 
         $foldersRequest = new FoldersRequest([
