@@ -7,6 +7,7 @@ use DocuSign\eSign\Api\BulkEnvelopesApi;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Api\GroupsApi;
 use DocuSign\eSign\Api\TemplatesApi;
+use DocuSign\eSign\Api\FoldersApi;
 use DocuSign\eSign\Api\UsersApi;
 use DocuSign\eSign\Client\ApiClient;
 use DocuSign\eSign\Client\ApiException;
@@ -54,6 +55,14 @@ class SignatureClientService
     public function getTemplatesApi(): TemplatesApi
     {
         return new TemplatesApi($this->apiClient);
+    }
+
+    /**
+     * Getter for the FoldersApi
+     */
+    public function getFoldersApi(): FoldersApi
+    {
+        return new FoldersApi($this->apiClient);
     }
 
     /**

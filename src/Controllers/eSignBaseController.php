@@ -190,6 +190,7 @@ abstract class ESignBaseController extends BaseController
                     'show_doc' => $GLOBALS['DS_CONFIG']['documentation'],
                     'signer_name' => $GLOBALS['DS_CONFIG']['signer_name'],
                     'signer_email' => $GLOBALS['DS_CONFIG']['signer_email'],
+                    'envelope_id' => $_SESSION["envelope_id"],
                     'pause_envelope_ok' => $pause_envelope_ok,
                     'code_example_text' => $this->codeExampleText,
                     'common_texts' => $this->getCommonText()

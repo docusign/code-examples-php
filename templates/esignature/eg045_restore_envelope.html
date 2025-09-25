@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+
+<h4>{{ code_example_text['ExampleName'] | raw }}</h4>
+<p>{{ code_example_text["ExampleDescription"] | raw }}</p>
+
+<p>{{ common_texts["HelpingTexts"]["EnvelopeWillBeRestored"]|replace({ ("{0}"):envelope_id }) | raw }}</p>
+
+<form class="eg" action="" method="post" data-busy="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <button type="submit" class="btn btn-docu">
+        {{ common_texts["HelpingTexts"]["SubmitButtonRestoreText"] | raw }}
+    </button>
+</form>
+
+{% endblock %}
