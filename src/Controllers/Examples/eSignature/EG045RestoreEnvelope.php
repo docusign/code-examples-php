@@ -8,6 +8,7 @@ namespace DocuSign\Controllers\Examples\eSignature;
 use DocuSign\Controllers\eSignBaseController;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\Services\Examples\eSignature\DeleteRestoreEnvelopeService;
+use DocuSign\Services\ManifestService;
 
 class EG045RestoreEnvelope extends eSignBaseController
 {
@@ -16,7 +17,7 @@ class EG045RestoreEnvelope extends eSignBaseController
 
     const DELETE_FOLDER_ID = "recyclebin";
 
-    const RESTORE_FOLDER_ID = "sentitems";
+    const SENT_ITEMS_FOLDER_NAME = "Sent Items";
 
     /**
      * Create a new controller instance.
@@ -40,19 +41,57 @@ class EG045RestoreEnvelope extends eSignBaseController
     {
         $this->checkDsToken();
 
+        $availableFolders = DeleteRestoreEnvelopeService::getFolders(
+            $this->clientService,
+            $this->args["account_id"]
+        );
+
+        $folders = DeleteRestoreEnvelopeService::getFolderByName(
+            $availableFolders->getFolders(),
+            $this->args["folder_name"]
+        );
+
+        if ($folders == null) {
+            $pageText = array_values(array_filter(
+                $this->codeExampleText["AdditionalPage"],
+                fn($page) => $page["Name"] === "folder_does_not_exist"
+            ));
+
+            $this->clientService->showDoneTemplate(
+                $this->codeExampleText["ExampleName"],
+                $this->codeExampleText["ExampleName"],
+                ManifestService::replacePlaceholders("{0}", $this->args["folder_name"], $pageText[0]["ResultsPageText"]),
+                null,
+                "index.php?page=eg045/RestoreEnvelope"
+            );
+            exit;
+        }
+
         try {
             DeleteRestoreEnvelopeService::moveEnvelopeToFolder(
                 $this->clientService,
                 $this->args["account_id"],
                 $_SESSION["envelope_id"],
-                self::RESTORE_FOLDER_ID,
+                $folders->getFolderId(),
                 self::DELETE_FOLDER_ID,
             );
 
             $this->clientService->showDoneTemplate(
                 $this->codeExampleText["ExampleName"],
                 $this->codeExampleText["ExampleName"],
-                $this->codeExampleText["ResultsPageText"],
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $_SESSION["envelope_id"],
+                    ManifestService::replacePlaceholders(
+                        "{1}",
+                        $folders->getType(),
+                        ManifestService::replacePlaceholders(
+                            "{2}",
+                            $this->args["folder_name"],
+                            $this->codeExampleText["ResultsPageText"]
+                        )
+                    )
+                )
             );
         } catch (ApiException $e) {
             $this->clientService->showErrorTemplate($e);
@@ -67,6 +106,7 @@ class EG045RestoreEnvelope extends eSignBaseController
     public function getTemplateArgs(): array
     {
         return [
+            'folder_name' => $_POST['folder_name'] != null? $_POST['folder_name'] : self::SENT_ITEMS_FOLDER_NAME,
             'account_id' => $_SESSION['ds_account_id'],
             'base_path' => $_SESSION['ds_base_path'],
             'ds_access_token' => $_SESSION['ds_access_token'],

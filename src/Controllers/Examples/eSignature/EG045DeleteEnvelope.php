@@ -8,6 +8,7 @@ namespace DocuSign\Controllers\Examples\eSignature;
 use DocuSign\Controllers\eSignBaseController;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\Services\Examples\eSignature\DeleteRestoreEnvelopeService;
+use DocuSign\Services\ManifestService;
 
 class EG045DeleteEnvelope extends eSignBaseController
 {
@@ -57,7 +58,11 @@ class EG045DeleteEnvelope extends eSignBaseController
             $this->clientService->showDoneTemplate(
                 $this->codeExampleText["ExampleName"],
                 $this->codeExampleText["ExampleName"],
-                $pageText[0]["ResultsPageText"] ?? null,
+                ManifestService::replacePlaceholders(
+                    "{0}",
+                    $this->args["envelope_id"],
+                    $pageText[0]["ResultsPageText"]
+                ),
                 null,
                 "index.php?page=eg045/RestoreEnvelope"
             );

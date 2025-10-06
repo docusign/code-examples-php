@@ -1,11 +1,25 @@
 {% extends "base.html" %} {% block content %}
 
+{% set formNumber = 0 %}
+{% set folderNameInputNumber = 1 %}
+
 <h4>{{ code_example_text['ExampleName'] | raw }}</h4>
 <p>{{ code_example_text["ExampleDescription"] | raw }}</p>
 
 <p>{{ common_texts["HelpingTexts"]["EnvelopeWillBeRestored"]|replace({ ("{0}"):envelope_id }) | raw }}</p>
 
 <form class="eg" action="" method="post" data-busy="form">
+    <div class="form-group">
+        <label for="folder_name">
+            {{ code_example_text['Forms'][formNumber]['Inputs'][folderNameInputNumber]['InputName'] | raw }}
+        </label>
+
+        <input type="text" class="form-control" id="folder_name" name="folder_name" aria-describedby="folder_name_help"
+            placeholder="{{code_example_text['Forms'][formNumber]['Inputs'][folderNameInputNumber]['InputPlaceholder']}}"
+            required
+            value="{{ code_example_text['Forms'][formNumber]['Inputs'][folderNameInputNumber]['InputPlaceholder'] }}">
+    </div>
+
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
     <button type="submit" class="btn btn-docu">
         {{ common_texts["HelpingTexts"]["SubmitButtonRestoreText"] | raw }}
