@@ -9,6 +9,8 @@ use DocuSign\Services\SignatureClientService;
 
 class DeleteRestoreEnvelopeService
 {
+    const DELETE_FOLDER_ID = "recyclebin";
+
     /**
      * Moves envelope to a different folder
      *
@@ -16,7 +18,7 @@ class DeleteRestoreEnvelopeService
      * @param string $accountId     The DocuSign Account ID (GUID or short version)
      * @param string $envelopeId    Envelope ID
      * @param string $folderId      Destination Folder ID
-     * @param string|null $fromFolderId  From Folder ID (optional)
+     * @param string $fromFolderId  From Folder ID
      *
      * @return \DocuSign\eSign\Model\FoldersResponse
      */
@@ -25,7 +27,7 @@ class DeleteRestoreEnvelopeService
         string $accountId,
         string $envelopeId,
         string $folderId,
-        string|null $fromFolderId
+        string $fromFolderId
     ): FoldersResponse {
         $foldersApi = $clientService->getFoldersApi();
 
@@ -35,6 +37,29 @@ class DeleteRestoreEnvelopeService
         ]);
 
         return $foldersApi->moveEnvelopes($accountId, $folderId, $foldersRequest);
+    }
+
+    /**
+     * Deletes envelope
+     *
+     * @param SignatureClientService $clientService   The client service for eSignature
+     * @param string $accountId     The DocuSign Account ID (GUID or short version)
+     * @param string $envelopeId    Envelope ID
+     *
+     * @return \DocuSign\eSign\Model\FoldersResponse
+     */
+    public static function deleteEnvelope(
+        SignatureClientService $clientService,
+        string $accountId,
+        string $envelopeId,
+    ): FoldersResponse {
+        $foldersApi = $clientService->getFoldersApi();
+
+        $foldersRequest = new FoldersRequest([
+            'envelope_ids'   => [$envelopeId],
+        ]);
+
+        return $foldersApi->moveEnvelopes($accountId, self::DELETE_FOLDER_ID, $foldersRequest);
     }
 
     /**

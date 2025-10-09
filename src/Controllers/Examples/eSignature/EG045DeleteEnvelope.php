@@ -15,8 +15,6 @@ class EG045DeleteEnvelope extends eSignBaseController
     const EG = 'eg045';            # reference (and url) for this example
     const FILE = __FILE__;
 
-    const DELETE_FOLDER_ID = "recyclebin";
-
     /**
      * Create a new controller instance.
      *
@@ -42,12 +40,10 @@ class EG045DeleteEnvelope extends eSignBaseController
         try {
             $_SESSION["envelope_id"] = $this->args['envelope_id'];
 
-            DeleteRestoreEnvelopeService::moveEnvelopeToFolder(
+            DeleteRestoreEnvelopeService::deleteEnvelope(
                 $this->clientService,
                 $this->args["account_id"],
-                $this->args["envelope_id"],
-                self::DELETE_FOLDER_ID,
-                null
+                $this->args["envelope_id"]
             );
 
             $pageText = array_values(array_filter(
