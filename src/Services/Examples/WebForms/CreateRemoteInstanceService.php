@@ -49,7 +49,7 @@ class CreateRemoteInstanceService
         $formValues = new WebFormValues([
             ['PhoneNumber' => '555-555-5555'],
             ['Yes' => ['Yes']],
-            ['Company' => 'Tally'], 
+            ['Company' => 'Tally'],
             ['JobTitle' => 'Programmer Writer']
         ]);
 
