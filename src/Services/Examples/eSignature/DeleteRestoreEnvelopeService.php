@@ -29,14 +29,18 @@ class DeleteRestoreEnvelopeService
         string $folderId,
         string $fromFolderId
     ): FoldersResponse {
+        #ds-snippet-start:eSign45Step2
         $foldersApi = $clientService->getFoldersApi();
+        #ds-snippet-end:eSign45Step2
 
         $foldersRequest = new FoldersRequest([
             'from_folder_id' => $fromFolderId,
             'envelope_ids'   => [$envelopeId],
         ]);
-
+        
+        #ds-snippet-start:eSign45Step6
         return $foldersApi->moveEnvelopes($accountId, $folderId, $foldersRequest);
+        #ds-snippet-end:eSign45Step6
     }
 
     /**
@@ -55,11 +59,15 @@ class DeleteRestoreEnvelopeService
     ): FoldersResponse {
         $foldersApi = $clientService->getFoldersApi();
 
+        #ds-snippet-start:eSign45Step3
         $foldersRequest = new FoldersRequest([
             'envelope_ids'   => [$envelopeId],
         ]);
+        #ds-snippet-end:eSign45Step3
 
+        #ds-snippet-start:eSign45Step4
         return $foldersApi->moveEnvelopes($accountId, self::DELETE_FOLDER_ID, $foldersRequest);
+        #ds-snippet-end:eSign45Step4
     }
 
     /**
@@ -92,6 +100,7 @@ class DeleteRestoreEnvelopeService
                 return $folder;
             }
 
+        #ds-snippet-start:eSign45Step5
             $subFolders = $folder->getFolders();
             if (!empty($subFolders)) {
                 $nestedFolder = self::getFolderByName($subFolders, $targetName);
@@ -102,5 +111,6 @@ class DeleteRestoreEnvelopeService
         }
 
         return null;
+        #ds-snippet-end:eSign45Step5
     }
 }
