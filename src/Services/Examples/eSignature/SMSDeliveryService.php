@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -41,14 +42,23 @@ class SMSDeliveryService
         try {
             # Step 3. Create and send the envelope
             #ds-snippet-start:eSign37Step3
-            $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeResponse = $envelope_api->createEnvelopeWithHttpInfo($args['account_id'], $envelope_definition);
+
+            $remaining = $envelopeResponse[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $envelopeResponse[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign37Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        return ['envelope_id' => $envelopeResponse[0]->getEnvelopeId()];
     }
 
     /**

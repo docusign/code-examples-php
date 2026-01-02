@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Api\EnvelopesApi\ListStatusChangesOptions;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopesInformation;
@@ -33,12 +34,21 @@ class ListEnvelopesService
         $options = new ListStatusChangesOptions();
         $options->setFromDate($from_date);
         try {
-            $statusChanges = $envelope_api->listStatusChanges($args['account_id'], $options);
+            $statusChanges = $envelope_api->listStatusChangesWithHttpInfo($args['account_id'], $options);
+
+            $remaining = $statusChanges[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $statusChanges[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
         #ds-snippet-end:eSign3Step2
-        return $statusChanges;
+        return $statusChanges[0];
     }
 }

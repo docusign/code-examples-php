@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\FormGroupFormToAssign;
 
@@ -24,11 +25,20 @@ class AssignFormToFormGroupService
         try {
             #ds-snippet-start:Rooms9Step6
             $form_api = $clientService->getFromGroupsApi();
-            $formGroupResult = $form_api->assignFormGroupForm(
+            $formGroupResult = $form_api->assignFormGroupFormWithHttpInfo(
                 $args['form_group_id'],
                 $args["account_id"],
                 $form_group_form_to_assign
             );
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Rooms9Step6
         } catch (ApiException $e) {
             error_log($e);
@@ -36,7 +46,7 @@ class AssignFormToFormGroupService
             exit;
         }
 
-        return $formGroupResult;
+        return $formGroupResult[0];
     }
 
     #ds-snippet-start:Rooms9Step3

@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
@@ -27,9 +28,18 @@ class AccessCodeAuthenticationService
         # Exceptions will be caught by the calling function
         #ds-snippet-start:eSign19Step4
         $envelope_api = $clientService->getEnvelopeApi();
-        $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $createdEnvelope = $envelope_api->createEnvelopeWithHttpInfo($args['account_id'], $envelope_definition);
 
-        return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
+        $remaining = $createdEnvelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $createdEnvelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return ['envelope_id' => $createdEnvelope[0]->getEnvelopeId()];
         #ds-snippet-end:eSign19Step4
     }
 

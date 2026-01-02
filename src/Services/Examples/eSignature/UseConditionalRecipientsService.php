@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\ConditionalRecipientRule;
 use DocuSign\eSign\Model\ConditionalRecipientRuleCondition;
@@ -41,10 +42,19 @@ class UseConditionalRecipientsService
         #ds-snippet-end:eSign34Step3
 
         #ds-snippet-start:eSign34Step4
-        $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
+        $envelope = $envelope_api->createEnvelopeWithHttpInfo($args["account_id"], $envelope_definition);
+
+        $remaining = $envelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset =  $envelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign34Step4
 
-        return $envelope["envelope_id"];
+        return $envelope[0]["envelope_id"];
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
@@ -33,10 +34,19 @@ class PauseSignatureWorkflowService
         #ds-snippet-end:eSign32Step3
 
         #ds-snippet-start:eSign32Step4
-        $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
+        $envelope = $envelope_api->createEnvelopeWithHttpInfo($args["account_id"], $envelope_definition);
+
+        $remaining = $envelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $envelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign32Step4
 
-        return $envelope;
+        return $envelope[0];
     }
 
     /**

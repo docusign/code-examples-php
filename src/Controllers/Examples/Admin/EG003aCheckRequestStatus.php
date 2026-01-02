@@ -2,6 +2,7 @@
 
 namespace DocuSign\Controllers\Examples\Admin;
 
+use DateTime;
 use DocuSign\OrgAdmin\Client\ApiException;
 use DocuSign\Controllers\AdminApiBaseController;
 
@@ -53,10 +54,19 @@ class EG003ACheckRequestStatus extends AdminApiBaseController
         $exportId = $_SESSION['export_id'];
 
         # Step 4 start
-        $result = $bulkExportsApi->getUserListExport($this->clientService->getOrgAdminId($this->args), $exportId);
+        $result = $bulkExportsApi->getUserListExportWithHttpInfo($this->clientService->getOrgAdminId($this->args), $exportId);
+
+        $remaining = $result[2]['X-RateLimit-Remaining'] ?? null;
+        $reset =  $result[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         # Step 4 end
 
-        return json_decode($result->__toString());
+        return json_decode($result[0]->__toString());
     }
 
     /**

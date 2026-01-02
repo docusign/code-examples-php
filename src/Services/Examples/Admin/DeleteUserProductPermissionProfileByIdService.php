@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\UserProductProfileDeleteRequest;
 use DocuSign\Admin\Model\RemoveUserProductsResponse;
@@ -35,11 +36,22 @@ class DeleteUserProductPermissionProfileByIdService
         #ds-snippet-end:Admin9Step4
 
         #ds-snippet-start:Admin9Step5
-        return $productPermissionProfilesApi->removeUserProductPermission(
+        $response = $productPermissionProfilesApi->removeUserProductPermissionWithHttpInfo(
             $organizationId,
             $accountId,
             $userProductProfileDeleteRequest
         );
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return $response[0];
         #ds-snippet-end:Admin9Step5
     }
 }

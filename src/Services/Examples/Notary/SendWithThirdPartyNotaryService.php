@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Notary;
 
+use DateTime;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
@@ -20,8 +21,16 @@ class SendWithThirdPartyNotaryService
     {
         $env = SendWithThirdPartyNotaryService::makeEnvelope($signerEmail, $signerName, $demoPath);
         
-        $results = $envelopesApi->createEnvelope($accountId, $env);
-        return $results;
+        $results = $envelopesApi->createEnvelopeWithHttpInfo($accountId, $env);
+        $remaining = $results[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $results[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $results[0];
     }
     #ds-snippet-end:Notary4Step4
     

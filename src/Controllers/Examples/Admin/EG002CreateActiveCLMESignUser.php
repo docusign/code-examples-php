@@ -2,6 +2,7 @@
 
 namespace DocuSign\Controllers\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Controllers\AdminApiBaseController;
 use DocuSign\Services\Examples\Admin\CreateActiveCLMESignUserService;
@@ -30,9 +31,18 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
             $eSignProductId = $clmProductId = $clmPermissionProfiles = $eSignPermissionProfiles = "";
             $this->orgId = $this->clientService->getOrgAdminId($this->args);
             $ppReq = $this->clientService->permProfilesApi();
-            $permissionProfiles = $ppReq->getProductPermissionProfiles($this->orgId, $this->args["account_id"]);
+            $permissionProfiles = $ppReq->getProductPermissionProfilesWithHttpInfo($this->orgId, $this->args["account_id"]);
 
-            foreach ($permissionProfiles['product_permission_profiles'] as $item) {
+            $remaining = $permissionProfiles[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $permissionProfiles[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
+            foreach ($permissionProfiles[0]['product_permission_profiles'] as $item) {
                 if ($item['product_name'] == "CLM") {
                     $clmPermissionProfiles = $item;
                     $clmProductId = $item["product_id"];
@@ -45,9 +55,19 @@ class EG002CreateActiveCLMESignUser extends AdminApiBaseController
 
             #ds-snippet-start:Admin2Step4
             $dsgReq = $this->clientService->adminGroupsApi();
-            $dsgRes = $dsgReq->getDSGroups($this->orgId, $this->args["account_id"]);
-            $dsGroups = $dsgRes["ds_groups"];
-            if ($dsgRes["ds_groups"] == null) {
+            $dsgRes = $dsgReq->getDSGroupsWithHttpInfo($this->orgId, $this->args["account_id"]);
+
+            $remaining = $dsgRes[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $dsgRes[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
+            $dsGroups = $dsgRes[0]["ds_groups"];
+            if ($dsgRes[0]["ds_groups"] == null) {
                 throw new ApiException(
                     $this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]
                 );

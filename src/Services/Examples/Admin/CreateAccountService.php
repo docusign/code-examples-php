@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Api\ProvisionAssetGroupApi;
 use DocuSign\Admin\Model\OrganizationSubscriptionResponse;
 use DocuSign\Admin\Model\SubAccountCreateRequest;
@@ -20,8 +21,18 @@ class CreateAccountService
         ProvisionAssetGroupApi $provisionAssetGroupApi,
         string $orgId
     ): ?OrganizationSubscriptionResponse {
-        $planItems = $provisionAssetGroupApi->getOrganizationPlanItems($orgId);
-        return $planItems[0] ?? null;
+        $planItems = $provisionAssetGroupApi->getOrganizationPlanItemsWithHttpInfo($orgId);
+
+        $remaining = $planItems[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $planItems[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return $planItems[0][0] ?? null;
     }
     #ds-snippet-end:Admin13Step3
 
@@ -43,7 +54,18 @@ class CreateAccountService
         );
         
         #ds-snippet-start:Admin13Step5
-        return $provisionAssetGroupApi->createAssetGroupAccount($orgId, $subAccountRequest);
+        $response = $provisionAssetGroupApi->createAssetGroupAccountWithHttpInfo($orgId, $subAccountRequest);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return $response[0];
         #ds-snippet-end:Admin13Step5
     }
 

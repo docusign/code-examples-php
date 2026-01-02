@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\FormulaTab;
@@ -22,12 +23,21 @@ class ResponsiveSigningService
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
-            $envelopeSummary = $envelopeApi->createEnvelope($args['account_id'], $envelopeDefinition);
+            $envelopeSummary = $envelopeApi->createEnvelopeWithHttpInfo($args['account_id'], $envelopeDefinition);
+
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        $envelopeId = $envelopeSummary->getEnvelopeId();
+        $envelopeId = $envelopeSummary[0]->getEnvelopeId();
 
         $authenticationMethod = 'None';
         $recipientViewRequest = $clientService->getRecipientViewRequest(

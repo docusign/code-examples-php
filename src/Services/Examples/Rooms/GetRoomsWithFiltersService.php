@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Api\RoomsApi\GetRoomsOptions;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\RoomSummaryList;
@@ -30,14 +31,22 @@ class GetRoomsWithFiltersService
             $options->setFieldDataChangedEndDate($args['end_date']);
             #ds-snippet-end:Rooms5Step3
             #ds-snippet-start:Rooms5Step4
-            $rooms = $rooms_api->getRooms($args['account_id'], $options);
+            $rooms = $rooms_api->getRoomsWithHttpInfo($args['account_id'], $options);
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Rooms5Step4
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
             exit;
         }
-        return $rooms;
+        return $rooms[0];
     }
 
     /**

@@ -44,8 +44,7 @@ class EG027PermissionDelete extends eSignBaseController
         if ($deleteResponse) {
             # That need an envelope_id
             $this->clientService->showDoneTemplateFromManifest(
-                $this->codeExampleText,
-                $deleteResponse
+                $this->codeExampleText
             );
         }
     }

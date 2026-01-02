@@ -7,6 +7,7 @@ use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Signer;
+use DateTime;
 
 class SigningViaEmailService
 {
@@ -37,7 +38,16 @@ class SigningViaEmailService
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeResponse = $envelope_api->createEnvelopeWithHttpInfo($args['account_id'], $envelope_definition);
+            $headers = $envelopeResponse[2];
+            $remaining = $headers['X-RateLimit-Remaining'] ?? null;
+            $reset = $headers['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             // if you modify this code and are using the the JWT Conole App, uncomment
             // the following line to debug issues for easier visibility in the console
@@ -47,7 +57,7 @@ class SigningViaEmailService
             exit;
         }
 
-        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        return ['envelope_id' => $envelopeResponse[0]->getEnvelopeId()];
         #ds-snippet-end:eSign2Step3
     }
 

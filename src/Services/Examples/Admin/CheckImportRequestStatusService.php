@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Services\AdminApiClientService;
 
@@ -22,16 +23,25 @@ class CheckImportRequestStatusService
         $bulkImport = $clientService->bulkImportsApi();
 
         # Step 4 start
-        $response = $bulkImport->getBulkUserImportRequest(
+        $response = $bulkImport->getBulkUserImportRequestWithHttpInfo(
             $organizationId,
             $importId
         );
 
-        if ($response->getStatus()== "queued") {
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        if ($response[0]->getStatus()== "queued") {
             return "Please refresh the page";
         } else {
             unset($_SESSION['import_id']);
-            return $response->__toString();
+            return $response[0]->__toString();
         }
         
         # Step 4 end

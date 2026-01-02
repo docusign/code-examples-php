@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\FormForAdd;
 use DocuSign\Rooms\Model\RoomDocument;
@@ -24,7 +25,16 @@ class AddFormsToRoomService
         try {
             #ds-snippet-start:Rooms4Step4
             $form_for_add = new FormForAdd($args);
-            $response = $rooms_api->addFormToRoom($args['room_id'], $args["account_id"], $form_for_add);
+            $response = $rooms_api->addFormToRoomWithHttpInfo($args['room_id'], $args["account_id"], $form_for_add);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Rooms4Step4
         } catch (ApiException $e) {
             if ($e) {
@@ -33,7 +43,7 @@ class AddFormsToRoomService
             $clientService->showErrorTemplate($e);
             exit;
         }
-        return $response;
+        return $response[0];
     }
 
     /**
