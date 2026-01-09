@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 
 class PermissionDeleteService
@@ -23,10 +24,19 @@ class PermissionDeleteService
         try {
             # Call the eSignature REST API
             #ds-snippet-start:eSign27Step3
-            $accounts_api->deletePermissionProfile(
+            $response = $accounts_api->deletePermissionProfileWithHttpInfo(
                 $args['account_id'],
                 $args['permission_args']['permission_profile_id']
             );
+
+            $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign27Step3
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);

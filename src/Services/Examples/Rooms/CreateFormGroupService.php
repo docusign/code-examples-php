@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Model\FormGroup;
 use DocuSign\Rooms\Model\FormGroupForCreate;
 

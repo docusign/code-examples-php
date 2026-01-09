@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\BulkSendingCopy;
 use DocuSign\eSign\Model\BulkSendingCopyRecipient;
@@ -41,15 +42,43 @@ class BulkSendEnvelopesService
         $envelope_api = $clientService->getEnvelopeApi();
 
         #ds-snippet-start:eSign31Step3
-        $bulk_sending_list = BulkSendEnvelopesService::createBulkSendingList($args["signers"]);
-        $bulk_list = $bulk_envelopes_api->createBulkSendList($args["account_id"], $bulk_sending_list);
-        $bulk_list_id = $bulk_list["list_id"];
+        $bulk_sending_list = BulkSendEnvelopesService::createBulkSendingList(
+            $args["signers"]
+        );
+        $bulk_list = $bulk_envelopes_api->createBulkSendListWithHttpInfo(
+            $args["account_id"],
+            $bulk_sending_list
+        );
+        $remaining = $bulk_list[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $bulk_list[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $bulk_list_id = $bulk_list[0]["list_id"];
         #ds-snippet-end:eSign31Step3
 
         #ds-snippet-start:eSign31Step4
-        $envelope_definition = BulkSendEnvelopesService::makeEnvelope($demoDocsPath, $docPDF);
-        $envelope = $envelope_api->createEnvelope($args["account_id"], $envelope_definition);
-        $envelope_id = $envelope["envelope_id"];
+        $envelope_definition = BulkSendEnvelopesService::makeEnvelope(
+            $demoDocsPath,
+            $docPDF
+        );
+        $envelope = $envelope_api->createEnvelopeWithHttpInfo(
+            $args["account_id"],
+            $envelope_definition
+        );
+
+        $remaining = $envelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $envelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $envelope_id = $envelope[0]["envelope_id"];
         #ds-snippet-end:eSign31Step4
 
         #ds-snippet-start:eSign31Step5
@@ -69,32 +98,58 @@ class BulkSendEnvelopesService
             ]
         );
 
-        $envelope_api->createCustomFields($args["account_id"], $envelope_id, $custom_fields);
+        $response = $envelope_api->createCustomFieldsWithHttpInfo($args["account_id"], $envelope_id, $custom_fields);
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign31Step5
 
         #ds-snippet-start:eSign31Step6
         $bulk_send_request = new BulkSendRequest(['envelope_or_template_id' => $envelope_id]);
 
-        $batch = $bulk_envelopes_api->createBulkSendRequest(
+        $batch = $bulk_envelopes_api->createBulkSendRequestWithHttpInfo(
             $args["account_id"],
             $bulk_list_id,
             $bulk_send_request
         );
+
+        $remaining = $batch[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $batch[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign31Step6
 
         # Exceptions will be caught by the calling function
         #ds-snippet-start:eSign31Step7
         try {
-            $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatus(
+            $bulkSendBatchStatus = $bulk_envelopes_api->getBulkSendBatchStatusWithHttpInfo(
                 $args['account_id'],
-                $batch['batch_id']
+                $batch[0]['batch_id']
             );
+
+            $remaining = $bulkSendBatchStatus[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $bulkSendBatchStatus[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $bulkSendBatchStatus;
+        return $bulkSendBatchStatus[0];
         #ds-snippet-end:eSign31Step7
     }
 

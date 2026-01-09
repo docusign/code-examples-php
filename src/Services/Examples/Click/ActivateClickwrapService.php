@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Click;
 
+use DateTime;
 use DocuSign\Click\Api\AccountsApi\GetClickwrapsOptions;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapRequest;
@@ -25,19 +26,29 @@ class ActivateClickwrapService
         try {
             #ds-snippet-start:Click2Step4
             $accounts_api = $clientService->accountsApi();
-            $response = $accounts_api -> updateClickwrapVersion(
+            $response = $accounts_api->updateClickwrapVersionWithHttpInfo(
                 $args['account_id'],
                 $args['clickwrap_id'],
                 $args['version_number'],
                 $clickwrap_request
             );
+
+            $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
             #ds-snippet-end:Click2Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $response;
+        return $response[0];
     }
 
     public static function getClickwrapsByStatus(
@@ -53,7 +64,18 @@ class ActivateClickwrapService
                 $apiClient = $clientService->accountsApi();
                 $options = new GetClickwrapsOptions();
                 $options -> setStatus($status);
-                return $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
+                $response = $apiClient->getClickwrapsWithHttpInfo($args['account_id'], $options);
+
+                $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+                $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
+
+                return $response[0]['clickwraps'];
             } catch (ApiException $e) {
                 error_log($e);
                 return [];

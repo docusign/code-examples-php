@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\WebForms;
 
+use DateTime;
 use DocuSign\eSign\Api\TemplatesApi;
 use DocuSign\eSign\Api\TemplatesApi\ListTemplatesOptions;
 use DocuSign\eSign\Model\Checkbox;
@@ -70,7 +71,17 @@ class CreateRemoteInstanceService
         #ds-snippet-end:WebForms2Step4
         #ds-snippet-start:WebForms2Step5
 
-        return $formInstanceApi->createInstance($accountId, $formId, $options);
+        $response = $formInstanceApi->createInstanceWithHttpInfo($accountId, $formId, $options);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
         #ds-snippet-end:WebForms2Step5
     }
 
@@ -90,9 +101,16 @@ class CreateRemoteInstanceService
         $options->setSearchText($templateName);
 
         try {
-            $templates = $templatesApi->listTemplates($accountId, $options);
+            $templates = $templatesApi->listTemplatesWithHttpInfo($accountId, $options);
+            $remaining = $templates[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $templates[2]['X-RateLimit-Reset'] ?? null;
 
-            return $templates->getEnvelopeTemplates();
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+            return $templates[0]->getEnvelopeTemplates();
         } catch (\DocuSign\eSign\Client\ApiException $e) {
             throw new RuntimeException('Error fetching templates: ' . $e->getMessage(), 0, $e);
         }
@@ -114,7 +132,17 @@ class CreateRemoteInstanceService
         $options = new ListFormsOptions();
         $options->setSearch($formName);
 
-        return $formManagementApi->listForms($accountId, $options);
+        $response = $formManagementApi->listFormsWithHttpInfo($accountId, $options);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
     }
 
     /**
@@ -164,32 +192,49 @@ class CreateRemoteInstanceService
 
         $options = new ListTemplatesOptions();
         $options->setSearchText($templateName);
-        $templatesListResponse = $templatesApi->listTemplates(
+        $templatesListResponse = $templatesApi->listTemplatesWithHttpInfo(
             $args['account_id'],
             $options
         );
+        $remaining = $templatesListResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $templatesListResponse[2]['X-RateLimit-Reset'] ?? null;
 
-        if ($templatesListResponse['result_set_size'] > 0) {
-            $templateId = $templatesListResponse['envelope_templates'][0]['template_id'];
-            $resultsTemplateName = $templatesListResponse['envelope_templates'][0]['name'];
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        if ($templatesListResponse[0]['result_set_size'] > 0) {
+            $templateId = $templatesListResponse[0]['envelope_templates'][0]['template_id'];
+            $resultsTemplateName = $templatesListResponse[0]['envelope_templates'][0]['name'];
         } else {
             $templateObject = CreateAndEmbedFormService::makeTemplateRequest(
                 $templateName,
                 $demoDocsPath
             );
-            $templatesListResponse = $templatesApi->createTemplate(
+            $templatesListResponse = $templatesApi->createTemplateWithHttpInfo(
                 $args['account_id'],
                 $templateObject
             );
 
-            $templateId = $templatesListResponse['template_id'];
-            $resultsTemplateName = $templatesListResponse['name'];
+            $remaining = $templatesListResponse[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $templatesListResponse[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
+            $templateId = $templatesListResponse[0]['template_id'];
+            $resultsTemplateName = $templatesListResponse[0]['name'];
         }
 
         return [
             'template_id' => $templateId,
             'template_name' => $resultsTemplateName,
-            'created_new_template' => !($templatesListResponse['result_set_size'] > 0)
+            'created_new_template' => !($templatesListResponse[0]['result_set_size'] > 0)
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Recipients;
@@ -32,12 +33,24 @@ class CreateAnEnvelopeService
         # 2. call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            $envelopeSummary = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeSummary = $envelope_api->createEnvelopeWithHttpInfo(
+                $args['account_id'],
+                $envelope_definition
+            );
+
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        $envelope_id = $envelopeSummary->getEnvelopeId();
+        $envelope_id = $envelopeSummary[0]->getEnvelopeId();
 
         # 3. Create the Recipient View request object
         $authentication_method = 'None'; # How is this application authenticating

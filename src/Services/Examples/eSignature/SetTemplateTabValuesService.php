@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\Checkbox;
 use DocuSign\eSign\Model\CustomFields;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -41,8 +42,18 @@ class SetTemplateTabValuesService
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         $envelope_api = $clientService->getEnvelopeApi();
-        $envelopeResponse = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
-        $envelope_id = $envelopeResponse->getEnvelopeId();
+        $envelopeResponse = $envelope_api->createEnvelopeWithHttpInfo($args['account_id'], $envelope_definition);
+
+        $remaining = $envelopeResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset =  $envelopeResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        $envelope_id = $envelopeResponse[0]->getEnvelopeId();
         #ds-snippet-end:eSign17Step5
 
         #ds-snippet-start:eSign17Step6

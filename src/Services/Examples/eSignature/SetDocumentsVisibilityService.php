@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Document;
@@ -50,10 +51,19 @@ class SetDocumentsVisibilityService
 
         try {
             #ds-snippet-start:eSign40Step4
-            $envelopeSummary = $envelope_api->createEnvelope(
+            $envelopeSummary = $envelope_api->createEnvelopeWithHttpInfo(
                 $accountId,
                 $envelope_definition
             );
+
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign40Step4
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
@@ -70,7 +80,7 @@ class SetDocumentsVisibilityService
             exit;
         }
 
-        return $envelopeSummary->getEnvelopeId();
+        return $envelopeSummary[0]->getEnvelopeId();
     }
     #ds-snippet-start:eSign40Step3
     private static function makeEnvelope(

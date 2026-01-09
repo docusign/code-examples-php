@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Api\OrganizationsApi;
 use DocuSign\Admin\Api\UsersApi;
 use DocuSign\Admin\Api\UsersApi\GetUserDSProfilesByEmailOptions;
@@ -31,8 +32,17 @@ class DeleteUserDataFromOrganizationService
         $getProfilesOptions = new GetUserDSProfilesByEmailOptions();
         $getProfilesOptions->setEmail($emailAddress);
 
-        $profiles = $usersApi->getUserDSProfilesByEmail($organizationId, $getProfilesOptions);
-        $user = $profiles->getUsers()[0];
+        $profiles = $usersApi->getUserDSProfilesByEmailWithHttpInfo($organizationId, $getProfilesOptions);
+
+        $remaining = $profiles[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $profiles[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $user = $profiles[0]->getUsers()[0];
 
         #ds-snippet-start:Admin10Step3
         $userRedactionRequest = new IndividualUserDataRedactionRequest();
@@ -45,7 +55,18 @@ class DeleteUserDataFromOrganizationService
         #ds-snippet-end:Admin10Step3
 
         #ds-snippet-start:Admin10Step4
-        return $organizationsApi->redactIndividualUserData($organizationId, $userRedactionRequest);
+        $response = $organizationsApi->redactIndividualUserDataWithHttpInfo($organizationId, $userRedactionRequest);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return $response[0];
         #ds-snippet-end:Admin10Step4
     }
 }

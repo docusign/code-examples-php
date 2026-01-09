@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\Folder;
 use DocuSign\eSign\Model\FoldersRequest;
 use DocuSign\eSign\Model\FoldersResponse;
@@ -39,7 +40,17 @@ class DeleteRestoreEnvelopeService
         ]);
         
         #ds-snippet-start:eSign45Step6
-        return $foldersApi->moveEnvelopes($accountId, $folderId, $foldersRequest);
+        $response = $foldersApi->moveEnvelopesWithHttpInfo($accountId, $folderId, $foldersRequest);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
         #ds-snippet-end:eSign45Step6
     }
 
@@ -66,7 +77,17 @@ class DeleteRestoreEnvelopeService
         #ds-snippet-end:eSign45Step3
 
         #ds-snippet-start:eSign45Step4
-        return $foldersApi->moveEnvelopes($accountId, self::DELETE_FOLDER_ID, $foldersRequest);
+        $response = $foldersApi->moveEnvelopesWithHttpInfo($accountId, self::DELETE_FOLDER_ID, $foldersRequest);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
         #ds-snippet-end:eSign45Step4
     }
 
@@ -82,7 +103,17 @@ class DeleteRestoreEnvelopeService
     {
         $foldersApi = $clientService->getFoldersApi();
 
-        return $foldersApi->callList($accountId, null);
+        $response = $foldersApi->callListWithHttpInfo($accountId, null);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
     }
 
     /**

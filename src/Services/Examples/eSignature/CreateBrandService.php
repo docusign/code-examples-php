@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Brand;
 use DocuSign\Services\ManifestService;
@@ -31,7 +32,19 @@ class CreateBrandService
         try {
             # Step 4 Call the eSignature REST API
             #ds-snippet-start:eSign28Step4
-            $createdBrand = $accounts_api->createBrand($args['account_id'], $brand);
+            $createdBrand = $accounts_api->createBrandWithHttpInfo(
+                $args['account_id'],
+                $brand
+            );
+
+            $remaining = $createdBrand[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $createdBrand[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign28Step4
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
@@ -48,6 +61,6 @@ class CreateBrandService
             }
         }
 
-        return ['brand_id' => $createdBrand->getBrands()[0]->getBrandId()];
+        return ['brand_id' => $createdBrand[0]->getBrands()[0]->getBrandId()];
     }
 }

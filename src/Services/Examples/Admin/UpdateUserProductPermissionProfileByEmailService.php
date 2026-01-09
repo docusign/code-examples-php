@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\ProductPermissionProfileRequest;
 use DocuSign\Admin\Model\UserProductPermissionProfilesRequest;
@@ -41,11 +42,22 @@ class UpdateUserProductPermissionProfileByEmailService
         #ds-snippet-end:Admin8Step3
 
         #ds-snippet-start:Admin8Step4
-        return $productPermissionProfilesApi->addUserProductPermissionProfilesByEmail(
+        $response = $productPermissionProfilesApi->addUserProductPermissionProfilesByEmailWithHttpInfo(
             $organizationId,
             $accountId,
             $userProductPermissionProfilesRequest
         );
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return $response[0];
         #ds-snippet-end:Admin8Step4
     }
 }

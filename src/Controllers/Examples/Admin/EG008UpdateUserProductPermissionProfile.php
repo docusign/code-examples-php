@@ -2,6 +2,7 @@
 
 namespace DocuSign\Controllers\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\ProductPermissionProfilesResponse;
 use DocuSign\Controllers\AdminApiBaseController;
@@ -50,13 +51,22 @@ class EG008UpdateUserProductPermissionProfile extends AdminApiBaseController
 
                 $permissionProfilesAPI = $this->clientService->permProfilesApi();
 
-                $productPermissionProfilesResponse = $permissionProfilesAPI->getProductPermissionProfiles(
+                $productPermissionProfilesResponse = $permissionProfilesAPI->getProductPermissionProfilesWithHttpInfo(
                     $this->orgId,
                     $this->args["account_id"]
                 );
 
+                $remaining = $productPermissionProfilesResponse[2]['X-RateLimit-Remaining'] ?? null;
+                $reset =  $productPermissionProfilesResponse[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
+
                 parent::controller(
-                    $this->preparePageProperties($productPermissionProfilesResponse)
+                    $this->preparePageProperties($productPermissionProfilesResponse[0])
                 );
             }
         } catch (ApiException $e) {

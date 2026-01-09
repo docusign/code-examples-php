@@ -2,6 +2,8 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
+
 class EnvelopeGetDocService
 {
     /**
@@ -20,7 +22,16 @@ class EnvelopeGetDocService
         $envelope_api = $clientService->getEnvelopeApi();
 
         # An SplFileObject is returned. See http://php.net/manual/en/class.splfileobject.php
-        $temp_file = $envelope_api->getDocument($args['account_id'], $args['document_id'], $args['envelope_id']);
+        $temp_file = $envelope_api->getDocumentWithHttpInfo($args['account_id'], $args['document_id'], $args['envelope_id']);
+
+        $remaining = $temp_file[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $temp_file[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign7Step3
         # find the matching document information item
         $doc_item = false;
@@ -51,6 +62,6 @@ class EnvelopeGetDocService
             $mimetype = 'application/octet-stream';
         }
 
-        return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file];
+        return ['mimetype' => $mimetype, 'doc_name' => $doc_name, 'data' => $temp_file[0]];
     }
 }

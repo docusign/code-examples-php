@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services;
 
+use DateTime;
 use DocuSign\Rooms\Api\ExternalFormFillSessionsApi;
 use DocuSign\Rooms\Api\FormGroupsApi;
 use DocuSign\Rooms\Api\FormLibrariesApi;
@@ -185,12 +186,21 @@ class RoomsApiClientService
     {
         $rooms_api = $this->getRoomsApi();
         try {
-            $response = $rooms_api->createRoom($args['account_id'], $room);
+            $response = $rooms_api->createRoomWithHttpInfo($args['account_id'], $room);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $response;
+        return $response[0];
     }
 
     /**
@@ -211,12 +221,21 @@ class RoomsApiClientService
     {
         $rooms_api = $this->getRoomsApi();
         try {
-            $rooms = $rooms_api->getRooms($args['account_id']);
+            $rooms = $rooms_api->getRoomsWithHttpInfo($args['account_id']);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $rooms['rooms'];
+        return $rooms[0]['rooms'];
     }
 
     /**
@@ -230,12 +249,21 @@ class RoomsApiClientService
     {
         $rooms_api = $this->getRoomsApi();
         try {
-            $room = $rooms_api->getRoom($room_id, $account_id);
+            $room = $rooms_api->getRoomWithHttpInfo($room_id, $account_id);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $room;
+        return $room[0];
     }
 
     /**
@@ -249,13 +277,22 @@ class RoomsApiClientService
         #ds-snippet-start:Rooms4Step3
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
-            $form_libraries = $form_libraries_api->getFormLibraries($args['account_id']);
+            $form_libraries = $form_libraries_api->getFormLibrariesWithHttpInfo($args['account_id']);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
         #ds-snippet-end:Rooms4Step3
-        return $form_libraries['forms_library_summaries'];
+        return $form_libraries[0]['forms_library_summaries'];
     }
 
     /**
@@ -280,13 +317,22 @@ class RoomsApiClientService
         #ds-snippet-start:Rooms4Step3
         $form_libraries_api = $this->getFormLibrariesApi();
         try {
-            $forms = $form_libraries_api->getFormLibraryForms($forms_library_id, $account_id);
+            $forms = $form_libraries_api->getFormLibraryFormsWithHttpInfo($forms_library_id, $account_id);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
         #ds-snippet-end:Rooms4Step3
-        return $forms['forms'];
+        return $forms[0]['forms'];
     }
 
     /**
@@ -300,12 +346,21 @@ class RoomsApiClientService
     {
         $rooms_api = $this->getRoomsApi();
         try {
-            $documents = $rooms_api->getDocuments($room_id, $account_id);
+            $documents = $rooms_api->getDocumentsWithHttpInfo($room_id, $account_id);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $documents['documents'];
+        return $documents[0]['documents'];
     }
 
     /**
@@ -319,12 +374,21 @@ class RoomsApiClientService
     {
         $form_groups_api = $this->getFromGroupsApi();
         try {
-            $response = $form_groups_api->createFormGroup($account_id, $formGroup);
+            $response = $form_groups_api->createFormGroupWithHttpInfo($account_id, $formGroup);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $response;
+        return $response[0];
     }
 
     /**
@@ -345,12 +409,21 @@ class RoomsApiClientService
     {
         $form_groups_api = $this->getFromGroupsApi();
         try {
-            $form_groups = $form_groups_api->getFormGroups($account_id);
+            $form_groups = $form_groups_api->getFormGroupsWithHttpInfo($account_id);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $form_groups['form_groups'];
+        return $form_groups[0]['form_groups'];
     }
 
     /**
@@ -363,12 +436,21 @@ class RoomsApiClientService
     {
         $offices_api = $this->getOfficesApi();
         try {
-            $offices = $offices_api->getOffices($account_id);
+            $offices = $offices_api->getOfficesWithHttpInfo($account_id);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
-        return $offices['office_summaries'];
+        return $offices[0]['office_summaries'];
     }
 
     /**
