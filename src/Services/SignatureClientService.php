@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services;
 
+use DateTime;
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Api\BulkEnvelopesApi;
 use DocuSign\eSign\Api\EnvelopesApi;
@@ -117,7 +118,16 @@ class SignatureClientService
     ): \DocuSign\eSign\Model\ViewUrl {
         try {
             $envelope_api = $this->getEnvelopeApi();
-            $viewUrl = $envelope_api->createRecipientView($account_id, $envelope_id, $recipient_view_request);
+            $viewUrl = $envelope_api->createRecipientViewWithHttpInfo($account_id, $envelope_id, $recipient_view_request);
+
+            $remaining = $viewUrl[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $viewUrl[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $error_code = $e->getResponseBody()->errorCode;
             $error_message = $e->getResponseBody()->message;
@@ -143,7 +153,7 @@ class SignatureClientService
             exit;
         }
 
-        return $viewUrl;
+        return $viewUrl[0];
     }
 
     # Step 4 end
@@ -260,13 +270,22 @@ class SignatureClientService
         # Retrieve all brands using the AccountBrands::List
         $accounts_api = $this->getAccountsApi();
         try {
-            $brands = $accounts_api->listBrands($args['account_id']);
+            $brands = $accounts_api->listBrandsWithHttpInfo($args['account_id']);
+
+            $remaining = $brands[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $brands[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
 
-        return $brands['brands'];
+        return $brands[0]['brands'];
     }
 
     /**
@@ -299,43 +318,61 @@ class SignatureClientService
     }
 
     /**
-     *  Get the lis of the Permission Profiles
+     *  Get the list of the Permission Profiles
      *
-     * @param array $args
-     * @return array $brands
+     * @param array $permissionProfile
+     * @return array $permissionProfile
      */
     public function getPermissionsProfiles(array $args): array
     {
         # Retrieve all brands using the AccountBrands::List
         $accounts_api = $this->getAccountsApi();
         try {
-            $brands = $accounts_api->listPermissions($args['account_id']);
+            $permissionProfile = $accounts_api->listPermissionsWithHttpInfo($args['account_id']);
+
+            $remaining = $permissionProfile[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $permissionProfile[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
 
-        return $brands['permission_profiles'];
+        return $permissionProfile[0]['permission_profiles'];
     }
 
     /**
-     *  Get the lis of the Groups
+     *  Get the list of the Groups
      *
      * @param array $args
-     * @return array $brands
+     * @return array $groups
      */
     public function getGroups(array $args): array
     {
         # Retrieve all Groups using the GroupInformation::List
         $accounts_api = $this->getGroupsApi();
         try {
-            $brands = $accounts_api->listGroups($args['account_id']);
+            $groups = $accounts_api->listGroupsWithHttpInfo($args['account_id']);
+
+            $remaining = $groups[2]['X-RateLimit-Remaining'] ?? null;
+            $reset =  $groups[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $this->showErrorTemplate($e);
             exit;
         }
 
-        return $brands['groups'];
+        return $groups[0]['groups'];
     }
 
     /**

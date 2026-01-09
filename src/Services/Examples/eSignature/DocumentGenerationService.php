@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Api\EnvelopesApi\UpdateEnvelopeDocGenFormFieldsOptions;
 use DocuSign\eSign\Model\DateSigned;
 use DocuSign\eSign\Model\DocGenFormField;
@@ -28,52 +29,120 @@ class DocumentGenerationService
         $templatesApi = $clientService->getTemplatesApi();
 
         $envelopeTemplate = DocumentGenerationService::makeTemplate();
-        $templatesListResponse = $templatesApi->createTemplate($args['account_id'], $envelopeTemplate);
-        $templateId = $templatesListResponse['template_id'];
+        $templatesListResponse = $templatesApi->createTemplateWithHttpInfo($args['account_id'], $envelopeTemplate);
+
+        $remaining = $templatesListResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $templatesListResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $templateId = $templatesListResponse[0]['template_id'];
         #ds-snippet-end:eSign42Step2
 
         #ds-snippet-start:eSign42Step3
-        $templatesApi->updateDocument($args['account_id'], "1", $templateId, self::addDocumentTemplate($documentPath));
+        $response = $templatesApi->updateDocumentWithHttpInfo(
+            $args['account_id'],
+            "1",
+            $templateId,
+            self::addDocumentTemplate($documentPath)
+        );
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign42Step3
 
         #ds-snippet-start:eSign42Step4
-        $templatesApi->createTabs($args['account_id'], "1", $templateId, self::prepareTabs());
+        $response = $templatesApi->createTabsWithHttpInfo($args['account_id'], "1", $templateId, self::prepareTabs());
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign42Step4
 
         #ds-snippet-start:eSign42Step5
         $envelopeApi = $clientService->getEnvelopeApi();
-        $envelopeResponse = $envelopeApi->createEnvelope(
+        $envelopeResponse = $envelopeApi->createEnvelopeWithHttpInfo(
             $args['account_id'],
             DocumentGenerationService::makeEnvelope($args["form_data"], $templateId)
         );
-        $envelopeId = $envelopeResponse["envelope_id"];
+
+        $remaining = $envelopeResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $envelopeResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $envelopeId = $envelopeResponse[0]["envelope_id"];
         #ds-snippet-end:eSign42Step5
 
         #ds-snippet-start:eSign42Step6
-        $documents = $envelopeApi->getEnvelopeDocGenFormFields($args['account_id'], $envelopeId);
-        $documentId = $documents["doc_gen_form_fields"][0]["document_id"];
+        $documents = $envelopeApi->getEnvelopeDocGenFormFieldsWithHttpInfo($args['account_id'], $envelopeId);
+
+        $remaining = $documents[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $documents[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $documentId = $documents[0]["doc_gen_form_fields"][0]["document_id"];
         #ds-snippet-end:eSign42Step6
 
         #ds-snippet-start:eSign42Step7
         $formFields = DocumentGenerationService::formFields($args["form_data"], $documentId);
-        $envelopeApi->updateEnvelopeDocGenFormFields(
+        $response = $envelopeApi->updateEnvelopeDocGenFormFieldsWithHttpInfo(
             $args['account_id'],
             $envelopeId,
             $formFields
         );
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign42Step7
 
         #ds-snippet-start:eSign42Step8
-        $envelopeResponse = $envelopeApi->update(
+        $envelopeResponse = $envelopeApi->updateWithHttpInfo(
             $args['account_id'],
             $envelopeId,
             new Envelope([
                 'status' => 'sent'
             ])
         );
+
+        $remaining = $envelopeResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $envelopeResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign42Step8
 
-        return $envelopeResponse->getEnvelopeId();
+        return $envelopeResponse[0]->getEnvelopeId();
     }
     #ds-snippet-start:eSign42Step2
     public static function makeTemplate(): EnvelopeTemplate

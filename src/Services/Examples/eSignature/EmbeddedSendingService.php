@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\EnvelopeViewRecipientSettings;
 use DocuSign\eSign\Model\EnvelopeViewDocumentSettings;
 use DocuSign\eSign\Model\EnvelopeViewTaggerSettings;
@@ -37,10 +38,18 @@ class EmbeddedSendingService
         #ds-snippet-start:eSign11Step3
         $view_request = EmbeddedSendingService::prepareViewRequest($args['starting_view'], $args['ds_return_url']);
         $envelope_api = $clientService->getEnvelopeApi();
-        $senderView = $envelope_api->createSenderView($args['account_id'], $envelope_id, $view_request);
+        $senderView = $envelope_api->createSenderViewWithHttpInfo($args['account_id'], $envelope_id, $view_request);
 
+        $remaining = $senderView[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $senderView[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         # Switch to the Recipients / Documents view if requested by the user in the form
-        $url = $senderView['url'];
+        $url = $senderView[0]['url'];
         if ($args['starting_view'] == "recipient") {
             $url = str_replace('send=1', 'send=0', $url);
         }

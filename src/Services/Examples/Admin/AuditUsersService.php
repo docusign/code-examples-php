@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Api\UsersApi\GetUserProfilesOptions;
 use DocuSign\Admin\Api\UsersApi\GetUsersOptions;
 use DocuSign\Admin\Client\ApiException;
@@ -42,18 +43,34 @@ class AuditUsersService
         $options->setLastModifiedSince($from_date);
 
         try {
-            $modifiedUsers = $admin_api->getUsers($organizationId, $options);
+            $modifiedUsers = $admin_api->getUsersWithHttpInfo($organizationId, $options);
             #ds-snippet-end:Admin5Step3
+            $remaining = $modifiedUsers[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $modifiedUsers[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
 
             #ds-snippet-start:Admin5Step4
-            foreach ($modifiedUsers["users"] as $user) {
+            foreach ($modifiedUsers[0]["users"] as $user) {
                 $profileOptions = new GetUserProfilesOptions();
                 $profileOptions->setEmail($user["email"]);
                 #ds-snippet-end:Admin5Step4
 
                 #ds-snippet-start:Admin5Step5
-                $res = $admin_api->getUserProfiles($organizationId, $profileOptions);
-                $userDrilldownResponse->setUsers($res->getUsers());
+                $res = $admin_api->getUserProfilesWithHttpInfo($organizationId, $profileOptions);
+                $remaining = $res[2]['X-RateLimit-Remaining'] ?? null;
+                $reset = $res[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
+                $userDrilldownResponse->setUsers($res[0]->getUsers());
                 $decoded = json_decode((string)$userDrilldownResponse, true);
                 array_push($usersInformation, $decoded["users"]);
                 #ds-snippet-end:Admin5Step5

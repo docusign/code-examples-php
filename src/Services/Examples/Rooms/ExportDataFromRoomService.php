@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\FieldData;
 
@@ -19,14 +20,23 @@ class ExportDataFromRoomService
         #ds-snippet-start:Rooms3Step3
         $rooms_api = $clientService->getRoomsApi();
         try {
-            $room_details = $rooms_api->getRoomFieldData($args['room_id'], $args["account_id"]);
+            $room_details = $rooms_api->getRoomFieldDataWithHttpInfo($args['room_id'], $args["account_id"]);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
             exit;
         }
         #ds-snippet-end:Rooms3Step3
-        return $room_details;
+        return $room_details[0];
     }
 
     /**

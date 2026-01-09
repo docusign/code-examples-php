@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Click;
 
+use DateTime;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapVersionSummaryResponse;
 use DocuSign\Click\Api\AccountsApi\GetClickwrapsOptions;
@@ -41,9 +42,19 @@ class EmbedClickwrapService
 
         try {
             #ds-snippet-start:Click6Step4
-            $response =  $accountsApi->createHasAgreed($args['account_id'], $args['clickwrap_id'], $documentData);
-            if ($response->getStatus() == "created") {
-                return $response->getAgreementUrl();
+            $response =  $accountsApi->createHasAgreedWithHttpInfo($args['account_id'], $args['clickwrap_id'], $documentData);
+
+            $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
+            if ($response[0]->getStatus() == "created") {
+                return $response[0]->getAgreementUrl();
             } else {
                 return "Already Agreed";
             }
@@ -75,10 +86,30 @@ class EmbedClickwrapService
                 $apiClient = $clientService->accountsApi();
                 $options = new GetClickwrapsOptions();
                 $options->setStatus('active');
-                $activeClickwraps = $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
+                $response = $apiClient->getClickwrapsWithHttpInfo($args['account_id'], $options);
+
+                $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+                $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
+                $activeClickwraps = $response[0]['clickwraps'];
                 if (empty($activeClickwraps)) {
                     $options->setStatus('inactive');
-                    $anyClickwraps = $apiClient->getClickwraps($args['account_id'], $options)['clickwraps'];
+                    $response = $apiClient->getClickwrapsWithHttpInfo($args['account_id'], $options);
+
+                    $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+                    $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+                    if ($remaining !== null && $reset !== null) {
+                        $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                        error_log("API calls remaining: $remaining");
+                        error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                    }
+                    $anyClickwraps = $response[0]['clickwraps'];
                 }
 
 

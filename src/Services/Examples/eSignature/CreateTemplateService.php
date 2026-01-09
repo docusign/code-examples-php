@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Api\TemplatesApi\ListTemplatesOptions;
 use DocuSign\eSign\Model\CarbonCopy;
 use DocuSign\eSign\Model\Checkbox;
@@ -38,26 +39,44 @@ class CreateTemplateService
         $templates_api = $clientService->getTemplatesApi();
         $options = new ListTemplatesOptions();
         $options->setSearchText($template_name);
-        $templatesListResponse = $templates_api->listTemplates($args['account_id'], $options);
+        $templatesListResponse = $templates_api->listTemplatesWithHttpInfo($args['account_id'], $options);
 
-        if ($templatesListResponse['result_set_size'] > 0) {
-            $template_id = $templatesListResponse['envelope_templates'][0]['template_id'];
-            $results_template_name = $templatesListResponse['envelope_templates'][0]['name'];
+        $remaining = $templatesListResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $templatesListResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        if ($templatesListResponse[0]['result_set_size'] > 0) {
+            $template_id = $templatesListResponse[0]['envelope_templates'][0]['template_id'];
+            $results_template_name = $templatesListResponse[0]['envelope_templates'][0]['name'];
         } else {
             # Template not found -- so create it
             # Step 2 create the template
             $template_req_object = CreateTemplateService::makeTemplateRequest($template_name, $demoDocsPath);
             #ds-snippet-start:eSign8Step3
-            $templatesListResponse = $templates_api->createTemplate($args['account_id'], $template_req_object);
+            $templatesListResponse = $templates_api->createTemplateWithHttpInfo($args['account_id'], $template_req_object);
+
+            $remaining = $templatesListResponse[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $templatesListResponse[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign8Step3
-            $template_id = $templatesListResponse['template_id'];
-            $results_template_name = $templatesListResponse['name'];
+            $template_id = $templatesListResponse[0]['template_id'];
+            $results_template_name = $templatesListResponse[0]['name'];
         }
 
         return [
             'template_id' => $template_id,
             'template_name' => $results_template_name,
-            'created_new_template' => !($templatesListResponse['result_set_size'] > 0)
+            'created_new_template' => !($templatesListResponse[0]['result_set_size'] > 0)
         ];
     }
 

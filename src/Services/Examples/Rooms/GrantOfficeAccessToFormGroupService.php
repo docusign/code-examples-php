@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 
 class GrantOfficeAccessToFormGroupService
@@ -18,7 +19,20 @@ class GrantOfficeAccessToFormGroupService
         try {
             #ds-snippet-start:Rooms8Step5
             $form_api = $clientService->getFromGroupsApi();
-            $form_api->grantOfficeAccessToFormGroup($args['form_group_id'], $args['office_id'], $args["account_id"]);
+            $response = $form_api->grantOfficeAccessToFormGroupWithHttpInfo(
+                $args['form_group_id'],
+                $args['office_id'],
+                $args["account_id"]
+            );
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Rooms8Step5
         } catch (ApiException $e) {
             error_log($e);

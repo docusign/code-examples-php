@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Click;
 
+use DateTime;
 use DocuSign\Click\Client\ApiException;
 use DocuSign\Click\Model\ClickwrapRequest;
 use DocuSign\Click\Model\ClickwrapVersionSummaryResponse;
@@ -70,12 +71,21 @@ class CreateClickwrapService
 
         try {
             #ds-snippet-start:Click1Step4
-            $response =  $accountsApi->createClickwrap($args['account_id'], $clickwrap);
+            $response = $accountsApi->createClickwrapWithHttpInfo($args['account_id'], $clickwrap);
+
+            $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Click1Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        return $response;
+        return $response[0];
     }
 }

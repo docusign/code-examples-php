@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Api\EnvelopesApi\UpdateOptions;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\Workflow;
@@ -34,14 +35,23 @@ class UnpauseSignatureWorkflowService
 
         # Call Envelopes::update API method to unpause signature workflow
         #ds-snippet-start:eSign33Step4
-        $envelope = $envelope_api->update(
+        $envelope = $envelope_api->updateWithHttpInfo(
             $args['account_id'],
             $args['pause_envelope_id'],
             $env,
             $envelope_option
         );
+
+        $remaining = $envelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset =  $envelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign33Step4
 
-        return $envelope;
+        return $envelope[0];
     }
 }

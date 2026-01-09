@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\ExternalFormFillSessionForCreate;
 use DocuSign\Rooms\Model\Room;
@@ -14,13 +15,22 @@ class CreateExternalFormFillSessionService
         $form_session_api = $clientService->getExternalFormFillSessionsApi();
         try {
             $form_for_add = new ExternalFormFillSessionForCreate($args);
-            $response = $form_session_api->createExternalFormFillSession($args["account_id"], $form_for_add);
+            $response = $form_session_api->createExternalFormFillSessionWithHttpInfo($args["account_id"], $form_for_add);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
             exit;
         }
-        return $response;
+        return $response[0];
     }
     #ds-snippet-end:Rooms6Step4
 

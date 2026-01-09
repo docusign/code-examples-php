@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Api\AccountsApi;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Api\EnvelopesApi\ListStatusChangesOptions;
@@ -51,10 +52,19 @@ class SharedAccessService
         $callListOptions->setEmail($agentEmail);
 
         try {
-            $informationList = $usersApi->callList($accountId, $callListOptions);
+            $informationList = $usersApi->callListWithHttpInfo($accountId, $callListOptions);
 
-            if (intval($informationList->getResultSetSize()) > 0) {
-                $users = $informationList->getUsers();
+            $remaining = $informationList[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $informationList[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
+
+            if (intval($informationList[0]->getResultSetSize()) > 0) {
+                $users = $informationList[0]->getUsers();
 
                 foreach ($users as $user) {
                     if ($user['user_status'] == $activeStatus) {
@@ -88,7 +98,17 @@ class SharedAccessService
                 "user_name" => $agentName])
         ]);
 
-        return $usersApi->create($accountId, $newUser);
+        $response = $usersApi->createWithHttpInfo($accountId, $newUser);
+
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
         #ds-snippet-end:eSign43Step3
     }
 
@@ -114,9 +134,18 @@ class SharedAccessService
 
         $options = new AccountsApi\GetAgentUserAuthorizationsOptions();
         $options->setPermissions($managePermission);
-        $userAuthorizations = $accountsApi->getAgentUserAuthorizations($accountId, $userId);
+        $userAuthorizations = $accountsApi->getAgentUserAuthorizationsWithHttpInfo($accountId, $userId);
 
-        if ($userAuthorizations->getAuthorizations() === null) {
+        $remaining = $userAuthorizations[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $userAuthorizations[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        if ($userAuthorizations[0]->getAuthorizations() === null) {
             $authRequest = new UserAuthorizationCreateRequest();
             $authRequest->setPermission($managePermission);
             $authRequest->setAgentUser(new AuthorizationUser([
@@ -124,7 +153,16 @@ class SharedAccessService
                 'user_id' => $agentUserId
              ]));
 
-            $accountsApi->createUserAuthorization($accountId, $userId, $authRequest);
+            $response = $accountsApi->createUserAuthorizationWithHttpInfo($accountId, $userId, $authRequest);
+
+            $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         }
     }
     #ds-snippet-end:eSign43Step4
@@ -139,12 +177,21 @@ class SharedAccessService
         $options->setFromDate($fromDate);
 
         try {
-            $statusChanges = $envelopeApi->listStatusChanges($accountId, $options);
+            $statusChanges = $envelopeApi->listStatusChangesWithHttpInfo($accountId, $options);
+
+            $remaining = $statusChanges[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $statusChanges[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             error_log($e->getMessage());
         }
 
-        return $statusChanges;
+        return $statusChanges[0];
         #ds-snippet-end:eSign43Step5
     }
 }

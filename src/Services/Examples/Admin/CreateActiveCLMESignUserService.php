@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\AddUserResponse;
 use DocuSign\Admin\Model\DSGroupRequest;
@@ -64,11 +65,19 @@ class CreateActiveCLMESignUserService
         #ds-snippet-end:Admin2Step5
         try {
             #ds-snippet-start:Admin2Step6
-            $addUserResponse = $userAPI->addOrUpdateUser($organizationId, $arguments["account_id"], $request);
+            $addUserResponse = $userAPI->addOrUpdateUserWithHttpInfo($organizationId, $arguments["account_id"], $request);
+            $remaining = $addUserResponse[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $addUserResponse[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:Admin2Step6
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
         }
-        return $addUserResponse;
+        return $addUserResponse[0];
     }
 }

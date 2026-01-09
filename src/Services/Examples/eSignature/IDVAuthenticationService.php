@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\RecipientIdentityVerification;
@@ -33,12 +34,21 @@ class IDVAuthenticationService
         # Exceptions will be caught by the calling function
         #ds-snippet-start:eSign23Step5
         $envelope_api = $clientService->getEnvelopeApi();
-        $envelopeResponse = $envelope_api->createEnvelope(
+        $envelopeResponse = $envelope_api->createEnvelopeWithHttpInfo(
             $args['account_id'],
             $envelope_definition
         );
 
-        return ['envelope_id' => $envelopeResponse->getEnvelopeId()];
+        $remaining = $envelopeResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $envelopeResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        return ['envelope_id' => $envelopeResponse[0]->getEnvelopeId()];
         #ds-snippet-end:eSign23Step5
     }
 
@@ -56,8 +66,18 @@ class IDVAuthenticationService
         # Retrieve the workflow ID
         #ds-snippet-start:eSign23Step3
         $accounts_api = $clientService->getAccountsApi();
-        $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
-        $workflows_data = $accounts_response->getIdentityVerification();
+        $accounts_response = $accounts_api->getAccountIdentityVerificationWithHttpInfo($_SESSION['ds_account_id']);
+
+        $remaining = $accounts_response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $accounts_response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        $workflows_data = $accounts_response[0]->getIdentityVerification();
         $workflow_id = '';
         foreach ($workflows_data as $workflow) {
             if ($workflow['default_name'] == 'DocuSign ID Verification') {

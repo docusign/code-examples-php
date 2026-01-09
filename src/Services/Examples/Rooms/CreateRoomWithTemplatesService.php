@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Rooms;
 
+use DateTime;
 use DocuSign\Rooms\Client\ApiException;
 use DocuSign\Rooms\Model\FieldDataForCreate;
 use DocuSign\Rooms\Model\Room;
@@ -27,13 +28,21 @@ class CreateRoomWithTemplatesService
         $roles_api = $clientService->getRolesApi();
 
         try {
-            $roles = $roles_api->getRoles($args["account_id"]);
+            $roles = $roles_api->getRolesWithHttpInfo($args["account_id"]);
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             error_log($e);
             $clientService->showErrorTemplate($e);
             exit;
         }
-        $role_id = $roles['roles'][0]['role_id'];
+        $role_id = $roles[0]['roles'][0]['role_id'];
 
         # Step 3. Create RoomForCreate object
         #ds-snippet-start:Rooms2Step4
@@ -59,13 +68,22 @@ class CreateRoomWithTemplatesService
         # Step 4. Post the room using SDK
         #ds-snippet-start:Rooms2Step5
         try {
-            $response = $rooms_api->createRoom($args['account_id'], $room);
+            $response = $rooms_api->createRoomWithHttpInfo($args['account_id'], $room);
+
+            $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+            $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
         #ds-snippet-end:Rooms2Step5
-        return $response;
+        return $response[0];
     }
 
     /**
@@ -83,11 +101,20 @@ class CreateRoomWithTemplatesService
         $templates_api = $clientService->getRoomTemplatesApi();
         if ($routerService->dsTokenOk($GLOBALS['DS_CONFIG']['minimum_buffer_min'])) {
             try {
-                $templates = $templates_api->getRoomTemplates($args['account_id']);
+                $templates = $templates_api->getRoomTemplatesWithHttpInfo($args['account_id']);
+
+                $remaining = $response[2]['x-ratelimit-remaining'] ?? null;
+                $reset = $response[2]['x-ratelimit-reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
             } catch (ApiException $e) {
                 return [];
             }
-            return $templates['room_templates'];
+            return $templates[0]['room_templates'];
         } else {
             $clientService->needToReAuth($eg);
         }

@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException as ApiExceptionAlias;
 use DocuSign\Services\AdminApiClientService;
 use Exception;
@@ -24,23 +25,30 @@ class BulkImportUserDataService
         $str = file_get_contents($csvFile);
         $str = str_replace("<accountId>", $accountId, $str);
 
-
-
         file_put_contents($csvFile, $str);
 
         #ds-snippet-start:Admin4Step3
         $bulkImport = $clientService->bulkImportsApi();
-        $organizationImportResponse = $bulkImport->createBulkImportAddUsersRequest(
+        $organizationImportResponse = $bulkImport->createBulkImportAddUsersRequestWithHttpInfo(
             $organizationId,
             new SplFileObject($csvFile)
         );
+
+        $remaining = $organizationImportResponse[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $organizationImportResponse[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:Admin4Step3
 
         $str = str_replace($accountId, "<accountId>", $str);
         file_put_contents($csvFile, $str);
 
-        $_SESSION['import_id'] = strval($organizationImportResponse->getId());
+        $_SESSION['import_id'] = strval($organizationImportResponse[0]->getId());
 
-        return json_decode($organizationImportResponse->__toString());
+        return json_decode($organizationImportResponse[0]->__toString());
     }
 }

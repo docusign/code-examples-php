@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -34,12 +35,20 @@ class EmbeddedSigningService
         # Call Envelopes::create API method
         # Exceptions will be caught by the calling function
         try {
-            $envelopeSummary = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeSummary = $envelope_api->createEnvelopeWithHttpInfo($args['account_id'], $envelope_definition);
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        $envelope_id = $envelopeSummary->getEnvelopeId();
+        $envelope_id = $envelopeSummary[0]->getEnvelopeId();
         #ds-snippet-end:eSign1Step3
 
         # Create the Recipient View request object
@@ -57,7 +66,6 @@ class EmbeddedSigningService
         # Exceptions will be caught by the calling function
         #ds-snippet-start:eSign1Step5
         $viewUrl = $clientService->getRecipientView($args['account_id'], $envelope_id, $recipient_view_request);
-
         return ['envelope_id' => $envelope_id, 'redirect_url' => $viewUrl['url']];
         #ds-snippet-end:eSign1Step5
     }

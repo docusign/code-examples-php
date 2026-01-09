@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Admin;
 
+use DateTime;
 use DocuSign\Admin\Client\ApiException;
 use DocuSign\Admin\Model\NewUserRequestAccountProperties;
 use DocuSign\Admin\Model\NewUserResponse;
@@ -58,7 +59,16 @@ class CreateNewUserService
         #ds-snippet-end:Admin1Step5
 
         #ds-snippet-start:Admin1Step6
-        return $usersApi->createUser($organizationId, $request);
+        $response = $usersApi->createUserWithHttpInfo($organizationId, $request);
+        $remaining = $response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        return $response[0];
         #ds-snippet-end:Admin1Step6
     }
 }

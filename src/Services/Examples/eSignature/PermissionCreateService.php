@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\PermissionProfile;
 
@@ -28,17 +29,26 @@ class PermissionCreateService
         try {
             # Step 4. Call the eSignature REST API
             #ds-snippet-start:eSign24Step4
-            $permissionProfile = $accounts_api->createPermissionProfile(
+            $permissionProfile = $accounts_api->createPermissionProfileWithHttpInfo(
                 $args['account_id'],
                 $permission_profile
             );
+
+            $remaining = $permissionProfile[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $permissionProfile[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
             #ds-snippet-end:eSign24Step4
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
 
-        return $permissionProfile;
+        return $permissionProfile[0];
     }
     #
 }

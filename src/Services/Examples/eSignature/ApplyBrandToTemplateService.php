@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\TemplateRole;
 
@@ -27,10 +28,22 @@ class ApplyBrandToTemplateService
         # Call the eSignature REST API
         #ds-snippet-start:eSign30Step4
         $envelope_api = $clientService->getEnvelopeApi();
-        $createdEnvelope = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+        $createdEnvelope = $envelope_api->createEnvelopeWithHttpInfo(
+            $args['account_id'],
+            $envelope_definition
+        );
+
+        $remaining = $createdEnvelope[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $createdEnvelope[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
         #ds-snippet-end:eSign30Step4
 
-        return ['envelope_id' => $createdEnvelope->getEnvelopeId()];
+        return ['envelope_id' => $createdEnvelope[0]->getEnvelopeId()];
     }
 
     /**

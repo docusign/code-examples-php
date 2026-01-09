@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -26,14 +27,27 @@ class CFREmbeddedSigningService
      * @param  $args array
      * @param SignatureClientService $clientService
      * @return array ['redirect_url']
+     * @throws ApiException
      */
     public static function worker(array $args, SignatureClientService $clientService, string $demoPath): array
     {
         // Obtain your workflowID
         #ds-snippet-start:eSign41Step2
         $accounts_api = $clientService->getAccountsApi();
-        $accounts_response = $accounts_api->getAccountIdentityVerification($_SESSION['ds_account_id']);
-        $workflows_data = $accounts_response->getIdentityVerification();
+        $accounts_response = $accounts_api->getAccountIdentityVerificationWithHttpInfo(
+            $_SESSION['ds_account_id']
+        );
+
+        $remaining = $accounts_response[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $accounts_response[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
+        $workflows_data = $accounts_response[0]->getIdentityVerification();
         foreach ($workflows_data as $workflow) {
             if ($workflow['default_name'] == 'SMS for access & signatures') {
                 $args['envelope_args']['workflow_id'] = $workflow['workflow_id'];
@@ -58,12 +72,24 @@ class CFREmbeddedSigningService
         //die;
 
         try {
-            $envelopeSummary = $envelope_api->createEnvelope($args['account_id'], $envelope_definition);
+            $envelopeSummary = $envelope_api->createEnvelopeWithHttpInfo(
+                $args['account_id'],
+                $envelope_definition
+            );
+
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
         }
-        $envelope_id = $envelopeSummary->getEnvelopeId();
+        $envelope_id = $envelopeSummary[0]->getEnvelopeId();
         #ds-snippet-end:eSign41Step4
 
         # Create the Recipient View request object

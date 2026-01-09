@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Model\ConsoleViewRequest;
 
 class EmbeddedConsoleService
@@ -29,8 +30,17 @@ class EmbeddedConsoleService
 
         # 2. Call the API method
         $envelope_api = $clientService->getEnvelopeApi();
-        $consoleView = $envelope_api->createConsoleView($args['account_id'], $view_request);
-        $url = $consoleView['url'];
+        $consoleView = $envelope_api->createConsoleViewWithHttpInfo($args['account_id'], $view_request);
+
+        $remaining = $consoleView[2]['X-RateLimit-Remaining'] ?? null;
+        $reset = $consoleView[2]['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+        $url = $consoleView[0]['url'];
         #ds-snippet-end:eSign12Step2
 
         return ['redirect_url' =>  $url];

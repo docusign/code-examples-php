@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -88,6 +89,16 @@ class SendBinaryDocsService
             ],
             'body' => $req_body
         ]);
+
+        $remaining = $responseInterface->getHeaders()['X-RateLimit-Remaining'] ?? null;
+        $reset =  $responseInterface->getHeaders()['X-RateLimit-Reset'] ?? null;
+
+        if ($remaining !== null && $reset !== null) {
+            $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+            error_log("API calls remaining: $remaining");
+            error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+        }
+
         $responseInterfaceToJson = json_decode((string)$responseInterface->getBody());
 
         return ['envelope_id' => $responseInterfaceToJson->envelopeId];

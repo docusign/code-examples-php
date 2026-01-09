@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\eSignature;
 
+use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
@@ -33,7 +34,16 @@ class InPersonSigningService
         $envelopeApi = $clientService->getEnvelopeApi();
 
         try {
-            $envelopeSummary = $envelopeApi->createEnvelope($accountId, $envelopeDefinition);
+            $envelopeSummary = $envelopeApi->createEnvelopeWithHttpInfo($accountId, $envelopeDefinition);
+
+            $remaining = $envelopeSummary[2]['X-RateLimit-Remaining'] ?? null;
+            $reset = $envelopeSummary[2]['X-RateLimit-Reset'] ?? null;
+
+            if ($remaining !== null && $reset !== null) {
+                $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                error_log("API calls remaining: $remaining");
+                error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+            }
         } catch (ApiException $e) {
             $clientService->showErrorTemplate($e);
             exit;
@@ -54,7 +64,8 @@ class InPersonSigningService
             $envelopeArguments
         );
 
-        $viewUrl = $clientService->getRecipientView($accountId, $envelopeSummary->getEnvelopeId(), $recipientViewRequest);
+        $viewUrl = $clientService->getRecipientView($accountId, $envelopeSummary[0]->getEnvelopeId(), $recipientViewRequest);
+
         #ds-snippet-end:eSign39Step5
         return $viewUrl['url'];
     }

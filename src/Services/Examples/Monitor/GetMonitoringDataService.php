@@ -2,6 +2,7 @@
 
 namespace DocuSign\Services\Examples\Monitor;
 
+use DateTime;
 use DocuSign\Monitor\Api\DataSetApi;
 use DocuSign\Monitor\Api\DataSetApi\GetStreamOptions;
 use DocuSign\Monitor\Client\ApiException;
@@ -37,10 +38,19 @@ class GetMonitoringDataService
             // the monitoring records
             do {
                 $options->setCursor($cursor);
-                $cursoredResult = $datasetApi->getStream('monitor', '2.0', $options);
+                $cursoredResult = $datasetApi->getStreamWithHttpInfo('monitor', '2.0', $options);
+
+                $remaining = $cursoredResult[2]['X-RateLimit-Remaining'] ?? null;
+                $reset = $cursoredResult[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $resetInstant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $resetInstant->format(\DateTime::ATOM));
+                }
 
                 $key = "end_cursor";
-                $endCursor = $cursoredResult->$key;
+                $endCursor = $cursoredResult[0]->$key;
 
                 // If the endCursor from the response is the same as the one that you already have,
                 // it means that you have reached the
@@ -49,7 +59,7 @@ class GetMonitoringDataService
                     $complete = true;
                 } else {
                     $cursor = $endCursor;
-                    array_push($monitoringLogs, json_decode($cursoredResult));
+                    array_push($monitoringLogs, json_decode($cursoredResult[0]));
                 }
             } while (!$complete);
         } catch (ApiException $e) {
