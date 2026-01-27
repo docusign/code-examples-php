@@ -31,8 +31,8 @@ class MultipleDeliveryService
         $clientService,
         $demoDocsPath,
         $docDocx,
-        $docPDF): array
-    {
+        $docPDF
+    ): array {
         $envelopeDefinition = self::makeEnvelope(
             $args["envelope_args"],
             $clientService,

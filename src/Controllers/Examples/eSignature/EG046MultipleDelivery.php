@@ -1,6 +1,6 @@
 <?php
 /**
- * Example 046: Send an envelope with a remote signer and cc recipient o be notified via multiple 
+ * Example 046: Send an envelope with a remote signer and cc recipient o be notified via multiple
  * delivery channels (Email and SMS or WhatsApp).
  */
 
@@ -21,7 +21,7 @@ class EG046MultipleDelivery extends eSignBaseController
      *
      * @return void
      */
-        public function __construct()
+    public function __construct()
     {
         parent::__construct();
         parent::controller();
@@ -61,7 +61,9 @@ class EG046MultipleDelivery extends eSignBaseController
                 );
             }
         } catch (ApiException $e) {
-            $this->clientService->showErrorTemplate(new ApiException($this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"]));
+            $this->clientService->showErrorTemplate(
+                new ApiException($this->codeExampleText["CustomErrorTexts"][0]["ErrorMessage"])
+            );
         }
     }
 
