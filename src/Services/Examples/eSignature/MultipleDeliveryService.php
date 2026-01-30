@@ -26,6 +26,8 @@ class MultipleDeliveryService
      * @param $demoDocsPath
      * @return array ['envelope_id']
      */
+    
+    #ds-snippet-start:eSign46Step3
     public static function multipleDelivery(
         array $args,
         $clientService,
@@ -56,7 +58,9 @@ class MultipleDeliveryService
 
         return ['envelope_id' => $envelopeResponse[0]->getEnvelopeId()];
     }
+    #ds-snippet-end:eSign46Step3
 
+    #ds-snippet-start:eSign46Step2
     private static function makeEnvelope(
         array $args,
         $clientService,
@@ -135,6 +139,7 @@ class MultipleDeliveryService
 
         return $envelopeDefinition;
     }
+    #ds-snippet-end:eSign46Step2
 
     private static function buildAdditionalNotification(
         string $countryCode,
