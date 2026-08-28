@@ -58,9 +58,9 @@ RUN docker-php-ext-install \
 WORKDIR /var/www/html
 COPY src src/
 COPY --from=composer_stage /usr/bin/composer /usr/bin/composer
-COPY composer.json /var/www/html/
+COPY composer.json composer.lock /var/www/html/
 # Install composer dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
 
 CMD ["php-fpm"]
 
