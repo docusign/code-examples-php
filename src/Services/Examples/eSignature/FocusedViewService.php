@@ -6,16 +6,50 @@ use DateTime;
 use DocuSign\eSign\Client\ApiException;
 use DocuSign\eSign\Model\Document;
 use DocuSign\eSign\Model\EnvelopeDefinition;
+use DocuSign\eSign\Model\RecipientIdentityInputOption;
+use DocuSign\eSign\Model\RecipientIdentityPhoneNumber;
+use DocuSign\eSign\Model\RecipientIdentityVerification;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\Signer;
-use DocuSign\eSign\Model\SignHere;
-use DocuSign\eSign\Model\Tabs;
 use DocuSign\Services\SignatureClientService;
 
 class FocusedViewService
 {
     public static function worker(array $args, SignatureClientService $client_service, string $demo_path, string $pdf_file): array
     {
+        if (!empty($args['envelope_args']['phone_number'])) {
+            try {
+                $accounts_api = $client_service->getAccountsApi();
+                $accounts_response = $accounts_api->getAccountIdentityVerificationWithHttpInfo($args['account_id']);
+
+                $remaining = $accounts_response[2]['X-RateLimit-Remaining'] ?? null;
+                $reset = $accounts_response[2]['X-RateLimit-Reset'] ?? null;
+
+                if ($remaining !== null && $reset !== null) {
+                    $reset_instant = (new DateTime())->setTimestamp((int)$reset);
+                    error_log("API calls remaining: $remaining");
+                    error_log("Next Reset: " . $reset_instant->format(\DateTime::ATOM));
+                }
+
+                $workflow_id = '';
+                $workflows_data = $accounts_response[0]->getIdentityVerification();
+                foreach ($workflows_data as $workflow) {
+                    if ($workflow['default_name'] === 'Phone Authentication') {
+                        $workflow_id = $workflow['workflow_id'];
+                    }
+                }
+
+                if ($workflow_id === '') {
+                    throw new ApiException('IDENTITY_WORKFLOW_INVALID_ID');
+                }
+
+                $args['envelope_args']['workflow_id'] = $workflow_id;
+            } catch (ApiException $e) {
+                $client_service->showErrorTemplate($e);
+                exit;
+            }
+        }
+
         #ds-snippet-start:eSign44Step3
         $envelope_definition = FocusedViewService::makeEnvelope($args['envelope_args'], $demo_path, $pdf_file);
         $envelope_api = $client_service->getEnvelopeApi();
@@ -80,16 +114,22 @@ class FocusedViewService
             ]
         );
 
-        $sign_here = new SignHere(
-            [
-                'anchor_string' => '/sn1/',
-                'anchor_units' => 'pixels',
-                'anchor_y_offset' => '10',
-                'anchor_x_offset' => '20'
-            ]
-        );
+        if (!empty($args['phone_number'])) {
+            $phone_number = new RecipientIdentityPhoneNumber();
+            $phone_number->setCountryCode($args['country_code'] ?? '');
+            $phone_number->setNumber($args['phone_number']);
 
-        $signer->settabs(new Tabs(['sign_here_tabs' => [$sign_here]]));
+            $input_option = new RecipientIdentityInputOption();
+            $input_option->setName('phone_number_list');
+            $input_option->setValueType('PhoneNumberList');
+            $input_option->setPhoneNumberList([$phone_number]);
+
+            $identity_verification = new RecipientIdentityVerification();
+            $identity_verification->setWorkflowId($args['workflow_id']);
+            $identity_verification->setInputOptions([$input_option]);
+
+            $signer->setIdentityVerification($identity_verification);
+        }
 
         return new EnvelopeDefinition(
             [

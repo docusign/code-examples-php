@@ -71,18 +71,6 @@ steps:
     cp $(php_private_key.secureFilePath) code-examples-php-private/private.key
   displayName: 'place private.key'
 
-- task: DownloadSecureFile@1
-  name: php_dockerfile
-  displayName: 'download Dockerfile'
-  inputs:
-    secureFile: 'php.Dockerfile'
-
-
-- script: |
-    echo "place Dockerfile"
-    cp $(php_dockerfile.secureFilePath) code-examples-php-private/Dockerfile
-  displayName: 'place Dockerfile'
-
 - script: dir $(Build.SourcesDirectory)
 
 - script: dir $(Build.SourcesDirectory)/code-examples-php-private
@@ -103,6 +91,14 @@ steps:
     docker rm -f $(docker ps -a -q)
     docker system prune -f
   displayName: 'cleanup docker env'
+
+- script: |
+    cd code-examples-php-private
+    echo "Verify Dockerfile and lockfile in workspace"
+    test -f Dockerfile
+    test -f composer.lock
+    grep -n "COPY composer.json composer.lock" Dockerfile
+  displayName: 'verify docker inputs'
 
 - script: |
     cd code-examples-php-private

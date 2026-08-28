@@ -66,9 +66,18 @@ class EG044FocusedView extends eSignBaseController
      */
     public function getTemplateArgs(): array
     {
+        $countryCode = isset($_POST['country_code']) && $_POST['country_code'] !== ''
+            ? $this->checkInputValues($_POST['country_code'])
+            : null;
+        $phoneNumber = isset($_POST['phone_number']) && $_POST['phone_number'] !== ''
+            ? $this->checkInputValues($_POST['phone_number'])
+            : null;
+
         $envelope_args = [
             'signer_email' => $this->checkInputValues($_POST['signer_email']),
             'signer_name' => $this->checkInputValues($_POST['signer_name']),
+            'phone_number' => $phoneNumber,
+            'country_code' => $countryCode,
             'signer_client_id' => $this->signer_client_id,
             'ds_return_url' => $GLOBALS['app_url'] . 'index.php?page=ds_return'
         ];

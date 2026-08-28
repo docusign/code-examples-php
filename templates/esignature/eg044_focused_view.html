@@ -3,6 +3,9 @@
 {% set formNumber = 0 %}
 {% set signerEmailInputNumber = 0 %}
 {% set signerNameInputNumber = 1 %}
+{% set phoneAuthFormNumber = 1 %}
+{% set countryCodeInputNumber = 0 %}
+{% set phoneNumberInputNumber = 1 %}
 
 <h4>{{ code_example_text['ExampleName'] | raw }}</h4>
 <p>{{ code_example_text["ExampleDescription"] | raw }}</p>
@@ -66,6 +69,45 @@
             name="signer_name"
             value="{{ signer_name }}" 
             required>
+    </div>
+
+    <br/>
+    {% if code_example_text['Forms'] is defined and code_example_text['Forms'][phoneAuthFormNumber] is defined and code_example_text['Forms'][phoneAuthFormNumber]['FormName'] is defined %}
+        {{ code_example_text['Forms'][phoneAuthFormNumber]['FormName'] | raw }}
+    {% endif %}
+
+    <div class="form-group">
+        <label for="country_code">
+            {% if code_example_text['Forms'] is defined and code_example_text['Forms'][phoneAuthFormNumber] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][countryCodeInputNumber] is defined %}
+                {{ code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][countryCodeInputNumber]['InputName'] | raw }}
+            {% else %}
+                Country code
+            {% endif %}
+        </label>
+
+        <input type="text"
+            class="form-control"
+            id="country_code"
+            name="country_code"
+            placeholder="{% if code_example_text['Forms'] is defined and code_example_text['Forms'][phoneAuthFormNumber] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][countryCodeInputNumber] is defined %}{{ code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][countryCodeInputNumber]['InputPlaceholder'] }}{% else %}e.g. 1{% endif %}">
+    </div>
+
+    <div class="form-group">
+        <label for="phone_number">
+            {% if code_example_text['Forms'] is defined and code_example_text['Forms'][phoneAuthFormNumber] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][phoneNumberInputNumber] is defined %}
+                {{ code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][phoneNumberInputNumber]['InputName'] | raw }}
+            {% else %}
+                Phone number
+            {% endif %}
+        </label>
+
+        <input type="text"
+            class="form-control"
+            id="phone_number"
+            name="phone_number"
+            aria-describedby="phoneHelp"
+            placeholder="{% if code_example_text['Forms'] is defined and code_example_text['Forms'][phoneAuthFormNumber] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'] is defined and code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][phoneNumberInputNumber] is defined %}{{ code_example_text['Forms'][phoneAuthFormNumber]['Inputs'][phoneNumberInputNumber]['InputPlaceholder'] }}{% else %}e.g. 5551234567{% endif %}">
+        <small id="phoneHelp" class="form-text text-muted">Provide a phone number to enable phone authentication for the signer.</small>
     </div>
     
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
